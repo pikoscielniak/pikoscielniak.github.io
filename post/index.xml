@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts on Piotr Kościelniak - passionate programmer</title>
+    <link>http://koscielniak.me/post/</link>
+    <description>Recent content in Posts on Piotr Kościelniak - passionate programmer</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 19 Jan 2016 21:54:18 +0100</lastBuildDate>
+    <atom:link href="http://koscielniak.me/post/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Welcome to my blog world</title>
+      <link>http://koscielniak.me/post/2016/01/hello-blog-world/</link>
+      <pubDate>Tue, 19 Jan 2016 21:54:18 +0100</pubDate>
+      
+      <guid>http://koscielniak.me/post/2016/01/hello-blog-world/</guid>
+      <description>&lt;p&gt;It’s quite common to have New Year’s Resolutions and I’m not the only one doing this.
+One of my New Year’s resolutions is to improve my English writing skills. The second one is starting my own blog.
+So, I decided to combine these two things together.
+My main goal for having my own blog is to create a base of my own knowledge and make it publicly accessible.
+Up to now, I had my notes in Evernote and I used this tool to store my thoughts.
+The majority of my notes are private. I am afraid to make them public because of the quality of my writing,
+I’m not confident that they are well written. I believe that making my
+notes public on my blog will force me to improve them. I will see how that turns out in the near future.&lt;/p&gt;
+
+&lt;p&gt;My main point of interest is mainly programming. I work as a C# ASP .NET and JavaScript developer.
+Currently, I’m also playing with Angular 2, TypeScript and with Go. I’m also interested in TDD, DDD and Agile.
+I am keen on writing effective and maintainable code which fulfills the customer’s needs.
+Most of my posts will be related to these topics.&lt;/p&gt;
+
+&lt;p&gt;However, I want to have this blog not only as my personal knowledge base but also as an area where
+I can express my thoughts about various topics and things which have happened to me.
+My initial goal is to write and publish one post per month but I will see, maybe it will be more.
+I hope that this blog will bring joy not only for me but also for other people. So, welcome to my blog world.&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>
