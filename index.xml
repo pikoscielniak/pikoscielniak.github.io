@@ -6,8 +6,75 @@
     <description>Recent content on Piotr Kościelniak - passionate programmer</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 19 Jan 2016 21:54:18 +0100</lastBuildDate>
+    <lastBuildDate>Sat, 23 Jan 2016 13:33:18 +0100</lastBuildDate>
     <atom:link href="http://koscielniak.me/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>About Boiling Frogs</title>
+      <link>http://koscielniak.me/post/2016/01/about-boiling-frogs/</link>
+      <pubDate>Sat, 23 Jan 2016 13:33:18 +0100</pubDate>
+      
+      <guid>http://koscielniak.me/post/2016/01/about-boiling-frogs/</guid>
+      <description>&lt;p&gt;Recently I’ve noticed that I am becoming a conference beast. In the last year, I have attended six conferences
+(&lt;a href=&#34;http://wrocsharp.com/&#34;&gt;Wroc#&lt;/a&gt;, &lt;a href=&#34;http://2015.dwo.mikstura.it/&#34;&gt;DWO&lt;/a&gt;, &lt;a href=&#34;http://devoxx.pl/&#34;&gt;DEVOXX&lt;/a&gt;,
+&lt;a href=&#34;https://qualityexcites.pl&#34;&gt;Quality Excites&lt;/a&gt;, &lt;a href=&#34;http://devday.pl/&#34;&gt;DevDay&lt;/a&gt; and &lt;a href=&#34;http://spreadit.pl/&#34;&gt;SpreadIT&lt;/a&gt;)
+and five different meetups.
+Additionally, this year I may attend even more because new ones have appeared on my conference calendar.
+The first conference for me last year was Wroc#. It was an excellent conference.
+I can honestly say that this was one of the best conferences I’ve ever been to.
+In 2016, I started with another conference - &lt;a href=&#34;http://boilingfrogs.pl/&#34;&gt;Boiling Frogs&lt;/a&gt;, which ended last week.&lt;/p&gt;
+
+&lt;p&gt;The conference &amp;ldquo;Boiling Frogs&amp;rdquo; was powered by &lt;a href=&#34;http://itcorner.org.pl/&#34;&gt;ITCorner - Wroclaw Fellowship of Technology&lt;/a&gt;.
+Each presentation at this conference was given by a Polish speaker in Polish.
+This event was a good occasion for less known speakers to appear before a wider audience, 450 attendees to be exact.
+In my opinion, this was a great turn out for their first event.&lt;/p&gt;
+
+&lt;p&gt;The sessions were presented in three parallel tracks, and only the first presentation was made to the whole audience.
+It was given by &lt;a href=&#34;http://boilingfrogs.pl/speaker/tomasz-kaczmarzyk/&#34;&gt;Tomasz Kaczmarzyk&lt;/a&gt;, a co-organizer of this conference.
+He spoke about the idea behind the conference and about its name.
+The name “Boiling Frogs” was taken from the experiment with a boiling frog in a pot.
+When we increase the temperature slowly enough, we will be able to boil a frog and it won’t even notice that
+it is being boiled. He compared the situation of the frog to a programmer
+who is doing their daily tasks without bothering to improve their knowledge and skills and suddenly
+they realise that the world has changed. Only then do they realise that they have been boiled, but
+it’s too late to jump out. The main idea of these organizers was to alert participants that maybe their pots have
+already reached 60 C°, and there is still enough time to jump out of the pot, and change their lives.&lt;/p&gt;
+
+&lt;p&gt;I think that the temperature in my pot is not very hot but I may be wrong. Anyway,
+I had the great pleasure of taking part in “Boiling Frogs” and I learned some new things.&lt;/p&gt;
+
+&lt;p&gt;During the speech given by &lt;a href=&#34;http://boilingfrogs.pl/speaker/bartek-zdanowski/&#34;&gt;Bartek Zdanowski&lt;/a&gt; “Developer, develop yourself”,
+I confronted my path of developing myself with the one proposed by Bartek Zdanowski.
+And it turned out that they are quite similar, with the exception that I’ve never been keen on hackathons but
+Bartek showed that hackathons can be an exciting form of self-improvement.&lt;/p&gt;
+
+&lt;p&gt;I enjoyed the speech given by the co-host of this conference - Tomasz Kaczmarzyk. He talked about pure functional
+data structures. I was afraid that it would be a hard presentation that would hurt my brain,
+but it turned out that the speaker had a clear path for his speech and delivered it quite smoothly.
+Tomasz started his speech with a short theoretical introduction and after this showed us a practical use of
+functional structures in GIT.&lt;/p&gt;
+
+&lt;p&gt;After Tomasz’s speech, there was a dinner break. I heard that they served 4000 dumplings during this dinner - pretty amazing,
+isn’t it? After dinner, I chose to see what &lt;a href=&#34;http://boilingfrogs.pl/speaker/michal-gruca/&#34;&gt;Michał Gruca&lt;/a&gt; had to say. I saw him at the
+&lt;a href=&#34;http://2014.33degree.org&#34;&gt;33rd Degree conference&lt;/a&gt;,
+where he spoke about the mythical 10 times developer. I really enjoyed that presentation, so I expected the same
+at &amp;ldquo;Boiling Frogs&amp;rdquo;, and he didn’t disappoint. This was the perfect after-dinner presentation.
+I listened to him weave a tale that didn’t include dragons, but another mythical and fantastic creature&amp;hellip;the programmer.&lt;/p&gt;
+
+&lt;p&gt;Similar to that lecture, was a presentation given by &lt;a href=&#34;http://boilingfrogs.pl/speaker/pawel-lipinski/&#34;&gt;Paweł Lipiński&lt;/a&gt;.
+This one was perfect for the end of the conference. The speaker didn’t bother to prepare slides for his presentation.
+He had one for the introduction and then he pulled out his analogue slides (I mean small, yellow index cards)
+where he had written bullet points of his presentation and he led us from one point to the other and delivered a very
+nice and wise story, in this manner. Examples from Paweł’s speech turned out to be very handy for me at work on Monday.&lt;/p&gt;
+
+&lt;p&gt;I heard a lot of talk about a speech given by &lt;a href=&#34;http://boilingfrogs.pl/speaker/michal-plachta/&#34;&gt;Michał Płachta&lt;/a&gt; titled “Paradise for polyglots - panta rei”.
+I hope that the organisers make it available to the public, so I can watch it and share it with others.&lt;/p&gt;
+
+&lt;p&gt;This was the inaugural conference for &amp;ldquo;Boiling Frogs&amp;rdquo;, and I hope it won’t be the last and that the organizers
+will manage to repeat this event next year. So, to the conference organisers: best wishes and good luck.
+See you next year! And to you my readers: see you next time.&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>Welcome to my blog world</title>
