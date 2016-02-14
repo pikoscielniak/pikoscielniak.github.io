@@ -6,8 +6,42 @@
     <description>Recent content in Posts on Piotr Kościelniak - passionate programmer</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 23 Jan 2016 13:33:18 +0100</lastBuildDate>
+    <lastBuildDate>Sun, 14 Feb 2016 13:27:14 +0100</lastBuildDate>
     <atom:link href="http://koscielniak.me/post/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Enrolling in the Let the world know about you competition</title>
+      <link>http://koscielniak.me/post/2016/02/enrolling-in-the-let-the-world-know-about-you-competition/</link>
+      <pubDate>Sun, 14 Feb 2016 13:27:14 +0100</pubDate>
+      
+      <guid>http://koscielniak.me/post/2016/02/enrolling-in-the-let-the-world-know-about-you-competition/</guid>
+      <description>&lt;p&gt;Recently, Maciej Aniserowicz wrote on his blog about starting the second edition of the
+&lt;a href=&#34;http://www.maciejaniserowicz.com/daj-sie-poznac/&#34;&gt;“Let the World Know About You!”&lt;/a&gt;
+competition. I’ve decided to take part in this challenge.
+I started my blog over three weeks ago and since then I have made two posts.
+I think that taking part in this contest will encourage me to have a more systematic approach to my blog.
+I think this contest will be a lot of fun and provide a lot of opportunities for me to learn new things.
+For the competition I am required to write an average of two articles a week for three months (minimum 10 weeks),
+and this seems like a big deal to me.&lt;/p&gt;
+
+&lt;p&gt;The contest will run from March to May and the winners will be announced in June.
+Writing a blog is only one part of this undertaking, the other is completing a project and all blog posts must be
+related to this project. I haven’t decided what my project will be but I have the whole of February to brainstorm.
+I know that I want to learn and try some new technologies, for example, &lt;a href=&#34;https://get.asp.net/&#34;&gt;ASP .NET Core 1&lt;/a&gt;,
+&lt;a href=&#34;https://angular.io/&#34;&gt;Angular 2&lt;/a&gt;, and this project will be a good occasion to do this.
+Maybe I will also try to use &lt;a href=&#34;https://www.docker.com/&#34;&gt;Docker&lt;/a&gt;,
+&lt;a href=&#34;https://azure.microsoft.com&#34;&gt;Azure&lt;/a&gt; or another cloud computing platform.
+We’ll see, but for sure I want to gain a lot experience from this project.
+Additionally, I am going to do this project on Ubuntu 14.04.
+ASP .NET Core 1 is a cross-platform framework and I am going to try it out on environments other than Windows.&lt;/p&gt;
+
+&lt;p&gt;As you can see, I’ll be treating this competition as source for many challenges: experiencing new technologies,
+regular blogging, and systematic work on my “side project”.
+Everything that I am going to use is currently in the Beta stage, so this is another challenge for me.
+We will see what happens in June. I hope this will be great fun and that I will have a lot of great experiences,
+so&amp;hellip;let’s do it!&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>About Boiling Frogs</title>
