@@ -44,14 +44,12 @@
         <article class="post">
             <a class="btn" href="http://koscielniak.me/" title="Back to home">&laquo; Back to home</a>
             
-<h1><a href="http://koscielniak.me/post/2016/02/enrolling-in-daj-sie-poznac/" title="Enrolling in &#34;Daj się poznać&#34;">Enrolling in &#34;Daj się poznać&#34;</a></h1>
+<h1><a href="http://koscielniak.me/post/2016/03/daj-sie-poznac-project-details/" title="&#34;Daj się poznać&#34; - Project details">&#34;Daj się poznać&#34; - Project details</a></h1>
 
-<footer class="post-info">Posted on <span class="post-meta"><time datetime="2016.02.14">2016.02.14</time>
+<footer class="post-info">Posted on <span class="post-meta"><time datetime="2016.03.01">2016.03.01</time>
 &middot; Tagged in
     
-    <a href="http://koscielniak.me/tags/daj-si%C4%99-pozna%C4%87">daj się poznać</a>, 
-    
-    <a href="http://koscielniak.me/tags/asp-.net-core">asp .net core</a>
+    <a href="http://koscielniak.me/tags/daj-si%C4%99-pozna%C4%87">daj się poznać</a>
     
 
 </span>
@@ -59,31 +57,42 @@
 
             <p><a href="http://dajsiepoznac.pl"><img src="/post/2016/03/contestLogo.png" alt="Daj się poznać" title="Daj się poznać" /></a></p>
 
-<p>Recently, Maciej Aniserowicz wrote on his blog about starting the second edition of the
-<a href="http://www.maciejaniserowicz.com/daj-sie-poznac/">“Daj się poznać”</a>
-competition. I’ve decided to take part in this challenge.
-I started my blog over three weeks ago and since then I have made two posts.
-I think that taking part in this contest will encourage me to have a more systematic approach to my blog.
-I think this contest will be a lot of fun and provide a lot of opportunities for me to learn new things.
-For the competition I am required to write an average of two articles a week for three months (minimum 10 weeks),
-and this seems like a big deal to me.</p>
+<p>This is my first post in the series “Daj się poznać”.
+I am going to mention the details of the project which I’ll be working on during the contest.
+I am going to create a simple yet powerful application which will allow me to add some events
+and notify me about them at a specific time via a specified medium.
+For starters, I am planing to implement sms and email notification but maybe in the future
+I’ll add the ability to send notifications to some IoT device.</p>
 
-<p>The contest will run from March to May and the winners will be announced in June.
-Writing a blog is only one part of this undertaking, the other is completing a project and all blog posts must be
-related to this project. I haven’t decided what my project will be but I have the whole of February to brainstorm.
-I know that I want to learn and try some new technologies, for example, <a href="https://get.asp.net/">ASP .NET Core 1</a>,
-<a href="https://angular.io/">Angular 2</a>, and this project will be a good occasion to do this.
-Maybe I will also try to use <a href="https://www.docker.com/">Docker</a>,
-<a href="https://azure.microsoft.com">Azure</a> or another cloud computing platform.
-We’ll see, but for sure I want to gain a lot experience from this project.
-Additionally, I am going to do this project on Ubuntu 14.04.
-ASP .NET Core 1 is a cross-platform framework and I am going to try it out on environments other than Windows.</p>
+<p>I am going to implement this application in a way which allows me to upgrade ASP .NET Core 1.0
+framework very quickly. This framework is brand new and it’s quite probable that some breaking
+changes will appear in the next release. So I cannot depend on it very much.
+I hope that ASP .NET Core 1.0 will have a lot of versions in the future but
+I don’t want to have a nightmare during upgrading to a newer version. Therefore,
+I must use architecture which prepares me for this. I don’t know exactly what this architecture
+will look like but I’ll write about it in future posts as the project will continue.</p>
 
-<p>As you can see, I’ll be treating this competition as source for many challenges: experiencing new technologies,
-regular blogging, and systematic work on my “side project”.
-Everything that I am going to use is currently in the Beta stage, so this is another challenge for me.
-We will see what happens in June. I hope this will be great fun and that I will have a lot of great experiences,
-so&hellip;let’s do it!</p>
+<p>To implement my project I need some sort of membership system for cases like these:</p>
+
+<ul>
+<li>user can sign in</li>
+<li>user can sign up (I am not sure)</li>
+<li>user can sign out.</li>
+</ul>
+
+<p>Other use cases which I am going to implement are:</p>
+
+<ul>
+<li>user can create event</li>
+<li>user can add notification to event</li>
+<li>user can add related persons to event</li>
+<li>user can see list of events</li>
+<li>user can delete event</li>
+<li>user can change event</li>
+<li>sending notifications</li>
+</ul>
+
+<p>I’ll write more details about use cases and their implementation in future posts, but before I do this, I’ll write something about installation ASP .NET Core 1.0 on Ubuntu 14.04 and running the first web application in this operating system.</p>
 
 <h3>Related posts:</h3>
 
@@ -99,16 +108,16 @@ so&hellip;let’s do it!</p>
             <ul class="share-buttons">
     <li>Share this article:</li>
     <li>
-        <a class="icon-facebook-squared" href="https://www.facebook.com/sharer/sharer.php?u=http%3a%2f%2fkoscielniak.me%2fpost%2f2016%2f02%2fenrolling-in-daj-sie-poznac%2f" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;" title="Share on Facebook"></a>
+        <a class="icon-facebook-squared" href="https://www.facebook.com/sharer/sharer.php?u=http%3a%2f%2fkoscielniak.me%2fpost%2f2016%2f03%2fdaj-sie-poznac-project-details%2f" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;" title="Share on Facebook"></a>
     </li>
     <li>
-        <a class="icon-twitter" href="https://twitter.com/share?text=Enrolling%20in%20%22Daj%20si%c4%99%20pozna%c4%87%22&amp;url=http%3a%2f%2fkoscielniak.me%2fpost%2f2016%2f02%2fenrolling-in-daj-sie-poznac%2f" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;" title="Tweet this article"></a>
+        <a class="icon-twitter" href="https://twitter.com/share?text=%22Daj%20si%c4%99%20pozna%c4%87%22%20-%20Project%20details&amp;url=http%3a%2f%2fkoscielniak.me%2fpost%2f2016%2f03%2fdaj-sie-poznac-project-details%2f" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;" title="Tweet this article"></a>
     </li>
     <li>
-        <a class="icon-gplus" href="https://plus.google.com/share?url=http%3a%2f%2fkoscielniak.me%2fpost%2f2016%2f02%2fenrolling-in-daj-sie-poznac%2f" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;" title="Share on Google&#43;"></a>
+        <a class="icon-gplus" href="https://plus.google.com/share?url=http%3a%2f%2fkoscielniak.me%2fpost%2f2016%2f03%2fdaj-sie-poznac-project-details%2f" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;" title="Share on Google&#43;"></a>
     </li>
     <li>
-        <a class="icon-linkedin" href="https://www.linkedin.com/shareArticle?mini=true&url=http%3a%2f%2fkoscielniak.me%2fpost%2f2016%2f02%2fenrolling-in-daj-sie-poznac%2f&title=Enrolling%20in%20%22Daj%20si%c4%99%20pozna%c4%87%22" onclick="window.open(this.href, 'linkedin-share', 'width=600,height=494');return false;" title="Share on Linkedin"></a>
+        <a class="icon-linkedin" href="https://www.linkedin.com/shareArticle?mini=true&url=http%3a%2f%2fkoscielniak.me%2fpost%2f2016%2f03%2fdaj-sie-poznac-project-details%2f&title=%22Daj%20si%c4%99%20pozna%c4%87%22%20-%20Project%20details" onclick="window.open(this.href, 'linkedin-share', 'width=600,height=494');return false;" title="Share on Linkedin"></a>
     </li>
 </ul>
 
@@ -118,9 +127,9 @@ so&hellip;let’s do it!</p>
             <div id="disqus_thread"></div>
 <script type="text/javascript">
     var disqus_shortname = 'koscielniak';
-    var disqus_identifier = 'http:\/\/koscielniak.me\/post\/2016\/02\/enrolling-in-daj-sie-poznac\/';
-    var disqus_title = 'Enrolling in \x22Daj się poznać\x22';
-    var disqus_url = 'http:\/\/koscielniak.me\/post\/2016\/02\/enrolling-in-daj-sie-poznac\/';
+    var disqus_identifier = 'http:\/\/koscielniak.me\/post\/2016\/03\/daj-sie-poznac-project-details\/';
+    var disqus_title = '\x22Daj się poznać\x22 - Project details';
+    var disqus_url = 'http:\/\/koscielniak.me\/post\/2016\/03\/daj-sie-poznac-project-details\/';
 
     (function() {
         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
