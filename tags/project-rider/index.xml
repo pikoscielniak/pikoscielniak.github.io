@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Daj Się Poznać on Piotr Kościelniak - passionate programmer</title>
-    <link>http://koscielniak.me/tags/daj-si%C4%99-pozna%C4%87/</link>
-    <description>Recent content in Daj Się Poznać on Piotr Kościelniak - passionate programmer</description>
+    <title>Project Rider on Piotr Kościelniak - passionate programmer</title>
+    <link>http://koscielniak.me/tags/project-rider/</link>
+    <description>Recent content in Project Rider on Piotr Kościelniak - passionate programmer</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Wed, 02 Mar 2016 22:21:06 +0100</lastBuildDate>
-    <atom:link href="http://koscielniak.me/tags/daj-si%C4%99-pozna%C4%87/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://koscielniak.me/tags/project-rider/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>I&#39;m holding a Project Rider EAP</title>
@@ -132,117 +132,6 @@ I created another issue about this. You can check it
 I must wait for a while until it gets better support for CoreCLR and ASP .NET Core.
 During this time, I’ll be using Visual Studio Code on Linux and Visual Studio with ReSharper on Windows.
 Again, great job to JetBrains! I am sure that I’m not the only one waiting for more.&lt;/p&gt;
-
-&lt;h3&gt;Related posts:&lt;/h3&gt;
-
-
-
-
-&lt;ul style=&#34;list-style: none;&#34;&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/02/enrolling-in-daj-sie-poznac/&#34;&gt;Enrolling in &#34;Daj się poznać&#34;&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/daj-sie-poznac-project-details/&#34;&gt;&#34;Daj się poznać&#34; - Project details&#34;&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/i-m-holding-a-project-rider-eap/&#34;&gt;I&#39;m holding a Project Rider EAP&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-
-
-</description>
-    </item>
-    
-    <item>
-      <title>&#34;Daj się poznać&#34; - Project details</title>
-      <link>http://koscielniak.me/post/2016/03/daj-sie-poznac-project-details/</link>
-      <pubDate>Tue, 01 Mar 2016 10:00:00 +0100</pubDate>
-      
-      <guid>http://koscielniak.me/post/2016/03/daj-sie-poznac-project-details/</guid>
-      <description>&lt;p&gt;&lt;a href=&#34;http://dajsiepoznac.pl&#34;&gt;&lt;img src=&#34;http://koscielniak.me/post/2016/03/contestLogo.png&#34; alt=&#34;Daj się poznać&#34; title=&#34;Daj się poznać&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;This is my first post in the series “Daj się poznać”.
-I am going to mention the details of the project which I’ll be working on during the contest.
-I am going to create a simple yet powerful application which will allow me to add some events
-and notify me about them at a specific time via a specified medium.
-For starters, I am planing to implement sms and email notification but maybe in the future
-I’ll add the ability to send notifications to some IoT device.&lt;/p&gt;
-
-&lt;p&gt;I am going to implement this application in a way which allows me to upgrade ASP .NET Core 1.0
-framework very quickly. This framework is brand new and it’s quite probable that some breaking
-changes will appear in the next release. So I cannot depend on it very much.
-I hope that ASP .NET Core 1.0 will have a lot of versions in the future but
-I don’t want to have a nightmare during upgrading to a newer version. Therefore,
-I must use architecture which prepares me for this. I don’t know exactly what this architecture
-will look like but I’ll write about it in future posts as the project will continue.&lt;/p&gt;
-
-&lt;p&gt;To implement my project I need some sort of membership system for cases like these:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;user can sign in&lt;/li&gt;
-&lt;li&gt;user can sign up (I am not sure)&lt;/li&gt;
-&lt;li&gt;user can sign out.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Other use cases which I am going to implement are:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;user can create event&lt;/li&gt;
-&lt;li&gt;user can add notification to event&lt;/li&gt;
-&lt;li&gt;user can add related persons to event&lt;/li&gt;
-&lt;li&gt;user can see list of events&lt;/li&gt;
-&lt;li&gt;user can delete event&lt;/li&gt;
-&lt;li&gt;user can change event&lt;/li&gt;
-&lt;li&gt;sending notifications&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;I’ll write more details about use cases and their implementation in future posts, but before I do this, I’ll write something about installation ASP .NET Core 1.0 on Ubuntu 14.04 and running the first web application in this operating system.&lt;/p&gt;
-
-&lt;h3&gt;Related posts:&lt;/h3&gt;
-
-
-
-
-&lt;ul style=&#34;list-style: none;&#34;&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/02/enrolling-in-daj-sie-poznac/&#34;&gt;Enrolling in &#34;Daj się poznać&#34;&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/daj-sie-poznac-project-details/&#34;&gt;&#34;Daj się poznać&#34; - Project details&#34;&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/i-m-holding-a-project-rider-eap/&#34;&gt;I&#39;m holding a Project Rider EAP&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-
-
-</description>
-    </item>
-    
-    <item>
-      <title>Enrolling in &#34;Daj się poznać&#34;</title>
-      <link>http://koscielniak.me/post/2016/02/enrolling-in-daj-sie-poznac/</link>
-      <pubDate>Sun, 14 Feb 2016 13:27:14 +0100</pubDate>
-      
-      <guid>http://koscielniak.me/post/2016/02/enrolling-in-daj-sie-poznac/</guid>
-      <description>&lt;p&gt;&lt;a href=&#34;http://dajsiepoznac.pl&#34;&gt;&lt;img src=&#34;http://koscielniak.me/post/2016/03/contestLogo.png&#34; alt=&#34;Daj się poznać&#34; title=&#34;Daj się poznać&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;Recently, Maciej Aniserowicz wrote on his blog about starting the second edition of the
-&lt;a href=&#34;http://www.maciejaniserowicz.com/daj-sie-poznac/&#34;&gt;“Daj się poznać”&lt;/a&gt;
-competition. I’ve decided to take part in this challenge.
-I started my blog over three weeks ago and since then I have made two posts.
-I think that taking part in this contest will encourage me to have a more systematic approach to my blog.
-I think this contest will be a lot of fun and provide a lot of opportunities for me to learn new things.
-For the competition I am required to write an average of two articles a week for three months (minimum 10 weeks),
-and this seems like a big deal to me.&lt;/p&gt;
-
-&lt;p&gt;The contest will run from March to May and the winners will be announced in June.
-Writing a blog is only one part of this undertaking, the other is completing a project and all blog posts must be
-related to this project. I haven’t decided what my project will be but I have the whole of February to brainstorm.
-I know that I want to learn and try some new technologies, for example, &lt;a href=&#34;https://get.asp.net/&#34;&gt;ASP .NET Core 1&lt;/a&gt;,
-&lt;a href=&#34;https://angular.io/&#34;&gt;Angular 2&lt;/a&gt;, and this project will be a good occasion to do this.
-Maybe I will also try to use &lt;a href=&#34;https://www.docker.com/&#34;&gt;Docker&lt;/a&gt;,
-&lt;a href=&#34;https://azure.microsoft.com&#34;&gt;Azure&lt;/a&gt; or another cloud computing platform.
-We’ll see, but for sure I want to gain a lot experience from this project.
-Additionally, I am going to do this project on Ubuntu 14.04.
-ASP .NET Core 1 is a cross-platform framework and I am going to try it out on environments other than Windows.&lt;/p&gt;
-
-&lt;p&gt;As you can see, I’ll be treating this competition as source for many challenges: experiencing new technologies,
-regular blogging, and systematic work on my “side project”.
-Everything that I am going to use is currently in the Beta stage, so this is another challenge for me.
-We will see what happens in June. I hope this will be great fun and that I will have a lot of great experiences,
-so&amp;hellip;let’s do it!&lt;/p&gt;
 
 &lt;h3&gt;Related posts:&lt;/h3&gt;
 

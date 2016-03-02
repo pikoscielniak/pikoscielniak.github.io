@@ -6,8 +6,148 @@
     <description>Recent content on Piotr Kościelniak - passionate programmer</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 01 Mar 2016 10:00:00 +0100</lastBuildDate>
+    <lastBuildDate>Wed, 02 Mar 2016 22:21:06 +0100</lastBuildDate>
     <atom:link href="http://koscielniak.me/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>I&#39;m holding a Project Rider EAP</title>
+      <link>http://koscielniak.me/post/2016/03/i-m-holding-a-project-rider-eap/</link>
+      <pubDate>Wed, 02 Mar 2016 22:21:06 +0100</pubDate>
+      
+      <guid>http://koscielniak.me/post/2016/03/i-m-holding-a-project-rider-eap/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;http://dajsiepoznac.pl&#34;&gt;&lt;img src=&#34;http://koscielniak.me/post/2016/03/contestLogo.png&#34; alt=&#34;Daj się poznać&#34; title=&#34;Daj się poznać&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;I planned for the next post in the “Daj się poznać” series to be about my Ubuntu environment setup
+but something pretty amazing happened to me yesterday evening -
+I got access to an EAP of Project Rider. So this is an impromptu post which fits
+very well into the “Daj się poznać” series and the post which
+I had planned about my Ubuntu environment setup will follow next week.&lt;/p&gt;
+
+&lt;p&gt;I had hoped to get access to an EAP version of Project Rider and
+it happened yesterday at about 9pm when I opened my mailbox and saw an email from JetBrains.
+I received links to download Project Rider. I felt like a child who just got a gift from Santa Claus.
+I’ve wanted to have IDE for .NET from JetBrains for so long, I can’t even remember the first time
+the idea crossed my mind.
+I am using ReSharper but it’s not the same and I wanted to have a “native feeling” of JetBrains’ IDEs.
+Let’s look at my first impression about Project Rider.&lt;/p&gt;
+
+&lt;p&gt;I chose install rider on Ubuntu so I downloaded the version for Linux.
+I unpacked the downloaded archive into a convenient location. I opened console (CTRL+SHIFT+T) and then I typed in console&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;~/install/riderRS-144.4571/bin/rider.sh
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;After a short while I saw this window&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://koscielniak.me/post/2016/03/rider/riderSettingsPrompt.png&#34; alt=&#34;Project Rider import settings&#34; title=&#34;Project Rider import settings&#34; /&gt;
+I chose not to import my settings. And the process of customizing the Rider began.&lt;/p&gt;
+
+&lt;p&gt;On the first screen I selected a UI theme.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://koscielniak.me/post/2016/03/rider/uiTheme.png&#34; alt=&#34;Project Rider select UI Theme&#34; title=&#34;Project Rider select UI Theme&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;The next window prompted me to select a keymap. Because I am really familiar with shortcuts from
+Intellij IDEA I chose this keymap. By the way, I was pleasantly surprised that
+the Visual Studio Keymap was a choice.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://koscielniak.me/post/2016/03/rider/keymapChoice.png&#34; alt=&#34;Project Rider select Keymap&#34; title=&#34;Project Rider select Keymap&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;On the next screen I was asked to choose whether I want to have a desktop entry for Project Rider or not.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://koscielniak.me/post/2016/03/rider/desktopEntry.png&#34; alt=&#34;Project Rider desktop entry&#34; title=&#34;Project Rider desktop entry&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Then I could decide whether I wanted to have a Launcher Script and where it should be.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://koscielniak.me/post/2016/03/rider/launcherScript.png&#34; alt=&#34;Project Rider Launcher Script&#34; title=&#34;Project Rider Launcher Script&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;On the next window&lt;/p&gt;
+
+&lt;p&gt;I found a couple of useful links to
+&lt;a href=&#34;https://www.jetbrains.com/rider/documentation/&#34; target=&#34;_blank&#34;&gt;Getting Started help&lt;/a&gt;,
+to &lt;a href=&#34;https://youtrack.jetbrains.com/issues/RIDER&#34; target=&#34;_blank&#34;&gt;Rider Issue Tracker&lt;/a&gt;
+and to &lt;a href=&#34;https://jbsrider.zendesk.com/hc/en-us&#34; target=&#34;_blank&#34;&gt;Known Issues&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://koscielniak.me/post/2016/03/rider/riderLinks.png&#34; alt=&#34;Project Rider EAP&#34; title=&#34;Project Rider EAP&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;After I clicked &lt;em&gt;Start using Rider&lt;/em&gt;, I was prompted to insert my password in a dialog window and
+then I saw the Welcome screen of Rider&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://koscielniak.me/post/2016/03/rider/welcomeScreen.png&#34; alt=&#34;Project Rider Welcome Screen&#34; title=&#34;Project Rider Welcome Screen&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;You may wonder what this yellow strip at the bottom means. You can read about it in this
+&lt;a href=&#34;https://youtrack.jetbrains.com/issue/IDEA-78860&#34; target=&#34;_blank&#34;&gt;link&lt;/a&gt;.
+It’s a known issue in JetBrains products on Ubuntu and how to deal with it is also written in this link.&lt;/p&gt;
+
+&lt;p&gt;I must honestly say that everything was okay during the installation and this was a  big plus.&lt;/p&gt;
+
+&lt;p&gt;After installation, I quickly created my first console application:
+I clicked &lt;em&gt;New Project&lt;/em&gt;  on Welcome screen and I saw this window&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://koscielniak.me/post/2016/03/rider/newProject.png&#34; alt=&#34;Project Rider New Project&#34; title=&#34;Project Rider New Project&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;I chose &lt;em&gt;Console Application&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;On the next screen I entered the project name and solution name.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://koscielniak.me/post/2016/03/rider/newProjectProjectName.png&#34; alt=&#34;Project Rider Project Name&#34; title=&#34;Project Rider Project Name&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;After this, I wrote some code&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-csharp&#34;&gt;using System;
+
+namespace ConsoleApplication
+{
+  class Program
+  {
+    static void Main(string[] args)
+    {
+      Console.WriteLine(&amp;quot;Is it real?&amp;quot;);
+    }
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;and pressed SHIFT+F10 and can you guess what happened?
+At the bottom of IDE I saw this output&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://koscielniak.me/post/2016/03/rider/firstProgramOutput.png&#34; alt=&#34;Project Rider First Program Output&#34; title=&#34;Project Rider First Program Output&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;So until now everything was perfect. I started playing with a web project and this time it wasn’t so good.
+There is no template to create this type of project.
+I created one using Yeoman aspnet generator (I’ll write about this in a future post).
+But I couldn’t open it in Project Rider because the project created by this generator
+doesn’t contain .sln and .csproj files and apparently
+Rider requires these type of files in order to see files in solution.
+I created an issue about this in JetBrains youtrack and you can follow it at this
+&lt;a href=&#34;https://youtrack.jetbrains.com/issue/RIDER-470&#34; target=&#34;_blank&#34;&gt;link&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;I found out in this
+&lt;a href=&#34;https://blog.jetbrains.com/dotnet/2016/01/13/project-rider-a-csharp-ide/&#34; target=&#34;_blank&#34;&gt;post&lt;/a&gt;
+that CoreCLR support is coming so I must be patient. I hope that Rider will have better support for ASP
+.NET Core applications because now it doesn’t have this. Currently, it doesn’t even support Views.
+I created another issue about this. You can check it
+&lt;a href=&#34;https://youtrack.jetbrains.com/issue/RIDER-467&#34; target=&#34;_blank&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Finally, I am so happy and excited that JetBrains created Rider but
+I must wait for a while until it gets better support for CoreCLR and ASP .NET Core.
+During this time, I’ll be using Visual Studio Code on Linux and Visual Studio with ReSharper on Windows.
+Again, great job to JetBrains! I am sure that I’m not the only one waiting for more.&lt;/p&gt;
+
+&lt;h3&gt;Related posts:&lt;/h3&gt;
+
+
+
+
+&lt;ul style=&#34;list-style: none;&#34;&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/02/enrolling-in-daj-sie-poznac/&#34;&gt;Enrolling in &#34;Daj się poznać&#34;&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/daj-sie-poznac-project-details/&#34;&gt;&#34;Daj się poznać&#34; - Project details&#34;&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/i-m-holding-a-project-rider-eap/&#34;&gt;I&#39;m holding a Project Rider EAP&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+
+
+</description>
+    </item>
     
     <item>
       <title>&#34;Daj się poznać&#34; - Project details</title>
@@ -57,9 +197,12 @@ will look like but I’ll write about it in future posts as the project will con
 &lt;h3&gt;Related posts:&lt;/h3&gt;
 
 
+
+
 &lt;ul style=&#34;list-style: none;&#34;&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/02/enrolling-in-daj-sie-poznac/&#34;&gt;Enrolling in &#34;Daj się poznać&#34;&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/daj-sie-poznac-project-details/&#34;&gt;&#34;Daj się poznać&#34; - Project details&#34;&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/i-m-holding-a-project-rider-eap/&#34;&gt;I&#39;m holding a Project Rider EAP&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 
@@ -104,9 +247,12 @@ so&amp;hellip;let’s do it!&lt;/p&gt;
 &lt;h3&gt;Related posts:&lt;/h3&gt;
 
 
+
+
 &lt;ul style=&#34;list-style: none;&#34;&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/02/enrolling-in-daj-sie-poznac/&#34;&gt;Enrolling in &#34;Daj się poznać&#34;&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/daj-sie-poznac-project-details/&#34;&gt;&#34;Daj się poznać&#34; - Project details&#34;&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/i-m-holding-a-project-rider-eap/&#34;&gt;I&#39;m holding a Project Rider EAP&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 
