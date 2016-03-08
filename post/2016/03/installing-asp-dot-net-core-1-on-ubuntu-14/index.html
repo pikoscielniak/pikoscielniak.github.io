@@ -1,0 +1,294 @@
+<!doctype html>
+<html class="no-js">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Piotr Kościelniak - passionate programmer</title>
+        <meta name="author">
+        <meta name="description" content="Piotr Kościelniak - passionate programmer">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="generator" content="Hugo 0.16-DEV" />
+          <link href="http://koscielniak.me/post/index.xml" rel="alternate" type="application/rss+xml" title="Piotr Kościelniak - passionate programmer" />
+          <link href="http://koscielniak.me/post/index.xml" rel="feed" type="application/rss+xml" title="Piotr Kościelniak - passionate programmer" />
+        <link href='//fonts.googleapis.com/css?family=Roboto:400,300,700|Noto+Serif:400,400italic,700,700italic' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" href="http://koscielniak.me/css/styles.css">
+        <link rel="icon" href="http://koscielniak.me/favicon.ico">
+        <link rel="apple-touch-icon" href="http://koscielniak.me/apple-touch-icon.png" />
+        <link rel="stylesheet" href="http://koscielniak.me/css/highlightjs/monokai.css">
+        <script src="http://koscielniak.me/js/vendor/modernizr-2.8.0.min.js"></script>
+        <style>
+        .site-header h2 .logo {
+        background: url(http://koscielniak.me/img/desk.jpg) no-repeat 0 0;
+        }
+        @media (min--moz-device-pixel-ratio: 1.3), (-o-min-device-pixel-ratio: 2.6 / 2), (-webkit-min-device-pixel-ratio: 1.3), (min-device-pixel-ratio: 1.3), (min-resolution: 1.3dppx) {
+          .site-header h2 .logo {
+            background-image: url(http://koscielniak.me/img/desk.jpg);
+        }}
+       .site-header {
+         background: #2a373d url(http://koscielniak.me/img/desk.jpg) no-repeat center center;
+         z-index: -1;
+        }
+        </style>
+    </head>
+    <body>
+        
+        <header class="site-header">
+          <div class="transparent-layer">
+              <h2>You&#39;re here. I appreciate it.</h2>
+          </div>
+        </header>
+
+
+<div class="container clearfix">
+    <main role="main" class="content">
+        <article class="post">
+            <a class="btn" href="http://koscielniak.me/" title="Back to home">&laquo; Back to home</a>
+            
+<h1><a href="http://koscielniak.me/post/2016/03/installing-asp-dot-net-core-1-on-ubuntu-14/" title="Installing ASP .NET Core 1 on Ubuntu 14.04">Installing ASP .NET Core 1 on Ubuntu 14.04</a></h1>
+
+<footer class="post-info">Posted on <span class="post-meta"><time datetime="2016.03.08">2016.03.08</time>
+&middot; Tagged in
+    
+    <a href="http://koscielniak.me/tags/daj-si%C4%99-pozna%C4%87">daj się poznać</a>, 
+    
+    <a href="http://koscielniak.me/tags/asp-.net-core">asp .net core</a>
+    
+
+</span>
+</footer>
+
+            <p><a href="http://dajsiepoznac.pl"><img src="/post/2016/03/contestLogo.png" alt="Daj się poznać" title="Daj się poznać" /></a></p>
+
+<p>After my last impromptu post <a href="/post/2016/03/i-m-holding-a-project-rider-eap/">about Project Rider</a>,
+I’m finally writing about the setup of my
+Linux environment for ASP .NET Core 1.0. I mentioned that I am going to play with ASP .NET Core 1.0 on
+Ubuntu 14.04 but for sure I’ll also play with it on Windows. However, in this post I will describe
+how I installed ASP .NET Core 1.0 on Ubuntu 14.04. I am not writing about how to install
+Ubuntu 14.04 itself, as it’s not the place and time to write about this.</p>
+
+<p>My starting point for this process was on the official
+<a href="https://docs.asp.net/en/latest/getting-started/installing-on-linux.html">asp.net page</a>.</p>
+
+<p>I opened terminal (CTRL+SHIFT+T) and executed all the following commands:</p>
+
+<pre><code class="language-bash">sudo apt-get install unzip curl  
+curl -sSL https://raw.githubusercontent.com/aspnet/Home/dev/dnvminstall.sh | DNX_BRANCH=dev sh &amp;&amp; source ~/.dnx/dnvm/dnvm.sh
+</code></pre>
+
+<p>Next I installed all the prerequisites for the DNX by issuing this line in terminal:</p>
+
+<pre><code class="language-bash">sudo apt-get install libunwind8 gettext libssl-dev libcurl4-openssl-dev zlib1g libicu-dev uuid-dev
+</code></pre>
+
+<p>Then I installed DNX for .NET Core. issuing this command:</p>
+
+<pre><code class="language-bash">dnvm upgrade -r coreclr
+</code></pre>
+
+<p>All the commands executed smoothly and without errors.</p>
+
+<p>I also installed Mono. Firstly, I added the package repository to my system
+by executing this in the terminal:</p>
+
+<pre><code class="language-bash"> sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF 
+ echo &quot;deb http://download.mono-project.com/repo/debian wheezy main&quot; | sudo tee /etc/apt/sources.list.d/mono-xamarin.list
+ sudo apt-get update
+</code></pre>
+
+<p>Then I installed three mono packages with the command:</p>
+
+<pre><code class="language-bash">sudo apt-get install mono-devel mono-complete ca-certificates-mono
+</code></pre>
+
+<p>After this I used the command:</p>
+
+<pre><code class="language-bash">dnvm upgrade -r mono
+</code></pre>
+
+<p>to install DNX for mono.</p>
+
+<p>There is also one piece of the puzzle needed. To be able to run the application in server Kestrel I had to install <em>libuv</em>.
+I did this by issuing the following commands in shell:</p>
+
+<pre><code class="language-bash">sudo apt-get install make automake libtool curl
+curl -sSL https://github.com/libuv/libuv/archive/v1.8.0.tar.gz | sudo tar zxfv - -C /usr/local/src
+cd /usr/local/src/libuv-1.8.0
+sudo sh autogen.sh
+sudo ./configure
+sudo make
+sudo make install
+sudo rm -rf /usr/local/src/libuv-1.8.0 &amp;&amp; cd ~/
+sudo ldconfig
+</code></pre>
+
+<p>After this I also added these two lines:</p>
+
+<pre><code class="language-bash">source dnvm.sh
+export MONO_MANAGED_WATCHER=disabled
+</code></pre>
+
+<p>to my <em>~/.bash_profile</em> file to ensure that I can always run the dnvm and dnu commands and
+to work around a known bug in Mono.
+You can find more information <a href="https://code.visualstudio.com/Docs/runtimes/ASPnet5">here</a>.</p>
+
+<p>Having set up DNVM, and getting DNX done, I could now install the Visual Studio Code.
+I’ve always wanted to try Visual Studio Code. I haven’t had the occasion
+to do this until now. However, having access to the EAP version of Project Rider,
+I am only waiting for better support of ASP .NET Core application in it and
+I’ll give up Visual Studio Code.</p>
+
+<p>Installing Visual Studio Code was a piece of cake. I only downloaded the zip file from this
+<a href="https://code.visualstudio.com/docs?dv=linux64">page</a> and then I unzipped it
+in a location that was convenient
+for me, and inside the folder where I unzipped the VS Code I had an executable file named Code.
+Double clicking on it launches the VS Code.</p>
+
+<p>To create the first ASP .NET Core 1.0 application I also needed <a href="https://nodejs.org/">Node.js</a>
+and <a href="https://www.npmjs.com/">npm</a>. Yes, it’s true that nothing works these days without Node.js. Node.js and npm
+are required to install and run <a href="http://yeoman.io/">Yeoman</a>, <a href="http://gulpjs.com/">Gulp</a>
+and other massive amounts of Node.js packages.</p>
+
+<p>To install Node.js I use a <a href="https://github.com/creationix/nvm">Node Version Manager</a>.
+I did this by issuing the following command:</p>
+
+<pre><code class="language-bash">curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.30.2/install.sh | bash
+</code></pre>
+
+<p>After installing nvm, I installed the recent version of Node.js which is 5.5.0, the issuing command was:</p>
+
+<pre><code class="language-bash">nvm install v5.5.0
+</code></pre>
+
+<p>Then I set it to the currently used version with the command:</p>
+
+<pre><code class="language-bash">nvm use 5.5.0
+</code></pre>
+
+<p>and finally I aliased it as the default version so that this version of Node could be used in any new shell.
+I did this using the command:</p>
+
+<pre><code>nvm alias default 5.5.0
+</code></pre>
+
+<p>After this, I installed Yoeman then aspnet generator for Yoeman and finally Gulp and Bower.
+This line executed in the terminal did the job:</p>
+
+<pre><code class="language-bash"> npm install -g yo generator-aspnet gulp bower
+</code></pre>
+
+<p>All these steps with Node.js are required in order to have a nice generator
+which helps you with the setup of
+ASP .NET projects (<a href="http://nancyfx.org/">Nancy</a> project also) and with other things,
+for example, adding a new controller or view. However, I’ll write about this in the
+next post.</p>
+
+<h3>Related posts:</h3>
+
+
+
+
+
+<ul style="list-style: none;">
+    <li><a href="/post/2016/02/enrolling-in-daj-sie-poznac/">Enrolling in "Daj się poznać"</a></li>
+    <li><a href="/post/2016/03/daj-sie-poznac-project-details/">"Daj się poznać" - Project details"</a></li>
+    <li><a href="/post/2016/03/i-m-holding-a-project-rider-eap/">I'm holding a Project Rider EAP</a></li>
+    <li><a href="/post/2016/03/installing-asp-dot-net-core-1-on-ubuntu-14/">Installing ASP .NET Core 1 on Ubuntu 14.04</a></li>
+</ul>
+
+
+
+
+            <ul class="share-buttons">
+    <li>Share this article:</li>
+    <li>
+        <a class="icon-facebook-squared" href="https://www.facebook.com/sharer/sharer.php?u=http%3a%2f%2fkoscielniak.me%2fpost%2f2016%2f03%2finstalling-asp-dot-net-core-1-on-ubuntu-14%2f" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;" title="Share on Facebook"></a>
+    </li>
+    <li>
+        <a class="icon-twitter" href="https://twitter.com/share?text=Installing%20ASP%20.NET%20Core%201%20on%20Ubuntu%2014.04&amp;url=http%3a%2f%2fkoscielniak.me%2fpost%2f2016%2f03%2finstalling-asp-dot-net-core-1-on-ubuntu-14%2f" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;" title="Tweet this article"></a>
+    </li>
+    <li>
+        <a class="icon-gplus" href="https://plus.google.com/share?url=http%3a%2f%2fkoscielniak.me%2fpost%2f2016%2f03%2finstalling-asp-dot-net-core-1-on-ubuntu-14%2f" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;" title="Share on Google&#43;"></a>
+    </li>
+    <li>
+        <a class="icon-linkedin" href="https://www.linkedin.com/shareArticle?mini=true&url=http%3a%2f%2fkoscielniak.me%2fpost%2f2016%2f03%2finstalling-asp-dot-net-core-1-on-ubuntu-14%2f&title=Installing%20ASP%20.NET%20Core%201%20on%20Ubuntu%2014.04" onclick="window.open(this.href, 'linkedin-share', 'width=600,height=494');return false;" title="Share on Linkedin"></a>
+    </li>
+</ul>
+
+        </article>
+        <div class="comments">
+            <h3>Comments</h3>
+            <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'koscielniak';
+    var disqus_identifier = 'http:\/\/koscielniak.me\/post\/2016\/03\/installing-asp-dot-net-core-1-on-ubuntu-14\/';
+    var disqus_title = 'Installing ASP .NET Core 1 on Ubuntu 14.04';
+    var disqus_url = 'http:\/\/koscielniak.me\/post\/2016\/03\/installing-asp-dot-net-core-1-on-ubuntu-14\/';
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+        </div>
+    </main>
+    <aside class="author">
+  <img class="profile-image" src="http://koscielniak.me/img/profile-image.png" alt="Piotr Kościelniak" />
+  <p class="name">by 
+  <strong>Piotr Kościelniak</strong></p>
+  <p class="address">Passionate programmer</p>
+  <p class="link"></p>
+  <ul class="social">
+    
+<li><a href="//twitter.com/pikoscielniak" class="icon-twitter" target="_blank" title="Twitter"></a></li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li><a href="//github.com/pikoscielniak" class="icon-github" target="_blank" title="Github"></a></li>
+
+
+
+
+<li><a href="http://koscielniak.me/post/index.xml" class="icon-rss" target="_blank" title="RSS"></a></li>
+
+  </ul>
+  <br><br>
+</aside>
+
+</div>
+
+<footer class="main-footer">
+  <div class="container clearfix">
+        <a class="icon-rss" href="http://koscielniak.me/post/index.xml" title="RSS"></a>
+        <p>&copy; 2016 &middot; Piotr Kościelniak. Powered by <a href="http://gohugo.io">Hugo</a>.</p>
+  </div>
+</footer>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.8.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<script>window.jQuery || document.write('<script src="http:\/\/koscielniak.me\/js/vendor/jquery-1.11.0.min.js"><\/script>')</script>
+<script src="http://koscielniak.me/js/plugins.js"></script>
+
+<!-- Google Analytics -->
+<script>
+  var _gaq=[['_setAccount','UA-72752659-1'],['_trackPageview']];
+  (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+  g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+  s.parentNode.insertBefore(g,s)}(document,'script'));
+</script>
+
+</body>
+</html>
+

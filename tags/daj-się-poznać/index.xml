@@ -6,8 +6,157 @@
     <description>Recent content in Daj Się Poznać on Piotr Kościelniak - passionate programmer</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 02 Mar 2016 22:21:06 +0100</lastBuildDate>
+    <lastBuildDate>Tue, 08 Mar 2016 22:00:29 +0100</lastBuildDate>
     <atom:link href="http://koscielniak.me/tags/daj-si%C4%99-pozna%C4%87/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Installing ASP .NET Core 1 on Ubuntu 14.04</title>
+      <link>http://koscielniak.me/post/2016/03/installing-asp-dot-net-core-1-on-ubuntu-14/</link>
+      <pubDate>Tue, 08 Mar 2016 22:00:29 +0100</pubDate>
+      
+      <guid>http://koscielniak.me/post/2016/03/installing-asp-dot-net-core-1-on-ubuntu-14/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;http://dajsiepoznac.pl&#34;&gt;&lt;img src=&#34;http://koscielniak.me/post/2016/03/contestLogo.png&#34; alt=&#34;Daj się poznać&#34; title=&#34;Daj się poznać&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;After my last impromptu post &lt;a href=&#34;http://koscielniak.me/post/2016/03/i-m-holding-a-project-rider-eap/&#34;&gt;about Project Rider&lt;/a&gt;,
+I’m finally writing about the setup of my
+Linux environment for ASP .NET Core 1.0. I mentioned that I am going to play with ASP .NET Core 1.0 on
+Ubuntu 14.04 but for sure I’ll also play with it on Windows. However, in this post I will describe
+how I installed ASP .NET Core 1.0 on Ubuntu 14.04. I am not writing about how to install
+Ubuntu 14.04 itself, as it’s not the place and time to write about this.&lt;/p&gt;
+
+&lt;p&gt;My starting point for this process was on the official
+&lt;a href=&#34;https://docs.asp.net/en/latest/getting-started/installing-on-linux.html&#34;&gt;asp.net page&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;I opened terminal (CTRL+SHIFT+T) and executed all the following commands:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo apt-get install unzip curl  
+curl -sSL https://raw.githubusercontent.com/aspnet/Home/dev/dnvminstall.sh | DNX_BRANCH=dev sh &amp;amp;&amp;amp; source ~/.dnx/dnvm/dnvm.sh
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Next I installed all the prerequisites for the DNX by issuing this line in terminal:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo apt-get install libunwind8 gettext libssl-dev libcurl4-openssl-dev zlib1g libicu-dev uuid-dev
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Then I installed DNX for .NET Core. issuing this command:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;dnvm upgrade -r coreclr
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;All the commands executed smoothly and without errors.&lt;/p&gt;
+
+&lt;p&gt;I also installed Mono. Firstly, I added the package repository to my system
+by executing this in the terminal:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt; sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF 
+ echo &amp;quot;deb http://download.mono-project.com/repo/debian wheezy main&amp;quot; | sudo tee /etc/apt/sources.list.d/mono-xamarin.list
+ sudo apt-get update
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Then I installed three mono packages with the command:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo apt-get install mono-devel mono-complete ca-certificates-mono
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;After this I used the command:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;dnvm upgrade -r mono
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;to install DNX for mono.&lt;/p&gt;
+
+&lt;p&gt;There is also one piece of the puzzle needed. To be able to run the application in server Kestrel I had to install &lt;em&gt;libuv&lt;/em&gt;.
+I did this by issuing the following commands in shell:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo apt-get install make automake libtool curl
+curl -sSL https://github.com/libuv/libuv/archive/v1.8.0.tar.gz | sudo tar zxfv - -C /usr/local/src
+cd /usr/local/src/libuv-1.8.0
+sudo sh autogen.sh
+sudo ./configure
+sudo make
+sudo make install
+sudo rm -rf /usr/local/src/libuv-1.8.0 &amp;amp;&amp;amp; cd ~/
+sudo ldconfig
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;After this I also added these two lines:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;source dnvm.sh
+export MONO_MANAGED_WATCHER=disabled
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;to my &lt;em&gt;~/.bash_profile&lt;/em&gt; file to ensure that I can always run the dnvm and dnu commands and
+to work around a known bug in Mono.
+You can find more information &lt;a href=&#34;https://code.visualstudio.com/Docs/runtimes/ASPnet5&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Having set up DNVM, and getting DNX done, I could now install the Visual Studio Code.
+I’ve always wanted to try Visual Studio Code. I haven’t had the occasion
+to do this until now. However, having access to the EAP version of Project Rider,
+I am only waiting for better support of ASP .NET Core application in it and
+I’ll give up Visual Studio Code.&lt;/p&gt;
+
+&lt;p&gt;Installing Visual Studio Code was a piece of cake. I only downloaded the zip file from this
+&lt;a href=&#34;https://code.visualstudio.com/docs?dv=linux64&#34;&gt;page&lt;/a&gt; and then I unzipped it
+in a location that was convenient
+for me, and inside the folder where I unzipped the VS Code I had an executable file named Code.
+Double clicking on it launches the VS Code.&lt;/p&gt;
+
+&lt;p&gt;To create the first ASP .NET Core 1.0 application I also needed &lt;a href=&#34;https://nodejs.org/&#34;&gt;Node.js&lt;/a&gt;
+and &lt;a href=&#34;https://www.npmjs.com/&#34;&gt;npm&lt;/a&gt;. Yes, it’s true that nothing works these days without Node.js. Node.js and npm
+are required to install and run &lt;a href=&#34;http://yeoman.io/&#34;&gt;Yeoman&lt;/a&gt;, &lt;a href=&#34;http://gulpjs.com/&#34;&gt;Gulp&lt;/a&gt;
+and other massive amounts of Node.js packages.&lt;/p&gt;
+
+&lt;p&gt;To install Node.js I use a &lt;a href=&#34;https://github.com/creationix/nvm&#34;&gt;Node Version Manager&lt;/a&gt;.
+I did this by issuing the following command:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.30.2/install.sh | bash
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;After installing nvm, I installed the recent version of Node.js which is 5.5.0, the issuing command was:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;nvm install v5.5.0
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Then I set it to the currently used version with the command:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;nvm use 5.5.0
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;and finally I aliased it as the default version so that this version of Node could be used in any new shell.
+I did this using the command:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;nvm alias default 5.5.0
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;After this, I installed Yoeman then aspnet generator for Yoeman and finally Gulp and Bower.
+This line executed in the terminal did the job:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt; npm install -g yo generator-aspnet gulp bower
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;All these steps with Node.js are required in order to have a nice generator
+which helps you with the setup of
+ASP .NET projects (&lt;a href=&#34;http://nancyfx.org/&#34;&gt;Nancy&lt;/a&gt; project also) and with other things,
+for example, adding a new controller or view. However, I’ll write about this in the
+next post.&lt;/p&gt;
+
+&lt;h3&gt;Related posts:&lt;/h3&gt;
+
+
+
+
+
+&lt;ul style=&#34;list-style: none;&#34;&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/02/enrolling-in-daj-sie-poznac/&#34;&gt;Enrolling in &#34;Daj się poznać&#34;&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/daj-sie-poznac-project-details/&#34;&gt;&#34;Daj się poznać&#34; - Project details&#34;&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/i-m-holding-a-project-rider-eap/&#34;&gt;I&#39;m holding a Project Rider EAP&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/installing-asp-dot-net-core-1-on-ubuntu-14/&#34;&gt;Installing ASP .NET Core 1 on Ubuntu 14.04&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+
+
+</description>
+    </item>
     
     <item>
       <title>I&#39;m holding a Project Rider EAP</title>
@@ -138,10 +287,12 @@ Again, great job to JetBrains! I am sure that I’m not the only one waiting for
 
 
 
+
 &lt;ul style=&#34;list-style: none;&#34;&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/02/enrolling-in-daj-sie-poznac/&#34;&gt;Enrolling in &#34;Daj się poznać&#34;&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/daj-sie-poznac-project-details/&#34;&gt;&#34;Daj się poznać&#34; - Project details&#34;&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/i-m-holding-a-project-rider-eap/&#34;&gt;I&#39;m holding a Project Rider EAP&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/installing-asp-dot-net-core-1-on-ubuntu-14/&#34;&gt;Installing ASP .NET Core 1 on Ubuntu 14.04&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 
@@ -199,10 +350,12 @@ will look like but I’ll write about it in future posts as the project will con
 
 
 
+
 &lt;ul style=&#34;list-style: none;&#34;&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/02/enrolling-in-daj-sie-poznac/&#34;&gt;Enrolling in &#34;Daj się poznać&#34;&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/daj-sie-poznac-project-details/&#34;&gt;&#34;Daj się poznać&#34; - Project details&#34;&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/i-m-holding-a-project-rider-eap/&#34;&gt;I&#39;m holding a Project Rider EAP&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/installing-asp-dot-net-core-1-on-ubuntu-14/&#34;&gt;Installing ASP .NET Core 1 on Ubuntu 14.04&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 
@@ -249,10 +402,12 @@ so&amp;hellip;let’s do it!&lt;/p&gt;
 
 
 
+
 &lt;ul style=&#34;list-style: none;&#34;&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/02/enrolling-in-daj-sie-poznac/&#34;&gt;Enrolling in &#34;Daj się poznać&#34;&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/daj-sie-poznac-project-details/&#34;&gt;&#34;Daj się poznać&#34; - Project details&#34;&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/i-m-holding-a-project-rider-eap/&#34;&gt;I&#39;m holding a Project Rider EAP&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/installing-asp-dot-net-core-1-on-ubuntu-14/&#34;&gt;Installing ASP .NET Core 1 on Ubuntu 14.04&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 
