@@ -6,8 +6,151 @@
     <description>Recent content on Piotr Kościelniak - passionate programmer</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 08 Mar 2016 22:00:29 +0100</lastBuildDate>
+    <lastBuildDate>Wed, 09 Mar 2016 15:00:39 +0100</lastBuildDate>
     <atom:link href="http://koscielniak.me/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>First ASP NET Core 1.0 web application</title>
+      <link>http://koscielniak.me/post/2016/03/first-asp-net-core-1-web-application/</link>
+      <pubDate>Wed, 09 Mar 2016 15:00:39 +0100</pubDate>
+      
+      <guid>http://koscielniak.me/post/2016/03/first-asp-net-core-1-web-application/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;http://dajsiepoznac.pl&#34;&gt;&lt;img src=&#34;http://koscielniak.me/post/2016/03/contestLogo.png&#34; alt=&#34;Daj się poznać&#34; title=&#34;Daj się poznać&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;In this post, I will discuss how I tested my Ubuntu 14.04 if it is ready
+for creating the ASP .NET Core 1.0 application.
+I wrote &lt;a href=&#34;http://koscielniak.me/post/2016/03/installing-asp-dot-net-core-1-on-ubuntu-14/&#34;&gt;here&lt;/a&gt;
+about how I configured my Ubuntu 14.04 to create ASP .NET Core 1.0 apps.
+So, let’s start with the first application.&lt;/p&gt;
+
+&lt;p&gt;First, what I did was entering in the terminal the command:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;yo aspnet --help
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;After this, I saw what I could do with Yeoman aspnet generator.
+&lt;img src=&#34;http://koscielniak.me/post/2016/03/yoaspnethelp.png&#34; alt=&#34;yo aspnet --help&#34; title=&#34;yo aspnet --help&#34; /&gt;
+As it turned out this generator can be helpful not only with aspnet stuff but also with javascript, typescript,
+application configuration or even with a Dockerfile.&lt;/p&gt;
+
+&lt;p&gt;However, to start, I had to create an application first so I entered the command:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;yo aspnet
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;and I saw this:
+&lt;img src=&#34;http://koscielniak.me/post/2016/03/yoaspnet.png&#34; alt=&#34;yo aspnet&#34; title=&#34;yo aspnet&#34; /&gt;
+I chose Web Application from the menu and I named it “WebApplication”.
+Then I changed the directory to the newly created application directory called, unsurprisingly WebApplication
+(&lt;code&gt;cd WebApplication&lt;/code&gt;) and then I issued:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;dnvm use 1.0.0-rc1-update1 -r coreclr
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;which changed the framework version to coreclr in default was mono. I wanted to try this on coreclr, first.
+Then, inside &amp;ldquo;WebApplication&amp;rdquo; directory I wrote the command:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;dnu restore
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;which caused all the nuget packages to begin installing.&lt;/p&gt;
+
+&lt;p&gt;I took a while to get all the packages but finally everything was downloaded, installed and ready to run.
+Then I ran the command:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;dnx web
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;And finally in the browser under the url &lt;code&gt;http://localhost:5000&lt;/code&gt;
+I could see this beautiful startup page:
+&lt;img src=&#34;http://koscielniak.me/post/2016/03/startupPage.png&#34; alt=&#34;ASP .NET Core 1.0 Startup page&#34; title=&#34;ASP .NET Core 1.0 Startup page&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;It was an exciting process to install all these things and finally run the first application.
+Two things astonished me the most during this, firstly, that the whole process of installing
+all this stuff and running the application went gently and smoothly although rather lengthily.
+I expected something more challenging but…good job to all of the teams.
+Secondly, there were a large number of packages installed after issuing the command:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;dnu restore
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;There were 257 packages
+&lt;img src=&#34;http://koscielniak.me/post/2016/03/dnuRestore.png&#34; alt=&#34;dnu restore&#34; title=&#34;dnu restore&#34; /&gt;
+I knew about bigger granularity and modularity of ASP .NET Core 1.0,
+but this number was a bit surprising for me. All these packages are cached in directory:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;~/.dnx/packages
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;So next time when you issue:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;dnu restore
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;it will be far quicker to get these installed.
+And if for some reason you want to clear your packages cache, it’s as simple as emptying this folder.
+I hadn’t even opened Visual Studio Code yet but I know that the whole environment is set-up correctly.&lt;/p&gt;
+
+&lt;p&gt;Realy? Not exactly found out, when I accessed routes required connection to database,
+that not everything was setup correctly. As it turned out default Web Application project created by
+yo asp-net generator uses SQLite as database you can see in code below which is in class Startup:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-csharp&#34;&gt;public void ConfigureServices(IServiceCollection services)
+{
+    // Add framework services.
+    services.AddEntityFramework()
+        .AddSqlite()
+        .AddDbContext&amp;lt;ApplicationDbContext&amp;gt;(options =&amp;gt;
+            options.UseSqlite(Configuration[&amp;quot;Data:DefaultConnection:ConnectionString&amp;quot;]));
+    //…
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;And the connection string is defined in method Startup of class Startup and it looks like this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-csharp&#34;&gt;Configuration[&amp;quot;Data:DefaultConnection:ConnectionString&amp;quot;] = $@&amp;quot;Data Source={appEnv.ApplicationBasePath}/WebApplication.db&amp;quot;;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;When I tried access database I got following error:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-csharp&#34;&gt;System.DllNotFoundException: Unable to load DLL &#39;sqlite3&#39;: The specified module could not be found.
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;It was due that I didn’t install SQLite.
+To install SQLite I issued command:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo apt-get install libsqlite3-dev
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;and then everything was ok.
+But how I saw that error. By default application started in production mode. In this mode you cannot see a full error’s list.
+To see it you must run application in Development mode. I simple ran application with this command:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;env ASPNET_ENV=”Development” dnx web
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;and I saw full list of exceptions and found what was wrong.
+Now I can start create my project.&lt;/p&gt;
+
+&lt;p&gt;&lt;h3&gt;Related posts:&lt;/h3&gt;
+
+
+
+
+
+
+&lt;ul style=&#34;list-style: none;&#34;&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/02/enrolling-in-daj-sie-poznac/&#34;&gt;Enrolling in &#34;Daj się poznać&#34;&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/daj-sie-poznac-project-details/&#34;&gt;&#34;Daj się poznać&#34; - Project details&#34;&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/i-m-holding-a-project-rider-eap/&#34;&gt;I&#39;m holding a Project Rider EAP&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/installing-asp-dot-net-core-1-on-ubuntu-14/&#34;&gt;Installing ASP .NET Core 1 on Ubuntu 14.04&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/first-asp-net-core-1-web-application/&#34;&gt;First ASP NET Core 1.0 web application&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>Installing ASP .NET Core 1.0 on Ubuntu 14.04</title>
@@ -138,9 +281,10 @@ This line executed in the terminal did the job:&lt;/p&gt;
 which helps you with the setup of
 ASP .NET projects (&lt;a href=&#34;http://nancyfx.org/&#34;&gt;Nancy&lt;/a&gt; project also) and with other things,
 for example, adding a new controller or view. However, I’ll write about this in the
-next post.&lt;/p&gt;
+&lt;a href=&#34;http://koscielniak.me/post/2016/03/first-asp-net-core-1-web-application/&#34;&gt;next post&lt;/a&gt;.&lt;/p&gt;
 
-&lt;h3&gt;Related posts:&lt;/h3&gt;
+&lt;p&gt;&lt;h3&gt;Related posts:&lt;/h3&gt;
+
 
 
 
@@ -151,10 +295,11 @@ next post.&lt;/p&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/daj-sie-poznac-project-details/&#34;&gt;&#34;Daj się poznać&#34; - Project details&#34;&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/i-m-holding-a-project-rider-eap/&#34;&gt;I&#39;m holding a Project Rider EAP&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/installing-asp-dot-net-core-1-on-ubuntu-14/&#34;&gt;Installing ASP .NET Core 1 on Ubuntu 14.04&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/first-asp-net-core-1-web-application/&#34;&gt;First ASP NET Core 1.0 web application&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 
-
+&lt;/p&gt;
 </description>
     </item>
     
@@ -288,11 +433,13 @@ Again, great job to JetBrains! I am sure that I’m not the only one waiting for
 
 
 
+
 &lt;ul style=&#34;list-style: none;&#34;&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/02/enrolling-in-daj-sie-poznac/&#34;&gt;Enrolling in &#34;Daj się poznać&#34;&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/daj-sie-poznac-project-details/&#34;&gt;&#34;Daj się poznać&#34; - Project details&#34;&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/i-m-holding-a-project-rider-eap/&#34;&gt;I&#39;m holding a Project Rider EAP&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/installing-asp-dot-net-core-1-on-ubuntu-14/&#34;&gt;Installing ASP .NET Core 1 on Ubuntu 14.04&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/first-asp-net-core-1-web-application/&#34;&gt;First ASP NET Core 1.0 web application&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 
@@ -351,11 +498,13 @@ will look like but I’ll write about it in future posts as the project will con
 
 
 
+
 &lt;ul style=&#34;list-style: none;&#34;&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/02/enrolling-in-daj-sie-poznac/&#34;&gt;Enrolling in &#34;Daj się poznać&#34;&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/daj-sie-poznac-project-details/&#34;&gt;&#34;Daj się poznać&#34; - Project details&#34;&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/i-m-holding-a-project-rider-eap/&#34;&gt;I&#39;m holding a Project Rider EAP&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/installing-asp-dot-net-core-1-on-ubuntu-14/&#34;&gt;Installing ASP .NET Core 1 on Ubuntu 14.04&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/first-asp-net-core-1-web-application/&#34;&gt;First ASP NET Core 1.0 web application&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 
@@ -403,11 +552,13 @@ so&amp;hellip;let’s do it!&lt;/p&gt;
 
 
 
+
 &lt;ul style=&#34;list-style: none;&#34;&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/02/enrolling-in-daj-sie-poznac/&#34;&gt;Enrolling in &#34;Daj się poznać&#34;&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/daj-sie-poznac-project-details/&#34;&gt;&#34;Daj się poznać&#34; - Project details&#34;&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/i-m-holding-a-project-rider-eap/&#34;&gt;I&#39;m holding a Project Rider EAP&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/installing-asp-dot-net-core-1-on-ubuntu-14/&#34;&gt;Installing ASP .NET Core 1 on Ubuntu 14.04&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/first-asp-net-core-1-web-application/&#34;&gt;First ASP NET Core 1.0 web application&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 
