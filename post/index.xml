@@ -6,8 +6,148 @@
     <description>Recent content in Posts on Piotr Kościelniak - passionate programmer</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 09 Mar 2016 15:00:39 +0100</lastBuildDate>
+    <lastBuildDate>Mon, 14 Mar 2016 22:00:00 +0100</lastBuildDate>
     <atom:link href="http://koscielniak.me/post/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Wroc# 2016 - knowledge, networking and Objectivity office tour!</title>
+      <link>http://koscielniak.me/post/2016/03/wrocsharp-2016-knowledge-networking-and-objectivity-office-tour/</link>
+      <pubDate>Mon, 14 Mar 2016 22:00:00 +0100</pubDate>
+      
+      <guid>http://koscielniak.me/post/2016/03/wrocsharp-2016-knowledge-networking-and-objectivity-office-tour/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;http://wrocsharp.com/&#34; target=&#34;_blank&#34;&gt;&lt;img src=&#34;http://koscielniak.me/post/2016/03/wrocsharp/wroc-color.svg&#34; alt=&#34;Wroc#&#34; title=&#34;Wroc#&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;A few days have passed since the &lt;a href=&#34;http://wrocsharp.com/&#34; target=&#34;_blank&#34;&gt;Wroc#&lt;/a&gt; conference, however,
+now I am finally able to write about Wroc# 2016. For me, this conference lasted three days
+and I needed some time to recuperate.&lt;/p&gt;
+
+&lt;p&gt;I arrived in Wrocław the day before Wroc# in order to take part in the Pre-wroc# meetup organized
+by &lt;a href=&#34;http://www.meetup.com/wrocnet/&#34; target=&#34;_blank&#34;&gt;the Wrocław .NET User Group&lt;/a&gt;.
+It was a nice warm up before the conference. I talked to some old friends and met some new ones.&lt;/p&gt;
+
+&lt;p&gt;The next morning I went to
+&lt;a href=&#34;https://en.wikipedia.org/wiki/Stadion_Miejski_(Wroc%C5%82aw)&#34; target=&#34;_blank&#34;&gt;the Wrocław City Stadium&lt;/a&gt;
+which was the home of Wroc# 2016. The conference was opened by
+&lt;a href=&#34;https://twitter.com/lukaszgasior&#34; target=&#34;_blank&#34;&gt;Łukasz&lt;/a&gt;
+and &lt;a href=&#34;https://twitter.com/WojtekZed&#34; target=&#34;_blank&#34;&gt;Wojtek&lt;/a&gt;.
+After them, Susanta Ghosh welcomed attendees
+on behalf of &lt;a href=&#34;http://www.objectivity.co.uk/&#34; target=&#34;_blank&#34;&gt;Objectivity&lt;/a&gt;.
+At the beginning of the conference the organizers informed us of a change in the agenda.
+I thought “oh no, &lt;a href=&#34;https://twitter.com/markrendle&#34; target=&#34;_blank&#34;&gt;Mark Rendle&lt;/a&gt; didn’t come again”,
+but It was only partially true. Yes, he didn’t come to the stadium but he was in Wrocław.
+So instead of him, the first speech was given by
+&lt;a href=&#34;https://twitter.com/ICooper&#34; target=&#34;_blank&#34;&gt;Ian Cooper&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Ian Cooper’s speech &lt;em&gt;From Monolith to Microservices&lt;/em&gt; was a seamless and instructive
+talk about: when to go into microservices, how to do it and the benefits for your company,
+your customers and you as a developer. Ian as usual, used his profound knowledge and explained
+everything in a very consistent way. His speech was a finely woven thread that incorporated
+the previous, current and upcoming statement. He composed his speech in a way,
+that he showed you both the trees, and the forest: paying attention to fine details
+as well as the bigger picture. Ian’s presence was the most memorable part of the conference for me.
+I spent awhile talking with him during the after party and this was a very exciting experience.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://koscielniak.me/post/2016/03/wrocsharp/meAndIan.jpg&#34; alt=&#34;Me and Ian Cooper&#34; title=&#34;Me and Ian Cooper&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;The second speech was given by Mark Rendle, and he spoke about
+&lt;em&gt;My First Startup (And Other Mistakes)&lt;/em&gt; and as he said, he was late deliberately
+to show us that he makes mistakes. Mark told us about what he learned dealing with
+his own businesses. I learnt the following from his speech:
+&lt;em&gt;Perfect something. Then add something more, and perfect that too. Repeat&lt;/em&gt;.
+That is my summary of his great presentation.&lt;/p&gt;
+
+&lt;p&gt;After Mark, &lt;a href=&#34;https://twitter.com/ecampidoglio&#34; target=&#34;_blank&#34;&gt;Enrico Campidoglio&lt;/a&gt; came
+on stage with the speech:
+&lt;em&gt;The Things Git Can Do (that none of the GUIs ever told you about)&lt;/em&gt;.
+He tried to tell us that Git is not hard but I am still rather sceptical about this.
+I think Enrico didn’t stress enough that using some of the commands
+that he showed us can be really harmful.&lt;/p&gt;
+
+&lt;p&gt;The next speaker had a difficult task because she was after the launch break.
+And lunch was very tasty and plentiful so certainly everyone was feeling blissful,
+which can make you sleepy. Yet &lt;a href=&#34;https://twitter.com/julielerman&#34; target=&#34;_blank&#34;&gt;Julie Lerman&lt;/a&gt;,
+didn’t let anyone fall asleep. She did a real time demo with a small amount of
+live coding and used this to show how Entity Framework Core and
+ASP .NET Core 1.0 works on OS X with PostgreSQL database.
+I was amazed not only by Julie’s speech but also by
+Julie’s attitude and outlook. She is such a happy and positive person,
+I am glad that I could meet her in person and that she gave me a lot of positive energy.&lt;/p&gt;
+
+&lt;p&gt;The next presenter &lt;a href=&#34;https://twitter.com/ZeroKoll&#34; target=&#34;_blank&#34;&gt;Chris Klug&lt;/a&gt;
+was the only one who was among Wroc#’s speakers last year.
+Then, he had an excellent performance although he struggled with Visual Studio’s crashes.
+Chris is similar to Julie, and has an incredible amount of positive energy
+that infected me during his speech. This is so amazing that it actually
+doesn’t matter what he talks to you about, you simply
+want to listen to him and you have a lot fun.
+This time he talked about &lt;em&gt;What Do You Mean “a front-end build pipeline”!?&lt;/em&gt;.
+He showed how to use npm, Node.js, Bower, Gulp to process TypeScript and Less.
+As an example, he used a very simple angular 1.x application.&lt;/p&gt;
+
+&lt;p&gt;The last presentation before the discussion panel was given by
+&lt;a href=&#34;https://twitter.com/condrong&#34; target=&#34;_blank&#34;&gt;Glenn Condron&lt;/a&gt;.
+This presentation exceeded my expectations.
+Glenn show us ASP .NET Core 1.0 and during his presentation
+he used the new &lt;code&gt;dotnet&lt;/code&gt; command and almost
+the whole presentation was conducted in the live coding style,
+which is always a great challenge. I am a big fan of ASP .NET Core and
+after this presentation an even bigger fan.
+I hope that Glenn and other folks from his team popularise this framework because it is worth it.&lt;/p&gt;
+
+&lt;p&gt;The discussion panel was the last official point in the agenda and
+I really liked this point. In Wroc# 2015, it was an impromptu point and
+it turned out to be one of the best. This year, it was planned beforehand and
+it was even better. This year’s discussion was moderated by Mark Rendle and
+he did a great job. Thanks to him the discussion was very dynamic and simultaneously very funny.&lt;/p&gt;
+
+&lt;p&gt;Wroc# is famous for its after party. This year it was even better than last time.
+There was plenty of delicious food, home brewed beer prepared especially for
+this occasion and splash mixes. And foremost, it was an occasion to talk to nice,
+wise and friendly people in an unique atmosphere which can only be experienced during Wroc#’s
+after parties.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://koscielniak.me/post/2016/03/wrocsharp/afterParty.jpg&#34; alt=&#34;Waiting for my dinner&#34; title=&#34;Waiting for my dinner&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;I cannot state strongly enough how amazing Wroc# is.
+This conference is the best one I’ve ever been to. If I had to choose only one conference
+every year to attend, it would be Wroc#.&lt;br /&gt;
+&lt;a href=&#34;https://www.linkedin.com/in/ula-koper-11016817&#34; target=&#34;_blank&#34;&gt;Ula&lt;/a&gt;,
+Łukasz, Wojtek you must put a lot of heart into this conference, and that&amp;rsquo;s why it is so amazing.&lt;/p&gt;
+
+&lt;p&gt;The post-conference evaluation asked: &lt;em&gt;Would you come next year if we decide to do Wroc# again?&lt;/em&gt;
+My answer is definitely YES and I hope that my collection (see picture below) will be bigger next year.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://koscielniak.me/post/2016/03/wrocsharp/wrocsharpGlasses.jpg&#34; alt=&#34;Waiting for next beer glass&#34; title=&#34;Waiting for next beer glass&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Another question from the post-conference evaluation was:
+&lt;em&gt;What improvements would you recommend for our next conferences?&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;Really, it’s very difficult for me to imagine a better conference than Wroc#,
+so the only thing which I can suggest is a list of possible speakers for the next conference.
+I think that what is considered Bleeding Edge now, could be a hot topic next year, and
+it would be nice to hear more about it. For example, my list of speakers would include:&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://twitter.com/DamianEdwards&#34; target=&#34;_blank&#34;&gt;Damian Edwards&lt;/a&gt; about ASP .NET Core&lt;br /&gt;
+&lt;a href=&#34;https://twitter.com/John_Papa&#34; target=&#34;_blank&#34;&gt;John Papa&lt;/a&gt; or even &lt;a href=&#34;https://twitter.com/bradlygreen&#34; target=&#34;_blank&#34;&gt;Brad Green&lt;/a&gt; about &lt;a href=&#34;https://angular.io/&#34; target=&#34;_blank&#34;&gt;Angular 2&lt;/a&gt;&lt;br /&gt;
+&lt;a href=&#34;https://twitter.com/nigelpoulton&#34; target=&#34;_blank&#34;&gt;Nigel Poulton&lt;/a&gt; about &lt;a href=&#34;https:/www.docker.com/&#34; target=&#34;_blank&#34;&gt;Docker&lt;/a&gt; (this is already a hot topic)&lt;br /&gt;
+&lt;a href=&#34;https://twitter.com/stevensanderson&#34; target=&#34;_blank&#34;&gt;Steve Sanderson&lt;/a&gt; about modern Web&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://en.wikipedia.org/wiki/WebAssembly&#34; target=&#34;_blank&#34;&gt;WebAssembly&lt;/a&gt;
+could be Bleeding Edge next year, and maybe it would worthwhile to invite someone to speak about it.&lt;/p&gt;
+
+&lt;p&gt;Mentors are essential in life and this year I met one of mine at Wroc#: Ian Cooper.
+If I could be so bold, I would like to ask the Wroc# team to invite my other life mentor,
+&lt;a href=&#34;https://twitter.com/martinfowler&#34; target=&#34;_blank&#34;&gt;Martin Fowler&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;I know that my wish list is almost impossible to fulfill but there’s no harm in writing about it.&lt;/p&gt;
+
+&lt;p&gt;The day after the conference, thanks to Ula and other Wroc# team members,
+I got a tour of the Objectivity office. It was very nice to see behind the scenes of Wroc#
+and to find out first hand what an amazing company Objectivity is.
+Thanks to the Wroc# team for this opportunity.
+Best to everyone and hope to see you next year at Wroc# 2017.&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>My first ASP NET Core 1.0 web application</title>
