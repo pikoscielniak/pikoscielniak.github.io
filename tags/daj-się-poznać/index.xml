@@ -6,8 +6,224 @@
     <description>Recent content in Daj Się Poznać on Piotr Kościelniak - passionate programmer</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 09 Mar 2016 15:00:39 +0100</lastBuildDate>
+    <lastBuildDate>Wed, 16 Mar 2016 08:45:00 +0100</lastBuildDate>
     <atom:link href="http://koscielniak.me/tags/daj-si%C4%99-pozna%C4%87/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Project setup - server-side</title>
+      <link>http://koscielniak.me/post/2016/03/project-setup-server-side/</link>
+      <pubDate>Wed, 16 Mar 2016 08:45:00 +0100</pubDate>
+      
+      <guid>http://koscielniak.me/post/2016/03/project-setup-server-side/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;http://dajsiepoznac.pl&#34;&gt;&lt;img src=&#34;http://koscielniak.me/post/2016/03/contestLogo.png&#34; alt=&#34;Daj się poznać&#34; title=&#34;Daj się poznać&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;In this post, I am writing about how I set up the server-side of my project - Notifier.
+The application will consist of REST API and Angular 2 single page application.
+For now, both parts will be hosted in the same ASP .NET Core application.
+To create this project I used yo aspnet generator.
+If you want to find out how I installed these tools check out
+&lt;a href=&#34;http://koscielniak.me/post/2016/03/installing-asp-dot-net-core-1-on-ubuntu-14/&#34;&gt;this post&lt;/a&gt;.
+I entered in terminal command &lt;code&gt;yo aspnet&lt;/code&gt; and after this I saw the following output,
+which gave me a choice of project type.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://koscielniak.me/post/2016/03/applicationSetup/emptyApplication.png&#34; alt=&#34;What type of application do you want to create?&#34; title=&#34;What type of application do you want to create?&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;I chose empty project.&lt;/p&gt;
+
+&lt;p&gt;After this I was asked to enter the project name.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://koscielniak.me/post/2016/03/applicationSetup/appName.png&#34; alt=&#34;What&#39;s the name of your ASP.NET application?&#34; title=&#34;What&#39;s the name of your ASP.NET application?&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;I typed &lt;em&gt;Web&lt;/em&gt;. This name has an influence on the name of the folder which will be created when you hit enter.
+For the rest of this article this newly created folder will be referred to as the root of the project.
+When I opened this project in Visual Studio Code I could see the following structure of my project:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://koscielniak.me/post/2016/03/applicationSetup/emptyTree.png&#34; alt=&#34;Structure of empty project&#34; title=&#34;Structure of empty project&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;To be able to use Web API in my project I must import the following nuget package:
+&lt;em&gt;Microsoft.AspNet.Mvc&lt;/em&gt;
+I did this by typing its name in project.json under the dependencies section.
+When you do this you can see a very nice intellisense which helps to choose the right package
+in right version.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://koscielniak.me/post/2016/03/applicationSetup/intelliSenseNuget.png&#34; alt=&#34;Intellisense in project.json&#34; title=&#34;Intellisense in project.json&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;After this is what my dependency section looked like this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-json&#34;&gt;&amp;quot;dependencies&amp;quot;: {
+     &amp;quot;Microsoft.AspNet.IISPlatformHandler&amp;quot;: &amp;quot;1.0.0-rc1-final&amp;quot;,
+     &amp;quot;Microsoft.AspNet.Server.Kestrel&amp;quot;: &amp;quot;1.0.0-rc1-final&amp;quot;,
+     &amp;quot;Microsoft.AspNet.Mvc&amp;quot;: &amp;quot;6.0.0-rc1-final&amp;quot;
+   }, 
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The next thing which I did was issuing in terminal the command &lt;code&gt;dnu restore&lt;/code&gt;.
+I must be in the root folder of the project to issue this command. Actually,
+Visual Studio Code shows at the top a strip with the button Restore which does exactly the same.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://koscielniak.me/post/2016/03/applicationSetup/restoreButton.png&#34; alt=&#34;Restore button in VS Code&#34; title=&#34;Restore button in VS Code&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Then I changed my Startup file so it looks like this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-csharp&#34;&gt;using Microsoft.AspNet.Builder;
+using Microsoft.Extensions.DependencyInjection;
+
+namespace Notifier.Web
+{
+    public class Startup
+    {
+        // This method gets called by the runtime. Use this method to add services to the container.
+        // For more information on how to configure your application, visit http://go.microsoft.com/fwlink/?LinkID=398940
+        public void ConfigureServices(IServiceCollection services)
+        {            
+            services.AddMvc();
+        }
+
+        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        public void Configure(IApplicationBuilder app)
+        {
+            app.UseIISPlatformHandler();
+            
+            app.UseMvc();
+        }
+
+        // Entry point for the application.
+        public static void Main(string[] args) =&amp;gt; Microsoft.AspNet.Hosting.WebApplication.Run&amp;lt;Startup&amp;gt;(args);
+    }
+}
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;I added &lt;code&gt;services.AddMvc();&lt;/code&gt; in &lt;code&gt;ConfigureServices&lt;/code&gt; method and &lt;code&gt;app.UseMvc();&lt;/code&gt; in &lt;code&gt;Configure&lt;/code&gt; method.
+At the occasion, I also hit CTRL+. And chose &lt;em&gt;Remove Unnecessary Usings&lt;/em&gt; which did what it says.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://koscielniak.me/post/2016/03/applicationSetup/removeUnnecessary.png&#34; alt=&#34;Removing unnecessary usings&#34; title=&#34;Removing unnecessary usings&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;You may not know but MVC and Web API are now unified in ASP.NET Core 1.0.
+There&amp;rsquo;s no need to import something special for Web API.
+Then it was time to create first the WebApi controller.
+Inside the root of my project I created a folder Controllers (&lt;code&gt;mkdir Controllers&lt;/code&gt;),
+and my goal was to create a dummy API controller inside it.
+I achieved my goal using &lt;code&gt;yo aspnet generator&lt;/code&gt;.
+Firstly, I navigated to the newly created Controllers folder and then
+I used the command &lt;code&gt;yo aspnet --help&lt;/code&gt; in it. That command showed me how
+I can create a WebApi controller.
+It turned out that there is command &lt;code&gt;yo aspnet:WebApiController&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://koscielniak.me/post/2016/03/applicationSetup/yoaspnetHelp.png&#34; alt=&#34;yo aspnet --help&#34; title=&#34;yo aspnet --help&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;I executed it in terminal passing &lt;em&gt;ValuesController&lt;/em&gt; as the name of my controller.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;yo aspnet:WebApiController ValuesController
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This command added file ValuesController.cs inside my Controllers folder.&lt;/p&gt;
+
+&lt;p&gt;And inside this file was the following code:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-csharp&#34;&gt;using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNet.Mvc;
+
+// For more information on enabling Web API for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+
+namespace notifier.Controllers
+{
+    [Route(&amp;quot;api/[controller]&amp;quot;)]
+    public class ValuesController : Controller
+    {
+        // GET: api/values
+        [HttpGet]
+        public IEnumerable&amp;lt;string&amp;gt; Get()
+        {
+            return new string[] { &amp;quot;value1&amp;quot;, &amp;quot;value2&amp;quot; };
+        }
+
+        // GET api/values/5
+        [HttpGet(&amp;quot;{id}&amp;quot;)]
+        public string Get(int id)
+        {
+            return &amp;quot;value&amp;quot;;
+        }
+
+        // POST api/values
+        [HttpPost]
+        public void Post([FromBody]string value)
+        {
+        }
+
+        // PUT api/values/5
+        [HttpPut(&amp;quot;{id}&amp;quot;)]
+        public void Put(int id, [FromBody]string value)
+        {
+        }
+
+        // DELETE api/values/5
+        [HttpDelete(&amp;quot;{id}&amp;quot;)]
+        public void Delete(int id)
+        {
+        }
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Note that you should not typed extension &lt;em&gt;.cs&lt;/em&gt;. Generator adds this for you.&lt;/p&gt;
+
+&lt;p&gt;That was enough for me to test that I had the server side part of my application already working.
+To be sure about it, I had to run my application. I entered in terminal the command &lt;code&gt;cd ..&lt;/code&gt; because
+I was still in the Controllers folder and you can start your application only from a root
+folder of your project and in this root folder I issued the command &lt;code&gt;dnx web&lt;/code&gt; and
+I got the following output in terminal:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;Hosting environment: Production
+Now listening on: http://localhost:5000
+Application started. Press Ctrl+C to shut down
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;It seemed that everything was okay. This is how it looked when
+I did a get request under url &lt;a href=&#34;http://localhost:5000/api/values&#34;&gt;http://localhost:5000/api/values&lt;/a&gt; using
+&lt;a href=&#34;https://chrome.google.com/webstore/detail/postman/fhbjgbiflinjbdggehcddcbncdddomop&#34; target=&#34;_blank&#34;&gt;Postman&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://koscielniak.me/post/2016/03/applicationSetup/valuesFromController.png&#34; alt=&#34;Values from controller in Postman&#34; title=&#34;Values from controller in Postman&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;What &lt;code&gt;dnx web&lt;/code&gt; command does you can check in the file project.json in the section commands.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-json&#34;&gt; &amp;quot;commands&amp;quot;: {
+    &amp;quot;web&amp;quot;: &amp;quot;Microsoft.AspNet.Server.Kestrel&amp;quot;
+  },
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;As you can see web is an alias for &lt;em&gt;Microsoft.AspNet.Server.Kestrel&lt;/em&gt;.
+This is a cross platform server which is used to run ASP .NET Core applications.
+I’ll write more about ASP .NET Core during my series,
+but for now the setup of my Project’s server side is finished.&lt;/p&gt;
+
+&lt;p&gt;Yes, there’ll be more things to set up in the future but for now I don’t need them as
+I am happy with everything I have now. Now I can start to set up my client-side.&lt;/p&gt;
+
+&lt;p&gt;&lt;h3&gt;Related posts:&lt;/h3&gt;
+
+
+
+
+
+
+
+&lt;ul style=&#34;list-style: none;&#34;&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/02/enrolling-in-daj-sie-poznac/&#34;&gt;Enrolling in &#34;Daj się poznać&#34;&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/daj-sie-poznac-project-details/&#34;&gt;&#34;Daj się poznać&#34; - Project details&#34;&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/i-m-holding-a-project-rider-eap/&#34;&gt;I&#39;m holding a Project Rider EAP&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/installing-asp-dot-net-core-1-on-ubuntu-14/&#34;&gt;Installing ASP .NET Core 1 on Ubuntu 14.04&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/my-first-asp-net-core-1-web-application/&#34;&gt;My first ASP NET Core 1.0 web application&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/project-setup-server-side/&#34;&gt;Project setup - server-side&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>My first ASP NET Core 1.0 web application</title>
@@ -139,12 +355,14 @@ Now I can start create my project.&lt;/p&gt;
 
 
 
+
 &lt;ul style=&#34;list-style: none;&#34;&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/02/enrolling-in-daj-sie-poznac/&#34;&gt;Enrolling in &#34;Daj się poznać&#34;&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/daj-sie-poznac-project-details/&#34;&gt;&#34;Daj się poznać&#34; - Project details&#34;&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/i-m-holding-a-project-rider-eap/&#34;&gt;I&#39;m holding a Project Rider EAP&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/installing-asp-dot-net-core-1-on-ubuntu-14/&#34;&gt;Installing ASP .NET Core 1 on Ubuntu 14.04&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/my-first-asp-net-core-1-web-application/&#34;&gt;My first ASP NET Core 1.0 web application&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/project-setup-server-side/&#34;&gt;Project setup - server-side&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 
@@ -290,12 +508,14 @@ for example, adding a new controller or view. However, I’ll write about this i
 
 
 
+
 &lt;ul style=&#34;list-style: none;&#34;&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/02/enrolling-in-daj-sie-poznac/&#34;&gt;Enrolling in &#34;Daj się poznać&#34;&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/daj-sie-poznac-project-details/&#34;&gt;&#34;Daj się poznać&#34; - Project details&#34;&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/i-m-holding-a-project-rider-eap/&#34;&gt;I&#39;m holding a Project Rider EAP&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/installing-asp-dot-net-core-1-on-ubuntu-14/&#34;&gt;Installing ASP .NET Core 1 on Ubuntu 14.04&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/my-first-asp-net-core-1-web-application/&#34;&gt;My first ASP NET Core 1.0 web application&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/project-setup-server-side/&#34;&gt;Project setup - server-side&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 
@@ -434,12 +654,14 @@ Again, great job to JetBrains! I am sure that I’m not the only one waiting for
 
 
 
+
 &lt;ul style=&#34;list-style: none;&#34;&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/02/enrolling-in-daj-sie-poznac/&#34;&gt;Enrolling in &#34;Daj się poznać&#34;&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/daj-sie-poznac-project-details/&#34;&gt;&#34;Daj się poznać&#34; - Project details&#34;&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/i-m-holding-a-project-rider-eap/&#34;&gt;I&#39;m holding a Project Rider EAP&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/installing-asp-dot-net-core-1-on-ubuntu-14/&#34;&gt;Installing ASP .NET Core 1 on Ubuntu 14.04&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/my-first-asp-net-core-1-web-application/&#34;&gt;My first ASP NET Core 1.0 web application&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/project-setup-server-side/&#34;&gt;Project setup - server-side&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 
@@ -499,12 +721,14 @@ will look like but I’ll write about it in future posts as the project will con
 
 
 
+
 &lt;ul style=&#34;list-style: none;&#34;&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/02/enrolling-in-daj-sie-poznac/&#34;&gt;Enrolling in &#34;Daj się poznać&#34;&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/daj-sie-poznac-project-details/&#34;&gt;&#34;Daj się poznać&#34; - Project details&#34;&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/i-m-holding-a-project-rider-eap/&#34;&gt;I&#39;m holding a Project Rider EAP&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/installing-asp-dot-net-core-1-on-ubuntu-14/&#34;&gt;Installing ASP .NET Core 1 on Ubuntu 14.04&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/my-first-asp-net-core-1-web-application/&#34;&gt;My first ASP NET Core 1.0 web application&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/project-setup-server-side/&#34;&gt;Project setup - server-side&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 
@@ -553,12 +777,14 @@ so&amp;hellip;let’s do it!&lt;/p&gt;
 
 
 
+
 &lt;ul style=&#34;list-style: none;&#34;&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/02/enrolling-in-daj-sie-poznac/&#34;&gt;Enrolling in &#34;Daj się poznać&#34;&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/daj-sie-poznac-project-details/&#34;&gt;&#34;Daj się poznać&#34; - Project details&#34;&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/i-m-holding-a-project-rider-eap/&#34;&gt;I&#39;m holding a Project Rider EAP&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/installing-asp-dot-net-core-1-on-ubuntu-14/&#34;&gt;Installing ASP .NET Core 1 on Ubuntu 14.04&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/my-first-asp-net-core-1-web-application/&#34;&gt;My first ASP NET Core 1.0 web application&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/project-setup-server-side/&#34;&gt;Project setup - server-side&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 
