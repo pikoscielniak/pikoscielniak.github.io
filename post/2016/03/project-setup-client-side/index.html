@@ -1,0 +1,490 @@
+<!doctype html>
+<html class="no-js">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Piotr Kościelniak - passionate programmer</title>
+        <meta name="author">
+        <meta name="description" content="Piotr Kościelniak - passionate programmer">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="generator" content="Hugo 0.16-DEV" />
+          <link href="http://koscielniak.me/post/index.xml" rel="alternate" type="application/rss+xml" title="Piotr Kościelniak - passionate programmer" />
+          <link href="http://koscielniak.me/post/index.xml" rel="feed" type="application/rss+xml" title="Piotr Kościelniak - passionate programmer" />
+        <link href='//fonts.googleapis.com/css?family=Roboto:400,300,700|Noto+Serif:400,400italic,700,700italic' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" href="http://koscielniak.me/css/styles.css">
+        <link rel="icon" href="http://koscielniak.me/favicon.ico">
+        <link rel="apple-touch-icon" href="http://koscielniak.me/apple-touch-icon.png" />
+        <link rel="stylesheet" href="http://koscielniak.me/css/highlightjs/monokai.css">
+        <script src="http://koscielniak.me/js/vendor/modernizr-2.8.0.min.js"></script>
+        <style>
+        .site-header h2 .logo {
+        background: url(http://koscielniak.me/img/desk.jpg) no-repeat 0 0;
+        }
+        @media (min--moz-device-pixel-ratio: 1.3), (-o-min-device-pixel-ratio: 2.6 / 2), (-webkit-min-device-pixel-ratio: 1.3), (min-device-pixel-ratio: 1.3), (min-resolution: 1.3dppx) {
+          .site-header h2 .logo {
+            background-image: url(http://koscielniak.me/img/desk.jpg);
+        }}
+       .site-header {
+         background: #2a373d url(http://koscielniak.me/img/desk.jpg) no-repeat center center;
+         z-index: -1;
+        }
+        </style>
+    </head>
+    <body>
+        
+        <header class="site-header">
+          <div class="transparent-layer">
+              <h2>You&#39;re here. I appreciate it.</h2>
+          </div>
+        </header>
+
+
+<div class="container clearfix">
+    <main role="main" class="content">
+        <article class="post">
+            <a class="btn" href="http://koscielniak.me/" title="Back to home">&laquo; Back to home</a>
+            
+<h1><a href="http://koscielniak.me/post/2016/03/project-setup-client-side/" title="Project setup - client-side">Project setup - client-side</a></h1>
+
+<footer class="post-info">Posted on <span class="post-meta"><time datetime="2016.03.18">2016.03.18</time>
+&middot; Tagged in
+    
+    <a href="http://koscielniak.me/tags/daj-si%C4%99-pozna%C4%87">daj się poznać</a>, 
+    
+    <a href="http://koscielniak.me/tags/asp-.net-core">asp .net core</a>, 
+    
+    <a href="http://koscielniak.me/tags/angular2">angular2</a>
+    
+
+</span>
+</footer>
+
+            <p><a href="http://dajsiepoznac.pl"><img src="/post/2016/03/contestLogo.png" alt="Daj się poznać" title="Daj się poznać" /></a></p>
+
+<p>It&rsquo;s not an easy task these days to set up a client-side application.
+There is now an explosion of technologies. You should know all these: npm, Node.js, Grunt,
+Gulp, Bower, Babel, ES2015, TypeScript, Less, Sass, Bootstrap, etc.
+Yes, of course there are seeds which allow a startup project to be ready to
+run but almost every one of them gives you something more than you need and
+when you use this kind of seed you may not know what’s really going on
+in the building process of your application.
+The client-side part of my application will be based on Angular 2.
+I decided to set up the Angular 2 application from scratch in order to
+feel by myself what this process looks like, I’ll describe the process and what
+I’ve learned in this post.</p>
+
+<p>I think the best place to start with something new is on its official page and so
+I did this with the setup of the Angular 2 application. On this
+<a href="https://angular.io/" target="_blank">page</a>
+I found all the necessary information needed to run my first
+Angular 2 component on a startup page of my application,
+but I must also adjust what’s on this official page to the
+<a href="https://get.asp.net/" target="_blank">ASP .NET Core</a> reality.</p>
+
+<p><a href="https://angular.io/docs/ts/latest/quickstart.html" target="_blank">5 Min Quickstart</a>
+on the Angular 2 official page gave a ready to use scaffolding for my application.
+What I need to be aware of is that in ASP .NET Core,
+the root folder of my site is <em>wwwroot</em> and all static files should go into this folder.
+I inserted <em>app.component.ts</em> and <em>main.ts</em> to the <em>wwwroot</em> folder.
+I changed the content of <em>app.component.ts</em> a bit so it looked like this:</p>
+
+<pre><code>import {Component} from 'angular2/core';
+@Component({
+    selector: 'notifier',
+    template: '&lt;h1&gt;{{title}}&lt;/h1&gt;'
+})
+export class AppComponent { 
+    title = &quot;Notifier!!!&quot;
+}
+</code></pre>
+
+<p>Other files such as: <em>package.json</em>, <em>tsconfig.json</em> and <em>typing.json</em>, I put under the root of my project.
+I did a couple of changes in <em>project.json</em> so it is listed below:</p>
+
+<pre><code>{
+  &quot;name&quot;: &quot;Notifier&quot;,
+  &quot;version&quot;: &quot;1.0.0&quot;,
+  &quot;scripts&quot;: {   
+    &quot;tsc&quot;: &quot;tsc -w&quot;,
+    &quot;typings&quot;: &quot;typings&quot;,
+    &quot;postinstall&quot;: &quot;typings install&quot;
+  },
+  &quot;license&quot;: &quot;ISC&quot;,
+  &quot;dependencies&quot;: {
+    &quot;angular2&quot;: &quot;2.0.0-beta.9&quot;,
+    &quot;systemjs&quot;: &quot;0.19.24&quot;,
+    &quot;es6-promise&quot;: &quot;^3.0.2&quot;,
+    &quot;es6-shim&quot;: &quot;^0.33.3&quot;,
+    &quot;reflect-metadata&quot;: &quot;0.1.2&quot;,
+    &quot;rxjs&quot;: &quot;5.0.0-beta.2&quot;,
+    &quot;zone.js&quot;: &quot;0.5.15&quot;
+  },
+  &quot;devDependencies&quot;: {
+    &quot;del&quot;: &quot;^2.0.2&quot;,
+    &quot;gulp&quot;: &quot;^3.9.0&quot;,
+    &quot;typescript&quot;: &quot;^1.8.7&quot;,
+    &quot;typings&quot;:&quot;^0.7.5&quot;
+  }
+}
+</code></pre>
+
+<p>I left <em>&ldquo;dependencies&rdquo;</em> untouched but I changed <em>&ldquo;devDependencies&rdquo;</em> quite a lot.
+I don’t need live reload, so I removed this and I also added <em>del</em> and <em>gulp</em> which allowed me
+to do some processing on application files. The most interesting things are in
+the <em>&ldquo;scripts&rdquo;</em> part of the <em>package.json</em> file. I left only three commands and
+two of them were unchanged, these are <em>typings</em> and <em>postinstall</em>.
+These commands download typings for TypeScript to the root of your project right after
+your <em>npm install</em> command finishes their work. After this there’ll be a folder
+named <em>typings</em> in the root of the project. It’s wise to add this folder to <em>.gitignore</em>.
+The command <em>typings</em> in this configuration works in the root of your project.
+That’s why <em>typings.json</em> is in this location and not in <em>wwwroot</em>.
+This file is a typings command configuration and it persists dependencies so that everyone on
+the project can replicate it and that’s why you don’t need to commit <em>typings</em> folder.</p>
+
+<p>Another command I changed a bit was <em>tsc</em>, so when I run it my
+TypeScript files will be watching for changes and compiled right after these changes happened.
+This command looks for config in the location where it works.
+It is the root of the project so again that’s why <em>tsconfig.json</em> stays in
+this place and not in the <em>wwwroot</em>. This command creates <em>.js</em> files and <em>.map</em>
+files just next to the original <em>.ts</em> files, it is also a good practice to ignore
+these <em>.js</em> and <em>.map</em> files in version control system. To do this I inserted these two lines to <em>.gitignore</em><br />
+<code>src/web/wwwroot/app/**/*.js</code><br />
+<code>src/web/wwwroot/app/**/*.map</code></p>
+
+<p>The next step was executing in terminal command <code>npm install</code>.
+Doing this allowed me to fetch all dependencies which are specified in <em>package.json</em>.</p>
+
+<p>I put my <em>package.json</em> in the root of project so when I executed <em>npm install</em> the <em>node_modules</em>
+folder was located in this location. We know that only the <em>wwwroot</em> folder is visible
+from the outside world. I needed a way to move files from <em>node_modules</em> to the location somewhere
+inside <em>wwwroot</em>. I used task runner <em>gulp</em> to move these files to the <em>lib</em> folder inside the <em>wwwroot</em>.
+You may have noticed that I added a bunch of modules inside <em>&ldquo;devDependencies&rdquo;</em> in <em>package.json</em>,
+these are needed for copying desired files to <em>wwwroot</em>.</p>
+
+<p>I added <em>gulpfile.js</em> into the root of project and inside this file
+I added some <em>gulp</em> tasks so it looks like this:</p>
+
+<pre><code>&quot;use strict&quot;;
+
+var path = require('path');
+var gulp = require('gulp');
+var del = require('del');
+
+var webroot = &quot;./wwwroot/&quot;;
+
+var config = {
+    libBase: 'node_modules',
+    lib: [
+        require.resolve('es6-shim/es6-shim.min.js'),
+        require.resolve('es6-shim/es6-shim.map'),
+        require.resolve('systemjs/dist/system-polyfills.js'),
+        require.resolve('systemjs/dist/system-polyfills.js.map'),
+        require.resolve('angular2/es6/dev/src/testing/shims_for_IE.js'),
+        require.resolve('systemjs/dist/system.src.js'),
+        require.resolve('angular2/bundles/angular2-polyfills.js'),
+        require.resolve('rxjs/bundles/Rx.js'),
+        require.resolve('angular2/bundles/angular2.dev.js'),
+        require.resolve('angular2/bundles/router.dev.js'),
+        require.resolve('angular2/bundles/http.dev.js')
+    ]
+};
+
+gulp.task('build.lib', ['clean'], function() {
+    return gulp.src(config.lib, { base: config.libBase })
+        .pipe(gulp.dest(webroot + 'lib'));
+});
+
+gulp.task('build-dev', ['build.lib'], function() {
+
+});
+gulp.task('clean', function() {
+    return del([webroot + 'lib']);
+});
+
+gulp.task('default', ['build-dev']);
+</code></pre>
+
+<p>You may wonder why I bothered with all this stuff, shouldn’t I have used
+<a href="https://en.wikipedia.org/wiki/Content_Delivery_Network" target="_blank">CDN</a> instead?
+Yes, of course and for sure I’ll do this. However, for now
+I chose the harder way to learn a bit more and gain knowledge on how
+to setup a project when you cannot use CDN. At this stage,
+I entered the command <code>gulp build-dev</code> and inside <em>wwwroot</em> a <em>lib</em> folder was created
+which contains specified libraries.
+After this, my <em>wwwroot</em> structure looked like this:</p>
+
+<p><img src="/post/2016/03/applicationSetup/client/wwwrootAfterSetup.png" alt="wwwroot after setup" title="wwwroot after setup" /></p>
+
+<p>Now I can combine my Angular 2 with ASP .NET Core. To do this,
+I need to create a couple of <em>.cshtml</em> files inside the <em>Views</em> folder.
+Firstly, I must create this folder and then inside the <em>Views</em> folder I created two more folders:
+<em>Shared</em> and <em>Home</em>. Inside the <em>Shared</em> folder I created a <em>_Layout.cshtml</em> file and inside <em>Home</em>
+I created <em>Index.cshtml</em>. Inside the <em>Views</em> folder, I had to create another file:
+<em>_ViewImports.cshtml</em> which gives you the opportunity to provide some default usings for all views.
+For now I left the <em>_ViewImports.cshtml</em> file empty.</p>
+
+<p>I created another file in <em>Views</em> folder <em>_ViewStart.cshtml</em>.
+This file when placed into the <em>Views</em> folder will influence all views in this folder hierarchy.
+I used this file to specify the layout for all views.
+Although I am going to have only one view. The content of my <em>_ViewStart.cshtml</em> looks like this:</p>
+
+<pre><code class="language-html">@{
+   Layout = &quot;_Layout&quot;;
+}
+</code></pre>
+
+<p>My <em>_Layout.cshtml</em> at this stage looked like this:</p>
+
+<pre><code class="language-html">&lt;!doctype html&gt;
+&lt;html lang=&quot;&quot;&gt;
+    &lt;head&gt;
+        &lt;meta charset=&quot;utf-8&quot; /&gt;
+        &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot; /&gt;
+        &lt;title&gt;Notifier&lt;/title&gt;
+        &lt;base href=&quot;/&quot; /&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        @RenderBody()
+        @RenderSection(&quot;scripts&quot;, required: false)
+    &lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+
+<p>You should pay attention to this element <code>&lt;base href=&quot;/&quot; /&gt;</code>.
+It is required by Angular 2 to tell the router how to compose navigation URLs.
+You can read more about it
+<a href="https://angular.io/docs/ts/latest/guide/router.html" target="_blank">here</a>.</p>
+
+<p>The file <em>Index.cshtml</em> looks like this:</p>
+
+<pre><code class="language-html">&lt;notifier&gt;
+    Loading...
+&lt;/notifier&gt;
+@section scripts {
+
+    &lt;!-- 1. Load libraries --&gt;
+    &lt;!-- IE required polyfills, in this exact order --&gt;
+     &lt;script src=&quot;lib/es6-shim/es6-shim.min.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;lib/systemjs/dist/system-polyfills.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;lib/angular2/es6/dev/src/testing/shims_for_IE.js&quot;&gt;&lt;/script&gt;   
+    &lt;script src=&quot;lib/angular2/bundles/angular2-polyfills.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;lib/systemjs/dist/system.src.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;lib/rxjs/bundles/Rx.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;lib/angular2/bundles/angular2.dev.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;lib/angular2/bundles/router.dev.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;lib/angular2/bundles/http.dev.js&quot;&gt;&lt;/script&gt;
+
+
+    &lt;script&gt;
+        System.config({
+            packages: {'app': {defaultExtension: 'js'}}
+        });
+        System.import('./app/main').catch(console.log.bind(console));
+    &lt;/script&gt;
+}
+</code></pre>
+
+<p>All I did here was to simply include all the files copied to the <em>wwwroot/lib</em> folder and
+I passed the configuration to
+<a href="https://github.com/systemjs/systemjs" target="_blank">System.js</a>,
+which is a module loader responsible for loading
+the main file and other application files.</p>
+
+<p>I must of course add <em>HomeController</em> which will return the <em>Index</em> view.
+It’s located in the <em>Controllers</em> folder and its content are simply this:</p>
+
+<pre><code>using Microsoft.AspNet.Mvc;
+
+namespace Notifier.Web.Controllers
+{
+    public class HomeController : Controller
+    {
+        public IActionResult Index()
+        {
+            return View();
+        }
+    }
+}
+</code></pre>
+
+<p>After all these steps my project structure looks like this:</p>
+
+<p><img src="/post/2016/03/applicationSetup/client/projectFoldersTree.png" alt="Project folders tree" title="Project folders tree" /></p>
+
+<p>I am almost done but before I run the application I have to do a couple of improvements
+in my server-side setup which I didn’t need before. Firstly, I must setup
+the default route for my application which will be <em>Home/Index</em>.
+I did this by adding two lines in method <em>Configure</em> of <em>Startup</em> class so now it looks like this:</p>
+
+<pre><code>  public void Configure(IApplicationBuilder app)
+        {
+            app.UseIISPlatformHandler();
+            
+            app.UseMvc(routes =&gt;{
+                routes.MapRoute(name:&quot;default&quot;, template: &quot;{controller=Home}/{action=Index}/{id?}&quot;);
+                routes.MapRoute(&quot;spa-fallback&quot;,&quot;{*anything}&quot;,new{controller =&quot;Home&quot;, action=&quot;Index&quot;} );                
+            });
+        }
+</code></pre>
+
+<p>This <em>&ldquo;spa-fallback&rdquo;</em> route is in case of 404 requests.
+It isn’t a perfect solution. I’ll show why and how to do it better in one of my future posts.
+At this moment, you can run the application by issuing in terminal
+<code>dnx web</code> and you’ll see…an empty page&hellip;do you know why?
+Because at this moment my application does not serve static files.
+You must add another middleware to allow the application to do this.
+What’s more, you must even add another Nuget package which is called:
+<em>Microsoft.AspNet.StaticFiles</em>. I inserted this dependency in <em>project.json</em>
+and then instead of typing, I clicked the Restore button in Visual Studio Code.
+After this I used this middleware by typing this line <em>app.UseStaticFiles()</em>;
+in <em>Configure</em> method, so now it looks like this:</p>
+
+<pre><code>public void Configure(IApplicationBuilder app)
+        {
+            app.UseIISPlatformHandler();
+            
+            app.UseStaticFiles();
+            
+            app.UseMvc(routes =&gt;{
+                routes.MapRoute(name:&quot;default&quot;, template: &quot;{controller=Home}/{action=Index}/{id?}&quot;);
+                routes.MapRoute(&quot;spa-fallback&quot;,&quot;{*anything}&quot;,new{controller =&quot;Home&quot;, action=&quot;Index&quot;} );                
+            });
+        }
+</code></pre>
+
+<p>Remember, the order of middlewares is imported if you put this line:
+<em>app.UseStaticFiles();</em> after <em>UseMvc</em> middleware your static files still won’t be served.</p>
+
+<p>Running the application now wouldn’t show anything fancy but only errors in the browser’s console,
+I must compile TypeScript files. To do this I entered <code>npm run tsc</code> and now <em>.js</em>
+files are created and this tool is watching for any changes and recompiles files
+almost immediately when these changes happen. After this, I expected something more
+attractive and I was right. This is what I got:</p>
+
+<p><img src="/post/2016/03/applicationSetup/client/finalResult.png" alt="Final result" title="Final result" /></p>
+
+<p>If you would like to repeat my steps, for sure you will encounter some errors and
+you won’t see them until you add another package called: <em>Microsoft.AspNet.Diagnostics</em>
+and in <em>Configure</em> method you use middleware <em>UseDeveloperExceptionPage</em>.
+After this, when an error happens you’ll see a very nice error page.
+You should add this as the first middleware and remember about <em>dnx restore</em>.</p>
+
+<p>I haven’t finished my set-up yet but I think that this post is already long enough. In my next few posts,
+I will talk about how I added styling to my application and how I improved this set-up a bit.</p>
+
+<h3>Related posts:</h3>
+
+
+
+
+
+
+
+
+<ul style="list-style: none;">
+    <li><a href="/post/2016/02/enrolling-in-daj-sie-poznac/">Enrolling in "Daj się poznać"</a></li>
+    <li><a href="/post/2016/03/daj-sie-poznac-project-details/">"Daj się poznać" - Project details"</a></li>
+    <li><a href="/post/2016/03/i-m-holding-a-project-rider-eap/">I'm holding a Project Rider EAP</a></li>
+    <li><a href="/post/2016/03/installing-asp-dot-net-core-1-on-ubuntu-14/">Installing ASP .NET Core 1 on Ubuntu 14.04</a></li>
+    <li><a href="/post/2016/03/my-first-asp-net-core-1-web-application/">My first ASP NET Core 1.0 web application</a></li>
+    <li><a href="/post/2016/03/project-setup-server-side/">Project setup - server-side</a></li>
+    <li><a href="/post/2016/03/project-setup-client-side/">Project setup - client-side</a></li>
+</ul>
+
+
+
+
+            <ul class="share-buttons">
+    <li>Share this article:</li>
+    <li>
+        <a class="icon-facebook-squared" href="https://www.facebook.com/sharer/sharer.php?u=http%3a%2f%2fkoscielniak.me%2fpost%2f2016%2f03%2fproject-setup-client-side%2f" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;" title="Share on Facebook"></a>
+    </li>
+    <li>
+        <a class="icon-twitter" href="https://twitter.com/share?text=Project%20setup%20-%20client-side&amp;url=http%3a%2f%2fkoscielniak.me%2fpost%2f2016%2f03%2fproject-setup-client-side%2f" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;" title="Tweet this article"></a>
+    </li>
+    <li>
+        <a class="icon-gplus" href="https://plus.google.com/share?url=http%3a%2f%2fkoscielniak.me%2fpost%2f2016%2f03%2fproject-setup-client-side%2f" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;" title="Share on Google&#43;"></a>
+    </li>
+    <li>
+        <a class="icon-linkedin" href="https://www.linkedin.com/shareArticle?mini=true&url=http%3a%2f%2fkoscielniak.me%2fpost%2f2016%2f03%2fproject-setup-client-side%2f&title=Project%20setup%20-%20client-side" onclick="window.open(this.href, 'linkedin-share', 'width=600,height=494');return false;" title="Share on Linkedin"></a>
+    </li>
+</ul>
+
+        </article>
+        <div class="comments">
+            <h3>Comments</h3>
+            <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'koscielniak';
+    var disqus_identifier = 'http:\/\/koscielniak.me\/post\/2016\/03\/project-setup-client-side\/';
+    var disqus_title = 'Project setup - client-side';
+    var disqus_url = 'http:\/\/koscielniak.me\/post\/2016\/03\/project-setup-client-side\/';
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+        </div>
+    </main>
+    <aside class="author">
+  <img class="profile-image" src="http://koscielniak.me/img/profile-image.png" alt="Piotr Kościelniak" />
+  <p class="name">by 
+  <strong>Piotr Kościelniak</strong></p>
+  <p class="address">Passionate programmer</p>
+  <p class="link"></p>
+  <ul class="social">
+    
+<li><a href="//twitter.com/pikoscielniak" class="icon-twitter" target="_blank" title="Twitter"></a></li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li><a href="//github.com/pikoscielniak" class="icon-github" target="_blank" title="Github"></a></li>
+
+
+
+
+<li><a href="http://koscielniak.me/post/index.xml" class="icon-rss" target="_blank" title="RSS"></a></li>
+
+  </ul>
+  <br><br>
+</aside>
+
+</div>
+
+<footer class="main-footer">
+  <div class="container clearfix">
+        <a class="icon-rss" href="http://koscielniak.me/post/index.xml" title="RSS"></a>
+        <p>&copy; 2016 &middot; Piotr Kościelniak. Powered by <a href="http://gohugo.io">Hugo</a>.</p>
+  </div>
+</footer>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.8.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<script>window.jQuery || document.write('<script src="http:\/\/koscielniak.me\/js/vendor/jquery-1.11.0.min.js"><\/script>')</script>
+<script src="http://koscielniak.me/js/plugins.js"></script>
+
+<!-- Google Analytics -->
+<script>
+  var _gaq=[['_setAccount','UA-72752659-1'],['_trackPageview']];
+  (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+  g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+  s.parentNode.insertBefore(g,s)}(document,'script'));
+</script>
+
+</body>
+</html>
+
