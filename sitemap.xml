@@ -3,8 +3,13 @@
   
   <url>
     <loc>http://koscielniak.me/</loc>
-    <lastmod>2016-03-18T08:00:00+01:00</lastmod>
+    <lastmod>2016-03-21T22:15:00+01:00</lastmod>
     <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://koscielniak.me/post/2016/03/adding-styling-to-my-application/</loc>
+    <lastmod>2016-03-21T22:15:00+01:00</lastmod>
   </url>
   
   <url>

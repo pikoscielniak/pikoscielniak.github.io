@@ -1,0 +1,321 @@
+<!doctype html>
+<html class="no-js">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Piotr Kościelniak - passionate programmer</title>
+        <meta name="author">
+        <meta name="description" content="Piotr Kościelniak - passionate programmer">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="generator" content="Hugo 0.16-DEV" />
+          <link href="http://koscielniak.me/post/index.xml" rel="alternate" type="application/rss+xml" title="Piotr Kościelniak - passionate programmer" />
+          <link href="http://koscielniak.me/post/index.xml" rel="feed" type="application/rss+xml" title="Piotr Kościelniak - passionate programmer" />
+        <link href='//fonts.googleapis.com/css?family=Roboto:400,300,700|Noto+Serif:400,400italic,700,700italic' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" href="http://koscielniak.me/css/styles.css">
+        <link rel="icon" href="http://koscielniak.me/favicon.ico">
+        <link rel="apple-touch-icon" href="http://koscielniak.me/apple-touch-icon.png" />
+        <link rel="stylesheet" href="http://koscielniak.me/css/highlightjs/monokai.css">
+        <script src="http://koscielniak.me/js/vendor/modernizr-2.8.0.min.js"></script>
+        <style>
+        .site-header h2 .logo {
+        background: url(http://koscielniak.me/img/desk.jpg) no-repeat 0 0;
+        }
+        @media (min--moz-device-pixel-ratio: 1.3), (-o-min-device-pixel-ratio: 2.6 / 2), (-webkit-min-device-pixel-ratio: 1.3), (min-device-pixel-ratio: 1.3), (min-resolution: 1.3dppx) {
+          .site-header h2 .logo {
+            background-image: url(http://koscielniak.me/img/desk.jpg);
+        }}
+       .site-header {
+         background: #2a373d url(http://koscielniak.me/img/desk.jpg) no-repeat center center;
+         z-index: -1;
+        }
+        </style>
+    </head>
+    <body>
+        
+        <header class="site-header">
+          <div class="transparent-layer">
+              <h2>You&#39;re here. I appreciate it.</h2>
+          </div>
+        </header>
+
+
+<div class="container clearfix">
+    <main role="main" class="content">
+        <article class="post">
+            <a class="btn" href="http://koscielniak.me/" title="Back to home">&laquo; Back to home</a>
+            
+<h1><a href="http://koscielniak.me/post/2016/03/adding-styling-to-my-application/" title="Adding styling to my application">Adding styling to my application</a></h1>
+
+<footer class="post-info">Posted on <span class="post-meta"><time datetime="2016.03.21">2016.03.21</time>
+&middot; Tagged in
+    
+    <a href="http://koscielniak.me/tags/daj-si%C4%99-pozna%C4%87">daj się poznać</a>, 
+    
+    <a href="http://koscielniak.me/tags/angular2">angular2</a>, 
+    
+    <a href="http://koscielniak.me/tags/material-design">material design</a>
+    
+
+</span>
+</footer>
+
+            <p><a href="http://dajsiepoznac.pl"><img src="/post/2016/03/contestLogo.png" alt="Daj się poznać" title="Daj się poznać" /></a></p>
+
+<p>My last <a href="/post/2016/03/project-setup-client-side/">post</a>
+described how I setup Angular 2 on the client-side of my Project.
+I was a bit surprised how long that post turned out.
+That’s why I decided to write about how I added styling to my application in another post.
+This post is just about the research which I did to chose a visual style for my application and about
+my final choice. I think about the posts in the “Daj się poznać” series as diary for what
+I have done in my contest project, and that’s I’m writing this post.</p>
+
+<p>I really had a dilemma about which CSS framework to choose for my application but among many unknowns
+I had one certain thing - I wanted to have
+<a href="https://www.google.com/design/spec/material-design/introduction.html" target="_blank">Material Design</a>
+in my application. Learning
+Material Design was on my to-do list for a very long time, so I’m killing two birds with one stone.</p>
+
+<p>There are a lot of libraries and CSS frameworks that give you ready-to-use material design components.
+I wanted to use one of them
+but it wasn’t an easy task to choose one. I only going mention a few which interested me the most.</p>
+
+<p>I am qutie good at Angular 1.x and for this framework there is already a well-tested
+implementation of Material Design. You can look at it on
+this <a href="https://material.angularjs.org/latest/" target="_blank">page</a>.
+This framework would be an obvious choice if I used Angular 1.x on the client-side part
+of my application. This framework has everything that I need. For Angular 2,
+the choice wasn’t so obvious.</p>
+
+<p>There is already an official
+<a href="https://github.com/angular/material2" target="_blank">Material Design for Angular 2</a>
+but at the moment this post was written, it is currently in the early alpha stage and includes
+only 6 components. I have gotten used to using Bleeding Edge stuff in my project but this
+Edge is too sharp for me.
+I wanted something more stable and reliable.</p>
+
+<p><em>Nature abhors a vacuum</em> especially in the JS/CSS world, so if there is a lack of something
+it will appear quickly. I wouldn’t have searched for too long to find an alternative implementation.
+On this <a href="https://github.com/justindujardin/ng2-material" target="_blank">page</a>
+I found an implementation of
+Material Design components for Angular 2. This implementation has everything that
+I need but my gut told me: “you shouldn’t use this”. I believe never to argue with my gut feeling.
+Maybe it’s a bit too heavy, maybe it is too young. I don’t know but my gut probably knows better.</p>
+
+<p>Another material design framework which I was willing to use was
+<a href="http://materializecss.com/" target="_blank">Materialize</a>.
+This framework is quite mature and has a lot components.
+Far much more than I need. It has even
+<a href="https://github.com/InfomediaLtd/angular2-materialize" target="_blank">Angular 2 support</a>.
+But this support seems to me to be a bit immature.</p>
+
+<p><a href="http://getbootstrap.com/" target="_blank">Bootstrap</a>
+has also its own Material Design versions but
+I am quite familiar with Bootstrap and
+I wanted to learn something new that’s why I did not consider it.</p>
+
+<p>While researching, I looked at the Pluralsight course
+<a href="https://www.pluralsight.com/courses/angular-2-first-look" target="_blank">Angular 2: First Look</a>
+by <a href="https://twitter.com/john_papa" target="_blank">John Papa</a>.
+He’s a great authority for me in all things client-side.
+I found out in this course how he added Material Design to his application.
+He used a library called
+<a href="https://www.getmdl.io/" target="_blank">Material Design Lite</a>(MDL).
+This library doesn’t rely on any JavaScript frameworks so I can use it in
+Angular 2 without almost any trouble. But using this library has some drawbacks.
+I will have to implement Angular 2 reusable components that will wrap MDL components.
+I am okay with this because I want to learn a lot during the contest and this is
+a perfect occasion to find out something more about Angular 2.
+I’ll describe what I mean by creating wrappers around MDL components in my next post.</p>
+
+<p>Enough words let&rsquo;s get to practice.</p>
+
+<p>To add MDL to my application, I issued <code>npm install material-design-lite --save</code> in my terminal.
+After a while, I had downloaded MDL to my <em>node_modules</em> folder and it was also saved in
+my <em>package.json</em> file. Now I must copy the needed files to the <em>wwwroot</em> as I did with the
+Angular 2 files.
+MDL requires two files. I added them to my config in <em>gulpfile.js</em> so after it looked like this:</p>
+
+<pre><code>var config = {
+   libBase: 'node_modules',
+   lib: [
+       require.resolve('es6-shim/es6-shim.min.js'),
+       require.resolve('es6-shim/es6-shim.map'),
+       require.resolve('systemjs/dist/system-polyfills.js'),
+       require.resolve('systemjs/dist/system-polyfills.js.map'),
+       require.resolve('angular2/es6/dev/src/testing/shims_for_IE.js'),
+       require.resolve('systemjs/dist/system.src.js'),
+       require.resolve('angular2/bundles/angular2-polyfills.js'),
+       require.resolve('rxjs/bundles/Rx.js'),
+       require.resolve('angular2/bundles/angular2.dev.js'),
+       require.resolve('angular2/bundles/router.dev.js'),
+       require.resolve('angular2/bundles/http.dev.js'),
+       require.resolve('material-design-lite/dist/material.blue-teal.min.css'),
+       require.resolve('material-design-lite/material.min.js')
+   ]
+};
+</code></pre>
+
+<p>I chose the color template blue-teal but there are a lot of other options.
+You can even customize the color set by yourself on the
+<a href="https://www.getmdl.io/customize/index.html" target="_blank">MDL page</a>. To copy these files to <em>wwwroot/lib</em>
+I executed <code>gulp build-dev</code> in the terminal.
+Then I added links to these files in <em>_Layou.cshtml</em> so the head part of this file look like this:</p>
+
+<pre><code>   &lt;head&gt;
+        &lt;meta charset=&quot;utf-8&quot; /&gt;
+        &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot; /&gt;
+        &lt;title&gt;Notifier&lt;/title&gt;
+        &lt;base href=&quot;/&quot; /&gt;
+        
+        &lt;link rel=&quot;stylesheet&quot; href=&quot;https://fonts.googleapis.com/icon?family=Material+Icons&quot;&gt;
+        &lt;link rel=&quot;stylesheet&quot; href=&quot;lib/material-design-lite/dist/material.blue-teal.min.css&quot;&gt;
+        &lt;script src=&quot;lib/material-design-lite/material.min.js&quot;&gt;&lt;/script&gt;
+    &lt;/head&gt;
+</code></pre>
+
+<p>As you can see MDL also requires fonts which are included from googleapis.</p>
+
+<p>To see if my import succeeded, I changed my <em>app.component.ts</em> so it looked like this:</p>
+
+<pre><code>import {Component} from 'angular2/core';
+@Component({
+   selector: 'notifier',
+   template: `&lt;div class=&quot;mdl-layout mdl-js-layout mdl-layout--fixed-header&quot;&gt;
+       &lt;header class=&quot;mdl-layout__header&quot;&gt;&lt;h1&gt;{{title}}&lt;/h1&gt;&lt;/header&gt;
+   &lt;/div&gt;`
+})
+export class AppComponent {
+   title = &quot;Notifier!!!&quot;;
+}
+</code></pre>
+
+<p>And after recompilation of <em>.ts</em> files (<code>npm run tsc</code>), this is what I got:</p>
+
+<p><img src="/post/2016/03/materialdesign/finalResult.png" alt="Final result" title="Final result" /></p>
+
+<p>You may not see it in this post but I spent a lot of time doing research on what
+CSS framework or library to choose. Finally, I will stick with Material Design Lite
+but I am not 100% sure about my decision. I’ll be watching what’s going on in
+the Angular 2 world and if something more attractive appears,
+maybe I’ll change my decision. I hope that it won’t be too late.
+Maybe someone will read this post and suggest a better choice to me. Anyway, in the next post
+I’ll continue with MDL and I’ll explain what I mean by wrapping MDL components.</p>
+
+<h3>Related posts:</h3>
+
+
+
+
+
+
+
+
+
+<ul style="list-style: none;">
+    <li><a href="/post/2016/02/enrolling-in-daj-sie-poznac/">Enrolling in "Daj się poznać"</a></li>
+    <li><a href="/post/2016/03/daj-sie-poznac-project-details/">"Daj się poznać" - Project details"</a></li>
+    <li><a href="/post/2016/03/i-m-holding-a-project-rider-eap/">I'm holding a Project Rider EAP</a></li>
+    <li><a href="/post/2016/03/installing-asp-dot-net-core-1-on-ubuntu-14/">Installing ASP .NET Core 1 on Ubuntu 14.04</a></li>
+    <li><a href="/post/2016/03/my-first-asp-net-core-1-web-application/">My first ASP NET Core 1.0 web application</a></li>
+    <li><a href="/post/2016/03/project-setup-server-side/">Project setup - server-side</a></li>
+    <li><a href="/post/2016/03/project-setup-client-side/">Project setup - client-side</a></li>
+    <li><a href="/post/2016/03/adding-styling-to-my-application/">Adding styling to my application</a></li>
+</ul>
+
+
+
+
+            <ul class="share-buttons">
+    <li>Share this article:</li>
+    <li>
+        <a class="icon-facebook-squared" href="https://www.facebook.com/sharer/sharer.php?u=http%3a%2f%2fkoscielniak.me%2fpost%2f2016%2f03%2fadding-styling-to-my-application%2f" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;" title="Share on Facebook"></a>
+    </li>
+    <li>
+        <a class="icon-twitter" href="https://twitter.com/share?text=Adding%20styling%20to%20my%20application&amp;url=http%3a%2f%2fkoscielniak.me%2fpost%2f2016%2f03%2fadding-styling-to-my-application%2f" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;" title="Tweet this article"></a>
+    </li>
+    <li>
+        <a class="icon-gplus" href="https://plus.google.com/share?url=http%3a%2f%2fkoscielniak.me%2fpost%2f2016%2f03%2fadding-styling-to-my-application%2f" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;" title="Share on Google&#43;"></a>
+    </li>
+    <li>
+        <a class="icon-linkedin" href="https://www.linkedin.com/shareArticle?mini=true&url=http%3a%2f%2fkoscielniak.me%2fpost%2f2016%2f03%2fadding-styling-to-my-application%2f&title=Adding%20styling%20to%20my%20application" onclick="window.open(this.href, 'linkedin-share', 'width=600,height=494');return false;" title="Share on Linkedin"></a>
+    </li>
+</ul>
+
+        </article>
+        <div class="comments">
+            <h3>Comments</h3>
+            <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'koscielniak';
+    var disqus_identifier = 'http:\/\/koscielniak.me\/post\/2016\/03\/adding-styling-to-my-application\/';
+    var disqus_title = 'Adding styling to my application';
+    var disqus_url = 'http:\/\/koscielniak.me\/post\/2016\/03\/adding-styling-to-my-application\/';
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+        </div>
+    </main>
+    <aside class="author">
+  <img class="profile-image" src="http://koscielniak.me/img/profile-image.png" alt="Piotr Kościelniak" />
+  <p class="name">by 
+  <strong>Piotr Kościelniak</strong></p>
+  <p class="address">Passionate programmer</p>
+  <p class="link"></p>
+  <ul class="social">
+    
+<li><a href="//twitter.com/pikoscielniak" class="icon-twitter" target="_blank" title="Twitter"></a></li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li><a href="//github.com/pikoscielniak" class="icon-github" target="_blank" title="Github"></a></li>
+
+
+
+
+<li><a href="http://koscielniak.me/post/index.xml" class="icon-rss" target="_blank" title="RSS"></a></li>
+
+  </ul>
+  <br><br>
+</aside>
+
+</div>
+
+<footer class="main-footer">
+  <div class="container clearfix">
+        <a class="icon-rss" href="http://koscielniak.me/post/index.xml" title="RSS"></a>
+        <p>&copy; 2016 &middot; Piotr Kościelniak. Powered by <a href="http://gohugo.io">Hugo</a>.</p>
+  </div>
+</footer>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.8.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<script>window.jQuery || document.write('<script src="http:\/\/koscielniak.me\/js/vendor/jquery-1.11.0.min.js"><\/script>')</script>
+<script src="http://koscielniak.me/js/plugins.js"></script>
+
+<!-- Google Analytics -->
+<script>
+  var _gaq=[['_setAccount','UA-72752659-1'],['_trackPageview']];
+  (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+  g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+  s.parentNode.insertBefore(g,s)}(document,'script'));
+</script>
+
+</body>
+</html>
+

@@ -6,8 +6,182 @@
     <description>Recent content in Daj Się Poznać on Piotr Kościelniak - passionate programmer</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 18 Mar 2016 08:00:00 +0100</lastBuildDate>
+    <lastBuildDate>Mon, 21 Mar 2016 22:15:00 +0100</lastBuildDate>
     <atom:link href="http://koscielniak.me/tags/daj-si%C4%99-pozna%C4%87/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Adding styling to my application</title>
+      <link>http://koscielniak.me/post/2016/03/adding-styling-to-my-application/</link>
+      <pubDate>Mon, 21 Mar 2016 22:15:00 +0100</pubDate>
+      
+      <guid>http://koscielniak.me/post/2016/03/adding-styling-to-my-application/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;http://dajsiepoznac.pl&#34;&gt;&lt;img src=&#34;http://koscielniak.me/post/2016/03/contestLogo.png&#34; alt=&#34;Daj się poznać&#34; title=&#34;Daj się poznać&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;My last &lt;a href=&#34;http://koscielniak.me/post/2016/03/project-setup-client-side/&#34;&gt;post&lt;/a&gt;
+described how I setup Angular 2 on the client-side of my Project.
+I was a bit surprised how long that post turned out.
+That’s why I decided to write about how I added styling to my application in another post.
+This post is just about the research which I did to chose a visual style for my application and about
+my final choice. I think about the posts in the “Daj się poznać” series as diary for what
+I have done in my contest project, and that’s I’m writing this post.&lt;/p&gt;
+
+&lt;p&gt;I really had a dilemma about which CSS framework to choose for my application but among many unknowns
+I had one certain thing - I wanted to have
+&lt;a href=&#34;https://www.google.com/design/spec/material-design/introduction.html&#34; target=&#34;_blank&#34;&gt;Material Design&lt;/a&gt;
+in my application. Learning
+Material Design was on my to-do list for a very long time, so I’m killing two birds with one stone.&lt;/p&gt;
+
+&lt;p&gt;There are a lot of libraries and CSS frameworks that give you ready-to-use material design components.
+I wanted to use one of them
+but it wasn’t an easy task to choose one. I only going mention a few which interested me the most.&lt;/p&gt;
+
+&lt;p&gt;I am qutie good at Angular 1.x and for this framework there is already a well-tested
+implementation of Material Design. You can look at it on
+this &lt;a href=&#34;https://material.angularjs.org/latest/&#34; target=&#34;_blank&#34;&gt;page&lt;/a&gt;.
+This framework would be an obvious choice if I used Angular 1.x on the client-side part
+of my application. This framework has everything that I need. For Angular 2,
+the choice wasn’t so obvious.&lt;/p&gt;
+
+&lt;p&gt;There is already an official
+&lt;a href=&#34;https://github.com/angular/material2&#34; target=&#34;_blank&#34;&gt;Material Design for Angular 2&lt;/a&gt;
+but at the moment this post was written, it is currently in the early alpha stage and includes
+only 6 components. I have gotten used to using Bleeding Edge stuff in my project but this
+Edge is too sharp for me.
+I wanted something more stable and reliable.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;Nature abhors a vacuum&lt;/em&gt; especially in the JS/CSS world, so if there is a lack of something
+it will appear quickly. I wouldn’t have searched for too long to find an alternative implementation.
+On this &lt;a href=&#34;https://github.com/justindujardin/ng2-material&#34; target=&#34;_blank&#34;&gt;page&lt;/a&gt;
+I found an implementation of
+Material Design components for Angular 2. This implementation has everything that
+I need but my gut told me: “you shouldn’t use this”. I believe never to argue with my gut feeling.
+Maybe it’s a bit too heavy, maybe it is too young. I don’t know but my gut probably knows better.&lt;/p&gt;
+
+&lt;p&gt;Another material design framework which I was willing to use was
+&lt;a href=&#34;http://materializecss.com/&#34; target=&#34;_blank&#34;&gt;Materialize&lt;/a&gt;.
+This framework is quite mature and has a lot components.
+Far much more than I need. It has even
+&lt;a href=&#34;https://github.com/InfomediaLtd/angular2-materialize&#34; target=&#34;_blank&#34;&gt;Angular 2 support&lt;/a&gt;.
+But this support seems to me to be a bit immature.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://getbootstrap.com/&#34; target=&#34;_blank&#34;&gt;Bootstrap&lt;/a&gt;
+has also its own Material Design versions but
+I am quite familiar with Bootstrap and
+I wanted to learn something new that’s why I did not consider it.&lt;/p&gt;
+
+&lt;p&gt;While researching, I looked at the Pluralsight course
+&lt;a href=&#34;https://www.pluralsight.com/courses/angular-2-first-look&#34; target=&#34;_blank&#34;&gt;Angular 2: First Look&lt;/a&gt;
+by &lt;a href=&#34;https://twitter.com/john_papa&#34; target=&#34;_blank&#34;&gt;John Papa&lt;/a&gt;.
+He’s a great authority for me in all things client-side.
+I found out in this course how he added Material Design to his application.
+He used a library called
+&lt;a href=&#34;https://www.getmdl.io/&#34; target=&#34;_blank&#34;&gt;Material Design Lite&lt;/a&gt;(MDL).
+This library doesn’t rely on any JavaScript frameworks so I can use it in
+Angular 2 without almost any trouble. But using this library has some drawbacks.
+I will have to implement Angular 2 reusable components that will wrap MDL components.
+I am okay with this because I want to learn a lot during the contest and this is
+a perfect occasion to find out something more about Angular 2.
+I’ll describe what I mean by creating wrappers around MDL components in my next post.&lt;/p&gt;
+
+&lt;p&gt;Enough words let&amp;rsquo;s get to practice.&lt;/p&gt;
+
+&lt;p&gt;To add MDL to my application, I issued &lt;code&gt;npm install material-design-lite --save&lt;/code&gt; in my terminal.
+After a while, I had downloaded MDL to my &lt;em&gt;node_modules&lt;/em&gt; folder and it was also saved in
+my &lt;em&gt;package.json&lt;/em&gt; file. Now I must copy the needed files to the &lt;em&gt;wwwroot&lt;/em&gt; as I did with the
+Angular 2 files.
+MDL requires two files. I added them to my config in &lt;em&gt;gulpfile.js&lt;/em&gt; so after it looked like this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;var config = {
+   libBase: &#39;node_modules&#39;,
+   lib: [
+       require.resolve(&#39;es6-shim/es6-shim.min.js&#39;),
+       require.resolve(&#39;es6-shim/es6-shim.map&#39;),
+       require.resolve(&#39;systemjs/dist/system-polyfills.js&#39;),
+       require.resolve(&#39;systemjs/dist/system-polyfills.js.map&#39;),
+       require.resolve(&#39;angular2/es6/dev/src/testing/shims_for_IE.js&#39;),
+       require.resolve(&#39;systemjs/dist/system.src.js&#39;),
+       require.resolve(&#39;angular2/bundles/angular2-polyfills.js&#39;),
+       require.resolve(&#39;rxjs/bundles/Rx.js&#39;),
+       require.resolve(&#39;angular2/bundles/angular2.dev.js&#39;),
+       require.resolve(&#39;angular2/bundles/router.dev.js&#39;),
+       require.resolve(&#39;angular2/bundles/http.dev.js&#39;),
+       require.resolve(&#39;material-design-lite/dist/material.blue-teal.min.css&#39;),
+       require.resolve(&#39;material-design-lite/material.min.js&#39;)
+   ]
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;I chose the color template blue-teal but there are a lot of other options.
+You can even customize the color set by yourself on the
+&lt;a href=&#34;https://www.getmdl.io/customize/index.html&#34; target=&#34;_blank&#34;&gt;MDL page&lt;/a&gt;. To copy these files to &lt;em&gt;wwwroot/lib&lt;/em&gt;
+I executed &lt;code&gt;gulp build-dev&lt;/code&gt; in the terminal.
+Then I added links to these files in &lt;em&gt;_Layou.cshtml&lt;/em&gt; so the head part of this file look like this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;   &amp;lt;head&amp;gt;
+        &amp;lt;meta charset=&amp;quot;utf-8&amp;quot; /&amp;gt;
+        &amp;lt;meta name=&amp;quot;viewport&amp;quot; content=&amp;quot;width=device-width, initial-scale=1.0&amp;quot; /&amp;gt;
+        &amp;lt;title&amp;gt;Notifier&amp;lt;/title&amp;gt;
+        &amp;lt;base href=&amp;quot;/&amp;quot; /&amp;gt;
+        
+        &amp;lt;link rel=&amp;quot;stylesheet&amp;quot; href=&amp;quot;https://fonts.googleapis.com/icon?family=Material+Icons&amp;quot;&amp;gt;
+        &amp;lt;link rel=&amp;quot;stylesheet&amp;quot; href=&amp;quot;lib/material-design-lite/dist/material.blue-teal.min.css&amp;quot;&amp;gt;
+        &amp;lt;script src=&amp;quot;lib/material-design-lite/material.min.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+    &amp;lt;/head&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;As you can see MDL also requires fonts which are included from googleapis.&lt;/p&gt;
+
+&lt;p&gt;To see if my import succeeded, I changed my &lt;em&gt;app.component.ts&lt;/em&gt; so it looked like this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;import {Component} from &#39;angular2/core&#39;;
+@Component({
+   selector: &#39;notifier&#39;,
+   template: `&amp;lt;div class=&amp;quot;mdl-layout mdl-js-layout mdl-layout--fixed-header&amp;quot;&amp;gt;
+       &amp;lt;header class=&amp;quot;mdl-layout__header&amp;quot;&amp;gt;&amp;lt;h1&amp;gt;{{title}}&amp;lt;/h1&amp;gt;&amp;lt;/header&amp;gt;
+   &amp;lt;/div&amp;gt;`
+})
+export class AppComponent {
+   title = &amp;quot;Notifier!!!&amp;quot;;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;And after recompilation of &lt;em&gt;.ts&lt;/em&gt; files (&lt;code&gt;npm run tsc&lt;/code&gt;), this is what I got:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://koscielniak.me/post/2016/03/materialdesign/finalResult.png&#34; alt=&#34;Final result&#34; title=&#34;Final result&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;You may not see it in this post but I spent a lot of time doing research on what
+CSS framework or library to choose. Finally, I will stick with Material Design Lite
+but I am not 100% sure about my decision. I’ll be watching what’s going on in
+the Angular 2 world and if something more attractive appears,
+maybe I’ll change my decision. I hope that it won’t be too late.
+Maybe someone will read this post and suggest a better choice to me. Anyway, in the next post
+I’ll continue with MDL and I’ll explain what I mean by wrapping MDL components.&lt;/p&gt;
+
+&lt;h3&gt;Related posts:&lt;/h3&gt;
+
+
+
+
+
+
+
+
+
+&lt;ul style=&#34;list-style: none;&#34;&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/02/enrolling-in-daj-sie-poznac/&#34;&gt;Enrolling in &#34;Daj się poznać&#34;&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/daj-sie-poznac-project-details/&#34;&gt;&#34;Daj się poznać&#34; - Project details&#34;&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/i-m-holding-a-project-rider-eap/&#34;&gt;I&#39;m holding a Project Rider EAP&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/installing-asp-dot-net-core-1-on-ubuntu-14/&#34;&gt;Installing ASP .NET Core 1 on Ubuntu 14.04&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/my-first-asp-net-core-1-web-application/&#34;&gt;My first ASP NET Core 1.0 web application&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/project-setup-server-side/&#34;&gt;Project setup - server-side&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/project-setup-client-side/&#34;&gt;Project setup - client-side&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/adding-styling-to-my-application/&#34;&gt;Adding styling to my application&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+
+
+</description>
+    </item>
     
     <item>
       <title>Project setup - client-side</title>
@@ -337,6 +511,7 @@ I will talk about how I added styling to my application and how I improved this 
 
 
 
+
 &lt;ul style=&#34;list-style: none;&#34;&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/02/enrolling-in-daj-sie-poznac/&#34;&gt;Enrolling in &#34;Daj się poznać&#34;&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/daj-sie-poznac-project-details/&#34;&gt;&#34;Daj się poznać&#34; - Project details&#34;&lt;/a&gt;&lt;/li&gt;
@@ -345,6 +520,7 @@ I will talk about how I added styling to my application and how I improved this 
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/my-first-asp-net-core-1-web-application/&#34;&gt;My first ASP NET Core 1.0 web application&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/project-setup-server-side/&#34;&gt;Project setup - server-side&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/project-setup-client-side/&#34;&gt;Project setup - client-side&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/adding-styling-to-my-application/&#34;&gt;Adding styling to my application&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 
@@ -555,6 +731,7 @@ I am happy with everything I have now. Now I can start to set up my client-side.
 
 
 
+
 &lt;ul style=&#34;list-style: none;&#34;&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/02/enrolling-in-daj-sie-poznac/&#34;&gt;Enrolling in &#34;Daj się poznać&#34;&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/daj-sie-poznac-project-details/&#34;&gt;&#34;Daj się poznać&#34; - Project details&#34;&lt;/a&gt;&lt;/li&gt;
@@ -563,6 +740,7 @@ I am happy with everything I have now. Now I can start to set up my client-side.
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/my-first-asp-net-core-1-web-application/&#34;&gt;My first ASP NET Core 1.0 web application&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/project-setup-server-side/&#34;&gt;Project setup - server-side&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/project-setup-client-side/&#34;&gt;Project setup - client-side&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/adding-styling-to-my-application/&#34;&gt;Adding styling to my application&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 
@@ -702,6 +880,7 @@ Now I can start create my project.&lt;/p&gt;
 
 
 
+
 &lt;ul style=&#34;list-style: none;&#34;&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/02/enrolling-in-daj-sie-poznac/&#34;&gt;Enrolling in &#34;Daj się poznać&#34;&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/daj-sie-poznac-project-details/&#34;&gt;&#34;Daj się poznać&#34; - Project details&#34;&lt;/a&gt;&lt;/li&gt;
@@ -710,6 +889,7 @@ Now I can start create my project.&lt;/p&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/my-first-asp-net-core-1-web-application/&#34;&gt;My first ASP NET Core 1.0 web application&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/project-setup-server-side/&#34;&gt;Project setup - server-side&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/project-setup-client-side/&#34;&gt;Project setup - client-side&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/adding-styling-to-my-application/&#34;&gt;Adding styling to my application&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 
@@ -857,6 +1037,7 @@ for example, adding a new controller or view. However, I’ll write about this i
 
 
 
+
 &lt;ul style=&#34;list-style: none;&#34;&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/02/enrolling-in-daj-sie-poznac/&#34;&gt;Enrolling in &#34;Daj się poznać&#34;&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/daj-sie-poznac-project-details/&#34;&gt;&#34;Daj się poznać&#34; - Project details&#34;&lt;/a&gt;&lt;/li&gt;
@@ -865,6 +1046,7 @@ for example, adding a new controller or view. However, I’ll write about this i
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/my-first-asp-net-core-1-web-application/&#34;&gt;My first ASP NET Core 1.0 web application&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/project-setup-server-side/&#34;&gt;Project setup - server-side&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/project-setup-client-side/&#34;&gt;Project setup - client-side&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/adding-styling-to-my-application/&#34;&gt;Adding styling to my application&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 
@@ -1005,6 +1187,7 @@ Again, great job to JetBrains! I am sure that I’m not the only one waiting for
 
 
 
+
 &lt;ul style=&#34;list-style: none;&#34;&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/02/enrolling-in-daj-sie-poznac/&#34;&gt;Enrolling in &#34;Daj się poznać&#34;&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/daj-sie-poznac-project-details/&#34;&gt;&#34;Daj się poznać&#34; - Project details&#34;&lt;/a&gt;&lt;/li&gt;
@@ -1013,6 +1196,7 @@ Again, great job to JetBrains! I am sure that I’m not the only one waiting for
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/my-first-asp-net-core-1-web-application/&#34;&gt;My first ASP NET Core 1.0 web application&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/project-setup-server-side/&#34;&gt;Project setup - server-side&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/project-setup-client-side/&#34;&gt;Project setup - client-side&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/adding-styling-to-my-application/&#34;&gt;Adding styling to my application&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 
@@ -1074,6 +1258,7 @@ will look like but I’ll write about it in future posts as the project will con
 
 
 
+
 &lt;ul style=&#34;list-style: none;&#34;&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/02/enrolling-in-daj-sie-poznac/&#34;&gt;Enrolling in &#34;Daj się poznać&#34;&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/daj-sie-poznac-project-details/&#34;&gt;&#34;Daj się poznać&#34; - Project details&#34;&lt;/a&gt;&lt;/li&gt;
@@ -1082,6 +1267,7 @@ will look like but I’ll write about it in future posts as the project will con
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/my-first-asp-net-core-1-web-application/&#34;&gt;My first ASP NET Core 1.0 web application&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/project-setup-server-side/&#34;&gt;Project setup - server-side&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/project-setup-client-side/&#34;&gt;Project setup - client-side&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/adding-styling-to-my-application/&#34;&gt;Adding styling to my application&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 
@@ -1132,6 +1318,7 @@ so&amp;hellip;let’s do it!&lt;/p&gt;
 
 
 
+
 &lt;ul style=&#34;list-style: none;&#34;&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/02/enrolling-in-daj-sie-poznac/&#34;&gt;Enrolling in &#34;Daj się poznać&#34;&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/daj-sie-poznac-project-details/&#34;&gt;&#34;Daj się poznać&#34; - Project details&#34;&lt;/a&gt;&lt;/li&gt;
@@ -1140,6 +1327,7 @@ so&amp;hellip;let’s do it!&lt;/p&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/my-first-asp-net-core-1-web-application/&#34;&gt;My first ASP NET Core 1.0 web application&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/project-setup-server-side/&#34;&gt;Project setup - server-side&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/project-setup-client-side/&#34;&gt;Project setup - client-side&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/adding-styling-to-my-application/&#34;&gt;Adding styling to my application&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 
