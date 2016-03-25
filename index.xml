@@ -286,7 +286,9 @@ you need to register new elements by yourself using either &lt;em&gt;componentHa
 &lt;a href=&#34;https://github.com/pikoscielniak/notifier&#34; target=&#34;_blank&#34;&gt;github repository&lt;/a&gt;
 for this project.&lt;/p&gt;
 
-&lt;p&gt;My implementation of the confirm dialog component is based on the work of John Papa from the Angular 2 First Look Pluralsight course (&lt;a href=&#34;http://app.pluralsight.com/courses/angular-2-first-look&#34;&gt;http://app.pluralsight.com/courses/angular-2-first-look&lt;/a&gt;). I made some changes to adjust his solution to my reality. In the next post, I am going to write about messing around with the application setup but this time from a different perspective. See you then.&lt;/p&gt;
+&lt;p&gt;My implementation of the confirm dialog component is based on the work of John Papa from the
+&lt;a href=&#34;http://app.pluralsight.com/courses/angular-2-first-look&#34; target=&#34;_blank&#34;&gt;Angular 2 First Look Pluralsight&lt;/a&gt;
+course. I made some changes to adjust his solution to my reality. In the next post, I am going to write about messing around with the application setup but this time from a different perspective. See you then.&lt;/p&gt;
 
 &lt;p&gt;&lt;h3&gt;Related posts:&lt;/h3&gt;
 
