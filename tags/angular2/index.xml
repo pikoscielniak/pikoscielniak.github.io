@@ -6,8 +6,173 @@
     <description>Recent content in Angular2 on Piotr Kościelniak - passionate programmer</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 24 Mar 2016 22:00:00 +0100</lastBuildDate>
+    <lastBuildDate>Mon, 28 Mar 2016 22:00:00 +0100</lastBuildDate>
     <atom:link href="http://koscielniak.me/tags/angular2/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Before going into production</title>
+      <link>http://koscielniak.me/post/2016/03/before-going-into-production/</link>
+      <pubDate>Mon, 28 Mar 2016 22:00:00 +0100</pubDate>
+      
+      <guid>http://koscielniak.me/post/2016/03/before-going-into-production/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;http://dajsiepoznac.pl&#34;&gt;&lt;img src=&#34;http://koscielniak.me/post/2016/03/contestLogo.png&#34; alt=&#34;Daj się poznać&#34; title=&#34;Daj się poznać&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;I have been dealing with my project for a while and I haven’t shown anything to my Imaginary Client. They are starting to think that I haven’t done anything but burn their Imaginary Money. But I have done something. I have written posts, I have done research and I have learned a lot new things. To convince my Imaginary Client that I haven’t wasted their Imaginary Money I should quickly deploy something to production but before I do this I should tune my application a bit.&lt;/p&gt;
+
+&lt;p&gt;The first thing I did was update Angular 2. There have been two new versions since I started this series. You can check this by command  &lt;code&gt;npm outdated&lt;/code&gt; executed in terminal.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://koscielniak.me/post/2016/03/goingIntoProduction/npmOutdated.png&#34; alt=&#34;npm outdated output&#34; title=&#34;npm outdated output&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;It turned out that not only was Angular 2 outdated, but 5 other packages were outdated as well.
+I changed the versions of every outdated package in &lt;em&gt;package.json&lt;/em&gt; to the newest one and after this I executed &lt;code&gt;npm update&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Next, I added some npm packages by entering this in terminal:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;npm install concurrently event-stream gulp-sourcemaps gulp-typescript gulp-inline-ng2-template --save-dev
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The package &lt;em&gt;concurrently&lt;/em&gt; I used in my &lt;code&gt;postinstall&lt;/code&gt; script in &lt;em&gt;package.json&lt;/em&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;quot;scripts&amp;quot;: {
+ //...
+ &amp;quot;build-dev&amp;quot;:&amp;quot;gulp build-dev&amp;quot;,
+ &amp;quot;postinstall&amp;quot;: &amp;quot;concurrently \&amp;quot;typings install\&amp;quot; \&amp;quot;npm run build-dev\&amp;quot;&amp;quot;
+},
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Now every time I execute &lt;code&gt;npm install&lt;/code&gt; the &lt;em&gt;typings&lt;/em&gt; will be installed and my &lt;em&gt;build-dev&lt;/em&gt; gulp task will be executed.&lt;/p&gt;
+
+&lt;p&gt;The package &lt;em&gt;event-stream&lt;/em&gt; is what I needed to merge the streams into one and return it for further processing.&lt;/p&gt;
+
+&lt;p&gt;The &lt;em&gt;gulp-sourcemaps&lt;/em&gt; package generates source maps that are embedded in the source file. Something like this is added at the bottom of every &lt;code&gt;.js&lt;/code&gt; file created from a TypeScript file:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImFwcC9tYWlu….
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The package &lt;em&gt;gulp-typescript&lt;/em&gt; is used to compile TypeScript files.&lt;/p&gt;
+
+&lt;p&gt;Finally, this package &lt;em&gt;gulp-inline-ng2-template&lt;/em&gt; inlines HTML and CSS files into the JavaScript files of Angular 2 components.&lt;/p&gt;
+
+&lt;p&gt;All the packages I combined in one gulp task that looked like this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;gulp.task(&#39;build-prod&#39;, [&#39;build.lib&#39;], function () {
+   var tsProject = typescript.createProject(&#39;./tsconfig.json&#39;, { typescript: require(&#39;typescript&#39;) });
+   var tsSrcInlined = gulp.src([webroot + &#39;**/*.ts&#39;], { base: webroot })
+       .pipe(inlineNg2Template({ base: webroot }));
+   return eventStream.merge(tsSrcInlined, gulp.src([&#39;typings/browser/**/*.ts&#39;,&#39;typings/browser.d.ts&#39;]))
+       .pipe(sourcemaps.init())
+       .pipe(typescript(tsProject))
+       .pipe(sourcemaps.write())
+       .pipe(gulp.dest(webroot))
+});
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This task complies all TypeScript files in my application and inlines source maps, CSS styles and HTML templates inside components and saves all the process files inside &lt;em&gt;wwwroot&lt;/em&gt; folder. This processing reduces the number of requests to my application. I know in the HTTP2 world it won’t be needed, but as far as I know, kestrel doesn’t have support for HTTP2 yet.&lt;/p&gt;
+
+&lt;p&gt;The next thing which I did was a conditional import of Javascript and CSS files. Dependent on the environment, I loaded them either
+from
+&lt;a href=&#34;https://en.wikipedia.org/wiki/Content_delivery_network&#34; target=&#34;_blank&#34;&gt;CDN&lt;/a&gt;
+for production or from local for development environment. An example how I did this in the file
+&lt;a href=&#34;https://github.com/pikoscielniak/notifier/blob/master/src/web/Views/Shared/_Layout.cshtml&#34; target=&#34;_blank&#34;&gt;_Layout.cshtml&lt;/a&gt;
+looked like this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;        &amp;lt;environment names=&amp;quot;Development&amp;quot;&amp;gt;
+            &amp;lt;link rel=&amp;quot;stylesheet&amp;quot; href=&amp;quot;lib/material-design-lite/dist/material.blue-teal.min.css&amp;quot;&amp;gt;
+            &amp;lt;script src=&amp;quot;lib/material-design-lite/material.min.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+        &amp;lt;/environment&amp;gt;
+        &amp;lt;environment names=&amp;quot;Staging,Production&amp;quot;&amp;gt;            
+            &amp;lt;link rel=&amp;quot;stylesheet&amp;quot; href=&amp;quot;https://code.getmdl.io/1.1.3/material.blue-teal.min.css&amp;quot;
+             asp-fallback-href=&amp;quot;lib/material-design-lite/dist/material.blue-teal.min.css&amp;quot;
+             asp-fallback-test-class=&amp;quot;mdl-ripple&amp;quot; /&amp;gt;
+            &amp;lt;script src=&amp;quot;https://code.getmdl.io/1.1.3/material.min.js&amp;quot;
+                    asp-fallback-src=&amp;quot;lib/material-design-lite/material.min.js&amp;quot;
+                    asp-fallback-test=&amp;quot;window.componentHandler&amp;quot;&amp;gt;
+            &amp;lt;/script&amp;gt;
+          &amp;lt;/environment&amp;gt;
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;An &lt;em&gt;environment&lt;/em&gt; tag is a new thing in ASP .NET Core and you can find out more about it
+&lt;a href=&#34;http://docs.asp.net/en/latest/fundamentals/environments.html&#34; target=&#34;_blank&#34;&gt;here&lt;/a&gt;.
+As you can see, I used a fallback test to check if loading assets from CDN succeeded, if not, I loaded the local files.
+I did something similar in the
+&lt;a href=&#34;https://github.com/pikoscielniak/notifier/blob/master/src/web/Views/Home/Index.cshtml&#34; target=&#34;_blank&#34;&gt;Home/Index.cshtml&lt;/a&gt;
+file which you can see in my github repository.&lt;/p&gt;
+
+&lt;p&gt;In this file, I also turned on production mode in Angular 2 by executing the following script:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;  System.import(&#39;angular2/core&#39;)
+            .then(function(core){
+                    core.enableProdMode();
+                    return System.import(&#39;./app/main&#39;);
+            })
+            .catch(console.log.bind(console));
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;In order to have this tag &lt;em&gt;environment&lt;/em&gt; working properly, I had to add this package
+&lt;em&gt;Microsoft.AspNet.Mvc.TagHelpers&lt;/em&gt; to dependencies in &lt;em&gt;project.json&lt;/em&gt;
+and in the file &lt;em&gt;_ViewImports.cshtml&lt;/em&gt; I added following line:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@addTagHelper &amp;quot;*, Microsoft.AspNet.Mvc.TagHelpers&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;To see this tag in action, I must run my application in development mode. By default, &lt;code&gt;dnx web&lt;/code&gt; command runs an application in a production environment, so, to run the application in development mode I could do this by executing this command:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;env ASPNET_ENV=”Development” dnx web
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;After this, you can see that in development, my files are served from localhost:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://koscielniak.me/post/2016/03/goingIntoProduction/localFile.png&#34; alt=&#34;assets from local&#34; title=&#34;assets from local&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;To test the production mode, I published my application in the local folder on my computer by entering the command:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;dnu publish -o ~/publishednotifier
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;em&gt;~/publishednotifier&lt;/em&gt; - it is the folder where my application will be published.&lt;/p&gt;
+
+&lt;p&gt;Inside this folder, there is another folder called &lt;em&gt;approot&lt;/em&gt; where I can find scripts for every command declared in the section &lt;em&gt;commands&lt;/em&gt; in &lt;em&gt;project.json&lt;/em&gt; file. I had only one command &lt;em&gt;web&lt;/em&gt;.
+Entering this command in terminal  ( &lt;code&gt;~/publishednotifier/approot/web&lt;/code&gt;) ran my application and I could see this in a web browser:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://koscielniak.me/post/2016/03/goingIntoProduction/finalResult.png&#34; alt=&#34;Final result&#34; title=&#34;Final result&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;I could see in the debug tool of the browser that my files are loaded from the CDN.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://koscielniak.me/post/2016/03/goingIntoProduction/loadedFromCdn.png&#34; alt=&#34;Loaded form CDN&#34; title=&#34;Loaded form CDN&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;I left space for further improvement in my project setup but I will leave the details for another post where I’ll write about package &lt;em&gt;Microsoft.AspNet.AngularServices&lt;/em&gt;.
+Now, I am ready to publish my application to
+&lt;a href=&#34;https://azure.microsoft.com&#34; target=&#34;_blank&#34;&gt;Azure&lt;/a&gt;. In the next post, I am going to write about what this process looked like.
+&lt;h3&gt;Related posts:&lt;/h3&gt;
+
+
+
+
+
+
+
+
+
+
+
+&lt;ul style=&#34;list-style: none;&#34;&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/02/enrolling-in-daj-sie-poznac/&#34;&gt;Enrolling in &#34;Daj się poznać&#34;&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/daj-sie-poznac-project-details/&#34;&gt;&#34;Daj się poznać&#34; - Project details&#34;&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/i-m-holding-a-project-rider-eap/&#34;&gt;I&#39;m holding a Project Rider EAP&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/installing-asp-dot-net-core-1-on-ubuntu-14/&#34;&gt;Installing ASP .NET Core 1 on Ubuntu 14.04&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/my-first-asp-net-core-1-web-application/&#34;&gt;My first ASP NET Core 1.0 web application&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/project-setup-server-side/&#34;&gt;Project setup - server-side&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/project-setup-client-side/&#34;&gt;Project setup - client-side&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/adding-styling-to-my-application/&#34;&gt;Adding styling to my application&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/angular2-confirm-dialog-component/&#34;&gt;Angular 2 Confirm Dialog Component&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/before-going-into-production/&#34;&gt;Before going into production&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>Angular 2 Confirm Dialog Component</title>
@@ -301,6 +466,7 @@ course. I made some changes to adjust his solution to my reality. In the next po
 
 
 
+
 &lt;ul style=&#34;list-style: none;&#34;&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/02/enrolling-in-daj-sie-poznac/&#34;&gt;Enrolling in &#34;Daj się poznać&#34;&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/daj-sie-poznac-project-details/&#34;&gt;&#34;Daj się poznać&#34; - Project details&#34;&lt;/a&gt;&lt;/li&gt;
@@ -311,6 +477,7 @@ course. I made some changes to adjust his solution to my reality. In the next po
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/project-setup-client-side/&#34;&gt;Project setup - client-side&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/adding-styling-to-my-application/&#34;&gt;Adding styling to my application&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/angular2-confirm-dialog-component/&#34;&gt;Angular 2 Confirm Dialog Component&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/before-going-into-production/&#34;&gt;Before going into production&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 
@@ -477,6 +644,7 @@ I’ll continue with MDL and I’ll explain what I mean by wrapping MDL componen
 
 
 
+
 &lt;ul style=&#34;list-style: none;&#34;&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/02/enrolling-in-daj-sie-poznac/&#34;&gt;Enrolling in &#34;Daj się poznać&#34;&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/daj-sie-poznac-project-details/&#34;&gt;&#34;Daj się poznać&#34; - Project details&#34;&lt;/a&gt;&lt;/li&gt;
@@ -487,6 +655,7 @@ I’ll continue with MDL and I’ll explain what I mean by wrapping MDL componen
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/project-setup-client-side/&#34;&gt;Project setup - client-side&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/adding-styling-to-my-application/&#34;&gt;Adding styling to my application&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/angular2-confirm-dialog-component/&#34;&gt;Angular 2 Confirm Dialog Component&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/before-going-into-production/&#34;&gt;Before going into production&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 
@@ -824,6 +993,7 @@ I will talk about how I added styling to my application and how I improved this 
 
 
 
+
 &lt;ul style=&#34;list-style: none;&#34;&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/02/enrolling-in-daj-sie-poznac/&#34;&gt;Enrolling in &#34;Daj się poznać&#34;&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/daj-sie-poznac-project-details/&#34;&gt;&#34;Daj się poznać&#34; - Project details&#34;&lt;/a&gt;&lt;/li&gt;
@@ -834,6 +1004,7 @@ I will talk about how I added styling to my application and how I improved this 
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/project-setup-client-side/&#34;&gt;Project setup - client-side&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/adding-styling-to-my-application/&#34;&gt;Adding styling to my application&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/angular2-confirm-dialog-component/&#34;&gt;Angular 2 Confirm Dialog Component&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/before-going-into-production/&#34;&gt;Before going into production&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 
