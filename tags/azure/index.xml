@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Azure on Piotr Kościelniak - passionate programmer</title>
+    <link>http://koscielniak.me/tags/azure/</link>
+    <description>Recent content in Azure on Piotr Kościelniak - passionate programmer</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 31 Mar 2016 22:00:00 +0100</lastBuildDate>
+    <atom:link href="http://koscielniak.me/tags/azure/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Publishing to Azure</title>
+      <link>http://koscielniak.me/post/2016/03/publishing-to-azure/</link>
+      <pubDate>Thu, 31 Mar 2016 22:00:00 +0100</pubDate>
+      
+      <guid>http://koscielniak.me/post/2016/03/publishing-to-azure/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;http://dajsiepoznac.pl&#34;&gt;&lt;img src=&#34;http://koscielniak.me/post/2016/03/contestLogo.png&#34; alt=&#34;Daj się poznać&#34; title=&#34;Daj się poznać&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;In the
+&lt;a href=&#34;http://koscielniak.me/post/2016/03/before-going-into-production/&#34;&gt;last post&lt;/a&gt;,
+I wrote how I prepared my application to be ready for publishing. In this post, I am going to write about how I published my application to Azure. I believe that my client should see the results of my work as quickly as possible. For my project, I only have an Imaginary Client but imaginary or not they also deserve respect.&lt;/p&gt;
+
+&lt;p&gt;To publish my application to Azure, I went through following steps.&lt;/p&gt;
+
+&lt;p&gt;After I logged into the
+&lt;a href=&#34;https://portal.azure.com&#34; target=&#34;_blank&#34;&gt;Azure Portal&lt;/a&gt;, I clicked on the &lt;em&gt;New&lt;/em&gt; button in the top left corner.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://koscielniak.me/post/2016/03/azure/azureNew.png&#34; alt=&#34;New&#34; title=&#34;New&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Then I chose &lt;em&gt;Web + Mobile&lt;/em&gt; and after this I clicked on &lt;em&gt;Web App&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://koscielniak.me/post/2016/03/azure/webMobileWebApp.png&#34; alt=&#34;New Web App&#34; title=&#34;New Web App&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;This gave me a window where I could specify the App name, Subscription, Resource group and App Service plan.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://koscielniak.me/post/2016/03/azure/newApp.png&#34; alt=&#34;New Web App name&#34; title=&#34;New Web App name&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;When I clicked &lt;em&gt;Create&lt;/em&gt;, it took a while to create my brand new application.&lt;/p&gt;
+
+&lt;p&gt;After this, I navigated to the application settings and inside, I chose &lt;em&gt;Settings&lt;/em&gt; &amp;gt; &lt;em&gt;Deployment Source&lt;/em&gt; &amp;gt; &lt;em&gt;Configure required settings&lt;/em&gt; &amp;gt; &lt;em&gt;Local Git Repository&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://koscielniak.me/post/2016/03/azure/deploymentSource.png&#34; alt=&#34;Deployment source&#34; title=&#34;Deployment source&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Then I clicked &lt;em&gt;Ok&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;After this, I navigated to &lt;em&gt;Settings&lt;/em&gt; &amp;gt; &lt;em&gt;Deployment credentials&lt;/em&gt; and I set up a deployment user by entering a username and password.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://koscielniak.me/post/2016/03/azure/deploymentCredentials.png&#34; alt=&#34;Deployment credentials&#34; title=&#34;Deployment credentials&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;This time the save button was at the top of this window.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://koscielniak.me/post/2016/03/azure/saveCredentialsButton.png&#34; alt=&#34;Save credentials button&#34; title=&#34;Save credentials button&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Then inside &lt;em&gt;Settings&lt;/em&gt; &amp;gt; &lt;em&gt;Properties&lt;/em&gt; I found &lt;em&gt;GIT URL&lt;/em&gt; which is the url to the git repository where I should publish source code using credentials specified in &lt;em&gt;Deployment credentials&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://koscielniak.me/post/2016/03/azure/gitUrl.png&#34; alt=&#34;Git url&#34; title=&#34;Git url&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Then I added this repository as another remote in my local git repository by issuing:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;git remote add azure [GIT URL]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Where [GIT URL] is the url copied from the Azure portal.&lt;/p&gt;
+
+&lt;p&gt;Then I entered in terminal:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;git push -u azure master
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;After I entered this company, I was prompted to enter my password and the deployment process began. It took quite a lot of time before I was able to see my application in the browser. I found the public address of my application in &lt;em&gt;Settings&lt;/em&gt; -&amp;gt; &lt;em&gt;Properties&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://koscielniak.me/post/2016/03/azure/appAddress.png&#34; alt=&#34;Application url&#34; title=&#34;Application url&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;After I clicked on it, I could see my application hosted as a Web App in Azure.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://koscielniak.me/post/2016/03/azure/finalResult.png&#34; alt=&#34;Final result&#34; title=&#34;Final result&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;I was really surprised that the process of deployment to Azure was very easy and relatively intuitive. What surprised me the most was that Azure discovered where my web project was in the repository structure of folders. I like these kinds of things. Big kudos to the Azure team for this.&lt;/p&gt;
+
+&lt;h3&gt;Related posts:&lt;/h3&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;ul style=&#34;list-style: none;&#34;&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/02/enrolling-in-daj-sie-poznac/&#34;&gt;Enrolling in &#34;Daj się poznać&#34;&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/daj-sie-poznac-project-details/&#34;&gt;&#34;Daj się poznać&#34; - Project details&#34;&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/i-m-holding-a-project-rider-eap/&#34;&gt;I&#39;m holding a Project Rider EAP&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/installing-asp-dot-net-core-1-on-ubuntu-14/&#34;&gt;Installing ASP .NET Core 1 on Ubuntu 14.04&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/my-first-asp-net-core-1-web-application/&#34;&gt;My first ASP NET Core 1.0 web application&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/project-setup-server-side/&#34;&gt;Project setup - server-side&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/project-setup-client-side/&#34;&gt;Project setup - client-side&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/adding-styling-to-my-application/&#34;&gt;Adding styling to my application&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/angular2-confirm-dialog-component/&#34;&gt;Angular 2 Confirm Dialog Component&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/before-going-into-production/&#34;&gt;Before going into production&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/publishing-to-azure/&#34;&gt;Publishing to Azure&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+
+
+</description>
+    </item>
+    
+  </channel>
+</rss>
