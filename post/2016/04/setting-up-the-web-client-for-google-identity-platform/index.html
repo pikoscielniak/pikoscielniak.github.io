@@ -44,46 +44,78 @@
         <article class="post">
             <a class="btn" href="http://koscielniak.me/" title="Back to home">&laquo; Back to home</a>
             
-<h1><a href="http://koscielniak.me/post/2016/02/enrolling-in-daj-sie-poznac/" title="Enrolling in &#34;Daj się poznać&#34;">Enrolling in &#34;Daj się poznać&#34;</a></h1>
+<h1><a href="http://koscielniak.me/post/2016/04/setting-up-the-web-client-for-google-identity-platform/" title="Setting up the Web client for Google Identity Platform">Setting up the Web client for Google Identity Platform</a></h1>
 
-<footer class="post-info">Posted on <span class="post-meta"><time datetime="2016.02.14">2016.02.14</time>
+<footer class="post-info">Posted on <span class="post-meta"><time datetime="2016.04.04">2016.04.04</time>
 &middot; Tagged in
     
     <a href="http://koscielniak.me/tags/daj-si%C4%99-pozna%C4%87">daj się poznać</a>, 
     
-    <a href="http://koscielniak.me/tags/asp-.net-core">asp .net core</a>
+    <a href="http://koscielniak.me/tags/openid-connect">openid connect</a>, 
+    
+    <a href="http://koscielniak.me/tags/google">google</a>
     
 
 </span>
 </footer>
 
-            <p><a href="http://dajsiepoznac.pl"><img src="/post/2016/03/contestLogo.png" alt="Daj się poznać" title="Daj się poznać" /></a></p>
+            <p><a href="http://dajsiepoznac.pl"><img src="/post/2016/03/contestLogo.png" alt="Daj się poz  nać" title="Daj się poznać" /></a></p>
 
-<p>Recently, Maciej Aniserowicz wrote on his blog about starting the second edition of the
-<a href="http://www.maciejaniserowicz.com/daj-sie-poznac/">“Daj się poznać”</a>
-competition. I’ve decided to take part in this challenge.
-I started my blog over three weeks ago and since then I have made two posts.
-I think that taking part in this contest will encourage me to have a more systematic approach to my blog.
-I think this contest will be a lot of fun and provide a lot of opportunities for me to learn new things.
-For the competition I am required to write an average of two articles a week for three months (minimum 10 weeks),
-and this seems like a big deal to me.</p>
+<p>Recently, I thought about a membership system in my application. I considered many options and during my research I tested many solutions, and gained some knowledge. The results from my initial search didn’t pan out as planned, so I’ll have to share my results in a series of posts, and this post will be part one.</p>
 
-<p>The contest will run from March to May and the winners will be announced in June.
-Writing a blog is only one part of this undertaking, the other is completing a project and all blog posts must be
-related to this project. I haven’t decided what my project will be but I have the whole of February to brainstorm.
-I know that I want to learn and try some new technologies, for example, <a href="https://get.asp.net/">ASP .NET Core 1</a>,
-<a href="https://angular.io/">Angular 2</a>, and this project will be a good occasion to do this.
-Maybe I will also try to use <a href="https://www.docker.com/">Docker</a>,
-<a href="https://azure.microsoft.com">Azure</a> or another cloud computing platform.
-We’ll see, but for sure I want to gain a lot experience from this project.
-Additionally, I am going to do this project on Ubuntu 14.04.
-ASP .NET Core 1 is a cross-platform framework and I am going to try it out on environments other than Windows.</p>
+<p>One of my ideas was not having a membership system at all and delegating this to a well known identity provider like Google or Facebook. I also wanted to have my application as a pure API with SPA client and moreover I wanted to have a stateless application. I didn’t want to have any sessions on the server side. So this problem requires me to use a bearer token authentication with implicit flow where a browser client gets an access token from Identity Provider and passes it to the API in every request. API validates this token and grants access or not to its resources.</p>
 
-<p>As you can see, I’ll be treating this competition as source for many challenges: experiencing new technologies,
-regular blogging, and systematic work on my “side project”.
-Everything that I am going to use is currently in the Beta stage, so this is another challenge for me.
-We will see what happens in June. I hope this will be great fun and that I will have a lot of great experiences,
-so&hellip;let’s do it!</p>
+<p>Before I start my work I must choose Identity Provider. I decided to use Google Identity Provider Platform, and then I must register a web application in this Platform.</p>
+
+<p>To create a web application client, I entered the
+<a href="https://console.developers.google.com" target="_blank">Google Developers Console</a>
+and then I chose <em>Create a project&hellip;</em></p>
+
+<p><img src="/post/2016/04/google/createProject.png" alt="Create a project" title="Create a project" /></p>
+
+<p>Then I specified <em>Project name</em> and clicked <em>Create</em>.</p>
+
+<p><img src="/post/2016/04/google/newProject.png" alt="New Project" title="New Project" /></p>
+
+<p>After a while my new application was visible in the <em>Dashboard</em>.</p>
+
+<p><img src="/post/2016/04/google/dashboardWithNew.png" alt="Dashboard" title="Dashboard" /></p>
+
+<p>I clicked on <em>Enable and manage APIs</em> and after I saw this screen:</p>
+
+<p><img src="/post/2016/04/google/apiManager.png" alt="Api Manager" title="Api Manager" /></p>
+
+<p>On the left side, I can see a menu option <em>Credentials</em> I clicked on this option and I saw this:</p>
+
+<p><img src="/post/2016/04/google/credentialsApiManager.png" alt="Credentials tab" title="Credentials tab" /></p>
+
+<p>I clicked on the middle tab named <em>OAuth consent screen</em> and in the form I entered only a <em>Product name shown to users</em>.</p>
+
+<p><img src="/post/2016/04/google/consentScreen.png" alt="OAuth consent screen" title="OAuth consent screen" /></p>
+
+<p>Then I clicked <em>Save</em>. After this, I was redirect back to the first tab: <em>Credentials</em>. On this tab, I clicked <em>Create credentials</em> I saw the following choices:</p>
+
+<p><img src="/post/2016/04/google/createCredentialsChoices.png" alt="Create Credentials Choices" title="Create Credentials Choices" /></p>
+
+<p>I chose <em>OAuth client ID</em>. Then on the next screen I selected <em>Web application</em> as a <em>Application type</em> and I put name and urls.</p>
+
+<p><img src="/post/2016/04/google/createClientId.png" alt="Create ClientId" title="Create ClientId" /></p>
+
+<p>When I clicked “Create” I saw this popup window:</p>
+
+<p><img src="/post/2016/04/google/popupOAuthClient.png" alt="OAuth Client" title="OAuth Client" /></p>
+
+<p>I didn’t bother to copy this, since I got this letter in another form. I just clicked <em>OK</em> and I saw this:</p>
+
+<p><img src="/post/2016/04/google/OAuth20ClientIds.png" alt="OAuth client ids" title="OAuth client ids" /></p>
+
+<p>On the right side, I had a download icon (see red ellipse in the picture above). I clicked on it and the window to save file opened:</p>
+
+<p><img src="/post/2016/04/google/saveFile.png" alt="Save file" title="Save file" /></p>
+
+<p>I saved this file and I will return to it later in the next post.</p>
+
+<p>After this, Client for Google APIs was now ready to use and now I must create an application for it. As I mentioned before, this post is the first part about auth things. In the next post, I will continue this theme and I hope, I’ll show finally some code.</p>
 
 <h3>Related posts:</h3>
 
@@ -121,16 +153,16 @@ so&hellip;let’s do it!</p>
             <ul class="share-buttons">
     <li>Share this article:</li>
     <li>
-        <a class="icon-facebook-squared" href="https://www.facebook.com/sharer/sharer.php?u=http%3a%2f%2fkoscielniak.me%2fpost%2f2016%2f02%2fenrolling-in-daj-sie-poznac%2f" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;" title="Share on Facebook"></a>
+        <a class="icon-facebook-squared" href="https://www.facebook.com/sharer/sharer.php?u=http%3a%2f%2fkoscielniak.me%2fpost%2f2016%2f04%2fsetting-up-the-web-client-for-google-identity-platform%2f" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;" title="Share on Facebook"></a>
     </li>
     <li>
-        <a class="icon-twitter" href="https://twitter.com/share?text=Enrolling%20in%20%22Daj%20si%c4%99%20pozna%c4%87%22&amp;url=http%3a%2f%2fkoscielniak.me%2fpost%2f2016%2f02%2fenrolling-in-daj-sie-poznac%2f" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;" title="Tweet this article"></a>
+        <a class="icon-twitter" href="https://twitter.com/share?text=Setting%20up%20the%20Web%20client%20for%20Google%20Identity%20Platform&amp;url=http%3a%2f%2fkoscielniak.me%2fpost%2f2016%2f04%2fsetting-up-the-web-client-for-google-identity-platform%2f" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;" title="Tweet this article"></a>
     </li>
     <li>
-        <a class="icon-gplus" href="https://plus.google.com/share?url=http%3a%2f%2fkoscielniak.me%2fpost%2f2016%2f02%2fenrolling-in-daj-sie-poznac%2f" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;" title="Share on Google&#43;"></a>
+        <a class="icon-gplus" href="https://plus.google.com/share?url=http%3a%2f%2fkoscielniak.me%2fpost%2f2016%2f04%2fsetting-up-the-web-client-for-google-identity-platform%2f" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;" title="Share on Google&#43;"></a>
     </li>
     <li>
-        <a class="icon-linkedin" href="https://www.linkedin.com/shareArticle?mini=true&url=http%3a%2f%2fkoscielniak.me%2fpost%2f2016%2f02%2fenrolling-in-daj-sie-poznac%2f&title=Enrolling%20in%20%22Daj%20si%c4%99%20pozna%c4%87%22" onclick="window.open(this.href, 'linkedin-share', 'width=600,height=494');return false;" title="Share on Linkedin"></a>
+        <a class="icon-linkedin" href="https://www.linkedin.com/shareArticle?mini=true&url=http%3a%2f%2fkoscielniak.me%2fpost%2f2016%2f04%2fsetting-up-the-web-client-for-google-identity-platform%2f&title=Setting%20up%20the%20Web%20client%20for%20Google%20Identity%20Platform" onclick="window.open(this.href, 'linkedin-share', 'width=600,height=494');return false;" title="Share on Linkedin"></a>
     </li>
 </ul>
 
@@ -140,9 +172,9 @@ so&hellip;let’s do it!</p>
             <div id="disqus_thread"></div>
 <script type="text/javascript">
     var disqus_shortname = 'koscielniak';
-    var disqus_identifier = 'http:\/\/koscielniak.me\/post\/2016\/02\/enrolling-in-daj-sie-poznac\/';
-    var disqus_title = 'Enrolling in \x22Daj się poznać\x22';
-    var disqus_url = 'http:\/\/koscielniak.me\/post\/2016\/02\/enrolling-in-daj-sie-poznac\/';
+    var disqus_identifier = 'http:\/\/koscielniak.me\/post\/2016\/04\/setting-up-the-web-client-for-google-identity-platform\/';
+    var disqus_title = 'Setting up the Web client for Google Identity Platform';
+    var disqus_url = 'http:\/\/koscielniak.me\/post\/2016\/04\/setting-up-the-web-client-for-google-identity-platform\/';
 
     (function() {
         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
