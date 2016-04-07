@@ -3,8 +3,13 @@
   
   <url>
     <loc>http://koscielniak.me/</loc>
-    <lastmod>2016-04-04T22:00:00+02:00</lastmod>
+    <lastmod>2016-04-07T22:00:00+02:00</lastmod>
     <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://koscielniak.me/post/2016/04/oidc-token-manager-library-with-google-identity-platform-part-1/</loc>
+    <lastmod>2016-04-07T22:00:00+02:00</lastmod>
   </url>
   
   <url>
