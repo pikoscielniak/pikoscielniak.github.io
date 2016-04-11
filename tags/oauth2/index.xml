@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Google on Piotr Kościelniak - passionate programmer</title>
-    <link>http://koscielniak.me/tags/google/</link>
-    <description>Recent content in Google on Piotr Kościelniak - passionate programmer</description>
+    <title>Oauth2 on Piotr Kościelniak - passionate programmer</title>
+    <link>http://koscielniak.me/tags/oauth2/</link>
+    <description>Recent content in Oauth2 on Piotr Kościelniak - passionate programmer</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Mon, 11 Apr 2016 23:00:00 +0200</lastBuildDate>
-    <atom:link href="http://koscielniak.me/tags/google/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://koscielniak.me/tags/oauth2/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>oidc-token-manager library with Google Identity Platform - Part 2</title>
@@ -340,111 +340,6 @@ Google provides  a modulus(n) and an exponent(e) RSA public key but library &lt;
 but I couldn’t validate its signature because of the format of the certs returned from Google
 but there must be a way to handle this kind of situation. However, I’ll write about this in the
 &lt;a href=&#34;http://koscielniak.me/post/2016/04/oidc-token-manager-library-with-google-identity-platform-part-2/&#34;&gt;next post&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;&lt;h3&gt;Related posts:&lt;/h3&gt;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-&lt;ul style=&#34;list-style: none;&#34;&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/02/enrolling-in-daj-sie-poznac/&#34;&gt;Enrolling in &#34;Daj się poznać&#34;&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/daj-sie-poznac-project-details/&#34;&gt;&#34;Daj się poznać&#34; - Project details&#34;&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/i-m-holding-a-project-rider-eap/&#34;&gt;I&#39;m holding a Project Rider EAP&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/installing-asp-dot-net-core-1-on-ubuntu-14/&#34;&gt;Installing ASP .NET Core 1 on Ubuntu 14.04&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/my-first-asp-net-core-1-web-application/&#34;&gt;My first ASP NET Core 1.0 web application&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/project-setup-server-side/&#34;&gt;Project setup - server-side&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/project-setup-client-side/&#34;&gt;Project setup - client-side&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/adding-styling-to-my-application/&#34;&gt;Adding styling to my application&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/angular2-confirm-dialog-component/&#34;&gt;Angular 2 Confirm Dialog Component&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/before-going-into-production/&#34;&gt;Before going into production&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/publishing-to-azure/&#34;&gt;Publishing to Azure&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/setting-up-the-web-client-for-google-identity-platform/&#34;&gt;Setting up the Web client for Google Identity Platform&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/oidc-token-manager-library-with-google-identity-platform-part-1/&#34;&gt;oidc-token-manager library with Google Identity Platform - Part 1&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/oidc-token-manager-library-with-google-identity-platform-part-2/&#34;&gt;oidc-token-manager library with Google Identity Platform - Part 2&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-
-&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Setting up the Web client for Google Identity Platform</title>
-      <link>http://koscielniak.me/post/2016/04/setting-up-the-web-client-for-google-identity-platform/</link>
-      <pubDate>Mon, 04 Apr 2016 22:00:00 +0200</pubDate>
-      
-      <guid>http://koscielniak.me/post/2016/04/setting-up-the-web-client-for-google-identity-platform/</guid>
-      <description>&lt;p&gt;&lt;a href=&#34;http://dajsiepoznac.pl&#34;&gt;&lt;img src=&#34;http://koscielniak.me/post/2016/03/contestLogo.png&#34; alt=&#34;Daj się poz  nać&#34; title=&#34;Daj się poznać&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;Recently, I thought about a membership system in my application. I considered many options and during my research I tested many solutions, and gained some knowledge. The results from my initial search didn’t pan out as planned, so I’ll have to share my results in a series of posts, and this post will be part one.&lt;/p&gt;
-
-&lt;p&gt;One of my ideas was not having a membership system at all and delegating this to a well known identity provider like Google or Facebook. I also wanted to have my application as a pure API with SPA client and moreover I wanted to have a stateless application. I didn’t want to have any sessions on the server side. So this problem requires me to use a bearer token authentication with implicit flow where a browser client gets an access token from Identity Provider and passes it to the API in every request. API validates this token and grants access or not to its resources.&lt;/p&gt;
-
-&lt;p&gt;Before I start my work I must choose Identity Provider. I decided to use Google Identity Provider Platform, and then I must register a web application in this Platform.&lt;/p&gt;
-
-&lt;p&gt;To create a web application client, I entered the
-&lt;a href=&#34;https://console.developers.google.com&#34; target=&#34;_blank&#34;&gt;Google Developers Console&lt;/a&gt;
-and then I chose &lt;em&gt;Create a project&amp;hellip;&lt;/em&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://koscielniak.me/post/2016/04/google/createProject.png&#34; alt=&#34;Create a project&#34; title=&#34;Create a project&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Then I specified &lt;em&gt;Project name&lt;/em&gt; and clicked &lt;em&gt;Create&lt;/em&gt;.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://koscielniak.me/post/2016/04/google/newProject.png&#34; alt=&#34;New Project&#34; title=&#34;New Project&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;After a while my new application was visible in the &lt;em&gt;Dashboard&lt;/em&gt;.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://koscielniak.me/post/2016/04/google/dashboardWithNew.png&#34; alt=&#34;Dashboard&#34; title=&#34;Dashboard&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;I clicked on &lt;em&gt;Enable and manage APIs&lt;/em&gt; and after I saw this screen:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://koscielniak.me/post/2016/04/google/apiManager.png&#34; alt=&#34;Api Manager&#34; title=&#34;Api Manager&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;On the left side, I can see a menu option &lt;em&gt;Credentials&lt;/em&gt; I clicked on this option and I saw this:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://koscielniak.me/post/2016/04/google/credentialsApiManager.png&#34; alt=&#34;Credentials tab&#34; title=&#34;Credentials tab&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;I clicked on the middle tab named &lt;em&gt;OAuth consent screen&lt;/em&gt; and in the form I entered only a &lt;em&gt;Product name shown to users&lt;/em&gt;.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://koscielniak.me/post/2016/04/google/consentScreen.png&#34; alt=&#34;OAuth consent screen&#34; title=&#34;OAuth consent screen&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Then I clicked &lt;em&gt;Save&lt;/em&gt;. After this, I was redirect back to the first tab: &lt;em&gt;Credentials&lt;/em&gt;. On this tab, I clicked &lt;em&gt;Create credentials&lt;/em&gt; I saw the following choices:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://koscielniak.me/post/2016/04/google/createCredentialsChoices.png&#34; alt=&#34;Create Credentials Choices&#34; title=&#34;Create Credentials Choices&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;I chose &lt;em&gt;OAuth client ID&lt;/em&gt;. Then on the next screen I selected &lt;em&gt;Web application&lt;/em&gt; as a &lt;em&gt;Application type&lt;/em&gt; and I put name and urls.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://koscielniak.me/post/2016/04/google/createClientId.png&#34; alt=&#34;Create ClientId&#34; title=&#34;Create ClientId&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;When I clicked “Create” I saw this popup window:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://koscielniak.me/post/2016/04/google/popupOAuthClient.png&#34; alt=&#34;OAuth Client&#34; title=&#34;OAuth Client&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;I didn’t bother to copy this, since I got this letter in another form. I just clicked &lt;em&gt;OK&lt;/em&gt; and I saw this:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://koscielniak.me/post/2016/04/google/OAuth20ClientIds.png&#34; alt=&#34;OAuth client ids&#34; title=&#34;OAuth client ids&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;On the right side, I had a download icon (see red ellipse in the picture above). I clicked on it and the window to save file opened:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://koscielniak.me/post/2016/04/google/saveFile.png&#34; alt=&#34;Save file&#34; title=&#34;Save file&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;I saved this file and I will return to it later in the next post.&lt;/p&gt;
-
-&lt;p&gt;After this, Client for Google APIs was now ready to use and now I must create an application for it. As I mentioned before, this post is the first part about auth things.
-In the &lt;a href=&#34;http://koscielniak.me/post/2016/04/oidc-token-manager-library-with-google-identity-platform-part-1/&#34;&gt;next post&lt;/a&gt;,
-I will continue this theme and I hope, I’ll show finally some code.&lt;/p&gt;
 
 &lt;p&gt;&lt;h3&gt;Related posts:&lt;/h3&gt;
 

@@ -53,6 +53,8 @@
     
     <a href="http://koscielniak.me/tags/openid-connect">openid connect</a>, 
     
+    <a href="http://koscielniak.me/tags/oauth2">oauth2</a>, 
+    
     <a href="http://koscielniak.me/tags/google">google</a>
     
 
@@ -239,10 +241,12 @@ Google provides  a modulus(n) and an exponent(e) RSA public key but library <em>
 
 <p>The property <em>kid</em> indicates which public key from <a href="https://www.googleapis.com/oauth2/v3/certs">https://www.googleapis.com/oauth2/v3/certs</a>, should be used to validate the signature. As it is an array of keys, you must choose one. The library <em>oidc-token-manager</em> always takes the first one.</p>
 
-<p>I managed to get access token from Google Identity Provider using library <em>oidc-token-manager</em> but I couldn’t validate its signature because of the format of the certs returned from Google but there must be a way to handle this kind of situation. However, I’ll write about this in the next post.</p>
+<p>I managed to get access token from Google Identity Provider using library <em>oidc-token-manager</em>
+but I couldn’t validate its signature because of the format of the certs returned from Google
+but there must be a way to handle this kind of situation. However, I’ll write about this in the
+<a href="/post/2016/04/oidc-token-manager-library-with-google-identity-platform-part-2/">next post</a>.</p>
 
 <p><h3>Related posts:</h3>
-
 
 
 
@@ -273,6 +277,7 @@ Google provides  a modulus(n) and an exponent(e) RSA public key but library <em>
     <li><a href="/post/2016/03/publishing-to-azure/">Publishing to Azure</a></li>
     <li><a href="/post/2016/04/setting-up-the-web-client-for-google-identity-platform/">Setting up the Web client for Google Identity Platform</a></li>
     <li><a href="/post/2016/04/oidc-token-manager-library-with-google-identity-platform-part-1/">oidc-token-manager library with Google Identity Platform - Part 1</a></li>
+    <li><a href="/post/2016/04/oidc-token-manager-library-with-google-identity-platform-part-2/">oidc-token-manager library with Google Identity Platform - Part 2</a></li>
 </ul>
 
 
