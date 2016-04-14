@@ -6,8 +6,185 @@
     <description>Recent content in Daj Się Poznać on Piotr Kościelniak - passionate programmer</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 11 Apr 2016 23:00:00 +0200</lastBuildDate>
+    <lastBuildDate>Thu, 14 Apr 2016 22:00:00 +0200</lastBuildDate>
     <atom:link href="http://koscielniak.me/tags/daj-si%C4%99-pozna%C4%87/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Accessing API with token from Google Identity Provider</title>
+      <link>http://koscielniak.me/post/2016/04/accesing-api-with-token-from-google-identity-provider/</link>
+      <pubDate>Thu, 14 Apr 2016 22:00:00 +0200</pubDate>
+      
+      <guid>http://koscielniak.me/post/2016/04/accesing-api-with-token-from-google-identity-provider/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;http://dajsiepoznac.pl&#34;&gt;&lt;img src=&#34;http://koscielniak.me/post/2016/03/contestLogo.png&#34; alt=&#34;Daj się poznać&#34; title=&#34;Daj się poznać&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;In previous
+&lt;a href=&#34;http://koscielniak.me/post/2016/04/oidc-token-manager-library-with-google-identity-platform-part-2/&#34;&gt;posts&lt;/a&gt;
+I wrote about getting id tokens and access tokens from Google Identity Provider. To do this I used the library
+&lt;a href=&#34;https://github.com/IdentityModel/oidc-token-manager&#34; target=&#34;_blank&#34;&gt;oidc-token-manager&lt;/a&gt;.
+You can read here and here how I prepared config for this library in order to have a working authentication of a user in Google Identity Provider. I stated that my solution isn’t perfect and actually I treated it as a temporary one. In this post, I’ll write about using tokens fetched from Google to access my sample API. Let’s see what I did and what results it brought.&lt;/p&gt;
+
+&lt;p&gt;For the purpose of my testing, I created another project which is in
+&lt;a href=&#34;https://github.com/pikoscielniak/notifier-auth-demo&#34; target=&#34;_blank&#34;&gt;this repository&lt;/a&gt;.
+This time the sample application that I used for this post was created on a Windows operating system because I needed some tools which I am very familiar with like:
+&lt;a href=&#34;https://www.visualstudio.com/pl-pl/products/visual-studio-community-vs.aspx&#34; target=&#34;_blank&#34;&gt;Visual Studio&lt;/a&gt;,
+&lt;a href=&#34;https://www.jetbrains.com/resharper/&#34; target=&#34;_blank&#34;&gt;ReSharper&lt;/a&gt; and
+&lt;a href=&#34;https://www.jetbrains.com/decompiler/&#34; target=&#34;_blank&#34;&gt;dotPeek&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;I started in Visual Studio with &lt;em&gt;File -&amp;gt; New -&amp;gt; Project…&lt;/em&gt;. I chose the template ASP .NET Web Application*. And then  among &lt;em&gt;ASP .NET 5 Templates&lt;/em&gt;, I selected the template &lt;em&gt;Web API&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://koscielniak.me/post/2016/04/bearerTokenToApi/newProject.png&#34; alt=&#34;New Project&#34; title=&#34;New Project&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;I copied all the files from my previous experiments to the folder &lt;em&gt;wwwroot&lt;/em&gt;.
+Next to the &lt;em&gt;ValuesController&lt;/em&gt; I created another API controller named &lt;em&gt;PublicValuesController&lt;/em&gt; with exactly the same content as the &lt;em&gt;ValuesController&lt;/em&gt;. I only changed the returned values to distinguish these controllers.  After this, the structure of my project looked like this:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://koscielniak.me/post/2016/04/bearerTokenToApi/projectTree.png&#34; alt=&#34;Project tree&#34; title=&#34;Project tree&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Next, I installed all the necessary nuget packages so the dependencies in &lt;em&gt;project.json&lt;/em&gt; looked like this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt; &amp;quot;dependencies&amp;quot;: {
+    &amp;quot;Microsoft.AspNet.Authentication.JwtBearer&amp;quot;: &amp;quot;1.0.0-rc1-final&amp;quot;,
+    &amp;quot;Microsoft.AspNet.Diagnostics&amp;quot;: &amp;quot;1.0.0-rc1-final&amp;quot;,
+    &amp;quot;Microsoft.AspNet.IISPlatformHandler&amp;quot;: &amp;quot;1.0.0-rc1-final&amp;quot;,
+    &amp;quot;Microsoft.AspNet.Mvc&amp;quot;: &amp;quot;6.0.0-rc1-final&amp;quot;,
+    &amp;quot;Microsoft.AspNet.Server.Kestrel&amp;quot;: &amp;quot;1.0.0-rc1-final&amp;quot;,
+    &amp;quot;Microsoft.AspNet.StaticFiles&amp;quot;: &amp;quot;1.0.0-rc1-final&amp;quot;,
+    &amp;quot;Microsoft.Extensions.Configuration.FileProviderExtensions&amp;quot;: &amp;quot;1.0.0-rc1-final&amp;quot;,
+    &amp;quot;Microsoft.Extensions.Logging&amp;quot;: &amp;quot;1.0.0-rc1-final&amp;quot;,
+    &amp;quot;Microsoft.Extensions.Logging.Console&amp;quot;: &amp;quot;1.0.0-rc1-final&amp;quot;,
+    &amp;quot;Microsoft.Extensions.Logging.Debug&amp;quot;: &amp;quot;1.0.0-rc1-final&amp;quot;
+  },
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;In the &lt;em&gt;Startup&lt;/em&gt; class, the method &lt;em&gt;ConfigureServices&lt;/em&gt; looked like this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;public void ConfigureServices(IServiceCollection services)
+{
+    // Add framework services.
+    services.AddAuthentication();
+    services.AddMvc();
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;And method &lt;em&gt;Configure&lt;/em&gt; looked like this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
+{                        
+    loggerFactory.AddConsole(Configuration.GetSection(&amp;quot;Logging&amp;quot;));
+    loggerFactory.AddDebug();
+
+    if (env.IsEnvironment(&amp;quot;Development&amp;quot;))
+    {
+        app.UseDeveloperExceptionPage();
+    }
+
+    app.UseIISPlatformHandler();
+     
+    app.UseDefaultFiles();
+    app.UseStaticFiles();
+
+    var options = new JwtBearerOptions
+    {
+        Authority = &amp;quot;https://accounts.google.com&amp;quot;,
+        Audience = &amp;quot;342665198077-1fdticgpjke40gddj3r8vghltpgcvb5m.apps.googleusercontent.com&amp;quot;,
+        RequireHttpsMetadata = false,
+        AutomaticAuthenticate = true,
+        AutomaticChallenge = false,
+        TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidIssuer = &amp;quot;accounts.google.com&amp;quot;
+        }
+    };
+
+    app.UseJwtBearerAuthentication(options);
+
+    app.UseMvc();
+}
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;I also granted access to &lt;em&gt;ValuesController&lt;/em&gt; only for authenticated user by adding attribute &lt;em&gt;Authorize&lt;/em&gt; on the class &lt;em&gt;ValuesController&lt;/em&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;[Route(&amp;quot;api/[controller]&amp;quot;)]
+[Authorize]
+public class ValuesController : Controller
+{
+///....
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;If you want, you can protect all controllers with the configuration in &lt;em&gt;ConfigureServices&lt;/em&gt; like this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;public void ConfigureServices(IServiceCollection services)
+{
+    // Add framework services.
+    services.AddAuthentication();
+    services.AddMvc(config =&amp;gt;
+    {
+        var policy = new AuthorizationPolicyBuilder()
+            .RequireAuthenticatedUser()
+            .Build();
+        config.Filters.Add(new AuthorizeFilter(policy));
+    });
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;And then add the attribute &lt;em&gt;AllowAnonymous&lt;/em&gt; on these controllers or methods which are accessible for unauthenticated users.&lt;br /&gt;
+In my sample project, it didn’t matter because I had only two controllers.&lt;/p&gt;
+
+&lt;p&gt;Having the setup ready meant I could get access to protected resources with the Google id token which I got using the library
+&lt;a href=&#34;https://github.com/IdentityModel/oidc-token-manager&#34; target=&#34;_blank&#34;&gt;oidc-token-manager&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;After obtaining the token from Google by clicking &lt;em&gt;Get Token&lt;/em&gt; and then clicking &lt;em&gt;Protected&lt;/em&gt;, I got following response:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://koscielniak.me/post/2016/04/bearerTokenToApi/protectedValues.png&#34; alt=&#34;Protected values&#34; title=&#34;Protected values&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;When I clicked &lt;em&gt;Protected without token&lt;/em&gt; I got a response like this:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://koscielniak.me/post/2016/04/bearerTokenToApi/notAuthorized.png&#34; alt=&#34;Not authorized&#34; title=&#34;Not authorized&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Through this sample application, I reached a conclusion. Yes, I know that I made a lot of assumptions which were not true, and I created a lot of simplifications for the purpose of testing but anyway I can get a protected resource with Google tokens fetched by the library &lt;em&gt;oidc-token-manager&lt;/em&gt;, which was my goal. My solution is absolutely unready to be used in production because of the token validation. I hardcoded a certificate to validate the token and this is not acceptable because these certificates change quite frequently. To validate tokens through a certificate fetched dynamically, requires me to change the library &lt;em&gt;oidc-token-manager&lt;/em&gt;. I don’t want to do this until I attempt other options.&lt;/p&gt;
+
+&lt;p&gt;As I mentioned before, I used Visual Studio to create this sample application. I had to debug the 3rd party code a bit to finally get a configuration that works. Now that I have a working application, I can try it in another environment. Let’s see what’s happen when I run this project on Ubuntu. Will ASP .NET CORE turn out to be as portable as people say? Please check out my next post to find what happens when this app is run on Linux.&lt;/p&gt;
+
+&lt;p&gt;&lt;h3&gt;Related posts:&lt;/h3&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;ul style=&#34;list-style: none;&#34;&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/02/enrolling-in-daj-sie-poznac/&#34;&gt;Enrolling in &#34;Daj się poznać&#34;&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/daj-sie-poznac-project-details/&#34;&gt;&#34;Daj się poznać&#34; - Project details&#34;&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/i-m-holding-a-project-rider-eap/&#34;&gt;I&#39;m holding a Project Rider EAP&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/installing-asp-dot-net-core-1-on-ubuntu-14/&#34;&gt;Installing ASP .NET Core 1 on Ubuntu 14.04&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/my-first-asp-net-core-1-web-application/&#34;&gt;My first ASP NET Core 1.0 web application&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/project-setup-server-side/&#34;&gt;Project setup - server-side&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/project-setup-client-side/&#34;&gt;Project setup - client-side&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/adding-styling-to-my-application/&#34;&gt;Adding styling to my application&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/angular2-confirm-dialog-component/&#34;&gt;Angular 2 Confirm Dialog Component&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/before-going-into-production/&#34;&gt;Before going into production&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/publishing-to-azure/&#34;&gt;Publishing to Azure&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/setting-up-the-web-client-for-google-identity-platform/&#34;&gt;Setting up the Web client for Google Identity Platform&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/oidc-token-manager-library-with-google-identity-platform-part-1/&#34;&gt;oidc-token-manager library with Google Identity Platform - Part 1&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/oidc-token-manager-library-with-google-identity-platform-part-2/&#34;&gt;oidc-token-manager library with Google Identity Platform - Part 2&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/accesing-api-with-token-from-google-identity-provider/&#34;&gt;Accessing API with token from Google Identity Provider&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>oidc-token-manager library with Google Identity Platform - Part 2</title>
@@ -109,9 +286,13 @@ While fetching certs from this url &lt;a href=&#34;https://www.googleapis.com/oa
 &lt;p&gt;The property &lt;em&gt;kid&lt;/em&gt; indicates that in the object with certs, I should use the one with the property like the &lt;em&gt;kid&lt;/em&gt; value. I discovered that this was the second property but it won’t always be true. I should choose a certificate dynamically but I didn’t want to change source code of the library &lt;em&gt;oidc-token-manager&lt;/em&gt;, so that’s why I hardcoded it.&lt;/p&gt;
 
 &lt;p&gt;An authentication is a non-trivial challenge for any app. Many developers have tools and techniques they trust for building traditional (page-by-page) auth flows.
-I thought for a while about building a traditional membership system but I finally decided to try something different. We’ll see the consequences of my choices in the future. For now, I have proven that I can obtain access tokens from Google using the library &lt;em&gt;oidc-token-manager&lt;/em&gt;, but the implementation isn’t perfect. If I want to use this library, I would have to change it a bit. I don’t want to do this until I check other possibilities. Future posts will be about the further exploration of the web client authentication with Google Identity Provider.&lt;/p&gt;
+I thought for a while about building a traditional membership system but I finally decided to try something different. We’ll see the consequences of my choices in the future. For now, I have proven that I can obtain access tokens from Google using the library &lt;em&gt;oidc-token-manager&lt;/em&gt;, but the implementation isn’t perfect.
+If I want to use this library, I would have to change it a bit. I don’t want to do this until
+I check other possibilities. Future posts will be about the further exploration of
+the web client authentication with Google Identity Provider.&lt;/p&gt;
 
 &lt;p&gt;&lt;h3&gt;Related posts:&lt;/h3&gt;
+
 
 
 
@@ -143,6 +324,7 @@ I thought for a while about building a traditional membership system but I final
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/setting-up-the-web-client-for-google-identity-platform/&#34;&gt;Setting up the Web client for Google Identity Platform&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/oidc-token-manager-library-with-google-identity-platform-part-1/&#34;&gt;oidc-token-manager library with Google Identity Platform - Part 1&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/oidc-token-manager-library-with-google-identity-platform-part-2/&#34;&gt;oidc-token-manager library with Google Identity Platform - Part 2&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/accesing-api-with-token-from-google-identity-provider/&#34;&gt;Accessing API with token from Google Identity Provider&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 
@@ -358,6 +540,7 @@ but there must be a way to handle this kind of situation. However, I’ll write 
 
 
 
+
 &lt;ul style=&#34;list-style: none;&#34;&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/02/enrolling-in-daj-sie-poznac/&#34;&gt;Enrolling in &#34;Daj się poznać&#34;&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/daj-sie-poznac-project-details/&#34;&gt;&#34;Daj się poznać&#34; - Project details&#34;&lt;/a&gt;&lt;/li&gt;
@@ -373,6 +556,7 @@ but there must be a way to handle this kind of situation. However, I’ll write 
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/setting-up-the-web-client-for-google-identity-platform/&#34;&gt;Setting up the Web client for Google Identity Platform&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/oidc-token-manager-library-with-google-identity-platform-part-1/&#34;&gt;oidc-token-manager library with Google Identity Platform - Part 1&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/oidc-token-manager-library-with-google-identity-platform-part-2/&#34;&gt;oidc-token-manager library with Google Identity Platform - Part 2&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/accesing-api-with-token-from-google-identity-provider/&#34;&gt;Accessing API with token from Google Identity Provider&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 
@@ -463,6 +647,7 @@ I will continue this theme and I hope, I’ll show finally some code.&lt;/p&gt;
 
 
 
+
 &lt;ul style=&#34;list-style: none;&#34;&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/02/enrolling-in-daj-sie-poznac/&#34;&gt;Enrolling in &#34;Daj się poznać&#34;&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/daj-sie-poznac-project-details/&#34;&gt;&#34;Daj się poznać&#34; - Project details&#34;&lt;/a&gt;&lt;/li&gt;
@@ -478,6 +663,7 @@ I will continue this theme and I hope, I’ll show finally some code.&lt;/p&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/setting-up-the-web-client-for-google-identity-platform/&#34;&gt;Setting up the Web client for Google Identity Platform&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/oidc-token-manager-library-with-google-identity-platform-part-1/&#34;&gt;oidc-token-manager library with Google Identity Platform - Part 1&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/oidc-token-manager-library-with-google-identity-platform-part-2/&#34;&gt;oidc-token-manager library with Google Identity Platform - Part 2&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/accesing-api-with-token-from-google-identity-provider/&#34;&gt;Accessing API with token from Google Identity Provider&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 
@@ -571,6 +757,7 @@ I wrote how I prepared my application to be ready for publishing. In this post, 
 
 
 
+
 &lt;ul style=&#34;list-style: none;&#34;&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/02/enrolling-in-daj-sie-poznac/&#34;&gt;Enrolling in &#34;Daj się poznać&#34;&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/daj-sie-poznac-project-details/&#34;&gt;&#34;Daj się poznać&#34; - Project details&#34;&lt;/a&gt;&lt;/li&gt;
@@ -586,6 +773,7 @@ I wrote how I prepared my application to be ready for publishing. In this post, 
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/setting-up-the-web-client-for-google-identity-platform/&#34;&gt;Setting up the Web client for Google Identity Platform&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/oidc-token-manager-library-with-google-identity-platform-part-1/&#34;&gt;oidc-token-manager library with Google Identity Platform - Part 1&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/oidc-token-manager-library-with-google-identity-platform-part-2/&#34;&gt;oidc-token-manager library with Google Identity Platform - Part 2&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/accesing-api-with-token-from-google-identity-provider/&#34;&gt;Accessing API with token from Google Identity Provider&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 
@@ -745,6 +933,7 @@ Now, I am ready to publish my application to
 
 
 
+
 &lt;ul style=&#34;list-style: none;&#34;&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/02/enrolling-in-daj-sie-poznac/&#34;&gt;Enrolling in &#34;Daj się poznać&#34;&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/daj-sie-poznac-project-details/&#34;&gt;&#34;Daj się poznać&#34; - Project details&#34;&lt;/a&gt;&lt;/li&gt;
@@ -760,6 +949,7 @@ Now, I am ready to publish my application to
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/setting-up-the-web-client-for-google-identity-platform/&#34;&gt;Setting up the Web client for Google Identity Platform&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/oidc-token-manager-library-with-google-identity-platform-part-1/&#34;&gt;oidc-token-manager library with Google Identity Platform - Part 1&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/oidc-token-manager-library-with-google-identity-platform-part-2/&#34;&gt;oidc-token-manager library with Google Identity Platform - Part 2&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/accesing-api-with-token-from-google-identity-provider/&#34;&gt;Accessing API with token from Google Identity Provider&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 
@@ -1065,6 +1255,7 @@ course. I made some changes to adjust his solution to my reality. In the next po
 
 
 
+
 &lt;ul style=&#34;list-style: none;&#34;&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/02/enrolling-in-daj-sie-poznac/&#34;&gt;Enrolling in &#34;Daj się poznać&#34;&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/daj-sie-poznac-project-details/&#34;&gt;&#34;Daj się poznać&#34; - Project details&#34;&lt;/a&gt;&lt;/li&gt;
@@ -1080,6 +1271,7 @@ course. I made some changes to adjust his solution to my reality. In the next po
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/setting-up-the-web-client-for-google-identity-platform/&#34;&gt;Setting up the Web client for Google Identity Platform&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/oidc-token-manager-library-with-google-identity-platform-part-1/&#34;&gt;oidc-token-manager library with Google Identity Platform - Part 1&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/oidc-token-manager-library-with-google-identity-platform-part-2/&#34;&gt;oidc-token-manager library with Google Identity Platform - Part 2&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/accesing-api-with-token-from-google-identity-provider/&#34;&gt;Accessing API with token from Google Identity Provider&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 
@@ -1252,6 +1444,7 @@ I’ll continue with MDL and I’ll explain what I mean by wrapping MDL componen
 
 
 
+
 &lt;ul style=&#34;list-style: none;&#34;&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/02/enrolling-in-daj-sie-poznac/&#34;&gt;Enrolling in &#34;Daj się poznać&#34;&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/daj-sie-poznac-project-details/&#34;&gt;&#34;Daj się poznać&#34; - Project details&#34;&lt;/a&gt;&lt;/li&gt;
@@ -1267,6 +1460,7 @@ I’ll continue with MDL and I’ll explain what I mean by wrapping MDL componen
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/setting-up-the-web-client-for-google-identity-platform/&#34;&gt;Setting up the Web client for Google Identity Platform&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/oidc-token-manager-library-with-google-identity-platform-part-1/&#34;&gt;oidc-token-manager library with Google Identity Platform - Part 1&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/oidc-token-manager-library-with-google-identity-platform-part-2/&#34;&gt;oidc-token-manager library with Google Identity Platform - Part 2&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/accesing-api-with-token-from-google-identity-provider/&#34;&gt;Accessing API with token from Google Identity Provider&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 
@@ -1610,6 +1804,7 @@ I will talk about how I added styling to my application and how I improved this 
 
 
 
+
 &lt;ul style=&#34;list-style: none;&#34;&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/02/enrolling-in-daj-sie-poznac/&#34;&gt;Enrolling in &#34;Daj się poznać&#34;&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/daj-sie-poznac-project-details/&#34;&gt;&#34;Daj się poznać&#34; - Project details&#34;&lt;/a&gt;&lt;/li&gt;
@@ -1625,6 +1820,7 @@ I will talk about how I added styling to my application and how I improved this 
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/setting-up-the-web-client-for-google-identity-platform/&#34;&gt;Setting up the Web client for Google Identity Platform&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/oidc-token-manager-library-with-google-identity-platform-part-1/&#34;&gt;oidc-token-manager library with Google Identity Platform - Part 1&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/oidc-token-manager-library-with-google-identity-platform-part-2/&#34;&gt;oidc-token-manager library with Google Identity Platform - Part 2&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/accesing-api-with-token-from-google-identity-provider/&#34;&gt;Accessing API with token from Google Identity Provider&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 
@@ -1843,6 +2039,7 @@ I am happy with everything I have now. Now I can start to set up my client-side.
 
 
 
+
 &lt;ul style=&#34;list-style: none;&#34;&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/02/enrolling-in-daj-sie-poznac/&#34;&gt;Enrolling in &#34;Daj się poznać&#34;&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/daj-sie-poznac-project-details/&#34;&gt;&#34;Daj się poznać&#34; - Project details&#34;&lt;/a&gt;&lt;/li&gt;
@@ -1858,6 +2055,7 @@ I am happy with everything I have now. Now I can start to set up my client-side.
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/setting-up-the-web-client-for-google-identity-platform/&#34;&gt;Setting up the Web client for Google Identity Platform&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/oidc-token-manager-library-with-google-identity-platform-part-1/&#34;&gt;oidc-token-manager library with Google Identity Platform - Part 1&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/oidc-token-manager-library-with-google-identity-platform-part-2/&#34;&gt;oidc-token-manager library with Google Identity Platform - Part 2&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/accesing-api-with-token-from-google-identity-provider/&#34;&gt;Accessing API with token from Google Identity Provider&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 
@@ -2005,6 +2203,7 @@ Now I can start create my project.&lt;/p&gt;
 
 
 
+
 &lt;ul style=&#34;list-style: none;&#34;&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/02/enrolling-in-daj-sie-poznac/&#34;&gt;Enrolling in &#34;Daj się poznać&#34;&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/daj-sie-poznac-project-details/&#34;&gt;&#34;Daj się poznać&#34; - Project details&#34;&lt;/a&gt;&lt;/li&gt;
@@ -2020,6 +2219,7 @@ Now I can start create my project.&lt;/p&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/setting-up-the-web-client-for-google-identity-platform/&#34;&gt;Setting up the Web client for Google Identity Platform&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/oidc-token-manager-library-with-google-identity-platform-part-1/&#34;&gt;oidc-token-manager library with Google Identity Platform - Part 1&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/oidc-token-manager-library-with-google-identity-platform-part-2/&#34;&gt;oidc-token-manager library with Google Identity Platform - Part 2&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/accesing-api-with-token-from-google-identity-provider/&#34;&gt;Accessing API with token from Google Identity Provider&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 
@@ -2175,6 +2375,7 @@ for example, adding a new controller or view. However, I’ll write about this i
 
 
 
+
 &lt;ul style=&#34;list-style: none;&#34;&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/02/enrolling-in-daj-sie-poznac/&#34;&gt;Enrolling in &#34;Daj się poznać&#34;&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/daj-sie-poznac-project-details/&#34;&gt;&#34;Daj się poznać&#34; - Project details&#34;&lt;/a&gt;&lt;/li&gt;
@@ -2190,6 +2391,7 @@ for example, adding a new controller or view. However, I’ll write about this i
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/setting-up-the-web-client-for-google-identity-platform/&#34;&gt;Setting up the Web client for Google Identity Platform&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/oidc-token-manager-library-with-google-identity-platform-part-1/&#34;&gt;oidc-token-manager library with Google Identity Platform - Part 1&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/oidc-token-manager-library-with-google-identity-platform-part-2/&#34;&gt;oidc-token-manager library with Google Identity Platform - Part 2&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/accesing-api-with-token-from-google-identity-provider/&#34;&gt;Accessing API with token from Google Identity Provider&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 
@@ -2338,6 +2540,7 @@ Again, great job to JetBrains! I am sure that I’m not the only one waiting for
 
 
 
+
 &lt;ul style=&#34;list-style: none;&#34;&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/02/enrolling-in-daj-sie-poznac/&#34;&gt;Enrolling in &#34;Daj się poznać&#34;&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/daj-sie-poznac-project-details/&#34;&gt;&#34;Daj się poznać&#34; - Project details&#34;&lt;/a&gt;&lt;/li&gt;
@@ -2353,6 +2556,7 @@ Again, great job to JetBrains! I am sure that I’m not the only one waiting for
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/setting-up-the-web-client-for-google-identity-platform/&#34;&gt;Setting up the Web client for Google Identity Platform&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/oidc-token-manager-library-with-google-identity-platform-part-1/&#34;&gt;oidc-token-manager library with Google Identity Platform - Part 1&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/oidc-token-manager-library-with-google-identity-platform-part-2/&#34;&gt;oidc-token-manager library with Google Identity Platform - Part 2&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/accesing-api-with-token-from-google-identity-provider/&#34;&gt;Accessing API with token from Google Identity Provider&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 
@@ -2422,6 +2626,7 @@ will look like but I’ll write about it in future posts as the project will con
 
 
 
+
 &lt;ul style=&#34;list-style: none;&#34;&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/02/enrolling-in-daj-sie-poznac/&#34;&gt;Enrolling in &#34;Daj się poznać&#34;&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/daj-sie-poznac-project-details/&#34;&gt;&#34;Daj się poznać&#34; - Project details&#34;&lt;/a&gt;&lt;/li&gt;
@@ -2437,6 +2642,7 @@ will look like but I’ll write about it in future posts as the project will con
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/setting-up-the-web-client-for-google-identity-platform/&#34;&gt;Setting up the Web client for Google Identity Platform&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/oidc-token-manager-library-with-google-identity-platform-part-1/&#34;&gt;oidc-token-manager library with Google Identity Platform - Part 1&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/oidc-token-manager-library-with-google-identity-platform-part-2/&#34;&gt;oidc-token-manager library with Google Identity Platform - Part 2&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/accesing-api-with-token-from-google-identity-provider/&#34;&gt;Accessing API with token from Google Identity Provider&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 
@@ -2495,6 +2701,7 @@ so&amp;hellip;let’s do it!&lt;/p&gt;
 
 
 
+
 &lt;ul style=&#34;list-style: none;&#34;&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/02/enrolling-in-daj-sie-poznac/&#34;&gt;Enrolling in &#34;Daj się poznać&#34;&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/daj-sie-poznac-project-details/&#34;&gt;&#34;Daj się poznać&#34; - Project details&#34;&lt;/a&gt;&lt;/li&gt;
@@ -2510,6 +2717,7 @@ so&amp;hellip;let’s do it!&lt;/p&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/setting-up-the-web-client-for-google-identity-platform/&#34;&gt;Setting up the Web client for Google Identity Platform&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/oidc-token-manager-library-with-google-identity-platform-part-1/&#34;&gt;oidc-token-manager library with Google Identity Platform - Part 1&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/oidc-token-manager-library-with-google-identity-platform-part-2/&#34;&gt;oidc-token-manager library with Google Identity Platform - Part 2&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/accesing-api-with-token-from-google-identity-provider/&#34;&gt;Accessing API with token from Google Identity Provider&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 

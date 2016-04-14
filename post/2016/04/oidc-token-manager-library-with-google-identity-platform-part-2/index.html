@@ -155,9 +155,13 @@ While fetching certs from this url <a href="https://www.googleapis.com/oauth2/v1
 <p>The property <em>kid</em> indicates that in the object with certs, I should use the one with the property like the <em>kid</em> value. I discovered that this was the second property but it won’t always be true. I should choose a certificate dynamically but I didn’t want to change source code of the library <em>oidc-token-manager</em>, so that’s why I hardcoded it.</p>
 
 <p>An authentication is a non-trivial challenge for any app. Many developers have tools and techniques they trust for building traditional (page-by-page) auth flows.
-I thought for a while about building a traditional membership system but I finally decided to try something different. We’ll see the consequences of my choices in the future. For now, I have proven that I can obtain access tokens from Google using the library <em>oidc-token-manager</em>, but the implementation isn’t perfect. If I want to use this library, I would have to change it a bit. I don’t want to do this until I check other possibilities. Future posts will be about the further exploration of the web client authentication with Google Identity Provider.</p>
+I thought for a while about building a traditional membership system but I finally decided to try something different. We’ll see the consequences of my choices in the future. For now, I have proven that I can obtain access tokens from Google using the library <em>oidc-token-manager</em>, but the implementation isn’t perfect.
+If I want to use this library, I would have to change it a bit. I don’t want to do this until
+I check other possibilities. Future posts will be about the further exploration of
+the web client authentication with Google Identity Provider.</p>
 
 <p><h3>Related posts:</h3>
+
 
 
 
@@ -189,6 +193,7 @@ I thought for a while about building a traditional membership system but I final
     <li><a href="/post/2016/04/setting-up-the-web-client-for-google-identity-platform/">Setting up the Web client for Google Identity Platform</a></li>
     <li><a href="/post/2016/04/oidc-token-manager-library-with-google-identity-platform-part-1/">oidc-token-manager library with Google Identity Platform - Part 1</a></li>
     <li><a href="/post/2016/04/oidc-token-manager-library-with-google-identity-platform-part-2/">oidc-token-manager library with Google Identity Platform - Part 2</a></li>
+    <li><a href="/post/2016/04/accesing-api-with-token-from-google-identity-provider/">Accessing API with token from Google Identity Provider</a></li>
 </ul>
 
 
