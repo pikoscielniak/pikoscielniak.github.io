@@ -44,12 +44,20 @@
         <article class="post">
             <a class="btn" href="http://koscielniak.me/" title="Back to home">&laquo; Back to home</a>
             
-<h1><a href="http://koscielniak.me/post/2016/03/daj-sie-poznac-project-details/" title="&#34;Daj się poznać&#34; - Project details">&#34;Daj się poznać&#34; - Project details</a></h1>
+<h1><a href="http://koscielniak.me/post/2016/04/how-portable-is-asp-dot-net-core/" title="How portable is ASP .NET CORE?">How portable is ASP .NET CORE?</a></h1>
 
-<footer class="post-info">Posted on <span class="post-meta"><time datetime="2016.03.01">2016.03.01</time>
+<footer class="post-info">Posted on <span class="post-meta"><time datetime="2016.04.19">2016.04.19</time>
 &middot; Tagged in
     
-    <a href="http://koscielniak.me/tags/daj-si%C4%99-pozna%C4%87">daj się poznać</a>
+    <a href="http://koscielniak.me/tags/daj-si%C4%99-pozna%C4%87">daj się poznać</a>, 
+    
+    <a href="http://koscielniak.me/tags/openid-connect">openid connect</a>, 
+    
+    <a href="http://koscielniak.me/tags/oauth2">oauth2</a>, 
+    
+    <a href="http://koscielniak.me/tags/google">google</a>, 
+    
+    <a href="http://koscielniak.me/tags/asp-.net-core">asp .net core</a>
     
 
 </span>
@@ -57,44 +65,43 @@
 
             <p><a href="http://dajsiepoznac.pl"><img src="/post/2016/03/contestLogo.png" alt="Daj się poznać" title="Daj się poznać" /></a></p>
 
-<p>This is my first post in the series “Daj się poznać”.
-I am going to mention the details of the project which I’ll be working on during the contest.
-I am going to create a simple yet powerful application which will allow me to add some events
-and notify me about them at a specific time via a specified medium.
-For starters, I am planing to implement sms and email notification but maybe in the future
-I’ll add the ability to send notifications to some IoT device.</p>
+<p>In the previous
+<a href="/post/2016/04/accesing-api-with-token-from-google-identity-provider/">post</a>,
+I wrote about accessing a protected API controller being
+authenticated with id tokens obtained from Google. I created my application on Windows in Visual Studio because I needed the helping hand of
+<a href="https://www.jetbrains.com/decompiler/" target="_blank">dotPeek</a> to see what was going on inside code that is not mine. In this post, I’ll write what happened when I ran this application on Ubuntu.</p>
 
-<p>I am going to implement this application in a way which allows me to upgrade ASP .NET Core 1.0
-framework very quickly. This framework is brand new and it’s quite probable that some breaking
-changes will appear in the next release. So I cannot depend on it very much.
-I hope that ASP .NET Core 1.0 will have a lot of versions in the future but
-I don’t want to have a nightmare during upgrading to a newer version. Therefore,
-I must use architecture which prepares me for this. I don’t know exactly what this architecture
-will look like but I’ll write about it in future posts as the project will continue.</p>
+<p>After I pulled my project from
+<a href="https://github.com/pikoscielniak/notifier-auth-demo" target="_blank">github</a>,
+I restored all packages using <code>dnu restore</code> and I ran the application. The project compiled and ran without any trouble. I obtained a token from Google and I clicked the <em>Protected</em> button and I saw this on the screen:</p>
 
-<p>To implement my project I need some sort of membership system for cases like these:</p>
+<p><img src="/post/2016/04/howPortable/errorAfterProtected.png" alt="Error after Protected" title="Error after Protected" /></p>
 
-<ul>
-<li>user can sign in</li>
-<li>user can sign up (I am not sure)</li>
-<li>user can sign out.</li>
-</ul>
+<p>I looked at the console where my app was running I saw the same error.</p>
 
-<p>Other use cases which I am going to implement are:</p>
+<p><img src="/post/2016/04/howPortable/couldNotLoadTypeAsymmetricSignatureProvider.png" alt="Could not load type asymmetric signature provider" title="Could not load type asymmetric signature provider" /></p>
 
-<ul>
-<li>user can create event</li>
-<li>user can add notification to event</li>
-<li>user can add related persons to event</li>
-<li>user can see list of events</li>
-<li>user can delete event</li>
-<li>user can change event</li>
-<li>sending notifications</li>
-</ul>
+<p>I thought that the tip on how to solve this problem was included in this line: <code>Could not load type 'System.IdentityModel.Tokens.AsymmetricSignatureProvider'</code>. I googled this error and I found this
+<a href="https://github.com/AzureAD/azure-activedirectory-identitymodel-extensions-for-dotnet/issues/179" target="_blank">RSACryptoServiceProviderProxy crashes on</a>.
+A quick look at this page gave me a clue that there are differences in the cryptography between <em>Mono</em> and .Net on Windows. I am not going into details here, but what’s important is that at the time of writing this post, this issue was still ongoing. I tried a different version of package <em>Microsoft.AspNet.Authentication.JwtBearer</em>, which was 1.0.0-beta8 but in this package extension method <em>UseJwtBearerAuthentication</em> didn’t exist.</p>
 
-<p>I’ll write more details about use cases and their implementation in future posts, but before I do this, I’ll write something about installation ASP .NET Core 1.0 on Ubuntu 14.04 and running the first web application in this operating system.</p>
+<p>Okay, this was on Mono but what happened on coreclr? I switched my execution environment to coreclr using the command <code>dnvm upgrade -r coreclr</code>. This command upgraded my coreclr version and set it as the default runtime version. <code>dnvm list</code> gave me an output like this:</p>
 
-<h3>Related posts:</h3>
+<p><img src="/post/2016/04/howPortable/dnvmListOutput.png" alt="dnvm list ouput" title="dnvm list ouput" /></p>
+
+<p>Then I ran the application and obtained a token from Google by clicking <em>Get Token</em> and finally I clicked the <em>Protected</em> button and I saw this:</p>
+
+<p><img src="/post/2016/04/howPortable/unableToLoadDllNcrypt.png" alt="Unable to load dll Ncrypt" title="Unable to load dll Ncrypt" /></p>
+
+<p>This line: * &lsquo;System.DllNotFoundException: Unable to load DLL &lsquo;ncrypt.dll&rsquo;* seemed to be the key part of this error for me, so I googled it. The first search result brought up this
+<a href="https://github.com/AzureAD/azure-activedirectory-identitymodel-extensions-for-dotnet/issues/324" target="_blank">issue on github</a>.
+This issue seemed to be resolved but it is added to <em>milestone:RC2</em> so probably the next version will have this error fixed.</p>
+
+<p>In conclusion, what does the portability of ASP .NET Core applications really look like? In the case of Windows, everything works perfectly. On Linux (Ubuntu) it didn’t work. You can read above about what exactly didn’t work. Yes, I could hack it and work around these errors, for example, by implementing my own <em>SignatureProviderFactory</em>, but I am quite sure that the .Net Team will do this better than me in the near future. It’s only a matter of time for ASP .NET Core to work the same on all platforms. You can find out more about it
+<a href="https://channel9.msdn.com/Events/Build/2016/B891" target="_blank">here</a>,
+but for now it is still bleeding edge and bleeding edges hurt.</p>
+
+<p><h3>Related posts:</h3>
 
 
 
@@ -133,21 +140,21 @@ will look like but I’ll write about it in future posts as the project will con
 </ul>
 
 
-
+</p>
 
             <ul class="share-buttons">
     <li>Share this article:</li>
     <li>
-        <a class="icon-facebook-squared" href="https://www.facebook.com/sharer/sharer.php?u=http%3a%2f%2fkoscielniak.me%2fpost%2f2016%2f03%2fdaj-sie-poznac-project-details%2f" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;" title="Share on Facebook"></a>
+        <a class="icon-facebook-squared" href="https://www.facebook.com/sharer/sharer.php?u=http%3a%2f%2fkoscielniak.me%2fpost%2f2016%2f04%2fhow-portable-is-asp-dot-net-core%2f" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;" title="Share on Facebook"></a>
     </li>
     <li>
-        <a class="icon-twitter" href="https://twitter.com/share?text=%22Daj%20si%c4%99%20pozna%c4%87%22%20-%20Project%20details&amp;url=http%3a%2f%2fkoscielniak.me%2fpost%2f2016%2f03%2fdaj-sie-poznac-project-details%2f" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;" title="Tweet this article"></a>
+        <a class="icon-twitter" href="https://twitter.com/share?text=How%20portable%20is%20ASP%20.NET%20CORE%3f&amp;url=http%3a%2f%2fkoscielniak.me%2fpost%2f2016%2f04%2fhow-portable-is-asp-dot-net-core%2f" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;" title="Tweet this article"></a>
     </li>
     <li>
-        <a class="icon-gplus" href="https://plus.google.com/share?url=http%3a%2f%2fkoscielniak.me%2fpost%2f2016%2f03%2fdaj-sie-poznac-project-details%2f" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;" title="Share on Google&#43;"></a>
+        <a class="icon-gplus" href="https://plus.google.com/share?url=http%3a%2f%2fkoscielniak.me%2fpost%2f2016%2f04%2fhow-portable-is-asp-dot-net-core%2f" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;" title="Share on Google&#43;"></a>
     </li>
     <li>
-        <a class="icon-linkedin" href="https://www.linkedin.com/shareArticle?mini=true&url=http%3a%2f%2fkoscielniak.me%2fpost%2f2016%2f03%2fdaj-sie-poznac-project-details%2f&title=%22Daj%20si%c4%99%20pozna%c4%87%22%20-%20Project%20details" onclick="window.open(this.href, 'linkedin-share', 'width=600,height=494');return false;" title="Share on Linkedin"></a>
+        <a class="icon-linkedin" href="https://www.linkedin.com/shareArticle?mini=true&url=http%3a%2f%2fkoscielniak.me%2fpost%2f2016%2f04%2fhow-portable-is-asp-dot-net-core%2f&title=How%20portable%20is%20ASP%20.NET%20CORE%3f" onclick="window.open(this.href, 'linkedin-share', 'width=600,height=494');return false;" title="Share on Linkedin"></a>
     </li>
 </ul>
 
@@ -157,9 +164,9 @@ will look like but I’ll write about it in future posts as the project will con
             <div id="disqus_thread"></div>
 <script type="text/javascript">
     var disqus_shortname = 'koscielniak';
-    var disqus_identifier = 'http:\/\/koscielniak.me\/post\/2016\/03\/daj-sie-poznac-project-details\/';
-    var disqus_title = '\x22Daj się poznać\x22 - Project details';
-    var disqus_url = 'http:\/\/koscielniak.me\/post\/2016\/03\/daj-sie-poznac-project-details\/';
+    var disqus_identifier = 'http:\/\/koscielniak.me\/post\/2016\/04\/how-portable-is-asp-dot-net-core\/';
+    var disqus_title = 'How portable is ASP .NET CORE?';
+    var disqus_url = 'http:\/\/koscielniak.me\/post\/2016\/04\/how-portable-is-asp-dot-net-core\/';
 
     (function() {
         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;

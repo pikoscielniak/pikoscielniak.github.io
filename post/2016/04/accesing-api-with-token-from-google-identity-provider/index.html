@@ -191,9 +191,13 @@ In my sample project, it didn’t matter because I had only two controllers.</p>
 
 <p>Through this sample application, I reached a conclusion. Yes, I know that I made a lot of assumptions which were not true, and I created a lot of simplifications for the purpose of testing but anyway I can get a protected resource with Google tokens fetched by the library <em>oidc-token-manager</em>, which was my goal. My solution is absolutely unready to be used in production because of the token validation. I hardcoded a certificate to validate the token and this is not acceptable because these certificates change quite frequently. To validate tokens through a certificate fetched dynamically, requires me to change the library <em>oidc-token-manager</em>. I don’t want to do this until I attempt other options.</p>
 
-<p>As I mentioned before, I used Visual Studio to create this sample application. I had to debug the 3rd party code a bit to finally get a configuration that works. Now that I have a working application, I can try it in another environment. Let’s see what’s happen when I run this project on Ubuntu. Will ASP .NET CORE turn out to be as portable as people say? Please check out my next post to find what happens when this app is run on Linux.</p>
+<p>As I mentioned before, I used Visual Studio to create this sample application. I had to debug the 3rd party code a bit to finally get a configuration that works. Now that I have a working application, I can try it in another environment. Let’s see what’s happen when I run this project on Ubuntu. Will ASP .NET CORE turn out to be as portable as people say?
+Please check out my
+<a href="/post/2016/04/how-portable-is-asp-dot-net-core/">next post</a>
+to find what happens when this app is run on Linux.</p>
 
 <p><h3>Related posts:</h3>
+
 
 
 
@@ -227,6 +231,7 @@ In my sample project, it didn’t matter because I had only two controllers.</p>
     <li><a href="/post/2016/04/oidc-token-manager-library-with-google-identity-platform-part-1/">oidc-token-manager library with Google Identity Platform - Part 1</a></li>
     <li><a href="/post/2016/04/oidc-token-manager-library-with-google-identity-platform-part-2/">oidc-token-manager library with Google Identity Platform - Part 2</a></li>
     <li><a href="/post/2016/04/accesing-api-with-token-from-google-identity-provider/">Accessing API with token from Google Identity Provider</a></li>
+    <li><a href="/post/2016/04/how-portable-is-asp-dot-net-core/">How portable is ASP .NET CORE?</a></li>
 </ul>
 
 
