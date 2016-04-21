@@ -1,0 +1,279 @@
+<!doctype html>
+<html class="no-js">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Piotr Kościelniak - passionate programmer</title>
+        <meta name="author">
+        <meta name="description" content="Piotr Kościelniak - passionate programmer">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="generator" content="Hugo 0.16-DEV" />
+          <link href="http://koscielniak.me/post/index.xml" rel="alternate" type="application/rss+xml" title="Piotr Kościelniak - passionate programmer" />
+          <link href="http://koscielniak.me/post/index.xml" rel="feed" type="application/rss+xml" title="Piotr Kościelniak - passionate programmer" />
+        <link href='//fonts.googleapis.com/css?family=Roboto:400,300,700|Noto+Serif:400,400italic,700,700italic' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" href="http://koscielniak.me/css/styles.css">
+        <link rel="icon" href="http://koscielniak.me/favicon.ico">
+        <link rel="apple-touch-icon" href="http://koscielniak.me/apple-touch-icon.png" />
+        <link rel="stylesheet" href="http://koscielniak.me/css/highlightjs/monokai.css">
+        <script src="http://koscielniak.me/js/vendor/modernizr-2.8.0.min.js"></script>
+        <style>
+        .site-header h2 .logo {
+        background: url(http://koscielniak.me/img/desk.jpg) no-repeat 0 0;
+        }
+        @media (min--moz-device-pixel-ratio: 1.3), (-o-min-device-pixel-ratio: 2.6 / 2), (-webkit-min-device-pixel-ratio: 1.3), (min-device-pixel-ratio: 1.3), (min-resolution: 1.3dppx) {
+          .site-header h2 .logo {
+            background-image: url(http://koscielniak.me/img/desk.jpg);
+        }}
+       .site-header {
+         background: #2a373d url(http://koscielniak.me/img/desk.jpg) no-repeat center center;
+         z-index: -1;
+        }
+        </style>
+    </head>
+    <body>
+        
+        <header class="site-header">
+          <div class="transparent-layer">
+              <h2>You&#39;re here. I appreciate it.</h2>
+          </div>
+        </header>
+
+
+<div class="container clearfix">
+    <main role="main" class="content">
+        <article class="post">
+            <a class="btn" href="http://koscielniak.me/" title="Back to home">&laquo; Back to home</a>
+            
+<h1><a href="http://koscielniak.me/post/2016/04/when-dotpeek-can-save-your-live/" title="When dotPeek can save your live">When dotPeek can save your live</a></h1>
+
+<footer class="post-info">Posted on <span class="post-meta"><time datetime="2016.04.21">2016.04.21</time>
+&middot; Tagged in
+    
+    <a href="http://koscielniak.me/tags/visual-studio">visual studio</a>, 
+    
+    <a href="http://koscielniak.me/tags/resharper">resharper</a>, 
+    
+    <a href="http://koscielniak.me/tags/dotpeek">dotpeek</a>, 
+    
+    <a href="http://koscielniak.me/tags/jetbrains">jetbrains</a>
+    
+
+</span>
+</footer>
+
+            <p><a href="http://dajsiepoznac.pl"><img src="/post/2016/03/contestLogo.png" alt="Daj się poz  nać" title="Daj się poznać" /></a></p>
+
+<p>This post is a little break in my investigation regarding auth stuff.
+To write my previous posts I had to debug a bit - and this mainly happened with code that was not mine. Debugging javascript code that is not your own is a piece of cake. You simply write <code>debugger</code> somewhere in the script and that’s it - the execution of this code will stop where you place the word <code>debugger</code>. Eventually, you can set a breakpoint in the web browser debugger. Debugging C# code that is not your own requires more involvement, especially if you don’t have source code and <code>pdb</code> files.  In this post, I am going to write how
+<a href="https://www.jetbrains.com/decompiler/" target="_blank">dotPeek</a> helps to look inside 3rd party code and see how things works in libraries that I have imported to my project.</p>
+
+<p>dotPeek is a decompiler but it can also work as a <em>Symbol Server</em>. Before you use it, you must set it up. This how I did it:</p>
+
+<p>To configure dotPeek as a <em>Symbol Server</em> you must navigate in Visual Studio to <em>Tools &rarr; Options &rarr; Debugging &rarr; Symbols</em>. And then add a new location for symbols like this:</p>
+
+<p><img src="/post/2016/04/dotPeek/addNewSymbolsFile.png" alt="Add new symbol file" title="Add new symbol file" /></p>
+
+<p>You can check the port on which the symbol server is working in the dotPeek settings <em>Tool &rarr; Options &rarr; Symbol Server</em></p>
+
+<p><img src="/post/2016/04/dotPeek/configureServerPort.png" alt="Configure server port" title="Configure server port" /></p>
+
+<p>The debugging options in Visual Studio (Tools &rarr; Options &rarr; Debugging &rarr; General)  should be set like this:</p>
+
+<p>Uncheck the <em>Enable Just My Code</em> option<br />
+Uncheck the <em>Enable .NET Framework source stepping</em> option<br />
+Check the <em>Enable source server support</em> option<br />
+Uncheck the <em>Require source files to exactly match the original version</em></p>
+
+<p>Now when everything is setup you can start symbol server in dotPeek by hitting this button:</p>
+
+<p><img src="/post/2016/04/dotPeek/startDotPeekServer.png" alt="Start symbol server" title="Start symbol server" /></p>
+
+<p>When you first run debug after this configuration it takes some time to load all the desired symbols. You can see what’s going on at the bottom left corner of Visual Studio.</p>
+
+<p><img src="/post/2016/04/dotPeek/loadingSymbols.png" alt="Loading symbols" title="Loading symbols" /></p>
+
+<p>When all the symbols are loaded, you will see this:</p>
+
+<p><img src="/post/2016/04/dotPeek/loadingSymbolsReady.png" alt="Loading symbols ready" title="Loading symbols ready" /></p>
+
+<p>Next time when you hit Run debugging, it will start almost immediately.</p>
+
+<p>You can control which symbols should be loaded in the dotPeek settings <em>Tool &rarr; Options &rarr; Symbol Server</em> and here you can choose for which assemblies dotPeek should generate symbols.</p>
+
+<p><img src="/post/2016/04/dotPeek/generateSymbolsFor.png" alt="Generate symbols for" title="Generate symbols for" /></p>
+
+<p>When you do this setup it doesn’t mean you can enter whenever you want by hitting F11 (Step Into). You still must show where the <em>pdb</em> file is for a specific assembly. To do this, open <em>Debug &rarr; Windows &rarr; Modules</em> during the debugging session and in the <em>Search</em> field type a part of the name of the assembly you want to debug. After, you’ll see in the <em>Modules</em> window <em>Cannot find or open the PDB file.</em>, for this assembly.</p>
+
+<p><img src="/post/2016/04/dotPeek/cannotFindPDBfile.png" alt="Cannot find pdb file" title="Cannot find pdb file" /></p>
+
+<p>Fortunately, dotPeek comes to the rescue. Go to <em>File &rarr; Open</em> in dotPeek and navigate to the path where the assembly you want to debug is. You’ll find this path in the <em>Debug &rarr; Windows &rarr; Modules</em> as you can see here:</p>
+
+<p><img src="/post/2016/04/dotPeek/pathToDll.png" alt="Path to dll" title="Path to dll" /></p>
+
+<p>When you select the <em>.dll</em> file it will be loaded to the dotPeek <em>Assembly Explorer</em>:</p>
+
+<p><img src="/post/2016/04/dotPeek/loadedAssemblyInDotPeek.png" alt="Loaded assembly in dotPeek" title="Loaded assembly in dot peek" /></p>
+
+<p>Now you can load the <em>pdb</em> for this assembly in Visual Studio. In <em>Debug &rarr; Windows &rarr; Modules</em>, right click on the selected assembly and you will see this dialog:</p>
+
+<p><img src="/post/2016/04/dotPeek/loadSymbolesInModules.png" alt="Load symbols in modules" title="Load symbols in modules" /></p>
+
+<p>Clicking on <em>Load Symbols</em> succeeds in loading symbols for the assembly you want to debug.</p>
+
+<p><img src="/post/2016/04/dotPeek/symbolesLoaded.png" alt="Symboles loaded" title="Symboles loaded" /></p>
+
+<p>After this, when you hit F11 (Step Into) you’ll get inside the code of the assembly you want to reflect.</p>
+
+<p>Sometimes you cannot find a direct way from your code to the methods writting by others, which you want to investigate. In this situation, you can use the window <em>Debug &rarr; New Breakpoint &rarr; Function Breakpoint…</em>.</p>
+
+<p><img src="/post/2016/04/dotPeek/newFunctionBreakpoint.png" alt="New function Breakpoint" title="New function Breakpoint" /></p>
+
+<p>In this window, you can put the fully qualified method name and the debugger will stop at that point when the execution of the application has reached it.</p>
+
+<p>What’s more, if you want, you can generate<em>pdb</em> files in dotPeek and save it. To do this, right click the mouse button on the assembly for which you want <em>pdb</em>. You’ll see this dialog:</p>
+
+<p><img src="/post/2016/04/dotPeek/generatePDB.png" alt="Generate pdb" title="Generate pdb" /></p>
+
+<p>When you click <em>Generate Pdb..</em> you’ll be asking to pass the destination path for symbols. You should specify the same path where the assembly is located.</p>
+
+<p><img src="/post/2016/04/dotPeek/generatePdbDialog.png" alt="Generate pdb dialog" title="Generate pdb dialog" /></p>
+
+<p>Clicking <em>Generate</em> will cause the <em>pdb</em> file to be generated and copied to the chosen location. By doing this, you can pass this <em>pdb</em> file where it is needed.</p>
+
+<p>Now, you can enjoy the freedom of debugging.</p>
+
+<h3>Related posts:</h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<ul style="list-style: none;">
+    <li><a href="/post/2016/02/enrolling-in-daj-sie-poznac/">Enrolling in "Daj się poznać"</a></li>
+    <li><a href="/post/2016/03/daj-sie-poznac-project-details/">"Daj się poznać" - Project details"</a></li>
+    <li><a href="/post/2016/03/i-m-holding-a-project-rider-eap/">I'm holding a Project Rider EAP</a></li>
+    <li><a href="/post/2016/03/installing-asp-dot-net-core-1-on-ubuntu-14/">Installing ASP .NET Core 1 on Ubuntu 14.04</a></li>
+    <li><a href="/post/2016/03/my-first-asp-net-core-1-web-application/">My first ASP NET Core 1.0 web application</a></li>
+    <li><a href="/post/2016/03/project-setup-server-side/">Project setup - server-side</a></li>
+    <li><a href="/post/2016/03/project-setup-client-side/">Project setup - client-side</a></li>
+    <li><a href="/post/2016/03/adding-styling-to-my-application/">Adding styling to my application</a></li>
+    <li><a href="/post/2016/03/angular2-confirm-dialog-component/">Angular 2 Confirm Dialog Component</a></li>
+    <li><a href="/post/2016/03/before-going-into-production/">Before going into production</a></li>
+    <li><a href="/post/2016/03/publishing-to-azure/">Publishing to Azure</a></li>
+    <li><a href="/post/2016/04/setting-up-the-web-client-for-google-identity-platform/">Setting up the Web client for Google Identity Platform</a></li>
+    <li><a href="/post/2016/04/oidc-token-manager-library-with-google-identity-platform-part-1/">oidc-token-manager library with Google Identity Platform - Part 1</a></li>
+    <li><a href="/post/2016/04/oidc-token-manager-library-with-google-identity-platform-part-2/">oidc-token-manager library with Google Identity Platform - Part 2</a></li>
+    <li><a href="/post/2016/04/accesing-api-with-token-from-google-identity-provider/">Accessing API with token from Google Identity Provider</a></li>
+    <li><a href="/post/2016/04/how-portable-is-asp-dot-net-core/">How portable is ASP .NET Core 1.0?</a></li>
+</ul>
+
+
+
+
+            <ul class="share-buttons">
+    <li>Share this article:</li>
+    <li>
+        <a class="icon-facebook-squared" href="https://www.facebook.com/sharer/sharer.php?u=http%3a%2f%2fkoscielniak.me%2fpost%2f2016%2f04%2fwhen-dotpeek-can-save-your-live%2f" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;" title="Share on Facebook"></a>
+    </li>
+    <li>
+        <a class="icon-twitter" href="https://twitter.com/share?text=When%20dotPeek%20can%20save%20your%20live&amp;url=http%3a%2f%2fkoscielniak.me%2fpost%2f2016%2f04%2fwhen-dotpeek-can-save-your-live%2f" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;" title="Tweet this article"></a>
+    </li>
+    <li>
+        <a class="icon-gplus" href="https://plus.google.com/share?url=http%3a%2f%2fkoscielniak.me%2fpost%2f2016%2f04%2fwhen-dotpeek-can-save-your-live%2f" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;" title="Share on Google&#43;"></a>
+    </li>
+    <li>
+        <a class="icon-linkedin" href="https://www.linkedin.com/shareArticle?mini=true&url=http%3a%2f%2fkoscielniak.me%2fpost%2f2016%2f04%2fwhen-dotpeek-can-save-your-live%2f&title=When%20dotPeek%20can%20save%20your%20live" onclick="window.open(this.href, 'linkedin-share', 'width=600,height=494');return false;" title="Share on Linkedin"></a>
+    </li>
+</ul>
+
+        </article>
+        <div class="comments">
+            <h3>Comments</h3>
+            <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'koscielniak';
+    var disqus_identifier = 'http:\/\/koscielniak.me\/post\/2016\/04\/when-dotpeek-can-save-your-live\/';
+    var disqus_title = 'When dotPeek can save your live';
+    var disqus_url = 'http:\/\/koscielniak.me\/post\/2016\/04\/when-dotpeek-can-save-your-live\/';
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+        </div>
+    </main>
+    <aside class="author">
+  <img class="profile-image" src="http://koscielniak.me/img/profile-image.png" alt="Piotr Kościelniak" />
+  <p class="name">by 
+  <strong>Piotr Kościelniak</strong></p>
+  <p class="address">Passionate programmer</p>
+  <p class="link"></p>
+  <ul class="social">
+    
+<li><a href="//twitter.com/pikoscielniak" class="icon-twitter" target="_blank" title="Twitter"></a></li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li><a href="//github.com/pikoscielniak" class="icon-github" target="_blank" title="Github"></a></li>
+
+
+
+
+<li><a href="http://koscielniak.me/post/index.xml" class="icon-rss" target="_blank" title="RSS"></a></li>
+
+  </ul>
+  <br><br>
+</aside>
+
+</div>
+
+<footer class="main-footer">
+  <div class="container clearfix">
+        <a class="icon-rss" href="http://koscielniak.me/post/index.xml" title="RSS"></a>
+        <p>&copy; 2016 &middot; Piotr Kościelniak. Powered by <a href="http://gohugo.io">Hugo</a>.</p>
+  </div>
+</footer>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.8.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<script>window.jQuery || document.write('<script src="http:\/\/koscielniak.me\/js/vendor/jquery-1.11.0.min.js"><\/script>')</script>
+<script src="http://koscielniak.me/js/plugins.js"></script>
+
+<!-- Google Analytics -->
+<script>
+  var _gaq=[['_setAccount','UA-72752659-1'],['_trackPageview']];
+  (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+  g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+  s.parentNode.insertBefore(g,s)}(document,'script'));
+</script>
+
+</body>
+</html>
+

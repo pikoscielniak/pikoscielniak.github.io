@@ -6,8 +6,138 @@
     <description>Recent content on Piotr Kościelniak - passionate programmer</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 19 Apr 2016 22:00:00 +0200</lastBuildDate>
+    <lastBuildDate>Thu, 21 Apr 2016 22:00:00 +0200</lastBuildDate>
     <atom:link href="http://koscielniak.me/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>When dotPeek can save your live</title>
+      <link>http://koscielniak.me/post/2016/04/when-dotpeek-can-save-your-live/</link>
+      <pubDate>Thu, 21 Apr 2016 22:00:00 +0200</pubDate>
+      
+      <guid>http://koscielniak.me/post/2016/04/when-dotpeek-can-save-your-live/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;http://dajsiepoznac.pl&#34;&gt;&lt;img src=&#34;http://koscielniak.me/post/2016/03/contestLogo.png&#34; alt=&#34;Daj się poz  nać&#34; title=&#34;Daj się poznać&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;This post is a little break in my investigation regarding auth stuff.
+To write my previous posts I had to debug a bit - and this mainly happened with code that was not mine. Debugging javascript code that is not your own is a piece of cake. You simply write &lt;code&gt;debugger&lt;/code&gt; somewhere in the script and that’s it - the execution of this code will stop where you place the word &lt;code&gt;debugger&lt;/code&gt;. Eventually, you can set a breakpoint in the web browser debugger. Debugging C# code that is not your own requires more involvement, especially if you don’t have source code and &lt;code&gt;pdb&lt;/code&gt; files.  In this post, I am going to write how
+&lt;a href=&#34;https://www.jetbrains.com/decompiler/&#34; target=&#34;_blank&#34;&gt;dotPeek&lt;/a&gt; helps to look inside 3rd party code and see how things works in libraries that I have imported to my project.&lt;/p&gt;
+
+&lt;p&gt;dotPeek is a decompiler but it can also work as a &lt;em&gt;Symbol Server&lt;/em&gt;. Before you use it, you must set it up. This how I did it:&lt;/p&gt;
+
+&lt;p&gt;To configure dotPeek as a &lt;em&gt;Symbol Server&lt;/em&gt; you must navigate in Visual Studio to &lt;em&gt;Tools &amp;rarr; Options &amp;rarr; Debugging &amp;rarr; Symbols&lt;/em&gt;. And then add a new location for symbols like this:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://koscielniak.me/post/2016/04/dotPeek/addNewSymbolsFile.png&#34; alt=&#34;Add new symbol file&#34; title=&#34;Add new symbol file&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;You can check the port on which the symbol server is working in the dotPeek settings &lt;em&gt;Tool &amp;rarr; Options &amp;rarr; Symbol Server&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://koscielniak.me/post/2016/04/dotPeek/configureServerPort.png&#34; alt=&#34;Configure server port&#34; title=&#34;Configure server port&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;The debugging options in Visual Studio (Tools &amp;rarr; Options &amp;rarr; Debugging &amp;rarr; General)  should be set like this:&lt;/p&gt;
+
+&lt;p&gt;Uncheck the &lt;em&gt;Enable Just My Code&lt;/em&gt; option&lt;br /&gt;
+Uncheck the &lt;em&gt;Enable .NET Framework source stepping&lt;/em&gt; option&lt;br /&gt;
+Check the &lt;em&gt;Enable source server support&lt;/em&gt; option&lt;br /&gt;
+Uncheck the &lt;em&gt;Require source files to exactly match the original version&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;Now when everything is setup you can start symbol server in dotPeek by hitting this button:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://koscielniak.me/post/2016/04/dotPeek/startDotPeekServer.png&#34; alt=&#34;Start symbol server&#34; title=&#34;Start symbol server&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;When you first run debug after this configuration it takes some time to load all the desired symbols. You can see what’s going on at the bottom left corner of Visual Studio.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://koscielniak.me/post/2016/04/dotPeek/loadingSymbols.png&#34; alt=&#34;Loading symbols&#34; title=&#34;Loading symbols&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;When all the symbols are loaded, you will see this:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://koscielniak.me/post/2016/04/dotPeek/loadingSymbolsReady.png&#34; alt=&#34;Loading symbols ready&#34; title=&#34;Loading symbols ready&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Next time when you hit Run debugging, it will start almost immediately.&lt;/p&gt;
+
+&lt;p&gt;You can control which symbols should be loaded in the dotPeek settings &lt;em&gt;Tool &amp;rarr; Options &amp;rarr; Symbol Server&lt;/em&gt; and here you can choose for which assemblies dotPeek should generate symbols.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://koscielniak.me/post/2016/04/dotPeek/generateSymbolsFor.png&#34; alt=&#34;Generate symbols for&#34; title=&#34;Generate symbols for&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;When you do this setup it doesn’t mean you can enter whenever you want by hitting F11 (Step Into). You still must show where the &lt;em&gt;pdb&lt;/em&gt; file is for a specific assembly. To do this, open &lt;em&gt;Debug &amp;rarr; Windows &amp;rarr; Modules&lt;/em&gt; during the debugging session and in the &lt;em&gt;Search&lt;/em&gt; field type a part of the name of the assembly you want to debug. After, you’ll see in the &lt;em&gt;Modules&lt;/em&gt; window &lt;em&gt;Cannot find or open the PDB file.&lt;/em&gt;, for this assembly.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://koscielniak.me/post/2016/04/dotPeek/cannotFindPDBfile.png&#34; alt=&#34;Cannot find pdb file&#34; title=&#34;Cannot find pdb file&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Fortunately, dotPeek comes to the rescue. Go to &lt;em&gt;File &amp;rarr; Open&lt;/em&gt; in dotPeek and navigate to the path where the assembly you want to debug is. You’ll find this path in the &lt;em&gt;Debug &amp;rarr; Windows &amp;rarr; Modules&lt;/em&gt; as you can see here:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://koscielniak.me/post/2016/04/dotPeek/pathToDll.png&#34; alt=&#34;Path to dll&#34; title=&#34;Path to dll&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;When you select the &lt;em&gt;.dll&lt;/em&gt; file it will be loaded to the dotPeek &lt;em&gt;Assembly Explorer&lt;/em&gt;:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://koscielniak.me/post/2016/04/dotPeek/loadedAssemblyInDotPeek.png&#34; alt=&#34;Loaded assembly in dotPeek&#34; title=&#34;Loaded assembly in dot peek&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Now you can load the &lt;em&gt;pdb&lt;/em&gt; for this assembly in Visual Studio. In &lt;em&gt;Debug &amp;rarr; Windows &amp;rarr; Modules&lt;/em&gt;, right click on the selected assembly and you will see this dialog:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://koscielniak.me/post/2016/04/dotPeek/loadSymbolesInModules.png&#34; alt=&#34;Load symbols in modules&#34; title=&#34;Load symbols in modules&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Clicking on &lt;em&gt;Load Symbols&lt;/em&gt; succeeds in loading symbols for the assembly you want to debug.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://koscielniak.me/post/2016/04/dotPeek/symbolesLoaded.png&#34; alt=&#34;Symboles loaded&#34; title=&#34;Symboles loaded&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;After this, when you hit F11 (Step Into) you’ll get inside the code of the assembly you want to reflect.&lt;/p&gt;
+
+&lt;p&gt;Sometimes you cannot find a direct way from your code to the methods writting by others, which you want to investigate. In this situation, you can use the window &lt;em&gt;Debug &amp;rarr; New Breakpoint &amp;rarr; Function Breakpoint…&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://koscielniak.me/post/2016/04/dotPeek/newFunctionBreakpoint.png&#34; alt=&#34;New function Breakpoint&#34; title=&#34;New function Breakpoint&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;In this window, you can put the fully qualified method name and the debugger will stop at that point when the execution of the application has reached it.&lt;/p&gt;
+
+&lt;p&gt;What’s more, if you want, you can generate&lt;em&gt;pdb&lt;/em&gt; files in dotPeek and save it. To do this, right click the mouse button on the assembly for which you want &lt;em&gt;pdb&lt;/em&gt;. You’ll see this dialog:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://koscielniak.me/post/2016/04/dotPeek/generatePDB.png&#34; alt=&#34;Generate pdb&#34; title=&#34;Generate pdb&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;When you click &lt;em&gt;Generate Pdb..&lt;/em&gt; you’ll be asking to pass the destination path for symbols. You should specify the same path where the assembly is located.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://koscielniak.me/post/2016/04/dotPeek/generatePdbDialog.png&#34; alt=&#34;Generate pdb dialog&#34; title=&#34;Generate pdb dialog&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Clicking &lt;em&gt;Generate&lt;/em&gt; will cause the &lt;em&gt;pdb&lt;/em&gt; file to be generated and copied to the chosen location. By doing this, you can pass this &lt;em&gt;pdb&lt;/em&gt; file where it is needed.&lt;/p&gt;
+
+&lt;p&gt;Now, you can enjoy the freedom of debugging.&lt;/p&gt;
+
+&lt;h3&gt;Related posts:&lt;/h3&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;ul style=&#34;list-style: none;&#34;&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/02/enrolling-in-daj-sie-poznac/&#34;&gt;Enrolling in &#34;Daj się poznać&#34;&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/daj-sie-poznac-project-details/&#34;&gt;&#34;Daj się poznać&#34; - Project details&#34;&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/i-m-holding-a-project-rider-eap/&#34;&gt;I&#39;m holding a Project Rider EAP&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/installing-asp-dot-net-core-1-on-ubuntu-14/&#34;&gt;Installing ASP .NET Core 1 on Ubuntu 14.04&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/my-first-asp-net-core-1-web-application/&#34;&gt;My first ASP NET Core 1.0 web application&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/project-setup-server-side/&#34;&gt;Project setup - server-side&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/project-setup-client-side/&#34;&gt;Project setup - client-side&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/adding-styling-to-my-application/&#34;&gt;Adding styling to my application&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/angular2-confirm-dialog-component/&#34;&gt;Angular 2 Confirm Dialog Component&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/before-going-into-production/&#34;&gt;Before going into production&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/publishing-to-azure/&#34;&gt;Publishing to Azure&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/setting-up-the-web-client-for-google-identity-platform/&#34;&gt;Setting up the Web client for Google Identity Platform&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/oidc-token-manager-library-with-google-identity-platform-part-1/&#34;&gt;oidc-token-manager library with Google Identity Platform - Part 1&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/oidc-token-manager-library-with-google-identity-platform-part-2/&#34;&gt;oidc-token-manager library with Google Identity Platform - Part 2&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/accesing-api-with-token-from-google-identity-provider/&#34;&gt;Accessing API with token from Google Identity Provider&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/how-portable-is-asp-dot-net-core/&#34;&gt;How portable is ASP .NET Core 1.0?&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+
+
+</description>
+    </item>
     
     <item>
       <title>How portable is ASP .NET Core 1.0?</title>
@@ -2650,173 +2780,6 @@ for example, adding a new controller or view. However, I’ll write about this i
 
 
 &lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>I&#39;m holding a Project Rider EAP</title>
-      <link>http://koscielniak.me/post/2016/03/i-m-holding-a-project-rider-eap/</link>
-      <pubDate>Wed, 02 Mar 2016 22:21:06 +0100</pubDate>
-      
-      <guid>http://koscielniak.me/post/2016/03/i-m-holding-a-project-rider-eap/</guid>
-      <description>&lt;p&gt;&lt;a href=&#34;http://dajsiepoznac.pl&#34;&gt;&lt;img src=&#34;http://koscielniak.me/post/2016/03/contestLogo.png&#34; alt=&#34;Daj się poznać&#34; title=&#34;Daj się poznać&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;I planned for the next post in the “Daj się poznać” series to be about my Ubuntu environment setup
-but something pretty amazing happened to me yesterday evening -
-I got access to an EAP of Project Rider. So this is an impromptu post which fits
-very well into the “Daj się poznać” series and the post which
-I had planned about my Ubuntu environment setup will follow next week.&lt;/p&gt;
-
-&lt;p&gt;I had hoped to get access to an EAP version of Project Rider and
-it happened yesterday at about 9pm when I opened my mailbox and saw an email from JetBrains.
-I received links to download Project Rider. I felt like a child who just got a gift from Santa Claus.
-I’ve wanted to have IDE for .NET from JetBrains for so long, I can’t even remember the first time
-the idea crossed my mind.
-I am using ReSharper but it’s not the same and I wanted to have a “native feeling” of JetBrains’ IDEs.
-Let’s look at my first impression about Project Rider.&lt;/p&gt;
-
-&lt;p&gt;I chose install rider on Ubuntu so I downloaded the version for Linux.
-I unpacked the downloaded archive into a convenient location. I opened console (CTRL+SHIFT+T) and then I typed in console&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;~/install/riderRS-144.4571/bin/rider.sh
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;After a short while I saw this window&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://koscielniak.me/post/2016/03/rider/riderSettingsPrompt.png&#34; alt=&#34;Project Rider import settings&#34; title=&#34;Project Rider import settings&#34; /&gt;
-I chose not to import my settings. And the process of customizing the Rider began.&lt;/p&gt;
-
-&lt;p&gt;On the first screen I selected a UI theme.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://koscielniak.me/post/2016/03/rider/uiTheme.png&#34; alt=&#34;Project Rider select UI Theme&#34; title=&#34;Project Rider select UI Theme&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;The next window prompted me to select a keymap. Because I am really familiar with shortcuts from
-Intellij IDEA I chose this keymap. By the way, I was pleasantly surprised that
-the Visual Studio Keymap was a choice.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://koscielniak.me/post/2016/03/rider/keymapChoice.png&#34; alt=&#34;Project Rider select Keymap&#34; title=&#34;Project Rider select Keymap&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;On the next screen I was asked to choose whether I want to have a desktop entry for Project Rider or not.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://koscielniak.me/post/2016/03/rider/desktopEntry.png&#34; alt=&#34;Project Rider desktop entry&#34; title=&#34;Project Rider desktop entry&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Then I could decide whether I wanted to have a Launcher Script and where it should be.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://koscielniak.me/post/2016/03/rider/launcherScript.png&#34; alt=&#34;Project Rider Launcher Script&#34; title=&#34;Project Rider Launcher Script&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;On the next window&lt;/p&gt;
-
-&lt;p&gt;I found a couple of useful links to
-&lt;a href=&#34;https://www.jetbrains.com/rider/documentation/&#34; target=&#34;_blank&#34;&gt;Getting Started help&lt;/a&gt;,
-to &lt;a href=&#34;https://youtrack.jetbrains.com/issues/RIDER&#34; target=&#34;_blank&#34;&gt;Rider Issue Tracker&lt;/a&gt;
-and to &lt;a href=&#34;https://jbsrider.zendesk.com/hc/en-us&#34; target=&#34;_blank&#34;&gt;Known Issues&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://koscielniak.me/post/2016/03/rider/riderLinks.png&#34; alt=&#34;Project Rider EAP&#34; title=&#34;Project Rider EAP&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;After I clicked &lt;em&gt;Start using Rider&lt;/em&gt;, I was prompted to insert my password in a dialog window and
-then I saw the Welcome screen of Rider&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://koscielniak.me/post/2016/03/rider/welcomeScreen.png&#34; alt=&#34;Project Rider Welcome Screen&#34; title=&#34;Project Rider Welcome Screen&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;You may wonder what this yellow strip at the bottom means. You can read about it in this
-&lt;a href=&#34;https://youtrack.jetbrains.com/issue/IDEA-78860&#34; target=&#34;_blank&#34;&gt;link&lt;/a&gt;.
-It’s a known issue in JetBrains products on Ubuntu and how to deal with it is also written in this link.&lt;/p&gt;
-
-&lt;p&gt;I must honestly say that everything was okay during the installation and this was a  big plus.&lt;/p&gt;
-
-&lt;p&gt;After installation, I quickly created my first console application:
-I clicked &lt;em&gt;New Project&lt;/em&gt;  on Welcome screen and I saw this window&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://koscielniak.me/post/2016/03/rider/newProject.png&#34; alt=&#34;Project Rider New Project&#34; title=&#34;Project Rider New Project&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;I chose &lt;em&gt;Console Application&lt;/em&gt;.&lt;/p&gt;
-
-&lt;p&gt;On the next screen I entered the project name and solution name.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://koscielniak.me/post/2016/03/rider/newProjectProjectName.png&#34; alt=&#34;Project Rider Project Name&#34; title=&#34;Project Rider Project Name&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;After this, I wrote some code&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-csharp&#34;&gt;using System;
-
-namespace ConsoleApplication
-{
-  class Program
-  {
-    static void Main(string[] args)
-    {
-      Console.WriteLine(&amp;quot;Is it real?&amp;quot;);
-    }
-  }
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;and pressed SHIFT+F10 and can you guess what happened?
-At the bottom of IDE I saw this output&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://koscielniak.me/post/2016/03/rider/firstProgramOutput.png&#34; alt=&#34;Project Rider First Program Output&#34; title=&#34;Project Rider First Program Output&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;So until now everything was perfect. I started playing with a web project and this time it wasn’t so good.
-There is no template to create this type of project.
-I created one using Yeoman aspnet generator (I’ll write about this in a future post).
-But I couldn’t open it in Project Rider because the project created by this generator
-doesn’t contain .sln and .csproj files and apparently
-Rider requires these type of files in order to see files in solution.
-I created an issue about this in JetBrains youtrack and you can follow it at this
-&lt;a href=&#34;https://youtrack.jetbrains.com/issue/RIDER-470&#34; target=&#34;_blank&#34;&gt;link&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;I found out in this
-&lt;a href=&#34;https://blog.jetbrains.com/dotnet/2016/01/13/project-rider-a-csharp-ide/&#34; target=&#34;_blank&#34;&gt;post&lt;/a&gt;
-that CoreCLR support is coming so I must be patient. I hope that Rider will have better support for ASP
-.NET Core applications because now it doesn’t have this. Currently, it doesn’t even support Views.
-I created another issue about this. You can check it
-&lt;a href=&#34;https://youtrack.jetbrains.com/issue/RIDER-467&#34; target=&#34;_blank&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;Finally, I am so happy and excited that JetBrains created Rider but
-I must wait for a while until it gets better support for CoreCLR and ASP .NET Core.
-During this time, I’ll be using Visual Studio Code on Linux and Visual Studio with ReSharper on Windows.
-Again, great job to JetBrains! I am sure that I’m not the only one waiting for more.&lt;/p&gt;
-
-&lt;h3&gt;Related posts:&lt;/h3&gt;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-&lt;ul style=&#34;list-style: none;&#34;&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/02/enrolling-in-daj-sie-poznac/&#34;&gt;Enrolling in &#34;Daj się poznać&#34;&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/daj-sie-poznac-project-details/&#34;&gt;&#34;Daj się poznać&#34; - Project details&#34;&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/i-m-holding-a-project-rider-eap/&#34;&gt;I&#39;m holding a Project Rider EAP&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/installing-asp-dot-net-core-1-on-ubuntu-14/&#34;&gt;Installing ASP .NET Core 1 on Ubuntu 14.04&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/my-first-asp-net-core-1-web-application/&#34;&gt;My first ASP NET Core 1.0 web application&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/project-setup-server-side/&#34;&gt;Project setup - server-side&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/project-setup-client-side/&#34;&gt;Project setup - client-side&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/adding-styling-to-my-application/&#34;&gt;Adding styling to my application&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/angular2-confirm-dialog-component/&#34;&gt;Angular 2 Confirm Dialog Component&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/before-going-into-production/&#34;&gt;Before going into production&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/publishing-to-azure/&#34;&gt;Publishing to Azure&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/setting-up-the-web-client-for-google-identity-platform/&#34;&gt;Setting up the Web client for Google Identity Platform&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/oidc-token-manager-library-with-google-identity-platform-part-1/&#34;&gt;oidc-token-manager library with Google Identity Platform - Part 1&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/oidc-token-manager-library-with-google-identity-platform-part-2/&#34;&gt;oidc-token-manager library with Google Identity Platform - Part 2&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/accesing-api-with-token-from-google-identity-provider/&#34;&gt;Accessing API with token from Google Identity Provider&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/how-portable-is-asp-dot-net-core/&#34;&gt;How portable is ASP .NET Core 1.0?&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-
-
 </description>
     </item>
     
