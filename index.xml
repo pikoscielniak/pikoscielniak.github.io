@@ -6,8 +6,244 @@
     <description>Recent content on Piotr Kościelniak - passionate programmer</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 21 Apr 2016 22:00:00 +0200</lastBuildDate>
+    <lastBuildDate>Mon, 25 Apr 2016 22:00:00 +0200</lastBuildDate>
     <atom:link href="http://koscielniak.me/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Reading code as if it were a book</title>
+      <link>http://koscielniak.me/post/2016/04/reading-code-as-if-it-were-a-book/</link>
+      <pubDate>Mon, 25 Apr 2016 22:00:00 +0200</pubDate>
+      
+      <guid>http://koscielniak.me/post/2016/04/reading-code-as-if-it-were-a-book/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;http://dajsiepoznac.pl&#34;&gt;&lt;img src=&#34;http://koscielniak.me/post/2016/03/contestLogo.png&#34; alt=&#34;Daj się poznać&#34; title=&#34;Daj się poznać&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Sometimes we hear that good source code should be read as easily as a book. Let’s look at this code as an example:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;public class EventService
+{
+ private string _eventTitle;
+ private string _participantName;
+ private Event _event;
+ private Participant _participant;
+
+ public void Process(string eventTitle, string participantName)
+ {
+   InitFields(eventTitle, participantName);
+   CreateParticipant();
+   CreateEvent();
+   SaveEvent();
+ }
+
+ private void SaveEvent()
+ {
+   var repository = new Repository();
+   repository.Save(_event);
+ }
+
+ private void CreateParticipant()
+ {
+   _participant = new Participant(_participantName);
+ }
+
+ private void InitFields(string eventTitle, string participantName)
+ {
+   _eventTitle = eventTitle;
+   _participantName = participantName;
+ }
+
+ private void CreateEvent()
+ {
+_event = new Event(_eventTitle, _participant);
+ }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The important part of this code is the method &lt;em&gt;Process&lt;/em&gt;. Let’s see if we can read this method &lt;em&gt;as a book&lt;/em&gt;.&lt;br /&gt;
+&lt;em&gt;InitFields: eventTitle and participantName&lt;/em&gt;&lt;br /&gt;
+&lt;em&gt;CreateParticipant&lt;/em&gt;&lt;br /&gt;
+&lt;em&gt;CreateEvent&lt;/em&gt;&lt;br /&gt;
+&lt;em&gt;SaveEvent&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;I think we can agree that you can pretty much read it like a book. When I run this sample app with &lt;em&gt;Repository&lt;/em&gt; class like this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;public class Repository
+{
+ public void Save(Event @event)
+ {
+   Console.WriteLine($&amp;quot;Saved event: &#39;{@event.EventTitle}&#39; with participant: &#39;{@event.Participant.ParticipantName}&#39;&amp;quot;);
+ }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;and the &lt;em&gt;Main&lt;/em&gt; method like this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;public static void Main(string[] args)
+ {
+   var eventService = new EventService();
+   eventService.Process(&amp;quot;Some event&amp;quot;,&amp;quot;Some participant&amp;quot;);
+ }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;I got this output in the terminal:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;Saved event: &#39;Some event&#39; with participant: &#39;Some participant&#39;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Suddenly, the requirements have changed and the event should also have the place where it’s going to happen. A programmer gets this task &lt;em&gt;Add the place to the event&lt;/em&gt;. They come to the code, look at it and write a method like this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;private void CreatePlace()
+{
+ _place = new Place(_placeName);
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Of Course they add the fields &lt;em&gt;_place&lt;/em&gt; and &lt;em&gt;_placeName&lt;/em&gt; and change the signature of the &lt;em&gt;Process&lt;/em&gt; method to this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;public void Process(string eventTitle, string participantName, string placeName)
+{
+//...
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;They must remember to init  field &lt;em&gt;_placeName&lt;/em&gt; in the &lt;em&gt;InitFields&lt;/em&gt; methods and they must change the signature to this again:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;private void InitFields(string eventTitle, string participantName, string placeName)
+{
+//...
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Fortunately, this programmer has
+&lt;a href=&#34;https://www.jetbrains.com/resharper/&#34; target=&#34;_blank&#34;&gt;Reshaper&lt;/a&gt;.
+Actually, they are testing
+&lt;a href=&#34;https://www.jetbrains.com/rider/&#34; target=&#34;_blank&#34;&gt;JetBrains’ Rider&lt;/a&gt;
+and ALT+ENTER did a lot of this work for them but it’s still a lot of changes. They also have changed the &lt;em&gt;CreateEvent&lt;/em&gt; method to what you see below:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;private void CreateEvent()
+{
+ _event = new Event(_eventTitle, _participant, _place);
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Finally, the last thing to do is to use the &lt;em&gt;CreatePlace&lt;/em&gt; method in the &lt;em&gt;Process&lt;/em&gt; method , but the phone rings. After a 5 minute conversation, they return to the code and enter &lt;em&gt;CreatePlace&lt;/em&gt; like this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;public void Process(string eventTitle, string participantName, string placeName)
+{
+ InitFields(eventTitle, participantName, placeName);
+ CreateParticipant();
+ CreateEvent();
+ CreatePlace();
+ SaveEvent();
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Can you spot where the mistake is? The method &lt;em&gt;Save&lt;/em&gt; in &lt;em&gt;Repository&lt;/em&gt; was written by another programmer and now it looks like this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;public void Save(Event @event)
+{
+ Console.WriteLine($&amp;quot;Saved event: &#39;{@event.EventTitle}&#39;, at &#39;{@event.Place.Name}&#39; &amp;quot; +
+                   $&amp;quot;with participant: &#39;{@event.Participant.ParticipantName}&#39;&amp;quot;);
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;So, the task completed and the place was added to the event. Now let’s run the app&amp;hellip;this is what we get:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;System.NullReferenceException: Object reference not set to an instance of an object
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;We get a beautiful &lt;em&gt;System.NullReferenceException&lt;/em&gt;. Why? Because the programmer called the method &lt;em&gt;CreatePlace&lt;/em&gt; after the method &lt;em&gt;CreateEvent&lt;/em&gt;  by mistake. The mutability of these private fields and the side effects of these &lt;em&gt;Create&amp;hellip;&lt;/em&gt; methods come back to haunt the programmer. Fortunately, the &lt;em&gt;Place&lt;/em&gt; was required and the error shows up immediately but if it doesn’t, how do you know what happened? You can imagine many other possibilities to make a mistake with such kind of code. For example, you can forget to init fields in the &lt;em&gt;InitFields&lt;/em&gt; method.&lt;/p&gt;
+
+&lt;p&gt;Believe it or not, I see this kind of code almost every day. Yes, I know someone would say with TDD you don’t see such kinds of errors but what if you work on a legacy project which doesn’t have tests for this specific fragment of code. What’s more, this way of writing code is also problematic when you want to refactor your code. For example, let’s say that &lt;em&gt;CreateParticipant&lt;/em&gt; got so many requirements that you must take it out of &lt;em&gt;EventService&lt;/em&gt; and put it in its own service. Then you must cut off not only &lt;em&gt;CreateParticipant&lt;/em&gt; method itself but also private fields and private methods on which it depends and sometimes this is not so easy.&lt;/p&gt;
+
+&lt;p&gt;But we can do this better. Let’s get rid of all these private fields and replace them with local variables so the code look like this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;public class EventService
+{
+ public void Process(string eventTitle, string participantName, string placeName)
+ {
+   var participant = CreateParticipant(participantName);
+   var place = CreatePlace(placeName);
+   var @event = CreateEvent(eventTitle, participant, place);
+   SaveEvent(@event);
+ }
+
+ private static void SaveEvent(Event @event)
+ {
+   var repository = new Repository();
+   repository.Save(@event);
+ }
+
+ private static Participant CreateParticipant(string participantName)
+ {
+   return new Participant(participantName);
+ }
+
+ private static Place CreatePlace(string placeName)
+ {
+   return new Place(placeName);
+ }
+
+ private static Event CreateEvent(string eventTitle, Participant participant, Place place)
+ {
+   return new Event(eventTitle, participant, place);
+ }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;And now when you run the app you’ll see this in the console:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;Saved event: &#39;Some event&#39;, at &#39;Some place&#39; with participant: &#39;Some participant&#39;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;With the code like this, it is impossible to create &lt;em&gt;Event&lt;/em&gt; without creating &lt;em&gt;Place&lt;/em&gt; first. Now all these &lt;em&gt;Create&amp;hellip;&lt;/em&gt; methods can be made static. Is this code so hard to read? I don’t think so. A source code is a book with constantly changing pages. I cannot print it and forget about it. You must come back to some places and alter them constantly. It&amp;rsquo;s okay if you&amp;rsquo;re altering code you&amp;rsquo;ve written yourself, but if you work with code written by someone else, then you must be careful about what you do if you come across a situation like the example I shared.&lt;/p&gt;
+
+&lt;p&gt;It’s a very trivial example but you can get a feel for what I’m trying to express. This code won’t be read by a manager or other business people, it will be read by programmers and they can handle a drawback like local variables. The second example of code given can be even more readable for a programmer because they see the whole context for variables and know exactly where they are used. They don’t have to search for &lt;em&gt;Find usages&lt;/em&gt; because they see the usages straight away. What’s more, this functional way of writing code helps in the maintenance of the application. Less side effects and less mutability makes your application more predictable and reliable, especially when multithreading is at stake.&lt;/p&gt;
+
+&lt;h3&gt;Related posts:&lt;/h3&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;ul style=&#34;list-style: none;&#34;&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/02/enrolling-in-daj-sie-poznac/&#34;&gt;Enrolling in &#34;Daj się poznać&#34;&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/daj-sie-poznac-project-details/&#34;&gt;&#34;Daj się poznać&#34; - Project details&#34;&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/i-m-holding-a-project-rider-eap/&#34;&gt;I&#39;m holding a Project Rider EAP&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/installing-asp-dot-net-core-1-on-ubuntu-14/&#34;&gt;Installing ASP .NET Core 1 on Ubuntu 14.04&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/my-first-asp-net-core-1-web-application/&#34;&gt;My first ASP NET Core 1.0 web application&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/project-setup-server-side/&#34;&gt;Project setup - server-side&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/project-setup-client-side/&#34;&gt;Project setup - client-side&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/adding-styling-to-my-application/&#34;&gt;Adding styling to my application&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/angular2-confirm-dialog-component/&#34;&gt;Angular 2 Confirm Dialog Component&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/before-going-into-production/&#34;&gt;Before going into production&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/publishing-to-azure/&#34;&gt;Publishing to Azure&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/setting-up-the-web-client-for-google-identity-platform/&#34;&gt;Setting up the Web client for Google Identity Platform&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/oidc-token-manager-library-with-google-identity-platform-part-1/&#34;&gt;oidc-token-manager library with Google Identity Platform - Part 1&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/oidc-token-manager-library-with-google-identity-platform-part-2/&#34;&gt;oidc-token-manager library with Google Identity Platform - Part 2&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/accesing-api-with-token-from-google-identity-provider/&#34;&gt;Accessing API with token from Google Identity Provider&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/how-portable-is-asp-dot-net-core/&#34;&gt;How portable is ASP .NET Core 1.0?&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/when-dotpeek-can-save-your-live/&#34;&gt;When dotPeek can save your live&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/reading-code-as-if-it-were-a-book/&#34;&gt;Reading code as if it were a book&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+
+
+</description>
+    </item>
     
     <item>
       <title>When dotPeek can save your live</title>
@@ -116,6 +352,7 @@ Uncheck the &lt;em&gt;Require source files to exactly match the original version
 
 
 
+
 &lt;ul style=&#34;list-style: none;&#34;&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/02/enrolling-in-daj-sie-poznac/&#34;&gt;Enrolling in &#34;Daj się poznać&#34;&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/daj-sie-poznac-project-details/&#34;&gt;&#34;Daj się poznać&#34; - Project details&#34;&lt;/a&gt;&lt;/li&gt;
@@ -134,6 +371,7 @@ Uncheck the &lt;em&gt;Require source files to exactly match the original version
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/accesing-api-with-token-from-google-identity-provider/&#34;&gt;Accessing API with token from Google Identity Provider&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/how-portable-is-asp-dot-net-core/&#34;&gt;How portable is ASP .NET Core 1.0?&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/when-dotpeek-can-save-your-live/&#34;&gt;When dotPeek can save your live&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/reading-code-as-if-it-were-a-book/&#34;&gt;Reading code as if it were a book&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 
@@ -205,6 +443,7 @@ but for now it is still bleeding edge and bleeding edges hurt.&lt;/p&gt;
 
 
 
+
 &lt;ul style=&#34;list-style: none;&#34;&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/02/enrolling-in-daj-sie-poznac/&#34;&gt;Enrolling in &#34;Daj się poznać&#34;&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/daj-sie-poznac-project-details/&#34;&gt;&#34;Daj się poznać&#34; - Project details&#34;&lt;/a&gt;&lt;/li&gt;
@@ -223,6 +462,7 @@ but for now it is still bleeding edge and bleeding edges hurt.&lt;/p&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/accesing-api-with-token-from-google-identity-provider/&#34;&gt;Accessing API with token from Google Identity Provider&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/how-portable-is-asp-dot-net-core/&#34;&gt;How portable is ASP .NET Core 1.0?&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/when-dotpeek-can-save-your-live/&#34;&gt;When dotPeek can save your live&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/reading-code-as-if-it-were-a-book/&#34;&gt;Reading code as if it were a book&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 
@@ -389,6 +629,7 @@ to find what happens when this app is run on Linux.&lt;/p&gt;
 
 
 
+
 &lt;ul style=&#34;list-style: none;&#34;&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/02/enrolling-in-daj-sie-poznac/&#34;&gt;Enrolling in &#34;Daj się poznać&#34;&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/daj-sie-poznac-project-details/&#34;&gt;&#34;Daj się poznać&#34; - Project details&#34;&lt;/a&gt;&lt;/li&gt;
@@ -407,6 +648,7 @@ to find what happens when this app is run on Linux.&lt;/p&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/accesing-api-with-token-from-google-identity-provider/&#34;&gt;Accessing API with token from Google Identity Provider&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/how-portable-is-asp-dot-net-core/&#34;&gt;How portable is ASP .NET Core 1.0?&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/when-dotpeek-can-save-your-live/&#34;&gt;When dotPeek can save your live&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/reading-code-as-if-it-were-a-book/&#34;&gt;Reading code as if it were a book&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 
@@ -539,6 +781,7 @@ the web client authentication with Google Identity Provider.&lt;/p&gt;
 
 
 
+
 &lt;ul style=&#34;list-style: none;&#34;&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/02/enrolling-in-daj-sie-poznac/&#34;&gt;Enrolling in &#34;Daj się poznać&#34;&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/daj-sie-poznac-project-details/&#34;&gt;&#34;Daj się poznać&#34; - Project details&#34;&lt;/a&gt;&lt;/li&gt;
@@ -557,6 +800,7 @@ the web client authentication with Google Identity Provider.&lt;/p&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/accesing-api-with-token-from-google-identity-provider/&#34;&gt;Accessing API with token from Google Identity Provider&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/how-portable-is-asp-dot-net-core/&#34;&gt;How portable is ASP .NET Core 1.0?&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/when-dotpeek-can-save-your-live/&#34;&gt;When dotPeek can save your live&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/reading-code-as-if-it-were-a-book/&#34;&gt;Reading code as if it were a book&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 
@@ -775,6 +1019,7 @@ but there must be a way to handle this kind of situation. However, I’ll write 
 
 
 
+
 &lt;ul style=&#34;list-style: none;&#34;&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/02/enrolling-in-daj-sie-poznac/&#34;&gt;Enrolling in &#34;Daj się poznać&#34;&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/daj-sie-poznac-project-details/&#34;&gt;&#34;Daj się poznać&#34; - Project details&#34;&lt;/a&gt;&lt;/li&gt;
@@ -793,6 +1038,7 @@ but there must be a way to handle this kind of situation. However, I’ll write 
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/accesing-api-with-token-from-google-identity-provider/&#34;&gt;Accessing API with token from Google Identity Provider&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/how-portable-is-asp-dot-net-core/&#34;&gt;How portable is ASP .NET Core 1.0?&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/when-dotpeek-can-save-your-live/&#34;&gt;When dotPeek can save your live&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/reading-code-as-if-it-were-a-book/&#34;&gt;Reading code as if it were a book&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 
@@ -886,6 +1132,7 @@ I will continue this theme and I hope, I’ll show finally some code.&lt;/p&gt;
 
 
 
+
 &lt;ul style=&#34;list-style: none;&#34;&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/02/enrolling-in-daj-sie-poznac/&#34;&gt;Enrolling in &#34;Daj się poznać&#34;&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/daj-sie-poznac-project-details/&#34;&gt;&#34;Daj się poznać&#34; - Project details&#34;&lt;/a&gt;&lt;/li&gt;
@@ -904,6 +1151,7 @@ I will continue this theme and I hope, I’ll show finally some code.&lt;/p&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/accesing-api-with-token-from-google-identity-provider/&#34;&gt;Accessing API with token from Google Identity Provider&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/how-portable-is-asp-dot-net-core/&#34;&gt;How portable is ASP .NET Core 1.0?&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/when-dotpeek-can-save-your-live/&#34;&gt;When dotPeek can save your live&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/reading-code-as-if-it-were-a-book/&#34;&gt;Reading code as if it were a book&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 
@@ -1000,6 +1248,7 @@ I wrote how I prepared my application to be ready for publishing. In this post, 
 
 
 
+
 &lt;ul style=&#34;list-style: none;&#34;&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/02/enrolling-in-daj-sie-poznac/&#34;&gt;Enrolling in &#34;Daj się poznać&#34;&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/daj-sie-poznac-project-details/&#34;&gt;&#34;Daj się poznać&#34; - Project details&#34;&lt;/a&gt;&lt;/li&gt;
@@ -1018,6 +1267,7 @@ I wrote how I prepared my application to be ready for publishing. In this post, 
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/accesing-api-with-token-from-google-identity-provider/&#34;&gt;Accessing API with token from Google Identity Provider&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/how-portable-is-asp-dot-net-core/&#34;&gt;How portable is ASP .NET Core 1.0?&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/when-dotpeek-can-save-your-live/&#34;&gt;When dotPeek can save your live&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/reading-code-as-if-it-were-a-book/&#34;&gt;Reading code as if it were a book&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 
@@ -1180,6 +1430,7 @@ Now, I am ready to publish my application to
 
 
 
+
 &lt;ul style=&#34;list-style: none;&#34;&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/02/enrolling-in-daj-sie-poznac/&#34;&gt;Enrolling in &#34;Daj się poznać&#34;&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/daj-sie-poznac-project-details/&#34;&gt;&#34;Daj się poznać&#34; - Project details&#34;&lt;/a&gt;&lt;/li&gt;
@@ -1198,6 +1449,7 @@ Now, I am ready to publish my application to
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/accesing-api-with-token-from-google-identity-provider/&#34;&gt;Accessing API with token from Google Identity Provider&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/how-portable-is-asp-dot-net-core/&#34;&gt;How portable is ASP .NET Core 1.0?&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/when-dotpeek-can-save-your-live/&#34;&gt;When dotPeek can save your live&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/reading-code-as-if-it-were-a-book/&#34;&gt;Reading code as if it were a book&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 
@@ -1506,6 +1758,7 @@ course. I made some changes to adjust his solution to my reality. In the next po
 
 
 
+
 &lt;ul style=&#34;list-style: none;&#34;&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/02/enrolling-in-daj-sie-poznac/&#34;&gt;Enrolling in &#34;Daj się poznać&#34;&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/daj-sie-poznac-project-details/&#34;&gt;&#34;Daj się poznać&#34; - Project details&#34;&lt;/a&gt;&lt;/li&gt;
@@ -1524,6 +1777,7 @@ course. I made some changes to adjust his solution to my reality. In the next po
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/accesing-api-with-token-from-google-identity-provider/&#34;&gt;Accessing API with token from Google Identity Provider&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/how-portable-is-asp-dot-net-core/&#34;&gt;How portable is ASP .NET Core 1.0?&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/when-dotpeek-can-save-your-live/&#34;&gt;When dotPeek can save your live&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/reading-code-as-if-it-were-a-book/&#34;&gt;Reading code as if it were a book&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 
@@ -1699,6 +1953,7 @@ I’ll continue with MDL and I’ll explain what I mean by wrapping MDL componen
 
 
 
+
 &lt;ul style=&#34;list-style: none;&#34;&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/02/enrolling-in-daj-sie-poznac/&#34;&gt;Enrolling in &#34;Daj się poznać&#34;&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/daj-sie-poznac-project-details/&#34;&gt;&#34;Daj się poznać&#34; - Project details&#34;&lt;/a&gt;&lt;/li&gt;
@@ -1717,6 +1972,7 @@ I’ll continue with MDL and I’ll explain what I mean by wrapping MDL componen
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/accesing-api-with-token-from-google-identity-provider/&#34;&gt;Accessing API with token from Google Identity Provider&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/how-portable-is-asp-dot-net-core/&#34;&gt;How portable is ASP .NET Core 1.0?&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/when-dotpeek-can-save-your-live/&#34;&gt;When dotPeek can save your live&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/reading-code-as-if-it-were-a-book/&#34;&gt;Reading code as if it were a book&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 
@@ -2063,6 +2319,7 @@ I will talk about how I added styling to my application and how I improved this 
 
 
 
+
 &lt;ul style=&#34;list-style: none;&#34;&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/02/enrolling-in-daj-sie-poznac/&#34;&gt;Enrolling in &#34;Daj się poznać&#34;&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/daj-sie-poznac-project-details/&#34;&gt;&#34;Daj się poznać&#34; - Project details&#34;&lt;/a&gt;&lt;/li&gt;
@@ -2081,6 +2338,7 @@ I will talk about how I added styling to my application and how I improved this 
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/accesing-api-with-token-from-google-identity-provider/&#34;&gt;Accessing API with token from Google Identity Provider&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/how-portable-is-asp-dot-net-core/&#34;&gt;How portable is ASP .NET Core 1.0?&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/when-dotpeek-can-save-your-live/&#34;&gt;When dotPeek can save your live&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/reading-code-as-if-it-were-a-book/&#34;&gt;Reading code as if it were a book&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 
@@ -2302,6 +2560,7 @@ I am happy with everything I have now. Now I can start to set up my client-side.
 
 
 
+
 &lt;ul style=&#34;list-style: none;&#34;&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/02/enrolling-in-daj-sie-poznac/&#34;&gt;Enrolling in &#34;Daj się poznać&#34;&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/daj-sie-poznac-project-details/&#34;&gt;&#34;Daj się poznać&#34; - Project details&#34;&lt;/a&gt;&lt;/li&gt;
@@ -2320,6 +2579,7 @@ I am happy with everything I have now. Now I can start to set up my client-side.
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/accesing-api-with-token-from-google-identity-provider/&#34;&gt;Accessing API with token from Google Identity Provider&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/how-portable-is-asp-dot-net-core/&#34;&gt;How portable is ASP .NET Core 1.0?&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/when-dotpeek-can-save-your-live/&#34;&gt;When dotPeek can save your live&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/reading-code-as-if-it-were-a-book/&#34;&gt;Reading code as if it were a book&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 
@@ -2610,181 +2870,6 @@ Now I can start create my project.&lt;/p&gt;
 
 
 
-&lt;ul style=&#34;list-style: none;&#34;&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/02/enrolling-in-daj-sie-poznac/&#34;&gt;Enrolling in &#34;Daj się poznać&#34;&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/daj-sie-poznac-project-details/&#34;&gt;&#34;Daj się poznać&#34; - Project details&#34;&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/i-m-holding-a-project-rider-eap/&#34;&gt;I&#39;m holding a Project Rider EAP&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/installing-asp-dot-net-core-1-on-ubuntu-14/&#34;&gt;Installing ASP .NET Core 1 on Ubuntu 14.04&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/my-first-asp-net-core-1-web-application/&#34;&gt;My first ASP NET Core 1.0 web application&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/project-setup-server-side/&#34;&gt;Project setup - server-side&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/project-setup-client-side/&#34;&gt;Project setup - client-side&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/adding-styling-to-my-application/&#34;&gt;Adding styling to my application&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/angular2-confirm-dialog-component/&#34;&gt;Angular 2 Confirm Dialog Component&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/before-going-into-production/&#34;&gt;Before going into production&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/publishing-to-azure/&#34;&gt;Publishing to Azure&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/setting-up-the-web-client-for-google-identity-platform/&#34;&gt;Setting up the Web client for Google Identity Platform&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/oidc-token-manager-library-with-google-identity-platform-part-1/&#34;&gt;oidc-token-manager library with Google Identity Platform - Part 1&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/oidc-token-manager-library-with-google-identity-platform-part-2/&#34;&gt;oidc-token-manager library with Google Identity Platform - Part 2&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/accesing-api-with-token-from-google-identity-provider/&#34;&gt;Accessing API with token from Google Identity Provider&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/how-portable-is-asp-dot-net-core/&#34;&gt;How portable is ASP .NET Core 1.0?&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/when-dotpeek-can-save-your-live/&#34;&gt;When dotPeek can save your live&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-
-&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Installing ASP .NET Core 1.0 on Ubuntu 14.04</title>
-      <link>http://koscielniak.me/post/2016/03/installing-asp-dot-net-core-1-on-ubuntu-14/</link>
-      <pubDate>Tue, 08 Mar 2016 22:00:29 +0100</pubDate>
-      
-      <guid>http://koscielniak.me/post/2016/03/installing-asp-dot-net-core-1-on-ubuntu-14/</guid>
-      <description>&lt;p&gt;&lt;a href=&#34;http://dajsiepoznac.pl&#34;&gt;&lt;img src=&#34;http://koscielniak.me/post/2016/03/contestLogo.png&#34; alt=&#34;Daj się poznać&#34; title=&#34;Daj się poznać&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;After my last impromptu post &lt;a href=&#34;http://koscielniak.me/post/2016/03/i-m-holding-a-project-rider-eap/&#34;&gt;about Project Rider&lt;/a&gt;,
-I’m finally writing about the setup of my
-Linux environment for ASP .NET Core 1.0. I mentioned that I am going to play with ASP .NET Core 1.0 on
-Ubuntu 14.04 but for sure I’ll also play with it on Windows. However, in this post I will describe
-how I installed ASP .NET Core 1.0 on Ubuntu 14.04. I am not writing about how to install
-Ubuntu 14.04 itself, as it’s not the place and time to write about this.&lt;/p&gt;
-
-&lt;p&gt;My starting point for this process was on the official
-&lt;a href=&#34;https://docs.asp.net/en/latest/getting-started/installing-on-linux.html&#34;&gt;asp.net page&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;I opened terminal (CTRL+SHIFT+T) and executed all the following commands:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo apt-get install unzip curl  
-curl -sSL https://raw.githubusercontent.com/aspnet/Home/dev/dnvminstall.sh | DNX_BRANCH=dev sh &amp;amp;&amp;amp; source ~/.dnx/dnvm/dnvm.sh
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Next I installed all the prerequisites for the DNX by issuing this line in terminal:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo apt-get install libunwind8 gettext libssl-dev libcurl4-openssl-dev zlib1g libicu-dev uuid-dev
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Then I installed DNX for .NET Core. issuing this command:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;dnvm upgrade -r coreclr
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;All the commands executed smoothly and without errors.&lt;/p&gt;
-
-&lt;p&gt;I also installed Mono. Firstly, I added the package repository to my system
-by executing this in the terminal:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt; sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF 
- echo &amp;quot;deb http://download.mono-project.com/repo/debian wheezy main&amp;quot; | sudo tee /etc/apt/sources.list.d/mono-xamarin.list
- sudo apt-get update
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Then I installed three mono packages with the command:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo apt-get install mono-devel mono-complete ca-certificates-mono
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;After this I used the command:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;dnvm upgrade -r mono
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;to install DNX for mono.&lt;/p&gt;
-
-&lt;p&gt;There is also one piece of the puzzle needed. To be able to run the application in server Kestrel I had to install &lt;em&gt;libuv&lt;/em&gt;.
-I did this by issuing the following commands in shell:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo apt-get install make automake libtool curl
-curl -sSL https://github.com/libuv/libuv/archive/v1.8.0.tar.gz | sudo tar zxfv - -C /usr/local/src
-cd /usr/local/src/libuv-1.8.0
-sudo sh autogen.sh
-sudo ./configure
-sudo make
-sudo make install
-sudo rm -rf /usr/local/src/libuv-1.8.0 &amp;amp;&amp;amp; cd ~/
-sudo ldconfig
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;After this I also added these two lines:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;source dnvm.sh
-export MONO_MANAGED_WATCHER=disabled
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;to my &lt;em&gt;~/.bash_profile&lt;/em&gt; file to ensure that I can always run the dnvm and dnu commands and
-to work around a known bug in Mono.
-You can find more information &lt;a href=&#34;https://code.visualstudio.com/Docs/runtimes/ASPnet5&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;Having set up DNVM, and getting DNX done, I could now install the Visual Studio Code.
-I’ve always wanted to try Visual Studio Code. I haven’t had the occasion
-to do this until now. However, having access to the EAP version of Project Rider,
-I am only waiting for better support of ASP .NET Core application in it and
-I’ll give up Visual Studio Code.&lt;/p&gt;
-
-&lt;p&gt;Installing Visual Studio Code was a piece of cake. I only downloaded the zip file from this
-&lt;a href=&#34;https://code.visualstudio.com/docs?dv=linux64&#34;&gt;page&lt;/a&gt; and then I unzipped it
-in a location that was convenient
-for me, and inside the folder where I unzipped the VS Code I had an executable file named Code.
-Double clicking on it launches the VS Code.&lt;/p&gt;
-
-&lt;p&gt;To create the first ASP .NET Core 1.0 application I also needed &lt;a href=&#34;https://nodejs.org/&#34;&gt;Node.js&lt;/a&gt;
-and &lt;a href=&#34;https://www.npmjs.com/&#34;&gt;npm&lt;/a&gt;. Yes, it’s true that nothing works these days without Node.js. Node.js and npm
-are required to install and run &lt;a href=&#34;http://yeoman.io/&#34;&gt;Yeoman&lt;/a&gt;, &lt;a href=&#34;http://gulpjs.com/&#34;&gt;Gulp&lt;/a&gt;
-and other massive amounts of Node.js packages.&lt;/p&gt;
-
-&lt;p&gt;To install Node.js I use a &lt;a href=&#34;https://github.com/creationix/nvm&#34;&gt;Node Version Manager&lt;/a&gt;.
-I did this by issuing the following command:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.30.2/install.sh | bash
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;After installing nvm, I installed the recent version of Node.js which is 5.5.0, the issuing command was:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;nvm install v5.5.0
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Then I set it to the currently used version with the command:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;nvm use 5.5.0
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;and finally I aliased it as the default version so that this version of Node could be used in any new shell.
-I did this using the command:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;nvm alias default 5.5.0
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;After this, I installed Yoeman then aspnet generator for Yoeman and finally Gulp and Bower.
-This line executed in the terminal did the job:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt; npm install -g yo generator-aspnet gulp bower
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;All these steps with Node.js are required in order to have a nice generator
-which helps you with the setup of
-ASP .NET projects (&lt;a href=&#34;http://nancyfx.org/&#34;&gt;Nancy&lt;/a&gt; project also) and with other things,
-for example, adding a new controller or view. However, I’ll write about this in the
-&lt;a href=&#34;http://koscielniak.me/post/2016/03/my-first-asp-net-core-1-web-application/&#34;&gt;next post&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;&lt;h3&gt;Related posts:&lt;/h3&gt;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 &lt;ul style=&#34;list-style: none;&#34;&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/02/enrolling-in-daj-sie-poznac/&#34;&gt;Enrolling in &#34;Daj się poznać&#34;&lt;/a&gt;&lt;/li&gt;
@@ -2804,6 +2889,7 @@ for example, adding a new controller or view. However, I’ll write about this i
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/accesing-api-with-token-from-google-identity-provider/&#34;&gt;Accessing API with token from Google Identity Provider&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/how-portable-is-asp-dot-net-core/&#34;&gt;How portable is ASP .NET Core 1.0?&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/when-dotpeek-can-save-your-live/&#34;&gt;When dotPeek can save your live&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/reading-code-as-if-it-were-a-book/&#34;&gt;Reading code as if it were a book&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 

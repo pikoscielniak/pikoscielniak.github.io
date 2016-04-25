@@ -1,0 +1,381 @@
+<!doctype html>
+<html class="no-js">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Piotr Kościelniak - passionate programmer</title>
+        <meta name="author">
+        <meta name="description" content="Piotr Kościelniak - passionate programmer">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="generator" content="Hugo 0.16-DEV" />
+          <link href="http://koscielniak.me/post/index.xml" rel="alternate" type="application/rss+xml" title="Piotr Kościelniak - passionate programmer" />
+          <link href="http://koscielniak.me/post/index.xml" rel="feed" type="application/rss+xml" title="Piotr Kościelniak - passionate programmer" />
+        <link href='//fonts.googleapis.com/css?family=Roboto:400,300,700|Noto+Serif:400,400italic,700,700italic' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" href="http://koscielniak.me/css/styles.css">
+        <link rel="icon" href="http://koscielniak.me/favicon.ico">
+        <link rel="apple-touch-icon" href="http://koscielniak.me/apple-touch-icon.png" />
+        <link rel="stylesheet" href="http://koscielniak.me/css/highlightjs/monokai.css">
+        <script src="http://koscielniak.me/js/vendor/modernizr-2.8.0.min.js"></script>
+        <style>
+        .site-header h2 .logo {
+        background: url(http://koscielniak.me/img/desk.jpg) no-repeat 0 0;
+        }
+        @media (min--moz-device-pixel-ratio: 1.3), (-o-min-device-pixel-ratio: 2.6 / 2), (-webkit-min-device-pixel-ratio: 1.3), (min-device-pixel-ratio: 1.3), (min-resolution: 1.3dppx) {
+          .site-header h2 .logo {
+            background-image: url(http://koscielniak.me/img/desk.jpg);
+        }}
+       .site-header {
+         background: #2a373d url(http://koscielniak.me/img/desk.jpg) no-repeat center center;
+         z-index: -1;
+        }
+        </style>
+    </head>
+    <body>
+        
+        <header class="site-header">
+          <div class="transparent-layer">
+              <h2>You&#39;re here. I appreciate it.</h2>
+          </div>
+        </header>
+
+
+<div class="container clearfix">
+    <main role="main" class="content">
+        <article class="post">
+            <a class="btn" href="http://koscielniak.me/" title="Back to home">&laquo; Back to home</a>
+            
+<h1><a href="http://koscielniak.me/post/2016/04/reading-code-as-if-it-were-a-book/" title="Reading code as if it were a book">Reading code as if it were a book</a></h1>
+
+<footer class="post-info">Posted on <span class="post-meta"><time datetime="2016.04.25">2016.04.25</time>
+&middot; Tagged in
+    
+    <a href="http://koscielniak.me/tags/daj-si%C4%99-pozna%C4%87">daj się poznać</a>, 
+    
+    <a href="http://koscielniak.me/tags/programming">programming</a>
+    
+
+</span>
+</footer>
+
+            <p><a href="http://dajsiepoznac.pl"><img src="/post/2016/03/contestLogo.png" alt="Daj się poznać" title="Daj się poznać" /></a></p>
+
+<p>Sometimes we hear that good source code should be read as easily as a book. Let’s look at this code as an example:</p>
+
+<pre><code>public class EventService
+{
+ private string _eventTitle;
+ private string _participantName;
+ private Event _event;
+ private Participant _participant;
+
+ public void Process(string eventTitle, string participantName)
+ {
+   InitFields(eventTitle, participantName);
+   CreateParticipant();
+   CreateEvent();
+   SaveEvent();
+ }
+
+ private void SaveEvent()
+ {
+   var repository = new Repository();
+   repository.Save(_event);
+ }
+
+ private void CreateParticipant()
+ {
+   _participant = new Participant(_participantName);
+ }
+
+ private void InitFields(string eventTitle, string participantName)
+ {
+   _eventTitle = eventTitle;
+   _participantName = participantName;
+ }
+
+ private void CreateEvent()
+ {
+_event = new Event(_eventTitle, _participant);
+ }
+}
+</code></pre>
+
+<p>The important part of this code is the method <em>Process</em>. Let’s see if we can read this method <em>as a book</em>.<br />
+<em>InitFields: eventTitle and participantName</em><br />
+<em>CreateParticipant</em><br />
+<em>CreateEvent</em><br />
+<em>SaveEvent</em></p>
+
+<p>I think we can agree that you can pretty much read it like a book. When I run this sample app with <em>Repository</em> class like this:</p>
+
+<pre><code>public class Repository
+{
+ public void Save(Event @event)
+ {
+   Console.WriteLine($&quot;Saved event: '{@event.EventTitle}' with participant: '{@event.Participant.ParticipantName}'&quot;);
+ }
+}
+</code></pre>
+
+<p>and the <em>Main</em> method like this:</p>
+
+<pre><code>public static void Main(string[] args)
+ {
+   var eventService = new EventService();
+   eventService.Process(&quot;Some event&quot;,&quot;Some participant&quot;);
+ }
+}
+</code></pre>
+
+<p>I got this output in the terminal:</p>
+
+<pre><code class="language-bash">Saved event: 'Some event' with participant: 'Some participant'
+</code></pre>
+
+<p>Suddenly, the requirements have changed and the event should also have the place where it’s going to happen. A programmer gets this task <em>Add the place to the event</em>. They come to the code, look at it and write a method like this:</p>
+
+<pre><code>private void CreatePlace()
+{
+ _place = new Place(_placeName);
+}
+</code></pre>
+
+<p>Of Course they add the fields <em>_place</em> and <em>_placeName</em> and change the signature of the <em>Process</em> method to this:</p>
+
+<pre><code>public void Process(string eventTitle, string participantName, string placeName)
+{
+//...
+</code></pre>
+
+<p>They must remember to init  field <em>_placeName</em> in the <em>InitFields</em> methods and they must change the signature to this again:</p>
+
+<pre><code>private void InitFields(string eventTitle, string participantName, string placeName)
+{
+//...
+</code></pre>
+
+<p>Fortunately, this programmer has
+<a href="https://www.jetbrains.com/resharper/" target="_blank">Reshaper</a>.
+Actually, they are testing
+<a href="https://www.jetbrains.com/rider/" target="_blank">JetBrains’ Rider</a>
+and ALT+ENTER did a lot of this work for them but it’s still a lot of changes. They also have changed the <em>CreateEvent</em> method to what you see below:</p>
+
+<pre><code>private void CreateEvent()
+{
+ _event = new Event(_eventTitle, _participant, _place);
+}
+</code></pre>
+
+<p>Finally, the last thing to do is to use the <em>CreatePlace</em> method in the <em>Process</em> method , but the phone rings. After a 5 minute conversation, they return to the code and enter <em>CreatePlace</em> like this:</p>
+
+<pre><code>public void Process(string eventTitle, string participantName, string placeName)
+{
+ InitFields(eventTitle, participantName, placeName);
+ CreateParticipant();
+ CreateEvent();
+ CreatePlace();
+ SaveEvent();
+}
+</code></pre>
+
+<p>Can you spot where the mistake is? The method <em>Save</em> in <em>Repository</em> was written by another programmer and now it looks like this:</p>
+
+<pre><code>public void Save(Event @event)
+{
+ Console.WriteLine($&quot;Saved event: '{@event.EventTitle}', at '{@event.Place.Name}' &quot; +
+                   $&quot;with participant: '{@event.Participant.ParticipantName}'&quot;);
+}
+</code></pre>
+
+<p>So, the task completed and the place was added to the event. Now let’s run the app&hellip;this is what we get:</p>
+
+<pre><code class="language-bash">System.NullReferenceException: Object reference not set to an instance of an object
+</code></pre>
+
+<p>We get a beautiful <em>System.NullReferenceException</em>. Why? Because the programmer called the method <em>CreatePlace</em> after the method <em>CreateEvent</em>  by mistake. The mutability of these private fields and the side effects of these <em>Create&hellip;</em> methods come back to haunt the programmer. Fortunately, the <em>Place</em> was required and the error shows up immediately but if it doesn’t, how do you know what happened? You can imagine many other possibilities to make a mistake with such kind of code. For example, you can forget to init fields in the <em>InitFields</em> method.</p>
+
+<p>Believe it or not, I see this kind of code almost every day. Yes, I know someone would say with TDD you don’t see such kinds of errors but what if you work on a legacy project which doesn’t have tests for this specific fragment of code. What’s more, this way of writing code is also problematic when you want to refactor your code. For example, let’s say that <em>CreateParticipant</em> got so many requirements that you must take it out of <em>EventService</em> and put it in its own service. Then you must cut off not only <em>CreateParticipant</em> method itself but also private fields and private methods on which it depends and sometimes this is not so easy.</p>
+
+<p>But we can do this better. Let’s get rid of all these private fields and replace them with local variables so the code look like this:</p>
+
+<pre><code>public class EventService
+{
+ public void Process(string eventTitle, string participantName, string placeName)
+ {
+   var participant = CreateParticipant(participantName);
+   var place = CreatePlace(placeName);
+   var @event = CreateEvent(eventTitle, participant, place);
+   SaveEvent(@event);
+ }
+
+ private static void SaveEvent(Event @event)
+ {
+   var repository = new Repository();
+   repository.Save(@event);
+ }
+
+ private static Participant CreateParticipant(string participantName)
+ {
+   return new Participant(participantName);
+ }
+
+ private static Place CreatePlace(string placeName)
+ {
+   return new Place(placeName);
+ }
+
+ private static Event CreateEvent(string eventTitle, Participant participant, Place place)
+ {
+   return new Event(eventTitle, participant, place);
+ }
+}
+</code></pre>
+
+<p>And now when you run the app you’ll see this in the console:</p>
+
+<pre><code class="language-bash">Saved event: 'Some event', at 'Some place' with participant: 'Some participant'
+</code></pre>
+
+<p>With the code like this, it is impossible to create <em>Event</em> without creating <em>Place</em> first. Now all these <em>Create&hellip;</em> methods can be made static. Is this code so hard to read? I don’t think so. A source code is a book with constantly changing pages. I cannot print it and forget about it. You must come back to some places and alter them constantly. It&rsquo;s okay if you&rsquo;re altering code you&rsquo;ve written yourself, but if you work with code written by someone else, then you must be careful about what you do if you come across a situation like the example I shared.</p>
+
+<p>It’s a very trivial example but you can get a feel for what I’m trying to express. This code won’t be read by a manager or other business people, it will be read by programmers and they can handle a drawback like local variables. The second example of code given can be even more readable for a programmer because they see the whole context for variables and know exactly where they are used. They don’t have to search for <em>Find usages</em> because they see the usages straight away. What’s more, this functional way of writing code helps in the maintenance of the application. Less side effects and less mutability makes your application more predictable and reliable, especially when multithreading is at stake.</p>
+
+<h3>Related posts:</h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<ul style="list-style: none;">
+    <li><a href="/post/2016/02/enrolling-in-daj-sie-poznac/">Enrolling in "Daj się poznać"</a></li>
+    <li><a href="/post/2016/03/daj-sie-poznac-project-details/">"Daj się poznać" - Project details"</a></li>
+    <li><a href="/post/2016/03/i-m-holding-a-project-rider-eap/">I'm holding a Project Rider EAP</a></li>
+    <li><a href="/post/2016/03/installing-asp-dot-net-core-1-on-ubuntu-14/">Installing ASP .NET Core 1 on Ubuntu 14.04</a></li>
+    <li><a href="/post/2016/03/my-first-asp-net-core-1-web-application/">My first ASP NET Core 1.0 web application</a></li>
+    <li><a href="/post/2016/03/project-setup-server-side/">Project setup - server-side</a></li>
+    <li><a href="/post/2016/03/project-setup-client-side/">Project setup - client-side</a></li>
+    <li><a href="/post/2016/03/adding-styling-to-my-application/">Adding styling to my application</a></li>
+    <li><a href="/post/2016/03/angular2-confirm-dialog-component/">Angular 2 Confirm Dialog Component</a></li>
+    <li><a href="/post/2016/03/before-going-into-production/">Before going into production</a></li>
+    <li><a href="/post/2016/03/publishing-to-azure/">Publishing to Azure</a></li>
+    <li><a href="/post/2016/04/setting-up-the-web-client-for-google-identity-platform/">Setting up the Web client for Google Identity Platform</a></li>
+    <li><a href="/post/2016/04/oidc-token-manager-library-with-google-identity-platform-part-1/">oidc-token-manager library with Google Identity Platform - Part 1</a></li>
+    <li><a href="/post/2016/04/oidc-token-manager-library-with-google-identity-platform-part-2/">oidc-token-manager library with Google Identity Platform - Part 2</a></li>
+    <li><a href="/post/2016/04/accesing-api-with-token-from-google-identity-provider/">Accessing API with token from Google Identity Provider</a></li>
+    <li><a href="/post/2016/04/how-portable-is-asp-dot-net-core/">How portable is ASP .NET Core 1.0?</a></li>
+    <li><a href="/post/2016/04/when-dotpeek-can-save-your-live/">When dotPeek can save your live</a></li>
+    <li><a href="/post/2016/04/reading-code-as-if-it-were-a-book/">Reading code as if it were a book</a></li>
+</ul>
+
+
+
+
+            <ul class="share-buttons">
+    <li>Share this article:</li>
+    <li>
+        <a class="icon-facebook-squared" href="https://www.facebook.com/sharer/sharer.php?u=http%3a%2f%2fkoscielniak.me%2fpost%2f2016%2f04%2freading-code-as-if-it-were-a-book%2f" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;" title="Share on Facebook"></a>
+    </li>
+    <li>
+        <a class="icon-twitter" href="https://twitter.com/share?text=Reading%20code%20as%20if%20it%20were%20a%20book&amp;url=http%3a%2f%2fkoscielniak.me%2fpost%2f2016%2f04%2freading-code-as-if-it-were-a-book%2f" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;" title="Tweet this article"></a>
+    </li>
+    <li>
+        <a class="icon-gplus" href="https://plus.google.com/share?url=http%3a%2f%2fkoscielniak.me%2fpost%2f2016%2f04%2freading-code-as-if-it-were-a-book%2f" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;" title="Share on Google&#43;"></a>
+    </li>
+    <li>
+        <a class="icon-linkedin" href="https://www.linkedin.com/shareArticle?mini=true&url=http%3a%2f%2fkoscielniak.me%2fpost%2f2016%2f04%2freading-code-as-if-it-were-a-book%2f&title=Reading%20code%20as%20if%20it%20were%20a%20book" onclick="window.open(this.href, 'linkedin-share', 'width=600,height=494');return false;" title="Share on Linkedin"></a>
+    </li>
+</ul>
+
+        </article>
+        <div class="comments">
+            <h3>Comments</h3>
+            <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'koscielniak';
+    var disqus_identifier = 'http:\/\/koscielniak.me\/post\/2016\/04\/reading-code-as-if-it-were-a-book\/';
+    var disqus_title = 'Reading code as if it were a book';
+    var disqus_url = 'http:\/\/koscielniak.me\/post\/2016\/04\/reading-code-as-if-it-were-a-book\/';
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+        </div>
+    </main>
+    <aside class="author">
+  <img class="profile-image" src="http://koscielniak.me/img/profile-image.png" alt="Piotr Kościelniak" />
+  <p class="name">by 
+  <strong>Piotr Kościelniak</strong></p>
+  <p class="address">Passionate programmer</p>
+  <p class="link"></p>
+  <ul class="social">
+    
+<li><a href="//twitter.com/pikoscielniak" class="icon-twitter" target="_blank" title="Twitter"></a></li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li><a href="//github.com/pikoscielniak" class="icon-github" target="_blank" title="Github"></a></li>
+
+
+
+
+<li><a href="http://koscielniak.me/post/index.xml" class="icon-rss" target="_blank" title="RSS"></a></li>
+
+  </ul>
+  <br><br>
+</aside>
+
+</div>
+
+<footer class="main-footer">
+  <div class="container clearfix">
+        <a class="icon-rss" href="http://koscielniak.me/post/index.xml" title="RSS"></a>
+        <p>&copy; 2016 &middot; Piotr Kościelniak. Powered by <a href="http://gohugo.io">Hugo</a>.</p>
+  </div>
+</footer>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.8.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<script>window.jQuery || document.write('<script src="http:\/\/koscielniak.me\/js/vendor/jquery-1.11.0.min.js"><\/script>')</script>
+<script src="http://koscielniak.me/js/plugins.js"></script>
+
+<!-- Google Analytics -->
+<script>
+  var _gaq=[['_setAccount','UA-72752659-1'],['_trackPageview']];
+  (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+  g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+  s.parentNode.insertBefore(g,s)}(document,'script'));
+</script>
+
+</body>
+</html>
+
