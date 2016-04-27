@@ -6,8 +6,270 @@
     <description>Recent content in Asp .Net Core on Piotr Kościelniak - passionate programmer</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 19 Apr 2016 22:00:00 +0200</lastBuildDate>
+    <lastBuildDate>Wed, 27 Apr 2016 22:00:00 +0200</lastBuildDate>
     <atom:link href="http://koscielniak.me/tags/asp-.net-core/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>ASP .NET Core Configuration</title>
+      <link>http://koscielniak.me/post/2016/04/aps-dot-net-core-configuration/</link>
+      <pubDate>Wed, 27 Apr 2016 22:00:00 +0200</pubDate>
+      
+      <guid>http://koscielniak.me/post/2016/04/aps-dot-net-core-configuration/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;http://dajsiepoznac.pl&#34;&gt;&lt;img src=&#34;http://koscielniak.me/post/2016/03/contestLogo.png&#34; alt=&#34;Daj się poznać&#34; title=&#34;Daj się poznać&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;ASP .NET Core brings with it a lot of new things and concepts to the Web development on .NET framework. One of them is the new way to configure your application. In this post, I will look at the possibilities we have in this area.&lt;/p&gt;
+
+&lt;p&gt;In the previous version of ASP .NET you used file &lt;em&gt;Web.config&lt;/em&gt; to configure your application. Now you have more options: you can use &lt;em&gt;json&lt;/em&gt;, &lt;em&gt;ini&lt;/em&gt;, &lt;em&gt;xml&lt;/em&gt; and you can even easily use environment variables to configure your app. Let’s see how it works.&lt;/p&gt;
+
+&lt;p&gt;We should prepare the configuration for our application during its startup and in the ASP .NET Core there is a class &lt;em&gt;Startup&lt;/em&gt; which is the entry point of our app. In the constructor of the class &lt;em&gt;Startup&lt;/em&gt; we create the &lt;em&gt;ConfigurationBuilder&lt;/em&gt; which we use to prepare the configuration of the app. We can use dependency injection in this constructor and get by it an instance of &lt;em&gt;IHostingEnvironment&lt;/em&gt; and &lt;em&gt;IApplicationEnvironment&lt;/em&gt; which may be helpful for configuration because &lt;em&gt;IHostingEnvironment&lt;/em&gt; provides the current &lt;em&gt;EnvironmentName&lt;/em&gt;, &lt;em&gt;WebRootPath&lt;/em&gt;, and web root file provider while &lt;em&gt;IApplicationEnvironment&lt;/em&gt; provides access to the application properties, such as &lt;em&gt;ApplicationName&lt;/em&gt;, &lt;em&gt;ApplicationVersion&lt;/em&gt;, and &lt;em&gt;ApplicationBasePath&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;I prepared *Startup*’s constructor like this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;public Startup(IHostingEnvironment env)
+{
+    var builder = new ConfigurationBuilder()
+        .AddJsonFile(&amp;quot;appsettings.json&amp;quot;)
+        .AddJsonFile($&amp;quot;appsettings.{env.EnvironmentName}.json&amp;quot;, optional: true);
+
+    builder.AddEnvironmentVariables();
+    Configuration = builder.Build();           
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;What I did in it was to create &lt;em&gt;ConfigurationBuilder&lt;/em&gt; and then I ordered it to prepare the configuration based using files “appsettings.json” and &lt;em&gt;appsettings.{env.EnvironmentName}.json&lt;/em&gt; but the second file may or may not exist. The part of the name &lt;em&gt;env.EnvironmentName&lt;/em&gt; will be replaced in runtime with the proper value. We will see an example of this in a minute.&lt;/p&gt;
+
+&lt;p&gt;I also added environment variables to builder so the configuration will also contain what’s in them. After this, I built config and stored it in the property &lt;em&gt;Configuration&lt;/em&gt; of &lt;em&gt;Startup&lt;/em&gt; class.&lt;/p&gt;
+
+&lt;p&gt;Having the setup like this let’s us create files &lt;em&gt;appsettings.json&lt;/em&gt; and &lt;em&gt;appsettings.Development.json&lt;/em&gt; with content like this:&lt;br /&gt;
+&lt;em&gt;appsettings.json&lt;/em&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;{
+    &amp;quot;ClientSettings&amp;quot;:{
+        &amp;quot;Name&amp;quot;: &amp;quot;Client Name&amp;quot;,
+        &amp;quot;PageSize&amp;quot;: 10,
+        &amp;quot;ShowTitle&amp;quot;: true
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;em&gt;appsettings.Development.json&lt;/em&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;{
+    &amp;quot;ClientSettings&amp;quot;:{
+        &amp;quot;Name&amp;quot;: &amp;quot;Development Client Name&amp;quot;
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Now how can we get access to the values stored in these config files? We have a couple of possibilities so let’s explore a few of them.&lt;/p&gt;
+
+&lt;p&gt;The first one is to get it directly from the &lt;em&gt;Configuration&lt;/em&gt; property like this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt; var clientName = Configuration[&amp;quot;ClientSettings:Name&amp;quot;];
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;As you can see, you must use colons to get nesting values.&lt;/p&gt;
+
+&lt;p&gt;We can even get a whole section from configuration by doing this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;var clientSettings = Configuration.GetSection(&amp;quot;ClientSettings&amp;quot;);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;And then get values from it like this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;var name = clientSettings.Get&amp;lt;string&amp;gt;(&amp;quot;Name&amp;quot;);
+var pageSize = clientSettings.Get&amp;lt;int&amp;gt;(&amp;quot;PageSize&amp;quot;);
+var showTitle = clientSettings.Get&amp;lt;bool&amp;gt;(&amp;quot;ShowTitle&amp;quot;);
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;We can also set a default value for a specific property like this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt; var pageSize = clientSettings.Get&amp;lt;int&amp;gt;(&amp;quot;PageSize&amp;quot;, 20);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;We can only do all these things inside &lt;em&gt;Startup&lt;/em&gt; class unless we make a &lt;em&gt;Configuration&lt;/em&gt; property &lt;code&gt;public static&lt;/code&gt; then we can access it also in example controllers like this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;public IActionResult Index()
+{
+    var clientName = Startup.Configuration[&amp;quot;ClientSettings:Name&amp;quot;];
+    return Content($&amp;quot;Client {clientName}&amp;quot;);
+}
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&amp;hellip;but this kind of using Configuration is a rather bad practice. Another bad practice is making configuration available by dependency injection by doing this in the &lt;em&gt;ConfigureServices&lt;/em&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;services.AddInstance&amp;lt;IConfigurationRoot&amp;gt;(Configuration);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;And then using it, for example in controller, like this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;public class HomeController : Controller
+{
+    private IConfigurationRoot _configuration;
+
+    public HomeController(IConfigurationRoot configuration)
+    {
+        _configuration = configuration;
+    }
+    public IActionResult Index()
+    {            
+          var clientName = _configuration[&amp;quot;ClientSettings:Name&amp;quot;];
+        return Content($&amp;quot;Client {clientName}&amp;quot;);
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;We can get configuration in controller in another way but first let’s create a class like this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;public class ClientSettings
+{
+    public string Name { get; set; }
+    public int PageSize { get; set; }
+    public bool ShowTitle { get; set; }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Then inside &lt;em&gt;ConfigureServices&lt;/em&gt; we do something like this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;services.Configure&amp;lt;ClientSettings&amp;gt;(Configuration.GetSection(&amp;quot;ClientSettings&amp;quot;));
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Now we can get access to the settings for a specific section from dependency injection like this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;public class HomeController : Controller
+{
+    private ClientSettings _clientSettings;
+
+    public HomeController(IOptions&amp;lt;ClientSettings&amp;gt; clientSettings)
+    {
+        _clientSettings = clientSettings.Value;
+    }
+    public IActionResult Index()
+    {            
+          var clientName = _clientSettings;
+        return Content($&amp;quot;{_clientSettings.Name} {_clientSettings.PageSize} {_clientSettings.ShowTitle}&amp;quot;);
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;As you can see now, you have access to the strongly typed object with all your desired settings and you can get help from intellisense to see what they contain.&lt;/p&gt;
+
+&lt;p&gt;You can even get access to these settings from the view by doing this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-html&#34;&gt;@inject IOptions&amp;lt;ClientSettings&amp;gt; ClientSettings
+&amp;lt;div&amp;gt;    
+    @if(ClientSettings.Value.ShowTitle) {
+        &amp;lt;h3&amp;gt;Page title @ClientSettings.Value.Name&amp;lt;/h3&amp;gt;    
+    }
+&amp;lt;/div&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Remember to add usings in the &lt;em&gt;_ViewImports.cshtml&lt;/em&gt; like this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@using AspNetConfigSampleApp
+@using Microsoft.Extensions.OptionsModel
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;For someone who finds injecting &lt;em&gt;IOptions&amp;lt;&amp;gt;&lt;/em&gt; a bit awkward, this is a solution which I found out about from
+&lt;a href=&#34;http://www.benedykt.net/&#34; target=&#34;_blank&#34;&gt;Arkadiusz Benedykt&lt;/a&gt;. In the &lt;em&gt;ConfigureServices&lt;/em&gt; we do this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;var clientSettings = Configuration.Get&amp;lt;ClientSettings&amp;gt;(&amp;quot;ClientSettings&amp;quot;);
+services.AddInstance(clientSettings);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;We created an instance of the &lt;em&gt;ClientSettings&lt;/em&gt; and registered it as a singleton in the dependency injection container so every time someone asks for the class &lt;em&gt;ClientSettings&lt;/em&gt; this instance just created will be injected. With a solution like this, you can use  &lt;em&gt;ClientSettings&lt;/em&gt; in controller in this way:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;public class HomeController : Controller
+{
+   private ClientSettings _clientSettings;
+
+    public HomeController(ClientSettings clientSettings)
+    {
+        _clientSettings = clientSettings;
+    }
+    public IActionResult Index()
+    {            
+         var clientName = _clientSettings;
+        return Content($&amp;quot;{_clientSettings.Name} {_clientSettings.PageSize} {_clientSettings.ShowTitle}&amp;quot;);
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Building the configuration by &lt;em&gt;ConfigurationBuilder&lt;/em&gt; is hierarchical. This means that what is added at the beginning of the configuration will be overridden by what’s added later. Usually the last thing we add to the &lt;em&gt;ConfigurationBuilder&lt;/em&gt; is &lt;em&gt;AddEnvironmentVariables&lt;/em&gt; which means that environmental variables can override settings gathered from previous sources of configuration for example from &lt;em&gt;json&lt;/em&gt; files. Let’s see this in practice.&lt;/p&gt;
+
+&lt;p&gt;In the file &lt;em&gt;appsettings.Develplment.json&lt;/em&gt; I have changed the value for property &lt;em&gt;Name&lt;/em&gt;. When I run the application with this command &lt;code&gt;env ASPNET_ENV=”Development” dnx web&lt;/code&gt; I get a value for &lt;em&gt;Name&lt;/em&gt; like this &lt;em&gt;Development Client Name&lt;/em&gt; because the file  &lt;em&gt;appsettings.Develplment.json&lt;/em&gt; is added after the &lt;em&gt;appsettings.json&lt;/em&gt; to the &lt;em&gt;ConfigurationBuilder&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;I can even change the value for &lt;em&gt;Name&lt;/em&gt; when I run the application by issuing a command like this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;env ASPNET_ENV=&amp;quot;Development&amp;quot; ClientSettings:Name=&amp;quot;Name from Environment&amp;quot;  dnx web
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;After this, I got value &lt;em&gt;Name from Environment&lt;/em&gt; for property &lt;em&gt;Name&lt;/em&gt; of &lt;em&gt;ClientSettings&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;We can also change the values in configuration after it is built, for example like this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Configuration[&amp;quot;ClientSettings:Name&amp;quot;] = &amp;quot;Name from Startup&amp;quot;;   
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;We can even add new settings. This is how it is done in the default Web application project template from &lt;em&gt;yo aspnet generator&lt;/em&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Configuration[&amp;quot;Data:DefaultConnection:ConnectionString&amp;quot;] = $@&amp;quot;Data Source={appEnv.ApplicationBasePath}/WebApplication.db&amp;quot;;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You can find all the examples from this post in this
+&lt;a href=&#34;https://github.com/pikoscielniak/asp-net-core-configuration&#34; target=&#34;_blank&#34;&gt;repository&lt;/a&gt;.
+As you can see, this new way of configuring your ASP .NET Core application provides a lot of possibilities. In the future, I will also write about how to deal with settings which should be secret and should not be published to the source code repository.&lt;/p&gt;
+
+&lt;h3&gt;Related posts:&lt;/h3&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;ul style=&#34;list-style: none;&#34;&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/02/enrolling-in-daj-sie-poznac/&#34;&gt;Enrolling in &#34;Daj się poznać&#34;&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/daj-sie-poznac-project-details/&#34;&gt;&#34;Daj się poznać&#34; - Project details&#34;&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/i-m-holding-a-project-rider-eap/&#34;&gt;I&#39;m holding a Project Rider EAP&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/installing-asp-dot-net-core-1-on-ubuntu-14/&#34;&gt;Installing ASP .NET Core 1 on Ubuntu 14.04&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/my-first-asp-net-core-1-web-application/&#34;&gt;My first ASP NET Core 1.0 web application&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/project-setup-server-side/&#34;&gt;Project setup - server-side&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/project-setup-client-side/&#34;&gt;Project setup - client-side&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/adding-styling-to-my-application/&#34;&gt;Adding styling to my application&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/angular2-confirm-dialog-component/&#34;&gt;Angular 2 Confirm Dialog Component&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/before-going-into-production/&#34;&gt;Before going into production&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/publishing-to-azure/&#34;&gt;Publishing to Azure&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/setting-up-the-web-client-for-google-identity-platform/&#34;&gt;Setting up the Web client for Google Identity Platform&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/oidc-token-manager-library-with-google-identity-platform-part-1/&#34;&gt;oidc-token-manager library with Google Identity Platform - Part 1&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/oidc-token-manager-library-with-google-identity-platform-part-2/&#34;&gt;oidc-token-manager library with Google Identity Platform - Part 2&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/accesing-api-with-token-from-google-identity-provider/&#34;&gt;Accessing API with token from Google Identity Provider&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/how-portable-is-asp-dot-net-core/&#34;&gt;How portable is ASP .NET Core 1.0?&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/when-dotpeek-can-save-your-live/&#34;&gt;When dotPeek can save your live&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/reading-code-as-if-it-were-a-book/&#34;&gt;Reading code as if it were a book&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/aps-dot-net-core-configuration/&#34;&gt;ASP .NET Core Configuration&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+
+
+</description>
+    </item>
     
     <item>
       <title>How portable is ASP .NET Core 1.0?</title>
@@ -74,6 +336,7 @@ but for now it is still bleeding edge and bleeding edges hurt.&lt;/p&gt;
 
 
 
+
 &lt;ul style=&#34;list-style: none;&#34;&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/02/enrolling-in-daj-sie-poznac/&#34;&gt;Enrolling in &#34;Daj się poznać&#34;&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/daj-sie-poznac-project-details/&#34;&gt;&#34;Daj się poznać&#34; - Project details&#34;&lt;/a&gt;&lt;/li&gt;
@@ -93,6 +356,7 @@ but for now it is still bleeding edge and bleeding edges hurt.&lt;/p&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/how-portable-is-asp-dot-net-core/&#34;&gt;How portable is ASP .NET Core 1.0?&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/when-dotpeek-can-save-your-live/&#34;&gt;When dotPeek can save your live&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/reading-code-as-if-it-were-a-book/&#34;&gt;Reading code as if it were a book&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/aps-dot-net-core-configuration/&#34;&gt;ASP .NET Core Configuration&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 
@@ -260,6 +524,7 @@ to find what happens when this app is run on Linux.&lt;/p&gt;
 
 
 
+
 &lt;ul style=&#34;list-style: none;&#34;&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/02/enrolling-in-daj-sie-poznac/&#34;&gt;Enrolling in &#34;Daj się poznać&#34;&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/daj-sie-poznac-project-details/&#34;&gt;&#34;Daj się poznać&#34; - Project details&#34;&lt;/a&gt;&lt;/li&gt;
@@ -279,6 +544,7 @@ to find what happens when this app is run on Linux.&lt;/p&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/how-portable-is-asp-dot-net-core/&#34;&gt;How portable is ASP .NET Core 1.0?&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/when-dotpeek-can-save-your-live/&#34;&gt;When dotPeek can save your live&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/reading-code-as-if-it-were-a-book/&#34;&gt;Reading code as if it were a book&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/aps-dot-net-core-configuration/&#34;&gt;ASP .NET Core Configuration&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 
@@ -376,6 +642,7 @@ I wrote how I prepared my application to be ready for publishing. In this post, 
 
 
 
+
 &lt;ul style=&#34;list-style: none;&#34;&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/02/enrolling-in-daj-sie-poznac/&#34;&gt;Enrolling in &#34;Daj się poznać&#34;&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/daj-sie-poznac-project-details/&#34;&gt;&#34;Daj się poznać&#34; - Project details&#34;&lt;/a&gt;&lt;/li&gt;
@@ -395,6 +662,7 @@ I wrote how I prepared my application to be ready for publishing. In this post, 
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/how-portable-is-asp-dot-net-core/&#34;&gt;How portable is ASP .NET Core 1.0?&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/when-dotpeek-can-save-your-live/&#34;&gt;When dotPeek can save your live&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/reading-code-as-if-it-were-a-book/&#34;&gt;Reading code as if it were a book&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/aps-dot-net-core-configuration/&#34;&gt;ASP .NET Core Configuration&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 
@@ -558,6 +826,7 @@ Now, I am ready to publish my application to
 
 
 
+
 &lt;ul style=&#34;list-style: none;&#34;&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/02/enrolling-in-daj-sie-poznac/&#34;&gt;Enrolling in &#34;Daj się poznać&#34;&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/daj-sie-poznac-project-details/&#34;&gt;&#34;Daj się poznać&#34; - Project details&#34;&lt;/a&gt;&lt;/li&gt;
@@ -577,6 +846,7 @@ Now, I am ready to publish my application to
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/how-portable-is-asp-dot-net-core/&#34;&gt;How portable is ASP .NET Core 1.0?&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/when-dotpeek-can-save-your-live/&#34;&gt;When dotPeek can save your live&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/reading-code-as-if-it-were-a-book/&#34;&gt;Reading code as if it were a book&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/aps-dot-net-core-configuration/&#34;&gt;ASP .NET Core Configuration&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 
@@ -924,6 +1194,7 @@ I will talk about how I added styling to my application and how I improved this 
 
 
 
+
 &lt;ul style=&#34;list-style: none;&#34;&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/02/enrolling-in-daj-sie-poznac/&#34;&gt;Enrolling in &#34;Daj się poznać&#34;&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/daj-sie-poznac-project-details/&#34;&gt;&#34;Daj się poznać&#34; - Project details&#34;&lt;/a&gt;&lt;/li&gt;
@@ -943,6 +1214,7 @@ I will talk about how I added styling to my application and how I improved this 
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/how-portable-is-asp-dot-net-core/&#34;&gt;How portable is ASP .NET Core 1.0?&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/when-dotpeek-can-save-your-live/&#34;&gt;When dotPeek can save your live&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/reading-code-as-if-it-were-a-book/&#34;&gt;Reading code as if it were a book&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/aps-dot-net-core-configuration/&#34;&gt;ASP .NET Core Configuration&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 
@@ -1165,6 +1437,7 @@ I am happy with everything I have now. Now I can start to set up my client-side.
 
 
 
+
 &lt;ul style=&#34;list-style: none;&#34;&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/02/enrolling-in-daj-sie-poznac/&#34;&gt;Enrolling in &#34;Daj się poznać&#34;&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/daj-sie-poznac-project-details/&#34;&gt;&#34;Daj się poznać&#34; - Project details&#34;&lt;/a&gt;&lt;/li&gt;
@@ -1184,6 +1457,7 @@ I am happy with everything I have now. Now I can start to set up my client-side.
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/how-portable-is-asp-dot-net-core/&#34;&gt;How portable is ASP .NET Core 1.0?&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/when-dotpeek-can-save-your-live/&#34;&gt;When dotPeek can save your live&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/reading-code-as-if-it-were-a-book/&#34;&gt;Reading code as if it were a book&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/aps-dot-net-core-configuration/&#34;&gt;ASP .NET Core Configuration&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 
@@ -1335,6 +1609,7 @@ Now I can start create my project.&lt;/p&gt;
 
 
 
+
 &lt;ul style=&#34;list-style: none;&#34;&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/02/enrolling-in-daj-sie-poznac/&#34;&gt;Enrolling in &#34;Daj się poznać&#34;&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/daj-sie-poznac-project-details/&#34;&gt;&#34;Daj się poznać&#34; - Project details&#34;&lt;/a&gt;&lt;/li&gt;
@@ -1354,6 +1629,7 @@ Now I can start create my project.&lt;/p&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/how-portable-is-asp-dot-net-core/&#34;&gt;How portable is ASP .NET Core 1.0?&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/when-dotpeek-can-save-your-live/&#34;&gt;When dotPeek can save your live&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/reading-code-as-if-it-were-a-book/&#34;&gt;Reading code as if it were a book&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/aps-dot-net-core-configuration/&#34;&gt;ASP .NET Core Configuration&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 
@@ -1513,6 +1789,7 @@ for example, adding a new controller or view. However, I’ll write about this i
 
 
 
+
 &lt;ul style=&#34;list-style: none;&#34;&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/02/enrolling-in-daj-sie-poznac/&#34;&gt;Enrolling in &#34;Daj się poznać&#34;&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/daj-sie-poznac-project-details/&#34;&gt;&#34;Daj się poznać&#34; - Project details&#34;&lt;/a&gt;&lt;/li&gt;
@@ -1532,6 +1809,7 @@ for example, adding a new controller or view. However, I’ll write about this i
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/how-portable-is-asp-dot-net-core/&#34;&gt;How portable is ASP .NET Core 1.0?&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/when-dotpeek-can-save-your-live/&#34;&gt;When dotPeek can save your live&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/reading-code-as-if-it-were-a-book/&#34;&gt;Reading code as if it were a book&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/aps-dot-net-core-configuration/&#34;&gt;ASP .NET Core Configuration&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 
@@ -1594,6 +1872,7 @@ so&amp;hellip;let’s do it!&lt;/p&gt;
 
 
 
+
 &lt;ul style=&#34;list-style: none;&#34;&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/02/enrolling-in-daj-sie-poznac/&#34;&gt;Enrolling in &#34;Daj się poznać&#34;&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/daj-sie-poznac-project-details/&#34;&gt;&#34;Daj się poznać&#34; - Project details&#34;&lt;/a&gt;&lt;/li&gt;
@@ -1613,6 +1892,7 @@ so&amp;hellip;let’s do it!&lt;/p&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/how-portable-is-asp-dot-net-core/&#34;&gt;How portable is ASP .NET Core 1.0?&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/when-dotpeek-can-save-your-live/&#34;&gt;When dotPeek can save your live&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/reading-code-as-if-it-were-a-book/&#34;&gt;Reading code as if it were a book&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/aps-dot-net-core-configuration/&#34;&gt;ASP .NET Core Configuration&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 

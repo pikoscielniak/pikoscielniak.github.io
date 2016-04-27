@@ -1,0 +1,407 @@
+<!doctype html>
+<html class="no-js">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Piotr Kościelniak - passionate programmer</title>
+        <meta name="author">
+        <meta name="description" content="Piotr Kościelniak - passionate programmer">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="generator" content="Hugo 0.16-DEV" />
+          <link href="http://koscielniak.me/post/index.xml" rel="alternate" type="application/rss+xml" title="Piotr Kościelniak - passionate programmer" />
+          <link href="http://koscielniak.me/post/index.xml" rel="feed" type="application/rss+xml" title="Piotr Kościelniak - passionate programmer" />
+        <link href='//fonts.googleapis.com/css?family=Roboto:400,300,700|Noto+Serif:400,400italic,700,700italic' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" href="http://koscielniak.me/css/styles.css">
+        <link rel="icon" href="http://koscielniak.me/favicon.ico">
+        <link rel="apple-touch-icon" href="http://koscielniak.me/apple-touch-icon.png" />
+        <link rel="stylesheet" href="http://koscielniak.me/css/highlightjs/monokai.css">
+        <script src="http://koscielniak.me/js/vendor/modernizr-2.8.0.min.js"></script>
+        <style>
+        .site-header h2 .logo {
+        background: url(http://koscielniak.me/img/desk.jpg) no-repeat 0 0;
+        }
+        @media (min--moz-device-pixel-ratio: 1.3), (-o-min-device-pixel-ratio: 2.6 / 2), (-webkit-min-device-pixel-ratio: 1.3), (min-device-pixel-ratio: 1.3), (min-resolution: 1.3dppx) {
+          .site-header h2 .logo {
+            background-image: url(http://koscielniak.me/img/desk.jpg);
+        }}
+       .site-header {
+         background: #2a373d url(http://koscielniak.me/img/desk.jpg) no-repeat center center;
+         z-index: -1;
+        }
+        </style>
+    </head>
+    <body>
+        
+        <header class="site-header">
+          <div class="transparent-layer">
+              <h2>You&#39;re here. I appreciate it.</h2>
+          </div>
+        </header>
+
+
+<div class="container clearfix">
+    <main role="main" class="content">
+        <article class="post">
+            <a class="btn" href="http://koscielniak.me/" title="Back to home">&laquo; Back to home</a>
+            
+<h1><a href="http://koscielniak.me/post/2016/04/aps-dot-net-core-configuration/" title="ASP .NET Core Configuration">ASP .NET Core Configuration</a></h1>
+
+<footer class="post-info">Posted on <span class="post-meta"><time datetime="2016.04.27">2016.04.27</time>
+&middot; Tagged in
+    
+    <a href="http://koscielniak.me/tags/daj-si%C4%99-pozna%C4%87">daj się poznać</a>, 
+    
+    <a href="http://koscielniak.me/tags/asp-.net-core">asp .net core</a>
+    
+
+</span>
+</footer>
+
+            <p><a href="http://dajsiepoznac.pl"><img src="/post/2016/03/contestLogo.png" alt="Daj się poznać" title="Daj się poznać" /></a></p>
+
+<p>ASP .NET Core brings with it a lot of new things and concepts to the Web development on .NET framework. One of them is the new way to configure your application. In this post, I will look at the possibilities we have in this area.</p>
+
+<p>In the previous version of ASP .NET you used file <em>Web.config</em> to configure your application. Now you have more options: you can use <em>json</em>, <em>ini</em>, <em>xml</em> and you can even easily use environment variables to configure your app. Let’s see how it works.</p>
+
+<p>We should prepare the configuration for our application during its startup and in the ASP .NET Core there is a class <em>Startup</em> which is the entry point of our app. In the constructor of the class <em>Startup</em> we create the <em>ConfigurationBuilder</em> which we use to prepare the configuration of the app. We can use dependency injection in this constructor and get by it an instance of <em>IHostingEnvironment</em> and <em>IApplicationEnvironment</em> which may be helpful for configuration because <em>IHostingEnvironment</em> provides the current <em>EnvironmentName</em>, <em>WebRootPath</em>, and web root file provider while <em>IApplicationEnvironment</em> provides access to the application properties, such as <em>ApplicationName</em>, <em>ApplicationVersion</em>, and <em>ApplicationBasePath</em>.</p>
+
+<p>I prepared *Startup*’s constructor like this:</p>
+
+<pre><code>public Startup(IHostingEnvironment env)
+{
+    var builder = new ConfigurationBuilder()
+        .AddJsonFile(&quot;appsettings.json&quot;)
+        .AddJsonFile($&quot;appsettings.{env.EnvironmentName}.json&quot;, optional: true);
+
+    builder.AddEnvironmentVariables();
+    Configuration = builder.Build();           
+}
+</code></pre>
+
+<p>What I did in it was to create <em>ConfigurationBuilder</em> and then I ordered it to prepare the configuration based using files “appsettings.json” and <em>appsettings.{env.EnvironmentName}.json</em> but the second file may or may not exist. The part of the name <em>env.EnvironmentName</em> will be replaced in runtime with the proper value. We will see an example of this in a minute.</p>
+
+<p>I also added environment variables to builder so the configuration will also contain what’s in them. After this, I built config and stored it in the property <em>Configuration</em> of <em>Startup</em> class.</p>
+
+<p>Having the setup like this let’s us create files <em>appsettings.json</em> and <em>appsettings.Development.json</em> with content like this:<br />
+<em>appsettings.json</em>:</p>
+
+<pre><code>{
+    &quot;ClientSettings&quot;:{
+        &quot;Name&quot;: &quot;Client Name&quot;,
+        &quot;PageSize&quot;: 10,
+        &quot;ShowTitle&quot;: true
+    }
+}
+</code></pre>
+
+<p><em>appsettings.Development.json</em>:</p>
+
+<pre><code>{
+    &quot;ClientSettings&quot;:{
+        &quot;Name&quot;: &quot;Development Client Name&quot;
+    }
+}
+</code></pre>
+
+<p>Now how can we get access to the values stored in these config files? We have a couple of possibilities so let’s explore a few of them.</p>
+
+<p>The first one is to get it directly from the <em>Configuration</em> property like this:</p>
+
+<pre><code> var clientName = Configuration[&quot;ClientSettings:Name&quot;];
+</code></pre>
+
+<p>As you can see, you must use colons to get nesting values.</p>
+
+<p>We can even get a whole section from configuration by doing this:</p>
+
+<pre><code>var clientSettings = Configuration.GetSection(&quot;ClientSettings&quot;);
+</code></pre>
+
+<p>And then get values from it like this:</p>
+
+<pre><code>var name = clientSettings.Get&lt;string&gt;(&quot;Name&quot;);
+var pageSize = clientSettings.Get&lt;int&gt;(&quot;PageSize&quot;);
+var showTitle = clientSettings.Get&lt;bool&gt;(&quot;ShowTitle&quot;);
+
+</code></pre>
+
+<p>We can also set a default value for a specific property like this:</p>
+
+<pre><code> var pageSize = clientSettings.Get&lt;int&gt;(&quot;PageSize&quot;, 20);
+</code></pre>
+
+<p>We can only do all these things inside <em>Startup</em> class unless we make a <em>Configuration</em> property <code>public static</code> then we can access it also in example controllers like this:</p>
+
+<pre><code>public IActionResult Index()
+{
+    var clientName = Startup.Configuration[&quot;ClientSettings:Name&quot;];
+    return Content($&quot;Client {clientName}&quot;);
+}
+
+</code></pre>
+
+<p>&hellip;but this kind of using Configuration is a rather bad practice. Another bad practice is making configuration available by dependency injection by doing this in the <em>ConfigureServices</em>:</p>
+
+<pre><code>services.AddInstance&lt;IConfigurationRoot&gt;(Configuration);
+</code></pre>
+
+<p>And then using it, for example in controller, like this:</p>
+
+<pre><code>public class HomeController : Controller
+{
+    private IConfigurationRoot _configuration;
+
+    public HomeController(IConfigurationRoot configuration)
+    {
+        _configuration = configuration;
+    }
+    public IActionResult Index()
+    {            
+          var clientName = _configuration[&quot;ClientSettings:Name&quot;];
+        return Content($&quot;Client {clientName}&quot;);
+    }
+}
+</code></pre>
+
+<p>We can get configuration in controller in another way but first let’s create a class like this:</p>
+
+<pre><code>public class ClientSettings
+{
+    public string Name { get; set; }
+    public int PageSize { get; set; }
+    public bool ShowTitle { get; set; }
+}
+</code></pre>
+
+<p>Then inside <em>ConfigureServices</em> we do something like this:</p>
+
+<pre><code>services.Configure&lt;ClientSettings&gt;(Configuration.GetSection(&quot;ClientSettings&quot;));
+</code></pre>
+
+<p>Now we can get access to the settings for a specific section from dependency injection like this:</p>
+
+<pre><code>public class HomeController : Controller
+{
+    private ClientSettings _clientSettings;
+
+    public HomeController(IOptions&lt;ClientSettings&gt; clientSettings)
+    {
+        _clientSettings = clientSettings.Value;
+    }
+    public IActionResult Index()
+    {            
+          var clientName = _clientSettings;
+        return Content($&quot;{_clientSettings.Name} {_clientSettings.PageSize} {_clientSettings.ShowTitle}&quot;);
+    }
+}
+</code></pre>
+
+<p>As you can see now, you have access to the strongly typed object with all your desired settings and you can get help from intellisense to see what they contain.</p>
+
+<p>You can even get access to these settings from the view by doing this:</p>
+
+<pre><code class="language-html">@inject IOptions&lt;ClientSettings&gt; ClientSettings
+&lt;div&gt;    
+    @if(ClientSettings.Value.ShowTitle) {
+        &lt;h3&gt;Page title @ClientSettings.Value.Name&lt;/h3&gt;    
+    }
+&lt;/div&gt;
+</code></pre>
+
+<p>Remember to add usings in the <em>_ViewImports.cshtml</em> like this:</p>
+
+<pre><code>@using AspNetConfigSampleApp
+@using Microsoft.Extensions.OptionsModel
+</code></pre>
+
+<p>For someone who finds injecting <em>IOptions&lt;&gt;</em> a bit awkward, this is a solution which I found out about from
+<a href="http://www.benedykt.net/" target="_blank">Arkadiusz Benedykt</a>. In the <em>ConfigureServices</em> we do this:</p>
+
+<pre><code>var clientSettings = Configuration.Get&lt;ClientSettings&gt;(&quot;ClientSettings&quot;);
+services.AddInstance(clientSettings);
+</code></pre>
+
+<p>We created an instance of the <em>ClientSettings</em> and registered it as a singleton in the dependency injection container so every time someone asks for the class <em>ClientSettings</em> this instance just created will be injected. With a solution like this, you can use  <em>ClientSettings</em> in controller in this way:</p>
+
+<pre><code>public class HomeController : Controller
+{
+   private ClientSettings _clientSettings;
+
+    public HomeController(ClientSettings clientSettings)
+    {
+        _clientSettings = clientSettings;
+    }
+    public IActionResult Index()
+    {            
+         var clientName = _clientSettings;
+        return Content($&quot;{_clientSettings.Name} {_clientSettings.PageSize} {_clientSettings.ShowTitle}&quot;);
+    }
+}
+</code></pre>
+
+<p>Building the configuration by <em>ConfigurationBuilder</em> is hierarchical. This means that what is added at the beginning of the configuration will be overridden by what’s added later. Usually the last thing we add to the <em>ConfigurationBuilder</em> is <em>AddEnvironmentVariables</em> which means that environmental variables can override settings gathered from previous sources of configuration for example from <em>json</em> files. Let’s see this in practice.</p>
+
+<p>In the file <em>appsettings.Develplment.json</em> I have changed the value for property <em>Name</em>. When I run the application with this command <code>env ASPNET_ENV=”Development” dnx web</code> I get a value for <em>Name</em> like this <em>Development Client Name</em> because the file  <em>appsettings.Develplment.json</em> is added after the <em>appsettings.json</em> to the <em>ConfigurationBuilder</em>.</p>
+
+<p>I can even change the value for <em>Name</em> when I run the application by issuing a command like this:</p>
+
+<pre><code>env ASPNET_ENV=&quot;Development&quot; ClientSettings:Name=&quot;Name from Environment&quot;  dnx web
+</code></pre>
+
+<p>After this, I got value <em>Name from Environment</em> for property <em>Name</em> of <em>ClientSettings</em>.</p>
+
+<p>We can also change the values in configuration after it is built, for example like this:</p>
+
+<pre><code>Configuration[&quot;ClientSettings:Name&quot;] = &quot;Name from Startup&quot;;   
+</code></pre>
+
+<p>We can even add new settings. This is how it is done in the default Web application project template from <em>yo aspnet generator</em>:</p>
+
+<pre><code>Configuration[&quot;Data:DefaultConnection:ConnectionString&quot;] = $@&quot;Data Source={appEnv.ApplicationBasePath}/WebApplication.db&quot;;
+</code></pre>
+
+<p>You can find all the examples from this post in this
+<a href="https://github.com/pikoscielniak/asp-net-core-configuration" target="_blank">repository</a>.
+As you can see, this new way of configuring your ASP .NET Core application provides a lot of possibilities. In the future, I will also write about how to deal with settings which should be secret and should not be published to the source code repository.</p>
+
+<h3>Related posts:</h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<ul style="list-style: none;">
+    <li><a href="/post/2016/02/enrolling-in-daj-sie-poznac/">Enrolling in "Daj się poznać"</a></li>
+    <li><a href="/post/2016/03/daj-sie-poznac-project-details/">"Daj się poznać" - Project details"</a></li>
+    <li><a href="/post/2016/03/i-m-holding-a-project-rider-eap/">I'm holding a Project Rider EAP</a></li>
+    <li><a href="/post/2016/03/installing-asp-dot-net-core-1-on-ubuntu-14/">Installing ASP .NET Core 1 on Ubuntu 14.04</a></li>
+    <li><a href="/post/2016/03/my-first-asp-net-core-1-web-application/">My first ASP NET Core 1.0 web application</a></li>
+    <li><a href="/post/2016/03/project-setup-server-side/">Project setup - server-side</a></li>
+    <li><a href="/post/2016/03/project-setup-client-side/">Project setup - client-side</a></li>
+    <li><a href="/post/2016/03/adding-styling-to-my-application/">Adding styling to my application</a></li>
+    <li><a href="/post/2016/03/angular2-confirm-dialog-component/">Angular 2 Confirm Dialog Component</a></li>
+    <li><a href="/post/2016/03/before-going-into-production/">Before going into production</a></li>
+    <li><a href="/post/2016/03/publishing-to-azure/">Publishing to Azure</a></li>
+    <li><a href="/post/2016/04/setting-up-the-web-client-for-google-identity-platform/">Setting up the Web client for Google Identity Platform</a></li>
+    <li><a href="/post/2016/04/oidc-token-manager-library-with-google-identity-platform-part-1/">oidc-token-manager library with Google Identity Platform - Part 1</a></li>
+    <li><a href="/post/2016/04/oidc-token-manager-library-with-google-identity-platform-part-2/">oidc-token-manager library with Google Identity Platform - Part 2</a></li>
+    <li><a href="/post/2016/04/accesing-api-with-token-from-google-identity-provider/">Accessing API with token from Google Identity Provider</a></li>
+    <li><a href="/post/2016/04/how-portable-is-asp-dot-net-core/">How portable is ASP .NET Core 1.0?</a></li>
+    <li><a href="/post/2016/04/when-dotpeek-can-save-your-live/">When dotPeek can save your live</a></li>
+    <li><a href="/post/2016/04/reading-code-as-if-it-were-a-book/">Reading code as if it were a book</a></li>
+    <li><a href="/post/2016/04/aps-dot-net-core-configuration/">ASP .NET Core Configuration</a></li>
+</ul>
+
+
+
+
+            <ul class="share-buttons">
+    <li>Share this article:</li>
+    <li>
+        <a class="icon-facebook-squared" href="https://www.facebook.com/sharer/sharer.php?u=http%3a%2f%2fkoscielniak.me%2fpost%2f2016%2f04%2faps-dot-net-core-configuration%2f" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;" title="Share on Facebook"></a>
+    </li>
+    <li>
+        <a class="icon-twitter" href="https://twitter.com/share?text=ASP%20.NET%20Core%20Configuration&amp;url=http%3a%2f%2fkoscielniak.me%2fpost%2f2016%2f04%2faps-dot-net-core-configuration%2f" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;" title="Tweet this article"></a>
+    </li>
+    <li>
+        <a class="icon-gplus" href="https://plus.google.com/share?url=http%3a%2f%2fkoscielniak.me%2fpost%2f2016%2f04%2faps-dot-net-core-configuration%2f" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;" title="Share on Google&#43;"></a>
+    </li>
+    <li>
+        <a class="icon-linkedin" href="https://www.linkedin.com/shareArticle?mini=true&url=http%3a%2f%2fkoscielniak.me%2fpost%2f2016%2f04%2faps-dot-net-core-configuration%2f&title=ASP%20.NET%20Core%20Configuration" onclick="window.open(this.href, 'linkedin-share', 'width=600,height=494');return false;" title="Share on Linkedin"></a>
+    </li>
+</ul>
+
+        </article>
+        <div class="comments">
+            <h3>Comments</h3>
+            <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'koscielniak';
+    var disqus_identifier = 'http:\/\/koscielniak.me\/post\/2016\/04\/aps-dot-net-core-configuration\/';
+    var disqus_title = 'ASP .NET Core Configuration';
+    var disqus_url = 'http:\/\/koscielniak.me\/post\/2016\/04\/aps-dot-net-core-configuration\/';
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+        </div>
+    </main>
+    <aside class="author">
+  <img class="profile-image" src="http://koscielniak.me/img/profile-image.png" alt="Piotr Kościelniak" />
+  <p class="name">by 
+  <strong>Piotr Kościelniak</strong></p>
+  <p class="address">Passionate programmer</p>
+  <p class="link"></p>
+  <ul class="social">
+    
+<li><a href="//twitter.com/pikoscielniak" class="icon-twitter" target="_blank" title="Twitter"></a></li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li><a href="//github.com/pikoscielniak" class="icon-github" target="_blank" title="Github"></a></li>
+
+
+
+
+<li><a href="http://koscielniak.me/post/index.xml" class="icon-rss" target="_blank" title="RSS"></a></li>
+
+  </ul>
+  <br><br>
+</aside>
+
+</div>
+
+<footer class="main-footer">
+  <div class="container clearfix">
+        <a class="icon-rss" href="http://koscielniak.me/post/index.xml" title="RSS"></a>
+        <p>&copy; 2016 &middot; Piotr Kościelniak. Powered by <a href="http://gohugo.io">Hugo</a>.</p>
+  </div>
+</footer>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.8.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<script>window.jQuery || document.write('<script src="http:\/\/koscielniak.me\/js/vendor/jquery-1.11.0.min.js"><\/script>')</script>
+<script src="http://koscielniak.me/js/plugins.js"></script>
+
+<!-- Google Analytics -->
+<script>
+  var _gaq=[['_setAccount','UA-72752659-1'],['_trackPageview']];
+  (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+  g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+  s.parentNode.insertBefore(g,s)}(document,'script'));
+</script>
+
+</body>
+</html>
+
