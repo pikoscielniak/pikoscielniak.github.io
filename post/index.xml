@@ -6,8 +6,178 @@
     <description>Recent content in Posts on Piotr Kościelniak - passionate programmer</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 27 Apr 2016 22:00:00 +0200</lastBuildDate>
+    <lastBuildDate>Wed, 04 May 2016 22:00:00 +0200</lastBuildDate>
     <atom:link href="http://koscielniak.me/post/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Getting started with IdentityServer4</title>
+      <link>http://koscielniak.me/post/2016/05/getting-started-with-identity-server4/</link>
+      <pubDate>Wed, 04 May 2016 22:00:00 +0200</pubDate>
+      
+      <guid>http://koscielniak.me/post/2016/05/getting-started-with-identity-server4/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;http://dajsiepoznac.pl&#34;&gt;&lt;img src=&#34;http://koscielniak.me/post/2016/03/contestLogo.png&#34; alt=&#34;Daj się poznać&#34; title=&#34;Daj się poznać&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;I wrote in one of
+&lt;a href=&#34;http://koscielniak.me/post/2016/04/accesing-api-with-token-from-google-identity-provider/&#34;&gt;previous posts&lt;/a&gt;
+about my experiments with Google Identity Provider and Implicit Flow to get access tokens which allow me to fetch resources from API.
+I didn’t mention IdentityServer
+&lt;a href=&#34;https://github.com/IdentityServer&#34; target=&#34;_blank&#34;&gt;IdentityServer&lt;/a&gt; in these posts, which is becoming the default choice if you want to create an identity provider in ASP .NET.
+I did this deliberately because I had some experiences with IdentityServer 3 and I wanted to try something new. IdentityServer3 wasn’t prepared to be used with ASP .NET Core but is there something similar to it? Yes and you can read about it
+&lt;a href=&#34;https://leastprivilege.com/2016/01/11/announcing-identityserver-for-asp-net-5-and-net-core/&#34; target=&#34;_blank&#34;&gt;here&lt;/a&gt;.
+There is IdentityServer4 which is a port of IdentityServer for ASP .NET Core. This post is the first in a series about IdentityServer4 on ASP .NET Core.&lt;/p&gt;
+
+&lt;p&gt;The journey with the IdentityServer4 started by copying&lt;br /&gt;
+&lt;a href=&#34;https://github.com/IdentityServer/IdentityServer4.Samples/tree/dev/Mvc/src/IdSvrHost&#34; target=&#34;_blank&#34;&gt;this folder&lt;/a&gt;
+into my local directory.
+Then inside the directory &lt;em&gt;IdSvrHost&lt;/em&gt;, I restored the packages and I ran an application with &lt;code&gt;dnx web&lt;/code&gt; and after a while I saw the IdentityServer4 welcome page:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://koscielniak.me/post/2016/05/getting-started-with-idsrv4/welcomePage.png&#34; alt=&#34;Identity Server4 welcome page&#34; title=&#34;Identity Server4 welcome page&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Okay, that was great but let’s test IdentityServer4 with a client. In a previous post, I experimented with a javascript client and we’ll do the same in this case.&lt;/p&gt;
+
+&lt;p&gt;I downloaded
+&lt;a href=&#34;https://github.com/IdentityServer/IdentityServer4.Samples/tree/dev/Clients/src/JsOidc&#34; target=&#34;_blank&#34;&gt;this folder&lt;/a&gt;
+to my local folder.
+I restored the packages and ran an application with the command &lt;code&gt;web run&lt;/code&gt; and got the following error in the console:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Microsoft.AspNet.Server.Kestrel.Networking.UvException: Error -98 EADDRINUSE address already in use
+   at Microsoft.AspNet.Server.Kestrel.Networking.Libuv.Check(Int32 statusCode)
+   at Microsoft.AspNet.Server.Kestrel.Networking.UvStreamHandle.Listen(Int32 backlog, Action`4 callback, Object state)
+   at Microsoft.AspNet.Server.Kestrel.Http.TcpListener.CreateListenSocket()
+   at Microsoft.AspNet.Server.Kestrel.Http.Listener.&amp;lt;&amp;gt;c__DisplayClass5_0.&amp;lt;StartAsync&amp;gt;b__0(Object _)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Of course I got the error message &lt;em&gt;address already in use&lt;/em&gt; because my IdentityServer was occupying port 5000. In the &lt;em&gt;project.json&lt;/em&gt; file of &lt;em&gt;JsOidc&lt;/em&gt; project, the &lt;em&gt;web&lt;/em&gt; command was defined as this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;quot;web&amp;quot;: &amp;quot;Microsoft.AspNet.Server.Kestrel&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;and the default port for Kestrel is 5000. So I needed to change this but which port do I choose? I could find the right port in the definition of Clients for IdentityServer and that was in the class &lt;em&gt;Clients&lt;/em&gt; inside the &lt;em&gt;Configuration&lt;/em&gt; folder of &lt;em&gt;IdSvrHost&lt;/em&gt; project. At the end of this class I found:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;///////////////////////////////////////////
+// JS OIDC Sample
+//////////////////////////////////////////
+new Client
+{
+    ClientId = &amp;quot;js_oidc&amp;quot;,
+    ClientName = &amp;quot;JavaScript OIDC Client&amp;quot;,
+    ClientUri = &amp;quot;http://identityserver.io&amp;quot;,
+
+    Flow = Flows.Implicit,
+    RedirectUris = new List&amp;lt;string&amp;gt;
+    {
+        &amp;quot;http://localhost:7017/index.html&amp;quot;,
+        &amp;quot;http://localhost:7017/silent_renew.html&amp;quot;,
+    },
+    PostLogoutRedirectUris = new List&amp;lt;string&amp;gt;
+    {
+        &amp;quot;http://localhost:7017/index.html&amp;quot;,
+    },
+
+    AllowedCorsOrigins = new List&amp;lt;string&amp;gt;
+    {
+        &amp;quot;http://localhost:7017&amp;quot;
+    },
+
+    AllowedScopes = new List&amp;lt;string&amp;gt;
+    {
+        StandardScopes.OpenId.Name,
+        StandardScopes.Profile.Name,
+        StandardScopes.Email.Name,
+        StandardScopes.Roles.Name,
+        &amp;quot;api1&amp;quot;, &amp;quot;api2&amp;quot;
+    }
+},
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;As you can see, the port which I was looking for was 7017 and I changed &lt;em&gt;web&lt;/em&gt; command in the &lt;em&gt;JsOidc&lt;/em&gt; project to:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;quot;web&amp;quot;: &amp;quot;Microsoft.AspNet.Server.Kestrel --server.urls=http://localhost:7017&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;After this, when I ran the application and navigated to &lt;em&gt;&lt;a href=&#34;http://localhost:7017&#34;&gt;http://localhost:7017&lt;/a&gt;&lt;/em&gt; I saw this:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://koscielniak.me/post/2016/05/getting-started-with-idsrv4/javaScriptOidcClient.png&#34; alt=&#34;JavaScript Oidc Client&#34; title=&#34;JavaScript Oidc Client&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;When I clicked &lt;em&gt;Login Only&lt;/em&gt; nothing had happened and I could only see this in the web browser console:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://koscielniak.me/post/2016/05/getting-started-with-idsrv4/errorAfterLogin.png&#34; alt=&#34;Error after Login&#34; title=&#34;Error after Login&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;The reason for the error seemed to be obvious: the javascript library which communicated with IdentityServer was configured to use address localhost:22530 and my IdentityServer worked on port 5000. By the way, this library is my old friend &lt;em&gt;oidc-token-manager&lt;/em&gt; library which I played with
+&lt;a href=&#34;http://koscielniak.me/post/2016/04/oidc-token-manager-library-with-google-identity-platform-part-1/&#34;&gt;here&lt;/a&gt; and
+&lt;a href=&#34;http://koscielniak.me/post/2016/04/oidc-token-manager-library-with-google-identity-platform-part-2/&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;I decided to run my IdentityServer on the port 22530 instead of making changes in the client application code. So I changed the web command in the project &lt;em&gt;IdSvrHost&lt;/em&gt; to this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;quot;web&amp;quot;: &amp;quot;Microsoft.AspNet.Server.Kestrel --server.urls=http://localhost:22530&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;I restarted IdentityServer and then after clicking &lt;em&gt;Login Only&lt;/em&gt; again, I was redirected to this page:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://koscielniak.me/post/2016/05/getting-started-with-idsrv4/loginPage.png&#34; alt=&#34;Login Page&#34; title=&#34;Login Page&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;After entering the username &lt;em&gt;alice&lt;/em&gt; and the password &lt;em&gt;alice&lt;/em&gt; which I found in the class &lt;em&gt;Users&lt;/em&gt; inside the &lt;em&gt;Configuration&lt;/em&gt; folder of &lt;em&gt;IdSvrHost&lt;/em&gt; project, I saw this screen:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://koscielniak.me/post/2016/05/getting-started-with-idsrv4/requestingYourPermission.png&#34; alt=&#34;Requesting Your Permission&#34; title=&#34;Requesting Your Permission&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;After clicking &lt;em&gt;Yes, Allow&lt;/em&gt;, which meant that I granted a specific permission to my client, I was brought back to the javascript client and I saw the following screen:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://koscielniak.me/post/2016/05/getting-started-with-idsrv4/finalResult.png&#34; alt=&#34;Final Result&#34; title=&#34;Final Result&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;As you can see, I got &lt;em&gt;id_token&lt;/em&gt; which meant I was successfully authenticated in IdentityServer. The next step is to obtain &lt;em&gt;access_token&lt;/em&gt; and use it to access some API but this is a theme for another post. Meanwhile, you can find the whole source code for this demo in
+&lt;a href=&#34;https://github.com/pikoscielniak/idsrv-demo&#34; target=&#34;_blank&#34;&gt;this repository&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;h3&gt;Related posts:&lt;/h3&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;ul style=&#34;list-style: none;&#34;&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/02/enrolling-in-daj-sie-poznac/&#34;&gt;Enrolling in &#34;Daj się poznać&#34;&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/daj-sie-poznac-project-details/&#34;&gt;&#34;Daj się poznać&#34; - Project details&#34;&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/i-m-holding-a-project-rider-eap/&#34;&gt;I&#39;m holding a Project Rider EAP&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/installing-asp-dot-net-core-1-on-ubuntu-14/&#34;&gt;Installing ASP .NET Core 1 on Ubuntu 14.04&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/my-first-asp-net-core-1-web-application/&#34;&gt;My first ASP NET Core 1.0 web application&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/project-setup-server-side/&#34;&gt;Project setup - server-side&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/project-setup-client-side/&#34;&gt;Project setup - client-side&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/adding-styling-to-my-application/&#34;&gt;Adding styling to my application&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/angular2-confirm-dialog-component/&#34;&gt;Angular 2 Confirm Dialog Component&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/before-going-into-production/&#34;&gt;Before going into production&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/publishing-to-azure/&#34;&gt;Publishing to Azure&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/setting-up-the-web-client-for-google-identity-platform/&#34;&gt;Setting up the Web client for Google Identity Platform&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/oidc-token-manager-library-with-google-identity-platform-part-1/&#34;&gt;oidc-token-manager library with Google Identity Platform - Part 1&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/oidc-token-manager-library-with-google-identity-platform-part-2/&#34;&gt;oidc-token-manager library with Google Identity Platform - Part 2&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/accesing-api-with-token-from-google-identity-provider/&#34;&gt;Accessing API with token from Google Identity Provider&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/how-portable-is-asp-dot-net-core/&#34;&gt;How portable is ASP .NET Core 1.0?&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/when-dotpeek-can-save-your-live/&#34;&gt;When dotPeek can save your live&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/reading-code-as-if-it-were-a-book/&#34;&gt;Reading code as if it were a book&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/aps-dot-net-core-configuration/&#34;&gt;ASP .NET Core Configuration&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/getting-started-with-identity-server4/&#34;&gt;Getting started with IdentityServer4&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>ASP .NET Core Configuration</title>
@@ -244,6 +414,7 @@ As you can see, this new way of configuring your ASP .NET Core application provi
 
 
 
+
 &lt;ul style=&#34;list-style: none;&#34;&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/02/enrolling-in-daj-sie-poznac/&#34;&gt;Enrolling in &#34;Daj się poznać&#34;&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/daj-sie-poznac-project-details/&#34;&gt;&#34;Daj się poznać&#34; - Project details&#34;&lt;/a&gt;&lt;/li&gt;
@@ -264,6 +435,7 @@ As you can see, this new way of configuring your ASP .NET Core application provi
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/when-dotpeek-can-save-your-live/&#34;&gt;When dotPeek can save your live&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/reading-code-as-if-it-were-a-book/&#34;&gt;Reading code as if it were a book&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/aps-dot-net-core-configuration/&#34;&gt;ASP .NET Core Configuration&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/getting-started-with-identity-server4/&#34;&gt;Getting started with IdentityServer4&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 
@@ -482,6 +654,7 @@ and ALT+ENTER did a lot of this work for them but it’s still a lot of changes.
 
 
 
+
 &lt;ul style=&#34;list-style: none;&#34;&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/02/enrolling-in-daj-sie-poznac/&#34;&gt;Enrolling in &#34;Daj się poznać&#34;&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/daj-sie-poznac-project-details/&#34;&gt;&#34;Daj się poznać&#34; - Project details&#34;&lt;/a&gt;&lt;/li&gt;
@@ -502,6 +675,7 @@ and ALT+ENTER did a lot of this work for them but it’s still a lot of changes.
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/when-dotpeek-can-save-your-live/&#34;&gt;When dotPeek can save your live&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/reading-code-as-if-it-were-a-book/&#34;&gt;Reading code as if it were a book&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/aps-dot-net-core-configuration/&#34;&gt;ASP .NET Core Configuration&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/getting-started-with-identity-server4/&#34;&gt;Getting started with IdentityServer4&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 
@@ -618,6 +792,7 @@ Uncheck the &lt;em&gt;Require source files to exactly match the original version
 
 
 
+
 &lt;ul style=&#34;list-style: none;&#34;&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/02/enrolling-in-daj-sie-poznac/&#34;&gt;Enrolling in &#34;Daj się poznać&#34;&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/daj-sie-poznac-project-details/&#34;&gt;&#34;Daj się poznać&#34; - Project details&#34;&lt;/a&gt;&lt;/li&gt;
@@ -638,6 +813,7 @@ Uncheck the &lt;em&gt;Require source files to exactly match the original version
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/when-dotpeek-can-save-your-live/&#34;&gt;When dotPeek can save your live&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/reading-code-as-if-it-were-a-book/&#34;&gt;Reading code as if it were a book&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/aps-dot-net-core-configuration/&#34;&gt;ASP .NET Core Configuration&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/getting-started-with-identity-server4/&#34;&gt;Getting started with IdentityServer4&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 
@@ -711,6 +887,7 @@ but for now it is still bleeding edge and bleeding edges hurt.&lt;/p&gt;
 
 
 
+
 &lt;ul style=&#34;list-style: none;&#34;&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/02/enrolling-in-daj-sie-poznac/&#34;&gt;Enrolling in &#34;Daj się poznać&#34;&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/daj-sie-poznac-project-details/&#34;&gt;&#34;Daj się poznać&#34; - Project details&#34;&lt;/a&gt;&lt;/li&gt;
@@ -731,6 +908,7 @@ but for now it is still bleeding edge and bleeding edges hurt.&lt;/p&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/when-dotpeek-can-save-your-live/&#34;&gt;When dotPeek can save your live&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/reading-code-as-if-it-were-a-book/&#34;&gt;Reading code as if it were a book&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/aps-dot-net-core-configuration/&#34;&gt;ASP .NET Core Configuration&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/getting-started-with-identity-server4/&#34;&gt;Getting started with IdentityServer4&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 
@@ -899,6 +1077,7 @@ to find what happens when this app is run on Linux.&lt;/p&gt;
 
 
 
+
 &lt;ul style=&#34;list-style: none;&#34;&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/02/enrolling-in-daj-sie-poznac/&#34;&gt;Enrolling in &#34;Daj się poznać&#34;&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/daj-sie-poznac-project-details/&#34;&gt;&#34;Daj się poznać&#34; - Project details&#34;&lt;/a&gt;&lt;/li&gt;
@@ -919,6 +1098,7 @@ to find what happens when this app is run on Linux.&lt;/p&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/when-dotpeek-can-save-your-live/&#34;&gt;When dotPeek can save your live&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/reading-code-as-if-it-were-a-book/&#34;&gt;Reading code as if it were a book&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/aps-dot-net-core-configuration/&#34;&gt;ASP .NET Core Configuration&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/getting-started-with-identity-server4/&#34;&gt;Getting started with IdentityServer4&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 
@@ -1053,6 +1233,7 @@ the web client authentication with Google Identity Provider.&lt;/p&gt;
 
 
 
+
 &lt;ul style=&#34;list-style: none;&#34;&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/02/enrolling-in-daj-sie-poznac/&#34;&gt;Enrolling in &#34;Daj się poznać&#34;&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/daj-sie-poznac-project-details/&#34;&gt;&#34;Daj się poznać&#34; - Project details&#34;&lt;/a&gt;&lt;/li&gt;
@@ -1073,6 +1254,7 @@ the web client authentication with Google Identity Provider.&lt;/p&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/when-dotpeek-can-save-your-live/&#34;&gt;When dotPeek can save your live&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/reading-code-as-if-it-were-a-book/&#34;&gt;Reading code as if it were a book&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/aps-dot-net-core-configuration/&#34;&gt;ASP .NET Core Configuration&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/getting-started-with-identity-server4/&#34;&gt;Getting started with IdentityServer4&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 
@@ -1293,6 +1475,7 @@ but there must be a way to handle this kind of situation. However, I’ll write 
 
 
 
+
 &lt;ul style=&#34;list-style: none;&#34;&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/02/enrolling-in-daj-sie-poznac/&#34;&gt;Enrolling in &#34;Daj się poznać&#34;&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/daj-sie-poznac-project-details/&#34;&gt;&#34;Daj się poznać&#34; - Project details&#34;&lt;/a&gt;&lt;/li&gt;
@@ -1313,6 +1496,7 @@ but there must be a way to handle this kind of situation. However, I’ll write 
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/when-dotpeek-can-save-your-live/&#34;&gt;When dotPeek can save your live&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/reading-code-as-if-it-were-a-book/&#34;&gt;Reading code as if it were a book&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/aps-dot-net-core-configuration/&#34;&gt;ASP .NET Core Configuration&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/getting-started-with-identity-server4/&#34;&gt;Getting started with IdentityServer4&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 
@@ -1408,6 +1592,7 @@ I will continue this theme and I hope, I’ll show finally some code.&lt;/p&gt;
 
 
 
+
 &lt;ul style=&#34;list-style: none;&#34;&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/02/enrolling-in-daj-sie-poznac/&#34;&gt;Enrolling in &#34;Daj się poznać&#34;&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/daj-sie-poznac-project-details/&#34;&gt;&#34;Daj się poznać&#34; - Project details&#34;&lt;/a&gt;&lt;/li&gt;
@@ -1428,6 +1613,7 @@ I will continue this theme and I hope, I’ll show finally some code.&lt;/p&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/when-dotpeek-can-save-your-live/&#34;&gt;When dotPeek can save your live&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/reading-code-as-if-it-were-a-book/&#34;&gt;Reading code as if it were a book&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/aps-dot-net-core-configuration/&#34;&gt;ASP .NET Core Configuration&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/getting-started-with-identity-server4/&#34;&gt;Getting started with IdentityServer4&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 
@@ -1526,6 +1712,7 @@ I wrote how I prepared my application to be ready for publishing. In this post, 
 
 
 
+
 &lt;ul style=&#34;list-style: none;&#34;&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/02/enrolling-in-daj-sie-poznac/&#34;&gt;Enrolling in &#34;Daj się poznać&#34;&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/daj-sie-poznac-project-details/&#34;&gt;&#34;Daj się poznać&#34; - Project details&#34;&lt;/a&gt;&lt;/li&gt;
@@ -1546,6 +1733,7 @@ I wrote how I prepared my application to be ready for publishing. In this post, 
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/when-dotpeek-can-save-your-live/&#34;&gt;When dotPeek can save your live&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/reading-code-as-if-it-were-a-book/&#34;&gt;Reading code as if it were a book&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/aps-dot-net-core-configuration/&#34;&gt;ASP .NET Core Configuration&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/getting-started-with-identity-server4/&#34;&gt;Getting started with IdentityServer4&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 
@@ -1710,6 +1898,7 @@ Now, I am ready to publish my application to
 
 
 
+
 &lt;ul style=&#34;list-style: none;&#34;&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/02/enrolling-in-daj-sie-poznac/&#34;&gt;Enrolling in &#34;Daj się poznać&#34;&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/daj-sie-poznac-project-details/&#34;&gt;&#34;Daj się poznać&#34; - Project details&#34;&lt;/a&gt;&lt;/li&gt;
@@ -1730,6 +1919,7 @@ Now, I am ready to publish my application to
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/when-dotpeek-can-save-your-live/&#34;&gt;When dotPeek can save your live&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/reading-code-as-if-it-were-a-book/&#34;&gt;Reading code as if it were a book&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/aps-dot-net-core-configuration/&#34;&gt;ASP .NET Core Configuration&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/getting-started-with-identity-server4/&#34;&gt;Getting started with IdentityServer4&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 
@@ -2040,6 +2230,7 @@ course. I made some changes to adjust his solution to my reality. In the next po
 
 
 
+
 &lt;ul style=&#34;list-style: none;&#34;&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/02/enrolling-in-daj-sie-poznac/&#34;&gt;Enrolling in &#34;Daj się poznać&#34;&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/daj-sie-poznac-project-details/&#34;&gt;&#34;Daj się poznać&#34; - Project details&#34;&lt;/a&gt;&lt;/li&gt;
@@ -2060,6 +2251,7 @@ course. I made some changes to adjust his solution to my reality. In the next po
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/when-dotpeek-can-save-your-live/&#34;&gt;When dotPeek can save your live&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/reading-code-as-if-it-were-a-book/&#34;&gt;Reading code as if it were a book&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/aps-dot-net-core-configuration/&#34;&gt;ASP .NET Core Configuration&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/getting-started-with-identity-server4/&#34;&gt;Getting started with IdentityServer4&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 
@@ -2237,6 +2429,7 @@ I’ll continue with MDL and I’ll explain what I mean by wrapping MDL componen
 
 
 
+
 &lt;ul style=&#34;list-style: none;&#34;&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/02/enrolling-in-daj-sie-poznac/&#34;&gt;Enrolling in &#34;Daj się poznać&#34;&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/daj-sie-poznac-project-details/&#34;&gt;&#34;Daj się poznać&#34; - Project details&#34;&lt;/a&gt;&lt;/li&gt;
@@ -2257,6 +2450,7 @@ I’ll continue with MDL and I’ll explain what I mean by wrapping MDL componen
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/when-dotpeek-can-save-your-live/&#34;&gt;When dotPeek can save your live&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/reading-code-as-if-it-were-a-book/&#34;&gt;Reading code as if it were a book&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/aps-dot-net-core-configuration/&#34;&gt;ASP .NET Core Configuration&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/getting-started-with-identity-server4/&#34;&gt;Getting started with IdentityServer4&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 
@@ -2605,6 +2799,7 @@ I will talk about how I added styling to my application and how I improved this 
 
 
 
+
 &lt;ul style=&#34;list-style: none;&#34;&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/02/enrolling-in-daj-sie-poznac/&#34;&gt;Enrolling in &#34;Daj się poznać&#34;&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/daj-sie-poznac-project-details/&#34;&gt;&#34;Daj się poznać&#34; - Project details&#34;&lt;/a&gt;&lt;/li&gt;
@@ -2625,6 +2820,7 @@ I will talk about how I added styling to my application and how I improved this 
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/when-dotpeek-can-save-your-live/&#34;&gt;When dotPeek can save your live&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/reading-code-as-if-it-were-a-book/&#34;&gt;Reading code as if it were a book&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/aps-dot-net-core-configuration/&#34;&gt;ASP .NET Core Configuration&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/getting-started-with-identity-server4/&#34;&gt;Getting started with IdentityServer4&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 
@@ -2848,6 +3044,7 @@ I am happy with everything I have now. Now I can start to set up my client-side.
 
 
 
+
 &lt;ul style=&#34;list-style: none;&#34;&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/02/enrolling-in-daj-sie-poznac/&#34;&gt;Enrolling in &#34;Daj się poznać&#34;&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/daj-sie-poznac-project-details/&#34;&gt;&#34;Daj się poznać&#34; - Project details&#34;&lt;/a&gt;&lt;/li&gt;
@@ -2868,150 +3065,11 @@ I am happy with everything I have now. Now I can start to set up my client-side.
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/when-dotpeek-can-save-your-live/&#34;&gt;When dotPeek can save your live&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/reading-code-as-if-it-were-a-book/&#34;&gt;Reading code as if it were a book&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/aps-dot-net-core-configuration/&#34;&gt;ASP .NET Core Configuration&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/getting-started-with-identity-server4/&#34;&gt;Getting started with IdentityServer4&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 
 &lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Wroc# 2016 - knowledge, networking and Objectivity office tour!</title>
-      <link>http://koscielniak.me/post/2016/03/wrocsharp-2016-knowledge-networking-and-objectivity-office-tour/</link>
-      <pubDate>Mon, 14 Mar 2016 22:00:00 +0100</pubDate>
-      
-      <guid>http://koscielniak.me/post/2016/03/wrocsharp-2016-knowledge-networking-and-objectivity-office-tour/</guid>
-      <description>&lt;p&gt;&lt;a href=&#34;http://wrocsharp.com/&#34; target=&#34;_blank&#34;&gt;&lt;img src=&#34;http://koscielniak.me/post/2016/03/wrocsharp/wroc-color.svg&#34; alt=&#34;Wroc#&#34; title=&#34;Wroc#&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;A few days have passed since the &lt;a href=&#34;http://wrocsharp.com/&#34; target=&#34;_blank&#34;&gt;Wroc#&lt;/a&gt; conference, however,
-now I am finally able to write about Wroc# 2016. For me, this conference lasted three days
-and I needed some time to recuperate.&lt;/p&gt;
-
-&lt;p&gt;I arrived in Wrocław the day before Wroc# in order to take part in the Pre-wroc# meetup organized
-by &lt;a href=&#34;http://www.meetup.com/wrocnet/&#34; target=&#34;_blank&#34;&gt;the Wrocław .NET User Group&lt;/a&gt;.
-It was a nice warm up before the conference. I talked to some old friends and met some new ones.&lt;/p&gt;
-
-&lt;p&gt;The next morning I went to
-&lt;a href=&#34;https://en.wikipedia.org/wiki/Stadion_Miejski_(Wroc%C5%82aw)&#34; target=&#34;_blank&#34;&gt;the Wrocław City Stadium&lt;/a&gt;
-which was the home of Wroc# 2016. The conference was opened by
-&lt;a href=&#34;https://twitter.com/lukaszgasior&#34; target=&#34;_blank&#34;&gt;Łukasz&lt;/a&gt;
-and &lt;a href=&#34;https://twitter.com/WojtekZed&#34; target=&#34;_blank&#34;&gt;Wojtek&lt;/a&gt;.
-After them, Susanta Ghosh welcomed attendees
-on behalf of &lt;a href=&#34;http://www.objectivity.co.uk/&#34; target=&#34;_blank&#34;&gt;Objectivity&lt;/a&gt;.
-At the beginning of the conference the organizers informed us of a change in the agenda.
-I thought “oh no, &lt;a href=&#34;https://twitter.com/markrendle&#34; target=&#34;_blank&#34;&gt;Mark Rendle&lt;/a&gt; didn’t come again”,
-but It was only partially true. Yes, he didn’t come to the stadium but he was in Wrocław.
-So instead of him, the first speech was given by
-&lt;a href=&#34;https://twitter.com/ICooper&#34; target=&#34;_blank&#34;&gt;Ian Cooper&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;Ian Cooper’s speech &lt;em&gt;From Monolith to Microservices&lt;/em&gt; was a seamless and instructive
-talk about: when to go into microservices, how to do it and the benefits for your company,
-your customers and you as a developer. Ian as usual, used his profound knowledge and explained
-everything in a very consistent way. His speech was a finely woven thread that incorporated
-the previous, current and upcoming statement. He composed his speech in a way,
-that he showed you both the trees, and the forest: paying attention to fine details
-as well as the bigger picture. Ian’s presence was the most memorable part of the conference for me.
-I spent awhile talking with him during the after party and this was a very exciting experience.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://koscielniak.me/post/2016/03/wrocsharp/meAndIan.jpg&#34; alt=&#34;Me and Ian Cooper&#34; title=&#34;Me and Ian Cooper&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;The second speech was given by Mark Rendle, and he spoke about
-&lt;em&gt;My First Startup (And Other Mistakes)&lt;/em&gt; and as he said, he was late deliberately
-to show us that he makes mistakes. Mark told us about what he learned dealing with
-his own businesses. I learnt the following from his speech:
-&lt;em&gt;Perfect something. Then add something more, and perfect that too. Repeat&lt;/em&gt;.
-That is my summary of his great presentation.&lt;/p&gt;
-
-&lt;p&gt;After Mark, &lt;a href=&#34;https://twitter.com/ecampidoglio&#34; target=&#34;_blank&#34;&gt;Enrico Campidoglio&lt;/a&gt; came
-on stage with the speech:
-&lt;em&gt;The Things Git Can Do (that none of the GUIs ever told you about)&lt;/em&gt;.
-He tried to tell us that Git is not hard but I am still rather sceptical about this.
-I think Enrico didn’t stress enough that using some of the commands
-that he showed us can be really harmful.&lt;/p&gt;
-
-&lt;p&gt;The next speaker had a difficult task because she was after the launch break.
-And lunch was very tasty and plentiful so certainly everyone was feeling blissful,
-which can make you sleepy. Yet &lt;a href=&#34;https://twitter.com/julielerman&#34; target=&#34;_blank&#34;&gt;Julie Lerman&lt;/a&gt;,
-didn’t let anyone fall asleep. She did a real time demo with a small amount of
-live coding and used this to show how Entity Framework Core and
-ASP .NET Core 1.0 works on OS X with PostgreSQL database.
-I was amazed not only by Julie’s speech but also by
-Julie’s attitude and outlook. She is such a happy and positive person,
-I am glad that I could meet her in person and that she gave me a lot of positive energy.&lt;/p&gt;
-
-&lt;p&gt;The next presenter &lt;a href=&#34;https://twitter.com/ZeroKoll&#34; target=&#34;_blank&#34;&gt;Chris Klug&lt;/a&gt;
-was the only one who was among Wroc#’s speakers last year.
-Then, he had an excellent performance although he struggled with Visual Studio’s crashes.
-Chris is similar to Julie, and has an incredible amount of positive energy
-that infected me during his speech. This is so amazing that it actually
-doesn’t matter what he talks to you about, you simply
-want to listen to him and you have a lot fun.
-This time he talked about &lt;em&gt;What Do You Mean “a front-end build pipeline”!?&lt;/em&gt;.
-He showed how to use npm, Node.js, Bower, Gulp to process TypeScript and Less.
-As an example, he used a very simple angular 1.x application.&lt;/p&gt;
-
-&lt;p&gt;The last presentation before the discussion panel was given by
-&lt;a href=&#34;https://twitter.com/condrong&#34; target=&#34;_blank&#34;&gt;Glenn Condron&lt;/a&gt;.
-This presentation exceeded my expectations.
-Glenn show us ASP .NET Core 1.0 and during his presentation
-he used the new &lt;code&gt;dotnet&lt;/code&gt; command and almost
-the whole presentation was conducted in the live coding style,
-which is always a great challenge. I am a big fan of ASP .NET Core and
-after this presentation an even bigger fan.
-I hope that Glenn and other folks from his team popularise this framework because it is worth it.&lt;/p&gt;
-
-&lt;p&gt;The discussion panel was the last official point in the agenda and
-I really liked this point. In Wroc# 2015, it was an impromptu point and
-it turned out to be one of the best. This year, it was planned beforehand and
-it was even better. This year’s discussion was moderated by Mark Rendle and
-he did a great job. Thanks to him the discussion was very dynamic and simultaneously very funny.&lt;/p&gt;
-
-&lt;p&gt;Wroc# is famous for its after party. This year it was even better than last time.
-There was plenty of delicious food, home brewed beer prepared especially for
-this occasion and splash mixes. And foremost, it was an occasion to talk to nice,
-wise and friendly people in an unique atmosphere which can only be experienced during Wroc#’s
-after parties.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://koscielniak.me/post/2016/03/wrocsharp/afterParty.jpg&#34; alt=&#34;Waiting for my dinner&#34; title=&#34;Waiting for my dinner&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;I cannot state strongly enough how amazing Wroc# is.
-This conference is the best one I’ve ever been to. If I had to choose only one conference
-every year to attend, it would be Wroc#.&lt;br /&gt;
-&lt;a href=&#34;https://www.linkedin.com/in/ula-koper-11016817&#34; target=&#34;_blank&#34;&gt;Ula&lt;/a&gt;,
-Łukasz, Wojtek you must put a lot of heart into this conference, and that&amp;rsquo;s why it is so amazing.&lt;/p&gt;
-
-&lt;p&gt;The post-conference evaluation asked: &lt;em&gt;Would you come next year if we decide to do Wroc# again?&lt;/em&gt;
-My answer is definitely YES and I hope that my collection (see picture below) will be bigger next year.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://koscielniak.me/post/2016/03/wrocsharp/wrocsharpGlasses.jpg&#34; alt=&#34;Waiting for next beer glass&#34; title=&#34;Waiting for next beer glass&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Another question from the post-conference evaluation was:
-&lt;em&gt;What improvements would you recommend for our next conferences?&lt;/em&gt;&lt;/p&gt;
-
-&lt;p&gt;Really, it’s very difficult for me to imagine a better conference than Wroc#,
-so the only thing which I can suggest is a list of possible speakers for the next conference.
-I think that what is considered Bleeding Edge now, could be a hot topic next year, and
-it would be nice to hear more about it. For example, my list of speakers would include:&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&#34;https://twitter.com/DamianEdwards&#34; target=&#34;_blank&#34;&gt;Damian Edwards&lt;/a&gt; about ASP .NET Core&lt;br /&gt;
-&lt;a href=&#34;https://twitter.com/John_Papa&#34; target=&#34;_blank&#34;&gt;John Papa&lt;/a&gt; or even &lt;a href=&#34;https://twitter.com/bradlygreen&#34; target=&#34;_blank&#34;&gt;Brad Green&lt;/a&gt; about &lt;a href=&#34;https://angular.io/&#34; target=&#34;_blank&#34;&gt;Angular 2&lt;/a&gt;&lt;br /&gt;
-&lt;a href=&#34;https://twitter.com/nigelpoulton&#34; target=&#34;_blank&#34;&gt;Nigel Poulton&lt;/a&gt; about &lt;a href=&#34;https:/www.docker.com/&#34; target=&#34;_blank&#34;&gt;Docker&lt;/a&gt; (this is already a hot topic)&lt;br /&gt;
-&lt;a href=&#34;https://twitter.com/stevensanderson&#34; target=&#34;_blank&#34;&gt;Steve Sanderson&lt;/a&gt; about modern Web&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&#34;https://en.wikipedia.org/wiki/WebAssembly&#34; target=&#34;_blank&#34;&gt;WebAssembly&lt;/a&gt;
-could be Bleeding Edge next year, and maybe it would worthwhile to invite someone to speak about it.&lt;/p&gt;
-
-&lt;p&gt;Mentors are essential in life and this year I met one of mine at Wroc#: Ian Cooper.
-If I could be so bold, I would like to ask the Wroc# team to invite my other life mentor,
-&lt;a href=&#34;https://twitter.com/martinfowler&#34; target=&#34;_blank&#34;&gt;Martin Fowler&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;I know that my wish list is almost impossible to fulfill but there’s no harm in writing about it.&lt;/p&gt;
-
-&lt;p&gt;The day after the conference, thanks to Ula and other Wroc# team members,
-I got a tour of the Objectivity office. It was very nice to see behind the scenes of Wroc#
-and to find out first hand what an amazing company Objectivity is.
-Thanks to the Wroc# team for this opportunity.
-Best to everyone and hope to see you next year at Wroc# 2017.&lt;/p&gt;
 </description>
     </item>
     
