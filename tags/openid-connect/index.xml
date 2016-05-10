@@ -76,6 +76,7 @@ I found a sample API which I copied into my local repository. After this, I exec
 
 
 
+
 &lt;ul style=&#34;list-style: none;&#34;&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/02/enrolling-in-daj-sie-poznac/&#34;&gt;Enrolling in &#34;Daj się poznać&#34;&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/daj-sie-poznac-project-details/&#34;&gt;&#34;Daj się poznać&#34; - Project details&#34;&lt;/a&gt;&lt;/li&gt;
@@ -98,6 +99,7 @@ I found a sample API which I copied into my local repository. After this, I exec
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/aps-dot-net-core-configuration/&#34;&gt;ASP .NET Core Configuration&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/getting-started-with-identity-server4/&#34;&gt;Getting started with IdentityServer4&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/identityserver-4-accessing-api/&#34;&gt;IdentityServer4 - accessing API&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/dealing-with-secrets-in-asp-net-core/&#34;&gt;Dealing with secrets in ASP .NET Core&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 
@@ -248,6 +250,7 @@ new Client
 
 
 
+
 &lt;ul style=&#34;list-style: none;&#34;&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/02/enrolling-in-daj-sie-poznac/&#34;&gt;Enrolling in &#34;Daj się poznać&#34;&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/daj-sie-poznac-project-details/&#34;&gt;&#34;Daj się poznać&#34; - Project details&#34;&lt;/a&gt;&lt;/li&gt;
@@ -270,6 +273,7 @@ new Client
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/aps-dot-net-core-configuration/&#34;&gt;ASP .NET Core Configuration&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/getting-started-with-identity-server4/&#34;&gt;Getting started with IdentityServer4&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/identityserver-4-accessing-api/&#34;&gt;IdentityServer4 - accessing API&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/dealing-with-secrets-in-asp-net-core/&#34;&gt;Dealing with secrets in ASP .NET Core&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 
@@ -345,6 +349,7 @@ but for now it is still bleeding edge and bleeding edges hurt.&lt;/p&gt;
 
 
 
+
 &lt;ul style=&#34;list-style: none;&#34;&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/02/enrolling-in-daj-sie-poznac/&#34;&gt;Enrolling in &#34;Daj się poznać&#34;&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/daj-sie-poznac-project-details/&#34;&gt;&#34;Daj się poznać&#34; - Project details&#34;&lt;/a&gt;&lt;/li&gt;
@@ -367,6 +372,7 @@ but for now it is still bleeding edge and bleeding edges hurt.&lt;/p&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/aps-dot-net-core-configuration/&#34;&gt;ASP .NET Core Configuration&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/getting-started-with-identity-server4/&#34;&gt;Getting started with IdentityServer4&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/identityserver-4-accessing-api/&#34;&gt;IdentityServer4 - accessing API&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/dealing-with-secrets-in-asp-net-core/&#34;&gt;Dealing with secrets in ASP .NET Core&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 
@@ -537,6 +543,7 @@ to find what happens when this app is run on Linux.&lt;/p&gt;
 
 
 
+
 &lt;ul style=&#34;list-style: none;&#34;&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/02/enrolling-in-daj-sie-poznac/&#34;&gt;Enrolling in &#34;Daj się poznać&#34;&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/daj-sie-poznac-project-details/&#34;&gt;&#34;Daj się poznać&#34; - Project details&#34;&lt;/a&gt;&lt;/li&gt;
@@ -559,6 +566,7 @@ to find what happens when this app is run on Linux.&lt;/p&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/aps-dot-net-core-configuration/&#34;&gt;ASP .NET Core Configuration&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/getting-started-with-identity-server4/&#34;&gt;Getting started with IdentityServer4&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/identityserver-4-accessing-api/&#34;&gt;IdentityServer4 - accessing API&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/dealing-with-secrets-in-asp-net-core/&#34;&gt;Dealing with secrets in ASP .NET Core&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 
@@ -695,6 +703,7 @@ the web client authentication with Google Identity Provider.&lt;/p&gt;
 
 
 
+
 &lt;ul style=&#34;list-style: none;&#34;&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/02/enrolling-in-daj-sie-poznac/&#34;&gt;Enrolling in &#34;Daj się poznać&#34;&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/daj-sie-poznac-project-details/&#34;&gt;&#34;Daj się poznać&#34; - Project details&#34;&lt;/a&gt;&lt;/li&gt;
@@ -717,6 +726,7 @@ the web client authentication with Google Identity Provider.&lt;/p&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/aps-dot-net-core-configuration/&#34;&gt;ASP .NET Core Configuration&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/getting-started-with-identity-server4/&#34;&gt;Getting started with IdentityServer4&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/identityserver-4-accessing-api/&#34;&gt;IdentityServer4 - accessing API&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/dealing-with-secrets-in-asp-net-core/&#34;&gt;Dealing with secrets in ASP .NET Core&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 
@@ -939,6 +949,7 @@ but there must be a way to handle this kind of situation. However, I’ll write 
 
 
 
+
 &lt;ul style=&#34;list-style: none;&#34;&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/02/enrolling-in-daj-sie-poznac/&#34;&gt;Enrolling in &#34;Daj się poznać&#34;&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/daj-sie-poznac-project-details/&#34;&gt;&#34;Daj się poznać&#34; - Project details&#34;&lt;/a&gt;&lt;/li&gt;
@@ -961,6 +972,7 @@ but there must be a way to handle this kind of situation. However, I’ll write 
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/aps-dot-net-core-configuration/&#34;&gt;ASP .NET Core Configuration&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/getting-started-with-identity-server4/&#34;&gt;Getting started with IdentityServer4&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/identityserver-4-accessing-api/&#34;&gt;IdentityServer4 - accessing API&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/dealing-with-secrets-in-asp-net-core/&#34;&gt;Dealing with secrets in ASP .NET Core&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 
@@ -1058,6 +1070,7 @@ I will continue this theme and I hope, I’ll show finally some code.&lt;/p&gt;
 
 
 
+
 &lt;ul style=&#34;list-style: none;&#34;&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/02/enrolling-in-daj-sie-poznac/&#34;&gt;Enrolling in &#34;Daj się poznać&#34;&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/daj-sie-poznac-project-details/&#34;&gt;&#34;Daj się poznać&#34; - Project details&#34;&lt;/a&gt;&lt;/li&gt;
@@ -1080,6 +1093,7 @@ I will continue this theme and I hope, I’ll show finally some code.&lt;/p&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/aps-dot-net-core-configuration/&#34;&gt;ASP .NET Core Configuration&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/getting-started-with-identity-server4/&#34;&gt;Getting started with IdentityServer4&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/identityserver-4-accessing-api/&#34;&gt;IdentityServer4 - accessing API&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/dealing-with-secrets-in-asp-net-core/&#34;&gt;Dealing with secrets in ASP .NET Core&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 

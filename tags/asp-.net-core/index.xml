@@ -6,8 +6,127 @@
     <description>Recent content in Asp .Net Core on Piotr Kościelniak - passionate programmer</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 05 May 2016 22:00:00 +0200</lastBuildDate>
+    <lastBuildDate>Tue, 10 May 2016 22:00:00 +0200</lastBuildDate>
     <atom:link href="http://koscielniak.me/tags/asp-.net-core/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Dealing with secrets in ASP .NET Core</title>
+      <link>http://koscielniak.me/post/2016/05/dealing-with-secrets-in-asp-net-core/</link>
+      <pubDate>Tue, 10 May 2016 22:00:00 +0200</pubDate>
+      
+      <guid>http://koscielniak.me/post/2016/05/dealing-with-secrets-in-asp-net-core/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;http://dajsiepoznac.pl&#34;&gt;&lt;img src=&#34;http://koscielniak.me/post/2016/03/contestLogo.png&#34; alt=&#34;Daj się poznać&#34; title=&#34;Daj się poznać&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;This is a short post to complement my post about
+&lt;a href=&#34;http://koscielniak.me/post/2016/04/aps-dot-net-core-configuration/&#34;&gt;the configuration in ASP .NET Core&lt;/a&gt;.
+I’ll write about how to add secret settings to your application. ASP .NET Core created a new concept to deal with this. The first thing I did was to add this to the dependencies in &lt;em&gt;project.json&lt;/em&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;quot;Microsoft.Extensions.Configuration.UserSecrets&amp;quot;: &amp;quot;1.0.0-rc1-final&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Then inside the constructor of the &lt;em&gt;Startup&lt;/em&gt; class I added:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;if (env.IsDevelopment())
+{
+builder.AddUserSecrets();
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Then I added something like this to &lt;em&gt;project.json&lt;/em&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;  &amp;quot;userSecretsId&amp;quot;: &amp;quot;idsrv-demo&amp;quot;,
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This is an ID for the secret storage of your application.&lt;/p&gt;
+
+&lt;p&gt;Next, I installed the latest version of runtime and set the alias to point at it, all in one command. The command was:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;dnvm upgrade
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The next step was adding a global command &lt;code&gt;user-secret&lt;/code&gt; by executing the following command:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;dnu commands install Microsoft.Extensions.SecretManager
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;As a result, I can add secret settings with commands like this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt; user-secret set GoogleIdentityProvider:ClientId &amp;quot;342665198077-2lb7ai2oljrojkia5ob4e4kf0rnkeo33.apps.googleusercontent.com&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;In this command, &lt;em&gt;GoogleIdentityProvider:ClientId&lt;/em&gt; is a hierarchical key for the setting where the hierarchy is built by the colon.
+You can see all your secret settings with the command &lt;code&gt;user-secret list&lt;/code&gt; executed in the root folder of the project.&lt;/p&gt;
+
+&lt;p&gt;I just want to point out that I did everything on Linux. However, on Windows, other than using this option, you can also add secret settings from Visual Studio by right clicking on the project and then clicking on &lt;em&gt;Manage User Secret&lt;/em&gt; and the you can edit file secrets.json which contains all your secret settings assigned to this project.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://koscielniak.me/post/2016/05/secrets/manageUserSecrets.png&#34; alt=&#34;Manage User Secrets&#34; title=&#34;Manage User Secrets&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;A good practice is to put all the secret settings somewhere so the other project participants can find out what they should also provide. I added a whole section of my secrets to the file &lt;em&gt;appsettings.json&lt;/em&gt; so it looked like this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt; &amp;quot;GoogleIdentityProvider&amp;quot;:{
+        &amp;quot;ClientId&amp;quot;:&amp;quot;&amp;quot;,
+        &amp;quot;ClientSecret&amp;quot;:&amp;quot;&amp;quot;          
+    }
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;All you have to do when working with Visual Studio, is copy this section to &lt;em&gt;secrets.json&lt;/em&gt; and then provide the correct settings. I could do it even better by putting this secret settings structure in a separate file so it would be more obvious which part of the settings is secret.&lt;/p&gt;
+
+&lt;p&gt;In this post, I have written about how I provide secret settings for my application, and in the next post I will write how I use these settings to authenticate user using Google Identity Provider from IdentityServer4.&lt;/p&gt;
+
+&lt;h3&gt;Related posts:&lt;/h3&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;ul style=&#34;list-style: none;&#34;&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/02/enrolling-in-daj-sie-poznac/&#34;&gt;Enrolling in &#34;Daj się poznać&#34;&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/daj-sie-poznac-project-details/&#34;&gt;&#34;Daj się poznać&#34; - Project details&#34;&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/i-m-holding-a-project-rider-eap/&#34;&gt;I&#39;m holding a Project Rider EAP&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/installing-asp-dot-net-core-1-on-ubuntu-14/&#34;&gt;Installing ASP .NET Core 1 on Ubuntu 14.04&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/my-first-asp-net-core-1-web-application/&#34;&gt;My first ASP NET Core 1.0 web application&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/project-setup-server-side/&#34;&gt;Project setup - server-side&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/project-setup-client-side/&#34;&gt;Project setup - client-side&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/adding-styling-to-my-application/&#34;&gt;Adding styling to my application&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/angular2-confirm-dialog-component/&#34;&gt;Angular 2 Confirm Dialog Component&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/before-going-into-production/&#34;&gt;Before going into production&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/publishing-to-azure/&#34;&gt;Publishing to Azure&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/setting-up-the-web-client-for-google-identity-platform/&#34;&gt;Setting up the Web client for Google Identity Platform&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/oidc-token-manager-library-with-google-identity-platform-part-1/&#34;&gt;oidc-token-manager library with Google Identity Platform - Part 1&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/oidc-token-manager-library-with-google-identity-platform-part-2/&#34;&gt;oidc-token-manager library with Google Identity Platform - Part 2&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/accesing-api-with-token-from-google-identity-provider/&#34;&gt;Accessing API with token from Google Identity Provider&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/how-portable-is-asp-dot-net-core/&#34;&gt;How portable is ASP .NET Core 1.0?&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/when-dotpeek-can-save-your-live/&#34;&gt;When dotPeek can save your live&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/reading-code-as-if-it-were-a-book/&#34;&gt;Reading code as if it were a book&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/aps-dot-net-core-configuration/&#34;&gt;ASP .NET Core Configuration&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/getting-started-with-identity-server4/&#34;&gt;Getting started with IdentityServer4&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/identityserver-4-accessing-api/&#34;&gt;IdentityServer4 - accessing API&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/dealing-with-secrets-in-asp-net-core/&#34;&gt;Dealing with secrets in ASP .NET Core&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+
+
+</description>
+    </item>
     
     <item>
       <title>IdentityServer4 - accessing API</title>
@@ -76,6 +195,7 @@ I found a sample API which I copied into my local repository. After this, I exec
 
 
 
+
 &lt;ul style=&#34;list-style: none;&#34;&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/02/enrolling-in-daj-sie-poznac/&#34;&gt;Enrolling in &#34;Daj się poznać&#34;&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/daj-sie-poznac-project-details/&#34;&gt;&#34;Daj się poznać&#34; - Project details&#34;&lt;/a&gt;&lt;/li&gt;
@@ -98,6 +218,7 @@ I found a sample API which I copied into my local repository. After this, I exec
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/aps-dot-net-core-configuration/&#34;&gt;ASP .NET Core Configuration&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/getting-started-with-identity-server4/&#34;&gt;Getting started with IdentityServer4&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/identityserver-4-accessing-api/&#34;&gt;IdentityServer4 - accessing API&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/dealing-with-secrets-in-asp-net-core/&#34;&gt;Dealing with secrets in ASP .NET Core&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 
@@ -248,6 +369,7 @@ new Client
 
 
 
+
 &lt;ul style=&#34;list-style: none;&#34;&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/02/enrolling-in-daj-sie-poznac/&#34;&gt;Enrolling in &#34;Daj się poznać&#34;&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/daj-sie-poznac-project-details/&#34;&gt;&#34;Daj się poznać&#34; - Project details&#34;&lt;/a&gt;&lt;/li&gt;
@@ -270,6 +392,7 @@ new Client
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/aps-dot-net-core-configuration/&#34;&gt;ASP .NET Core Configuration&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/getting-started-with-identity-server4/&#34;&gt;Getting started with IdentityServer4&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/identityserver-4-accessing-api/&#34;&gt;IdentityServer4 - accessing API&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/dealing-with-secrets-in-asp-net-core/&#34;&gt;Dealing with secrets in ASP .NET Core&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 
@@ -488,9 +611,12 @@ services.AddInstance(clientSettings);
 
 &lt;p&gt;You can find all the examples from this post in this
 &lt;a href=&#34;https://github.com/pikoscielniak/asp-net-core-configuration&#34; target=&#34;_blank&#34;&gt;repository&lt;/a&gt;.
-As you can see, this new way of configuring your ASP .NET Core application provides a lot of possibilities. In the future, I will also write about how to deal with settings which should be secret and should not be published to the source code repository.&lt;/p&gt;
+As you can see, this new way of configuring your ASP .NET Core application provides a lot of possibilities.
+&lt;a href=&#34;http://koscielniak.me/post/2016/05/dealing-with-secrets-in-asp-net-core/&#34;&gt;In the future&lt;/a&gt;,
+I will also write about how to deal with settings which should be secret and should not be published to the source code repository.&lt;/p&gt;
 
-&lt;h3&gt;Related posts:&lt;/h3&gt;
+&lt;p&gt;&lt;h3&gt;Related posts:&lt;/h3&gt;
+
 
 
 
@@ -536,10 +662,11 @@ As you can see, this new way of configuring your ASP .NET Core application provi
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/aps-dot-net-core-configuration/&#34;&gt;ASP .NET Core Configuration&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/getting-started-with-identity-server4/&#34;&gt;Getting started with IdentityServer4&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/identityserver-4-accessing-api/&#34;&gt;IdentityServer4 - accessing API&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/dealing-with-secrets-in-asp-net-core/&#34;&gt;Dealing with secrets in ASP .NET Core&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 
-
+&lt;/p&gt;
 </description>
     </item>
     
@@ -611,6 +738,7 @@ but for now it is still bleeding edge and bleeding edges hurt.&lt;/p&gt;
 
 
 
+
 &lt;ul style=&#34;list-style: none;&#34;&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/02/enrolling-in-daj-sie-poznac/&#34;&gt;Enrolling in &#34;Daj się poznać&#34;&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/daj-sie-poznac-project-details/&#34;&gt;&#34;Daj się poznać&#34; - Project details&#34;&lt;/a&gt;&lt;/li&gt;
@@ -633,6 +761,7 @@ but for now it is still bleeding edge and bleeding edges hurt.&lt;/p&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/aps-dot-net-core-configuration/&#34;&gt;ASP .NET Core Configuration&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/getting-started-with-identity-server4/&#34;&gt;Getting started with IdentityServer4&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/identityserver-4-accessing-api/&#34;&gt;IdentityServer4 - accessing API&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/dealing-with-secrets-in-asp-net-core/&#34;&gt;Dealing with secrets in ASP .NET Core&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 
@@ -803,6 +932,7 @@ to find what happens when this app is run on Linux.&lt;/p&gt;
 
 
 
+
 &lt;ul style=&#34;list-style: none;&#34;&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/02/enrolling-in-daj-sie-poznac/&#34;&gt;Enrolling in &#34;Daj się poznać&#34;&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/daj-sie-poznac-project-details/&#34;&gt;&#34;Daj się poznać&#34; - Project details&#34;&lt;/a&gt;&lt;/li&gt;
@@ -825,6 +955,7 @@ to find what happens when this app is run on Linux.&lt;/p&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/aps-dot-net-core-configuration/&#34;&gt;ASP .NET Core Configuration&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/getting-started-with-identity-server4/&#34;&gt;Getting started with IdentityServer4&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/identityserver-4-accessing-api/&#34;&gt;IdentityServer4 - accessing API&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/dealing-with-secrets-in-asp-net-core/&#34;&gt;Dealing with secrets in ASP .NET Core&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 
@@ -925,6 +1056,7 @@ I wrote how I prepared my application to be ready for publishing. In this post, 
 
 
 
+
 &lt;ul style=&#34;list-style: none;&#34;&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/02/enrolling-in-daj-sie-poznac/&#34;&gt;Enrolling in &#34;Daj się poznać&#34;&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/daj-sie-poznac-project-details/&#34;&gt;&#34;Daj się poznać&#34; - Project details&#34;&lt;/a&gt;&lt;/li&gt;
@@ -947,6 +1079,7 @@ I wrote how I prepared my application to be ready for publishing. In this post, 
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/aps-dot-net-core-configuration/&#34;&gt;ASP .NET Core Configuration&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/getting-started-with-identity-server4/&#34;&gt;Getting started with IdentityServer4&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/identityserver-4-accessing-api/&#34;&gt;IdentityServer4 - accessing API&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/dealing-with-secrets-in-asp-net-core/&#34;&gt;Dealing with secrets in ASP .NET Core&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 
@@ -1113,6 +1246,7 @@ Now, I am ready to publish my application to
 
 
 
+
 &lt;ul style=&#34;list-style: none;&#34;&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/02/enrolling-in-daj-sie-poznac/&#34;&gt;Enrolling in &#34;Daj się poznać&#34;&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/daj-sie-poznac-project-details/&#34;&gt;&#34;Daj się poznać&#34; - Project details&#34;&lt;/a&gt;&lt;/li&gt;
@@ -1135,6 +1269,7 @@ Now, I am ready to publish my application to
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/aps-dot-net-core-configuration/&#34;&gt;ASP .NET Core Configuration&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/getting-started-with-identity-server4/&#34;&gt;Getting started with IdentityServer4&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/identityserver-4-accessing-api/&#34;&gt;IdentityServer4 - accessing API&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/dealing-with-secrets-in-asp-net-core/&#34;&gt;Dealing with secrets in ASP .NET Core&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 
@@ -1485,6 +1620,7 @@ I will talk about how I added styling to my application and how I improved this 
 
 
 
+
 &lt;ul style=&#34;list-style: none;&#34;&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/02/enrolling-in-daj-sie-poznac/&#34;&gt;Enrolling in &#34;Daj się poznać&#34;&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/daj-sie-poznac-project-details/&#34;&gt;&#34;Daj się poznać&#34; - Project details&#34;&lt;/a&gt;&lt;/li&gt;
@@ -1507,6 +1643,7 @@ I will talk about how I added styling to my application and how I improved this 
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/aps-dot-net-core-configuration/&#34;&gt;ASP .NET Core Configuration&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/getting-started-with-identity-server4/&#34;&gt;Getting started with IdentityServer4&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/identityserver-4-accessing-api/&#34;&gt;IdentityServer4 - accessing API&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/dealing-with-secrets-in-asp-net-core/&#34;&gt;Dealing with secrets in ASP .NET Core&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 
@@ -1732,6 +1869,7 @@ I am happy with everything I have now. Now I can start to set up my client-side.
 
 
 
+
 &lt;ul style=&#34;list-style: none;&#34;&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/02/enrolling-in-daj-sie-poznac/&#34;&gt;Enrolling in &#34;Daj się poznać&#34;&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/daj-sie-poznac-project-details/&#34;&gt;&#34;Daj się poznać&#34; - Project details&#34;&lt;/a&gt;&lt;/li&gt;
@@ -1754,6 +1892,7 @@ I am happy with everything I have now. Now I can start to set up my client-side.
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/aps-dot-net-core-configuration/&#34;&gt;ASP .NET Core Configuration&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/getting-started-with-identity-server4/&#34;&gt;Getting started with IdentityServer4&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/identityserver-4-accessing-api/&#34;&gt;IdentityServer4 - accessing API&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/dealing-with-secrets-in-asp-net-core/&#34;&gt;Dealing with secrets in ASP .NET Core&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 
@@ -1908,6 +2047,7 @@ Now I can start create my project.&lt;/p&gt;
 
 
 
+
 &lt;ul style=&#34;list-style: none;&#34;&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/02/enrolling-in-daj-sie-poznac/&#34;&gt;Enrolling in &#34;Daj się poznać&#34;&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/daj-sie-poznac-project-details/&#34;&gt;&#34;Daj się poznać&#34; - Project details&#34;&lt;/a&gt;&lt;/li&gt;
@@ -1930,6 +2070,7 @@ Now I can start create my project.&lt;/p&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/aps-dot-net-core-configuration/&#34;&gt;ASP .NET Core Configuration&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/getting-started-with-identity-server4/&#34;&gt;Getting started with IdentityServer4&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/identityserver-4-accessing-api/&#34;&gt;IdentityServer4 - accessing API&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/dealing-with-secrets-in-asp-net-core/&#34;&gt;Dealing with secrets in ASP .NET Core&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 
@@ -2092,6 +2233,7 @@ for example, adding a new controller or view. However, I’ll write about this i
 
 
 
+
 &lt;ul style=&#34;list-style: none;&#34;&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/02/enrolling-in-daj-sie-poznac/&#34;&gt;Enrolling in &#34;Daj się poznać&#34;&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/daj-sie-poznac-project-details/&#34;&gt;&#34;Daj się poznać&#34; - Project details&#34;&lt;/a&gt;&lt;/li&gt;
@@ -2114,6 +2256,7 @@ for example, adding a new controller or view. However, I’ll write about this i
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/aps-dot-net-core-configuration/&#34;&gt;ASP .NET Core Configuration&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/getting-started-with-identity-server4/&#34;&gt;Getting started with IdentityServer4&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/identityserver-4-accessing-api/&#34;&gt;IdentityServer4 - accessing API&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/dealing-with-secrets-in-asp-net-core/&#34;&gt;Dealing with secrets in ASP .NET Core&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 
@@ -2179,6 +2322,7 @@ so&amp;hellip;let’s do it!&lt;/p&gt;
 
 
 
+
 &lt;ul style=&#34;list-style: none;&#34;&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/02/enrolling-in-daj-sie-poznac/&#34;&gt;Enrolling in &#34;Daj się poznać&#34;&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/daj-sie-poznac-project-details/&#34;&gt;&#34;Daj się poznać&#34; - Project details&#34;&lt;/a&gt;&lt;/li&gt;
@@ -2201,6 +2345,7 @@ so&amp;hellip;let’s do it!&lt;/p&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/aps-dot-net-core-configuration/&#34;&gt;ASP .NET Core Configuration&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/getting-started-with-identity-server4/&#34;&gt;Getting started with IdentityServer4&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/identityserver-4-accessing-api/&#34;&gt;IdentityServer4 - accessing API&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/dealing-with-secrets-in-asp-net-core/&#34;&gt;Dealing with secrets in ASP .NET Core&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 

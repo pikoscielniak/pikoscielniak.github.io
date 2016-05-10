@@ -44,12 +44,14 @@
         <article class="post">
             <a class="btn" href="http://koscielniak.me/" title="Back to home">&laquo; Back to home</a>
             
-<h1><a href="http://koscielniak.me/post/2016/03/daj-sie-poznac-project-details/" title="&#34;Daj się poznać&#34; - Project details">&#34;Daj się poznać&#34; - Project details</a></h1>
+<h1><a href="http://koscielniak.me/post/2016/05/dealing-with-secrets-in-asp-net-core/" title="Dealing with secrets in ASP .NET Core">Dealing with secrets in ASP .NET Core</a></h1>
 
-<footer class="post-info">Posted on <span class="post-meta"><time datetime="2016.03.01">2016.03.01</time>
+<footer class="post-info">Posted on <span class="post-meta"><time datetime="2016.05.10">2016.05.10</time>
 &middot; Tagged in
     
-    <a href="http://koscielniak.me/tags/daj-si%C4%99-pozna%C4%87">daj się poznać</a>
+    <a href="http://koscielniak.me/tags/daj-si%C4%99-pozna%C4%87">daj się poznać</a>, 
+    
+    <a href="http://koscielniak.me/tags/asp-.net-core">asp .net core</a>
     
 
 </span>
@@ -57,42 +59,61 @@
 
             <p><a href="http://dajsiepoznac.pl"><img src="/post/2016/03/contestLogo.png" alt="Daj się poznać" title="Daj się poznać" /></a></p>
 
-<p>This is my first post in the series “Daj się poznać”.
-I am going to mention the details of the project which I’ll be working on during the contest.
-I am going to create a simple yet powerful application which will allow me to add some events
-and notify me about them at a specific time via a specified medium.
-For starters, I am planing to implement sms and email notification but maybe in the future
-I’ll add the ability to send notifications to some IoT device.</p>
+<p>This is a short post to complement my post about
+<a href="/post/2016/04/aps-dot-net-core-configuration/">the configuration in ASP .NET Core</a>.
+I’ll write about how to add secret settings to your application. ASP .NET Core created a new concept to deal with this. The first thing I did was to add this to the dependencies in <em>project.json</em>:</p>
 
-<p>I am going to implement this application in a way which allows me to upgrade ASP .NET Core 1.0
-framework very quickly. This framework is brand new and it’s quite probable that some breaking
-changes will appear in the next release. So I cannot depend on it very much.
-I hope that ASP .NET Core 1.0 will have a lot of versions in the future but
-I don’t want to have a nightmare during upgrading to a newer version. Therefore,
-I must use architecture which prepares me for this. I don’t know exactly what this architecture
-will look like but I’ll write about it in future posts as the project will continue.</p>
+<pre><code>&quot;Microsoft.Extensions.Configuration.UserSecrets&quot;: &quot;1.0.0-rc1-final&quot;
+</code></pre>
 
-<p>To implement my project I need some sort of membership system for cases like these:</p>
+<p>Then inside the constructor of the <em>Startup</em> class I added:</p>
 
-<ul>
-<li>user can sign in</li>
-<li>user can sign up (I am not sure)</li>
-<li>user can sign out.</li>
-</ul>
+<pre><code>if (env.IsDevelopment())
+{
+builder.AddUserSecrets();
+}
+</code></pre>
 
-<p>Other use cases which I am going to implement are:</p>
+<p>Then I added something like this to <em>project.json</em>:</p>
 
-<ul>
-<li>user can create event</li>
-<li>user can add notification to event</li>
-<li>user can add related persons to event</li>
-<li>user can see list of events</li>
-<li>user can delete event</li>
-<li>user can change event</li>
-<li>sending notifications</li>
-</ul>
+<pre><code>  &quot;userSecretsId&quot;: &quot;idsrv-demo&quot;,
+</code></pre>
 
-<p>I’ll write more details about use cases and their implementation in future posts, but before I do this, I’ll write something about installation ASP .NET Core 1.0 on Ubuntu 14.04 and running the first web application in this operating system.</p>
+<p>This is an ID for the secret storage of your application.</p>
+
+<p>Next, I installed the latest version of runtime and set the alias to point at it, all in one command. The command was:</p>
+
+<pre><code>dnvm upgrade
+</code></pre>
+
+<p>The next step was adding a global command <code>user-secret</code> by executing the following command:</p>
+
+<pre><code>dnu commands install Microsoft.Extensions.SecretManager
+</code></pre>
+
+<p>As a result, I can add secret settings with commands like this:</p>
+
+<pre><code> user-secret set GoogleIdentityProvider:ClientId &quot;342665198077-2lb7ai2oljrojkia5ob4e4kf0rnkeo33.apps.googleusercontent.com&quot;
+</code></pre>
+
+<p>In this command, <em>GoogleIdentityProvider:ClientId</em> is a hierarchical key for the setting where the hierarchy is built by the colon.
+You can see all your secret settings with the command <code>user-secret list</code> executed in the root folder of the project.</p>
+
+<p>I just want to point out that I did everything on Linux. However, on Windows, other than using this option, you can also add secret settings from Visual Studio by right clicking on the project and then clicking on <em>Manage User Secret</em> and the you can edit file secrets.json which contains all your secret settings assigned to this project.</p>
+
+<p><img src="/post/2016/05/secrets/manageUserSecrets.png" alt="Manage User Secrets" title="Manage User Secrets" /></p>
+
+<p>A good practice is to put all the secret settings somewhere so the other project participants can find out what they should also provide. I added a whole section of my secrets to the file <em>appsettings.json</em> so it looked like this:</p>
+
+<pre><code> &quot;GoogleIdentityProvider&quot;:{
+        &quot;ClientId&quot;:&quot;&quot;,
+        &quot;ClientSecret&quot;:&quot;&quot;          
+    }
+</code></pre>
+
+<p>All you have to do when working with Visual Studio, is copy this section to <em>secrets.json</em> and then provide the correct settings. I could do it even better by putting this secret settings structure in a separate file so it would be more obvious which part of the settings is secret.</p>
+
+<p>In this post, I have written about how I provide secret settings for my application, and in the next post I will write how I use these settings to authenticate user using Google Identity Provider from IdentityServer4.</p>
 
 <h3>Related posts:</h3>
 
@@ -150,16 +171,16 @@ will look like but I’ll write about it in future posts as the project will con
             <ul class="share-buttons">
     <li>Share this article:</li>
     <li>
-        <a class="icon-facebook-squared" href="https://www.facebook.com/sharer/sharer.php?u=http%3a%2f%2fkoscielniak.me%2fpost%2f2016%2f03%2fdaj-sie-poznac-project-details%2f" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;" title="Share on Facebook"></a>
+        <a class="icon-facebook-squared" href="https://www.facebook.com/sharer/sharer.php?u=http%3a%2f%2fkoscielniak.me%2fpost%2f2016%2f05%2fdealing-with-secrets-in-asp-net-core%2f" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;" title="Share on Facebook"></a>
     </li>
     <li>
-        <a class="icon-twitter" href="https://twitter.com/share?text=%22Daj%20si%c4%99%20pozna%c4%87%22%20-%20Project%20details&amp;url=http%3a%2f%2fkoscielniak.me%2fpost%2f2016%2f03%2fdaj-sie-poznac-project-details%2f" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;" title="Tweet this article"></a>
+        <a class="icon-twitter" href="https://twitter.com/share?text=Dealing%20with%20secrets%20in%20ASP%20.NET%20Core&amp;url=http%3a%2f%2fkoscielniak.me%2fpost%2f2016%2f05%2fdealing-with-secrets-in-asp-net-core%2f" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;" title="Tweet this article"></a>
     </li>
     <li>
-        <a class="icon-gplus" href="https://plus.google.com/share?url=http%3a%2f%2fkoscielniak.me%2fpost%2f2016%2f03%2fdaj-sie-poznac-project-details%2f" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;" title="Share on Google&#43;"></a>
+        <a class="icon-gplus" href="https://plus.google.com/share?url=http%3a%2f%2fkoscielniak.me%2fpost%2f2016%2f05%2fdealing-with-secrets-in-asp-net-core%2f" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;" title="Share on Google&#43;"></a>
     </li>
     <li>
-        <a class="icon-linkedin" href="https://www.linkedin.com/shareArticle?mini=true&url=http%3a%2f%2fkoscielniak.me%2fpost%2f2016%2f03%2fdaj-sie-poznac-project-details%2f&title=%22Daj%20si%c4%99%20pozna%c4%87%22%20-%20Project%20details" onclick="window.open(this.href, 'linkedin-share', 'width=600,height=494');return false;" title="Share on Linkedin"></a>
+        <a class="icon-linkedin" href="https://www.linkedin.com/shareArticle?mini=true&url=http%3a%2f%2fkoscielniak.me%2fpost%2f2016%2f05%2fdealing-with-secrets-in-asp-net-core%2f&title=Dealing%20with%20secrets%20in%20ASP%20.NET%20Core" onclick="window.open(this.href, 'linkedin-share', 'width=600,height=494');return false;" title="Share on Linkedin"></a>
     </li>
 </ul>
 
@@ -169,9 +190,9 @@ will look like but I’ll write about it in future posts as the project will con
             <div id="disqus_thread"></div>
 <script type="text/javascript">
     var disqus_shortname = 'koscielniak';
-    var disqus_identifier = 'http:\/\/koscielniak.me\/post\/2016\/03\/daj-sie-poznac-project-details\/';
-    var disqus_title = '\x22Daj się poznać\x22 - Project details';
-    var disqus_url = 'http:\/\/koscielniak.me\/post\/2016\/03\/daj-sie-poznac-project-details\/';
+    var disqus_identifier = 'http:\/\/koscielniak.me\/post\/2016\/05\/dealing-with-secrets-in-asp-net-core\/';
+    var disqus_title = 'Dealing with secrets in ASP .NET Core';
+    var disqus_url = 'http:\/\/koscielniak.me\/post\/2016\/05\/dealing-with-secrets-in-asp-net-core\/';
 
     (function() {
         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;

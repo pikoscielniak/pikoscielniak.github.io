@@ -6,8 +6,127 @@
     <description>Recent content on Piotr Kościelniak - passionate programmer</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 05 May 2016 22:00:00 +0200</lastBuildDate>
+    <lastBuildDate>Tue, 10 May 2016 22:00:00 +0200</lastBuildDate>
     <atom:link href="http://koscielniak.me/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Dealing with secrets in ASP .NET Core</title>
+      <link>http://koscielniak.me/post/2016/05/dealing-with-secrets-in-asp-net-core/</link>
+      <pubDate>Tue, 10 May 2016 22:00:00 +0200</pubDate>
+      
+      <guid>http://koscielniak.me/post/2016/05/dealing-with-secrets-in-asp-net-core/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;http://dajsiepoznac.pl&#34;&gt;&lt;img src=&#34;http://koscielniak.me/post/2016/03/contestLogo.png&#34; alt=&#34;Daj się poznać&#34; title=&#34;Daj się poznać&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;This is a short post to complement my post about
+&lt;a href=&#34;http://koscielniak.me/post/2016/04/aps-dot-net-core-configuration/&#34;&gt;the configuration in ASP .NET Core&lt;/a&gt;.
+I’ll write about how to add secret settings to your application. ASP .NET Core created a new concept to deal with this. The first thing I did was to add this to the dependencies in &lt;em&gt;project.json&lt;/em&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;quot;Microsoft.Extensions.Configuration.UserSecrets&amp;quot;: &amp;quot;1.0.0-rc1-final&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Then inside the constructor of the &lt;em&gt;Startup&lt;/em&gt; class I added:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;if (env.IsDevelopment())
+{
+builder.AddUserSecrets();
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Then I added something like this to &lt;em&gt;project.json&lt;/em&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;  &amp;quot;userSecretsId&amp;quot;: &amp;quot;idsrv-demo&amp;quot;,
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This is an ID for the secret storage of your application.&lt;/p&gt;
+
+&lt;p&gt;Next, I installed the latest version of runtime and set the alias to point at it, all in one command. The command was:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;dnvm upgrade
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The next step was adding a global command &lt;code&gt;user-secret&lt;/code&gt; by executing the following command:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;dnu commands install Microsoft.Extensions.SecretManager
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;As a result, I can add secret settings with commands like this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt; user-secret set GoogleIdentityProvider:ClientId &amp;quot;342665198077-2lb7ai2oljrojkia5ob4e4kf0rnkeo33.apps.googleusercontent.com&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;In this command, &lt;em&gt;GoogleIdentityProvider:ClientId&lt;/em&gt; is a hierarchical key for the setting where the hierarchy is built by the colon.
+You can see all your secret settings with the command &lt;code&gt;user-secret list&lt;/code&gt; executed in the root folder of the project.&lt;/p&gt;
+
+&lt;p&gt;I just want to point out that I did everything on Linux. However, on Windows, other than using this option, you can also add secret settings from Visual Studio by right clicking on the project and then clicking on &lt;em&gt;Manage User Secret&lt;/em&gt; and the you can edit file secrets.json which contains all your secret settings assigned to this project.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://koscielniak.me/post/2016/05/secrets/manageUserSecrets.png&#34; alt=&#34;Manage User Secrets&#34; title=&#34;Manage User Secrets&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;A good practice is to put all the secret settings somewhere so the other project participants can find out what they should also provide. I added a whole section of my secrets to the file &lt;em&gt;appsettings.json&lt;/em&gt; so it looked like this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt; &amp;quot;GoogleIdentityProvider&amp;quot;:{
+        &amp;quot;ClientId&amp;quot;:&amp;quot;&amp;quot;,
+        &amp;quot;ClientSecret&amp;quot;:&amp;quot;&amp;quot;          
+    }
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;All you have to do when working with Visual Studio, is copy this section to &lt;em&gt;secrets.json&lt;/em&gt; and then provide the correct settings. I could do it even better by putting this secret settings structure in a separate file so it would be more obvious which part of the settings is secret.&lt;/p&gt;
+
+&lt;p&gt;In this post, I have written about how I provide secret settings for my application, and in the next post I will write how I use these settings to authenticate user using Google Identity Provider from IdentityServer4.&lt;/p&gt;
+
+&lt;h3&gt;Related posts:&lt;/h3&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;ul style=&#34;list-style: none;&#34;&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/02/enrolling-in-daj-sie-poznac/&#34;&gt;Enrolling in &#34;Daj się poznać&#34;&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/daj-sie-poznac-project-details/&#34;&gt;&#34;Daj się poznać&#34; - Project details&#34;&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/i-m-holding-a-project-rider-eap/&#34;&gt;I&#39;m holding a Project Rider EAP&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/installing-asp-dot-net-core-1-on-ubuntu-14/&#34;&gt;Installing ASP .NET Core 1 on Ubuntu 14.04&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/my-first-asp-net-core-1-web-application/&#34;&gt;My first ASP NET Core 1.0 web application&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/project-setup-server-side/&#34;&gt;Project setup - server-side&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/project-setup-client-side/&#34;&gt;Project setup - client-side&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/adding-styling-to-my-application/&#34;&gt;Adding styling to my application&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/angular2-confirm-dialog-component/&#34;&gt;Angular 2 Confirm Dialog Component&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/before-going-into-production/&#34;&gt;Before going into production&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/publishing-to-azure/&#34;&gt;Publishing to Azure&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/setting-up-the-web-client-for-google-identity-platform/&#34;&gt;Setting up the Web client for Google Identity Platform&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/oidc-token-manager-library-with-google-identity-platform-part-1/&#34;&gt;oidc-token-manager library with Google Identity Platform - Part 1&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/oidc-token-manager-library-with-google-identity-platform-part-2/&#34;&gt;oidc-token-manager library with Google Identity Platform - Part 2&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/accesing-api-with-token-from-google-identity-provider/&#34;&gt;Accessing API with token from Google Identity Provider&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/how-portable-is-asp-dot-net-core/&#34;&gt;How portable is ASP .NET Core 1.0?&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/when-dotpeek-can-save-your-live/&#34;&gt;When dotPeek can save your live&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/reading-code-as-if-it-were-a-book/&#34;&gt;Reading code as if it were a book&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/aps-dot-net-core-configuration/&#34;&gt;ASP .NET Core Configuration&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/getting-started-with-identity-server4/&#34;&gt;Getting started with IdentityServer4&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/identityserver-4-accessing-api/&#34;&gt;IdentityServer4 - accessing API&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/dealing-with-secrets-in-asp-net-core/&#34;&gt;Dealing with secrets in ASP .NET Core&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+
+
+</description>
+    </item>
     
     <item>
       <title>IdentityServer4 - accessing API</title>
@@ -76,6 +195,7 @@ I found a sample API which I copied into my local repository. After this, I exec
 
 
 
+
 &lt;ul style=&#34;list-style: none;&#34;&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/02/enrolling-in-daj-sie-poznac/&#34;&gt;Enrolling in &#34;Daj się poznać&#34;&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/daj-sie-poznac-project-details/&#34;&gt;&#34;Daj się poznać&#34; - Project details&#34;&lt;/a&gt;&lt;/li&gt;
@@ -98,6 +218,7 @@ I found a sample API which I copied into my local repository. After this, I exec
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/aps-dot-net-core-configuration/&#34;&gt;ASP .NET Core Configuration&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/getting-started-with-identity-server4/&#34;&gt;Getting started with IdentityServer4&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/identityserver-4-accessing-api/&#34;&gt;IdentityServer4 - accessing API&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/dealing-with-secrets-in-asp-net-core/&#34;&gt;Dealing with secrets in ASP .NET Core&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 
@@ -248,6 +369,7 @@ new Client
 
 
 
+
 &lt;ul style=&#34;list-style: none;&#34;&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/02/enrolling-in-daj-sie-poznac/&#34;&gt;Enrolling in &#34;Daj się poznać&#34;&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/daj-sie-poznac-project-details/&#34;&gt;&#34;Daj się poznać&#34; - Project details&#34;&lt;/a&gt;&lt;/li&gt;
@@ -270,6 +392,7 @@ new Client
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/aps-dot-net-core-configuration/&#34;&gt;ASP .NET Core Configuration&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/getting-started-with-identity-server4/&#34;&gt;Getting started with IdentityServer4&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/identityserver-4-accessing-api/&#34;&gt;IdentityServer4 - accessing API&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/dealing-with-secrets-in-asp-net-core/&#34;&gt;Dealing with secrets in ASP .NET Core&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 
@@ -488,9 +611,12 @@ services.AddInstance(clientSettings);
 
 &lt;p&gt;You can find all the examples from this post in this
 &lt;a href=&#34;https://github.com/pikoscielniak/asp-net-core-configuration&#34; target=&#34;_blank&#34;&gt;repository&lt;/a&gt;.
-As you can see, this new way of configuring your ASP .NET Core application provides a lot of possibilities. In the future, I will also write about how to deal with settings which should be secret and should not be published to the source code repository.&lt;/p&gt;
+As you can see, this new way of configuring your ASP .NET Core application provides a lot of possibilities.
+&lt;a href=&#34;http://koscielniak.me/post/2016/05/dealing-with-secrets-in-asp-net-core/&#34;&gt;In the future&lt;/a&gt;,
+I will also write about how to deal with settings which should be secret and should not be published to the source code repository.&lt;/p&gt;
 
-&lt;h3&gt;Related posts:&lt;/h3&gt;
+&lt;p&gt;&lt;h3&gt;Related posts:&lt;/h3&gt;
+
 
 
 
@@ -536,10 +662,11 @@ As you can see, this new way of configuring your ASP .NET Core application provi
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/aps-dot-net-core-configuration/&#34;&gt;ASP .NET Core Configuration&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/getting-started-with-identity-server4/&#34;&gt;Getting started with IdentityServer4&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/identityserver-4-accessing-api/&#34;&gt;IdentityServer4 - accessing API&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/dealing-with-secrets-in-asp-net-core/&#34;&gt;Dealing with secrets in ASP .NET Core&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 
-
+&lt;/p&gt;
 </description>
     </item>
     
@@ -756,6 +883,7 @@ and ALT+ENTER did a lot of this work for them but it’s still a lot of changes.
 
 
 
+
 &lt;ul style=&#34;list-style: none;&#34;&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/02/enrolling-in-daj-sie-poznac/&#34;&gt;Enrolling in &#34;Daj się poznać&#34;&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/daj-sie-poznac-project-details/&#34;&gt;&#34;Daj się poznać&#34; - Project details&#34;&lt;/a&gt;&lt;/li&gt;
@@ -778,6 +906,7 @@ and ALT+ENTER did a lot of this work for them but it’s still a lot of changes.
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/aps-dot-net-core-configuration/&#34;&gt;ASP .NET Core Configuration&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/getting-started-with-identity-server4/&#34;&gt;Getting started with IdentityServer4&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/identityserver-4-accessing-api/&#34;&gt;IdentityServer4 - accessing API&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/dealing-with-secrets-in-asp-net-core/&#34;&gt;Dealing with secrets in ASP .NET Core&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 
@@ -896,6 +1025,7 @@ Uncheck the &lt;em&gt;Require source files to exactly match the original version
 
 
 
+
 &lt;ul style=&#34;list-style: none;&#34;&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/02/enrolling-in-daj-sie-poznac/&#34;&gt;Enrolling in &#34;Daj się poznać&#34;&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/daj-sie-poznac-project-details/&#34;&gt;&#34;Daj się poznać&#34; - Project details&#34;&lt;/a&gt;&lt;/li&gt;
@@ -918,6 +1048,7 @@ Uncheck the &lt;em&gt;Require source files to exactly match the original version
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/aps-dot-net-core-configuration/&#34;&gt;ASP .NET Core Configuration&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/getting-started-with-identity-server4/&#34;&gt;Getting started with IdentityServer4&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/identityserver-4-accessing-api/&#34;&gt;IdentityServer4 - accessing API&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/dealing-with-secrets-in-asp-net-core/&#34;&gt;Dealing with secrets in ASP .NET Core&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 
@@ -993,6 +1124,7 @@ but for now it is still bleeding edge and bleeding edges hurt.&lt;/p&gt;
 
 
 
+
 &lt;ul style=&#34;list-style: none;&#34;&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/02/enrolling-in-daj-sie-poznac/&#34;&gt;Enrolling in &#34;Daj się poznać&#34;&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/daj-sie-poznac-project-details/&#34;&gt;&#34;Daj się poznać&#34; - Project details&#34;&lt;/a&gt;&lt;/li&gt;
@@ -1015,6 +1147,7 @@ but for now it is still bleeding edge and bleeding edges hurt.&lt;/p&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/aps-dot-net-core-configuration/&#34;&gt;ASP .NET Core Configuration&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/getting-started-with-identity-server4/&#34;&gt;Getting started with IdentityServer4&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/identityserver-4-accessing-api/&#34;&gt;IdentityServer4 - accessing API&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/dealing-with-secrets-in-asp-net-core/&#34;&gt;Dealing with secrets in ASP .NET Core&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 
@@ -1185,6 +1318,7 @@ to find what happens when this app is run on Linux.&lt;/p&gt;
 
 
 
+
 &lt;ul style=&#34;list-style: none;&#34;&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/02/enrolling-in-daj-sie-poznac/&#34;&gt;Enrolling in &#34;Daj się poznać&#34;&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/daj-sie-poznac-project-details/&#34;&gt;&#34;Daj się poznać&#34; - Project details&#34;&lt;/a&gt;&lt;/li&gt;
@@ -1207,6 +1341,7 @@ to find what happens when this app is run on Linux.&lt;/p&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/aps-dot-net-core-configuration/&#34;&gt;ASP .NET Core Configuration&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/getting-started-with-identity-server4/&#34;&gt;Getting started with IdentityServer4&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/identityserver-4-accessing-api/&#34;&gt;IdentityServer4 - accessing API&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/dealing-with-secrets-in-asp-net-core/&#34;&gt;Dealing with secrets in ASP .NET Core&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 
@@ -1343,6 +1478,7 @@ the web client authentication with Google Identity Provider.&lt;/p&gt;
 
 
 
+
 &lt;ul style=&#34;list-style: none;&#34;&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/02/enrolling-in-daj-sie-poznac/&#34;&gt;Enrolling in &#34;Daj się poznać&#34;&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/daj-sie-poznac-project-details/&#34;&gt;&#34;Daj się poznać&#34; - Project details&#34;&lt;/a&gt;&lt;/li&gt;
@@ -1365,6 +1501,7 @@ the web client authentication with Google Identity Provider.&lt;/p&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/aps-dot-net-core-configuration/&#34;&gt;ASP .NET Core Configuration&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/getting-started-with-identity-server4/&#34;&gt;Getting started with IdentityServer4&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/identityserver-4-accessing-api/&#34;&gt;IdentityServer4 - accessing API&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/dealing-with-secrets-in-asp-net-core/&#34;&gt;Dealing with secrets in ASP .NET Core&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 
@@ -1587,6 +1724,7 @@ but there must be a way to handle this kind of situation. However, I’ll write 
 
 
 
+
 &lt;ul style=&#34;list-style: none;&#34;&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/02/enrolling-in-daj-sie-poznac/&#34;&gt;Enrolling in &#34;Daj się poznać&#34;&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/daj-sie-poznac-project-details/&#34;&gt;&#34;Daj się poznać&#34; - Project details&#34;&lt;/a&gt;&lt;/li&gt;
@@ -1609,6 +1747,7 @@ but there must be a way to handle this kind of situation. However, I’ll write 
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/aps-dot-net-core-configuration/&#34;&gt;ASP .NET Core Configuration&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/getting-started-with-identity-server4/&#34;&gt;Getting started with IdentityServer4&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/identityserver-4-accessing-api/&#34;&gt;IdentityServer4 - accessing API&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/dealing-with-secrets-in-asp-net-core/&#34;&gt;Dealing with secrets in ASP .NET Core&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 
@@ -1706,6 +1845,7 @@ I will continue this theme and I hope, I’ll show finally some code.&lt;/p&gt;
 
 
 
+
 &lt;ul style=&#34;list-style: none;&#34;&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/02/enrolling-in-daj-sie-poznac/&#34;&gt;Enrolling in &#34;Daj się poznać&#34;&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/daj-sie-poznac-project-details/&#34;&gt;&#34;Daj się poznać&#34; - Project details&#34;&lt;/a&gt;&lt;/li&gt;
@@ -1728,6 +1868,7 @@ I will continue this theme and I hope, I’ll show finally some code.&lt;/p&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/aps-dot-net-core-configuration/&#34;&gt;ASP .NET Core Configuration&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/getting-started-with-identity-server4/&#34;&gt;Getting started with IdentityServer4&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/identityserver-4-accessing-api/&#34;&gt;IdentityServer4 - accessing API&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/dealing-with-secrets-in-asp-net-core/&#34;&gt;Dealing with secrets in ASP .NET Core&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 
@@ -1828,6 +1969,7 @@ I wrote how I prepared my application to be ready for publishing. In this post, 
 
 
 
+
 &lt;ul style=&#34;list-style: none;&#34;&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/02/enrolling-in-daj-sie-poznac/&#34;&gt;Enrolling in &#34;Daj się poznać&#34;&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/daj-sie-poznac-project-details/&#34;&gt;&#34;Daj się poznać&#34; - Project details&#34;&lt;/a&gt;&lt;/li&gt;
@@ -1850,6 +1992,7 @@ I wrote how I prepared my application to be ready for publishing. In this post, 
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/aps-dot-net-core-configuration/&#34;&gt;ASP .NET Core Configuration&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/getting-started-with-identity-server4/&#34;&gt;Getting started with IdentityServer4&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/identityserver-4-accessing-api/&#34;&gt;IdentityServer4 - accessing API&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/dealing-with-secrets-in-asp-net-core/&#34;&gt;Dealing with secrets in ASP .NET Core&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 
@@ -2016,6 +2159,7 @@ Now, I am ready to publish my application to
 
 
 
+
 &lt;ul style=&#34;list-style: none;&#34;&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/02/enrolling-in-daj-sie-poznac/&#34;&gt;Enrolling in &#34;Daj się poznać&#34;&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/daj-sie-poznac-project-details/&#34;&gt;&#34;Daj się poznać&#34; - Project details&#34;&lt;/a&gt;&lt;/li&gt;
@@ -2038,6 +2182,7 @@ Now, I am ready to publish my application to
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/aps-dot-net-core-configuration/&#34;&gt;ASP .NET Core Configuration&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/getting-started-with-identity-server4/&#34;&gt;Getting started with IdentityServer4&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/identityserver-4-accessing-api/&#34;&gt;IdentityServer4 - accessing API&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/dealing-with-secrets-in-asp-net-core/&#34;&gt;Dealing with secrets in ASP .NET Core&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 
@@ -2350,6 +2495,7 @@ course. I made some changes to adjust his solution to my reality. In the next po
 
 
 
+
 &lt;ul style=&#34;list-style: none;&#34;&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/02/enrolling-in-daj-sie-poznac/&#34;&gt;Enrolling in &#34;Daj się poznać&#34;&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/daj-sie-poznac-project-details/&#34;&gt;&#34;Daj się poznać&#34; - Project details&#34;&lt;/a&gt;&lt;/li&gt;
@@ -2372,6 +2518,7 @@ course. I made some changes to adjust his solution to my reality. In the next po
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/aps-dot-net-core-configuration/&#34;&gt;ASP .NET Core Configuration&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/getting-started-with-identity-server4/&#34;&gt;Getting started with IdentityServer4&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/identityserver-4-accessing-api/&#34;&gt;IdentityServer4 - accessing API&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/dealing-with-secrets-in-asp-net-core/&#34;&gt;Dealing with secrets in ASP .NET Core&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 
@@ -2551,377 +2698,6 @@ I’ll continue with MDL and I’ll explain what I mean by wrapping MDL componen
 
 
 
-&lt;ul style=&#34;list-style: none;&#34;&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/02/enrolling-in-daj-sie-poznac/&#34;&gt;Enrolling in &#34;Daj się poznać&#34;&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/daj-sie-poznac-project-details/&#34;&gt;&#34;Daj się poznać&#34; - Project details&#34;&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/i-m-holding-a-project-rider-eap/&#34;&gt;I&#39;m holding a Project Rider EAP&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/installing-asp-dot-net-core-1-on-ubuntu-14/&#34;&gt;Installing ASP .NET Core 1 on Ubuntu 14.04&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/my-first-asp-net-core-1-web-application/&#34;&gt;My first ASP NET Core 1.0 web application&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/project-setup-server-side/&#34;&gt;Project setup - server-side&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/project-setup-client-side/&#34;&gt;Project setup - client-side&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/adding-styling-to-my-application/&#34;&gt;Adding styling to my application&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/angular2-confirm-dialog-component/&#34;&gt;Angular 2 Confirm Dialog Component&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/before-going-into-production/&#34;&gt;Before going into production&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/publishing-to-azure/&#34;&gt;Publishing to Azure&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/setting-up-the-web-client-for-google-identity-platform/&#34;&gt;Setting up the Web client for Google Identity Platform&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/oidc-token-manager-library-with-google-identity-platform-part-1/&#34;&gt;oidc-token-manager library with Google Identity Platform - Part 1&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/oidc-token-manager-library-with-google-identity-platform-part-2/&#34;&gt;oidc-token-manager library with Google Identity Platform - Part 2&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/accesing-api-with-token-from-google-identity-provider/&#34;&gt;Accessing API with token from Google Identity Provider&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/how-portable-is-asp-dot-net-core/&#34;&gt;How portable is ASP .NET Core 1.0?&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/when-dotpeek-can-save-your-live/&#34;&gt;When dotPeek can save your live&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/reading-code-as-if-it-were-a-book/&#34;&gt;Reading code as if it were a book&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/aps-dot-net-core-configuration/&#34;&gt;ASP .NET Core Configuration&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/getting-started-with-identity-server4/&#34;&gt;Getting started with IdentityServer4&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/identityserver-4-accessing-api/&#34;&gt;IdentityServer4 - accessing API&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-
-
-</description>
-    </item>
-    
-    <item>
-      <title>Project setup - client-side</title>
-      <link>http://koscielniak.me/post/2016/03/project-setup-client-side/</link>
-      <pubDate>Fri, 18 Mar 2016 08:00:00 +0100</pubDate>
-      
-      <guid>http://koscielniak.me/post/2016/03/project-setup-client-side/</guid>
-      <description>&lt;p&gt;&lt;a href=&#34;http://dajsiepoznac.pl&#34;&gt;&lt;img src=&#34;http://koscielniak.me/post/2016/03/contestLogo.png&#34; alt=&#34;Daj się poznać&#34; title=&#34;Daj się poznać&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;It&amp;rsquo;s not an easy task these days to set up a client-side application.
-There is now an explosion of technologies. You should know all these: npm, Node.js, Grunt,
-Gulp, Bower, Babel, ES2015, TypeScript, Less, Sass, Bootstrap, etc.
-Yes, of course there are seeds which allow a startup project to be ready to
-run but almost every one of them gives you something more than you need and
-when you use this kind of seed you may not know what’s really going on
-in the building process of your application.
-The client-side part of my application will be based on Angular 2.
-I decided to set up the Angular 2 application from scratch in order to
-feel by myself what this process looks like, I’ll describe the process and what
-I’ve learned in this post.&lt;/p&gt;
-
-&lt;p&gt;I think the best place to start with something new is on its official page and so
-I did this with the setup of the Angular 2 application. On this
-&lt;a href=&#34;https://angular.io/&#34; target=&#34;_blank&#34;&gt;page&lt;/a&gt;
-I found all the necessary information needed to run my first
-Angular 2 component on a startup page of my application,
-but I must also adjust what’s on this official page to the
-&lt;a href=&#34;https://get.asp.net/&#34; target=&#34;_blank&#34;&gt;ASP .NET Core&lt;/a&gt; reality.&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&#34;https://angular.io/docs/ts/latest/quickstart.html&#34; target=&#34;_blank&#34;&gt;5 Min Quickstart&lt;/a&gt;
-on the Angular 2 official page gave a ready to use scaffolding for my application.
-What I need to be aware of is that in ASP .NET Core,
-the root folder of my site is &lt;em&gt;wwwroot&lt;/em&gt; and all static files should go into this folder.
-I inserted &lt;em&gt;app.component.ts&lt;/em&gt; and &lt;em&gt;main.ts&lt;/em&gt; to the &lt;em&gt;wwwroot&lt;/em&gt; folder.
-I changed the content of &lt;em&gt;app.component.ts&lt;/em&gt; a bit so it looked like this:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;import {Component} from &#39;angular2/core&#39;;
-@Component({
-    selector: &#39;notifier&#39;,
-    template: &#39;&amp;lt;h1&amp;gt;{{title}}&amp;lt;/h1&amp;gt;&#39;
-})
-export class AppComponent { 
-    title = &amp;quot;Notifier!!!&amp;quot;
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Other files such as: &lt;em&gt;package.json&lt;/em&gt;, &lt;em&gt;tsconfig.json&lt;/em&gt; and &lt;em&gt;typing.json&lt;/em&gt;, I put under the root of my project.
-I did a couple of changes in &lt;em&gt;project.json&lt;/em&gt; so it is listed below:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;{
-  &amp;quot;name&amp;quot;: &amp;quot;Notifier&amp;quot;,
-  &amp;quot;version&amp;quot;: &amp;quot;1.0.0&amp;quot;,
-  &amp;quot;scripts&amp;quot;: {   
-    &amp;quot;tsc&amp;quot;: &amp;quot;tsc -w&amp;quot;,
-    &amp;quot;typings&amp;quot;: &amp;quot;typings&amp;quot;,
-    &amp;quot;postinstall&amp;quot;: &amp;quot;typings install&amp;quot;
-  },
-  &amp;quot;license&amp;quot;: &amp;quot;ISC&amp;quot;,
-  &amp;quot;dependencies&amp;quot;: {
-    &amp;quot;angular2&amp;quot;: &amp;quot;2.0.0-beta.9&amp;quot;,
-    &amp;quot;systemjs&amp;quot;: &amp;quot;0.19.24&amp;quot;,
-    &amp;quot;es6-promise&amp;quot;: &amp;quot;^3.0.2&amp;quot;,
-    &amp;quot;es6-shim&amp;quot;: &amp;quot;^0.33.3&amp;quot;,
-    &amp;quot;reflect-metadata&amp;quot;: &amp;quot;0.1.2&amp;quot;,
-    &amp;quot;rxjs&amp;quot;: &amp;quot;5.0.0-beta.2&amp;quot;,
-    &amp;quot;zone.js&amp;quot;: &amp;quot;0.5.15&amp;quot;
-  },
-  &amp;quot;devDependencies&amp;quot;: {
-    &amp;quot;del&amp;quot;: &amp;quot;^2.0.2&amp;quot;,
-    &amp;quot;gulp&amp;quot;: &amp;quot;^3.9.0&amp;quot;,
-    &amp;quot;typescript&amp;quot;: &amp;quot;^1.8.7&amp;quot;,
-    &amp;quot;typings&amp;quot;:&amp;quot;^0.7.5&amp;quot;
-  }
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;I left &lt;em&gt;&amp;ldquo;dependencies&amp;rdquo;&lt;/em&gt; untouched but I changed &lt;em&gt;&amp;ldquo;devDependencies&amp;rdquo;&lt;/em&gt; quite a lot.
-I don’t need live reload, so I removed this and I also added &lt;em&gt;del&lt;/em&gt; and &lt;em&gt;gulp&lt;/em&gt; which allowed me
-to do some processing on application files. The most interesting things are in
-the &lt;em&gt;&amp;ldquo;scripts&amp;rdquo;&lt;/em&gt; part of the &lt;em&gt;package.json&lt;/em&gt; file. I left only three commands and
-two of them were unchanged, these are &lt;em&gt;typings&lt;/em&gt; and &lt;em&gt;postinstall&lt;/em&gt;.
-These commands download typings for TypeScript to the root of your project right after
-your &lt;em&gt;npm install&lt;/em&gt; command finishes their work. After this there’ll be a folder
-named &lt;em&gt;typings&lt;/em&gt; in the root of the project. It’s wise to add this folder to &lt;em&gt;.gitignore&lt;/em&gt;.
-The command &lt;em&gt;typings&lt;/em&gt; in this configuration works in the root of your project.
-That’s why &lt;em&gt;typings.json&lt;/em&gt; is in this location and not in &lt;em&gt;wwwroot&lt;/em&gt;.
-This file is a typings command configuration and it persists dependencies so that everyone on
-the project can replicate it and that’s why you don’t need to commit &lt;em&gt;typings&lt;/em&gt; folder.&lt;/p&gt;
-
-&lt;p&gt;Another command I changed a bit was &lt;em&gt;tsc&lt;/em&gt;, so when I run it my
-TypeScript files will be watching for changes and compiled right after these changes happened.
-This command looks for config in the location where it works.
-It is the root of the project so again that’s why &lt;em&gt;tsconfig.json&lt;/em&gt; stays in
-this place and not in the &lt;em&gt;wwwroot&lt;/em&gt;. This command creates &lt;em&gt;.js&lt;/em&gt; files and &lt;em&gt;.map&lt;/em&gt;
-files just next to the original &lt;em&gt;.ts&lt;/em&gt; files, it is also a good practice to ignore
-these &lt;em&gt;.js&lt;/em&gt; and &lt;em&gt;.map&lt;/em&gt; files in version control system. To do this I inserted these two lines to &lt;em&gt;.gitignore&lt;/em&gt;&lt;br /&gt;
-&lt;code&gt;src/web/wwwroot/app/**/*.js&lt;/code&gt;&lt;br /&gt;
-&lt;code&gt;src/web/wwwroot/app/**/*.map&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;The next step was executing in terminal command &lt;code&gt;npm install&lt;/code&gt;.
-Doing this allowed me to fetch all dependencies which are specified in &lt;em&gt;package.json&lt;/em&gt;.&lt;/p&gt;
-
-&lt;p&gt;I put my &lt;em&gt;package.json&lt;/em&gt; in the root of project so when I executed &lt;em&gt;npm install&lt;/em&gt; the &lt;em&gt;node_modules&lt;/em&gt;
-folder was located in this location. We know that only the &lt;em&gt;wwwroot&lt;/em&gt; folder is visible
-from the outside world. I needed a way to move files from &lt;em&gt;node_modules&lt;/em&gt; to the location somewhere
-inside &lt;em&gt;wwwroot&lt;/em&gt;. I used task runner &lt;em&gt;gulp&lt;/em&gt; to move these files to the &lt;em&gt;lib&lt;/em&gt; folder inside the &lt;em&gt;wwwroot&lt;/em&gt;.
-You may have noticed that I added a bunch of modules inside &lt;em&gt;&amp;ldquo;devDependencies&amp;rdquo;&lt;/em&gt; in &lt;em&gt;package.json&lt;/em&gt;,
-these are needed for copying desired files to &lt;em&gt;wwwroot&lt;/em&gt;.&lt;/p&gt;
-
-&lt;p&gt;I added &lt;em&gt;gulpfile.js&lt;/em&gt; into the root of project and inside this file
-I added some &lt;em&gt;gulp&lt;/em&gt; tasks so it looks like this:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;&amp;quot;use strict&amp;quot;;
-
-var path = require(&#39;path&#39;);
-var gulp = require(&#39;gulp&#39;);
-var del = require(&#39;del&#39;);
-
-var webroot = &amp;quot;./wwwroot/&amp;quot;;
-
-var config = {
-    libBase: &#39;node_modules&#39;,
-    lib: [
-        require.resolve(&#39;es6-shim/es6-shim.min.js&#39;),
-        require.resolve(&#39;es6-shim/es6-shim.map&#39;),
-        require.resolve(&#39;systemjs/dist/system-polyfills.js&#39;),
-        require.resolve(&#39;systemjs/dist/system-polyfills.js.map&#39;),
-        require.resolve(&#39;angular2/es6/dev/src/testing/shims_for_IE.js&#39;),
-        require.resolve(&#39;systemjs/dist/system.src.js&#39;),
-        require.resolve(&#39;angular2/bundles/angular2-polyfills.js&#39;),
-        require.resolve(&#39;rxjs/bundles/Rx.js&#39;),
-        require.resolve(&#39;angular2/bundles/angular2.dev.js&#39;),
-        require.resolve(&#39;angular2/bundles/router.dev.js&#39;),
-        require.resolve(&#39;angular2/bundles/http.dev.js&#39;)
-    ]
-};
-
-gulp.task(&#39;build.lib&#39;, [&#39;clean&#39;], function() {
-    return gulp.src(config.lib, { base: config.libBase })
-        .pipe(gulp.dest(webroot + &#39;lib&#39;));
-});
-
-gulp.task(&#39;build-dev&#39;, [&#39;build.lib&#39;], function() {
-
-});
-gulp.task(&#39;clean&#39;, function() {
-    return del([webroot + &#39;lib&#39;]);
-});
-
-gulp.task(&#39;default&#39;, [&#39;build-dev&#39;]);
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;You may wonder why I bothered with all this stuff, shouldn’t I have used
-&lt;a href=&#34;https://en.wikipedia.org/wiki/Content_Delivery_Network&#34; target=&#34;_blank&#34;&gt;CDN&lt;/a&gt; instead?
-Yes, of course and for sure I’ll do this. However, for now
-I chose the harder way to learn a bit more and gain knowledge on how
-to setup a project when you cannot use CDN. At this stage,
-I entered the command &lt;code&gt;gulp build-dev&lt;/code&gt; and inside &lt;em&gt;wwwroot&lt;/em&gt; a &lt;em&gt;lib&lt;/em&gt; folder was created
-which contains specified libraries.
-After this, my &lt;em&gt;wwwroot&lt;/em&gt; structure looked like this:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://koscielniak.me/post/2016/03/applicationSetup/client/wwwrootAfterSetup.png&#34; alt=&#34;wwwroot after setup&#34; title=&#34;wwwroot after setup&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Now I can combine my Angular 2 with ASP .NET Core. To do this,
-I need to create a couple of &lt;em&gt;.cshtml&lt;/em&gt; files inside the &lt;em&gt;Views&lt;/em&gt; folder.
-Firstly, I must create this folder and then inside the &lt;em&gt;Views&lt;/em&gt; folder I created two more folders:
-&lt;em&gt;Shared&lt;/em&gt; and &lt;em&gt;Home&lt;/em&gt;. Inside the &lt;em&gt;Shared&lt;/em&gt; folder I created a &lt;em&gt;_Layout.cshtml&lt;/em&gt; file and inside &lt;em&gt;Home&lt;/em&gt;
-I created &lt;em&gt;Index.cshtml&lt;/em&gt;. Inside the &lt;em&gt;Views&lt;/em&gt; folder, I had to create another file:
-&lt;em&gt;_ViewImports.cshtml&lt;/em&gt; which gives you the opportunity to provide some default usings for all views.
-For now I left the &lt;em&gt;_ViewImports.cshtml&lt;/em&gt; file empty.&lt;/p&gt;
-
-&lt;p&gt;I created another file in &lt;em&gt;Views&lt;/em&gt; folder &lt;em&gt;_ViewStart.cshtml&lt;/em&gt;.
-This file when placed into the &lt;em&gt;Views&lt;/em&gt; folder will influence all views in this folder hierarchy.
-I used this file to specify the layout for all views.
-Although I am going to have only one view. The content of my &lt;em&gt;_ViewStart.cshtml&lt;/em&gt; looks like this:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-html&#34;&gt;@{
-   Layout = &amp;quot;_Layout&amp;quot;;
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;My &lt;em&gt;_Layout.cshtml&lt;/em&gt; at this stage looked like this:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-html&#34;&gt;&amp;lt;!doctype html&amp;gt;
-&amp;lt;html lang=&amp;quot;&amp;quot;&amp;gt;
-    &amp;lt;head&amp;gt;
-        &amp;lt;meta charset=&amp;quot;utf-8&amp;quot; /&amp;gt;
-        &amp;lt;meta name=&amp;quot;viewport&amp;quot; content=&amp;quot;width=device-width, initial-scale=1.0&amp;quot; /&amp;gt;
-        &amp;lt;title&amp;gt;Notifier&amp;lt;/title&amp;gt;
-        &amp;lt;base href=&amp;quot;/&amp;quot; /&amp;gt;
-    &amp;lt;/head&amp;gt;
-    &amp;lt;body&amp;gt;
-        @RenderBody()
-        @RenderSection(&amp;quot;scripts&amp;quot;, required: false)
-    &amp;lt;/body&amp;gt;
-&amp;lt;/html&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;You should pay attention to this element &lt;code&gt;&amp;lt;base href=&amp;quot;/&amp;quot; /&amp;gt;&lt;/code&gt;.
-It is required by Angular 2 to tell the router how to compose navigation URLs.
-You can read more about it
-&lt;a href=&#34;https://angular.io/docs/ts/latest/guide/router.html&#34; target=&#34;_blank&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;The file &lt;em&gt;Index.cshtml&lt;/em&gt; looks like this:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-html&#34;&gt;&amp;lt;notifier&amp;gt;
-    Loading...
-&amp;lt;/notifier&amp;gt;
-@section scripts {
-
-    &amp;lt;!-- 1. Load libraries --&amp;gt;
-    &amp;lt;!-- IE required polyfills, in this exact order --&amp;gt;
-     &amp;lt;script src=&amp;quot;lib/es6-shim/es6-shim.min.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
-    &amp;lt;script src=&amp;quot;lib/systemjs/dist/system-polyfills.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
-    &amp;lt;script src=&amp;quot;lib/angular2/es6/dev/src/testing/shims_for_IE.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;   
-    &amp;lt;script src=&amp;quot;lib/angular2/bundles/angular2-polyfills.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
-    &amp;lt;script src=&amp;quot;lib/systemjs/dist/system.src.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
-    &amp;lt;script src=&amp;quot;lib/rxjs/bundles/Rx.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
-    &amp;lt;script src=&amp;quot;lib/angular2/bundles/angular2.dev.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
-    &amp;lt;script src=&amp;quot;lib/angular2/bundles/router.dev.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
-    &amp;lt;script src=&amp;quot;lib/angular2/bundles/http.dev.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
-
-
-    &amp;lt;script&amp;gt;
-        System.config({
-            packages: {&#39;app&#39;: {defaultExtension: &#39;js&#39;}}
-        });
-        System.import(&#39;./app/main&#39;).catch(console.log.bind(console));
-    &amp;lt;/script&amp;gt;
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;All I did here was to simply include all the files copied to the &lt;em&gt;wwwroot/lib&lt;/em&gt; folder and
-I passed the configuration to
-&lt;a href=&#34;https://github.com/systemjs/systemjs&#34; target=&#34;_blank&#34;&gt;System.js&lt;/a&gt;,
-which is a module loader responsible for loading
-the main file and other application files.&lt;/p&gt;
-
-&lt;p&gt;I must of course add &lt;em&gt;HomeController&lt;/em&gt; which will return the &lt;em&gt;Index&lt;/em&gt; view.
-It’s located in the &lt;em&gt;Controllers&lt;/em&gt; folder and its content are simply this:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;using Microsoft.AspNet.Mvc;
-
-namespace Notifier.Web.Controllers
-{
-    public class HomeController : Controller
-    {
-        public IActionResult Index()
-        {
-            return View();
-        }
-    }
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;After all these steps my project structure looks like this:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://koscielniak.me/post/2016/03/applicationSetup/client/projectFoldersTree.png&#34; alt=&#34;Project folders tree&#34; title=&#34;Project folders tree&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;I am almost done but before I run the application I have to do a couple of improvements
-in my server-side setup which I didn’t need before. Firstly, I must setup
-the default route for my application which will be &lt;em&gt;Home/Index&lt;/em&gt;.
-I did this by adding two lines in method &lt;em&gt;Configure&lt;/em&gt; of &lt;em&gt;Startup&lt;/em&gt; class so now it looks like this:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;  public void Configure(IApplicationBuilder app)
-        {
-            app.UseIISPlatformHandler();
-            
-            app.UseMvc(routes =&amp;gt;{
-                routes.MapRoute(name:&amp;quot;default&amp;quot;, template: &amp;quot;{controller=Home}/{action=Index}/{id?}&amp;quot;);
-                routes.MapRoute(&amp;quot;spa-fallback&amp;quot;,&amp;quot;{*anything}&amp;quot;,new{controller =&amp;quot;Home&amp;quot;, action=&amp;quot;Index&amp;quot;} );                
-            });
-        }
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;This &lt;em&gt;&amp;ldquo;spa-fallback&amp;rdquo;&lt;/em&gt; route is in case of 404 requests.
-It isn’t a perfect solution. I’ll show why and how to do it better in one of my future posts.
-At this moment, you can run the application by issuing in terminal
-&lt;code&gt;dnx web&lt;/code&gt; and you’ll see…an empty page&amp;hellip;do you know why?
-Because at this moment my application does not serve static files.
-You must add another middleware to allow the application to do this.
-What’s more, you must even add another Nuget package which is called:
-&lt;em&gt;Microsoft.AspNet.StaticFiles&lt;/em&gt;. I inserted this dependency in &lt;em&gt;project.json&lt;/em&gt;
-and then instead of typing, I clicked the Restore button in Visual Studio Code.
-After this I used this middleware by typing this line &lt;em&gt;app.UseStaticFiles()&lt;/em&gt;;
-in &lt;em&gt;Configure&lt;/em&gt; method, so now it looks like this:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;public void Configure(IApplicationBuilder app)
-        {
-            app.UseIISPlatformHandler();
-            
-            app.UseStaticFiles();
-            
-            app.UseMvc(routes =&amp;gt;{
-                routes.MapRoute(name:&amp;quot;default&amp;quot;, template: &amp;quot;{controller=Home}/{action=Index}/{id?}&amp;quot;);
-                routes.MapRoute(&amp;quot;spa-fallback&amp;quot;,&amp;quot;{*anything}&amp;quot;,new{controller =&amp;quot;Home&amp;quot;, action=&amp;quot;Index&amp;quot;} );                
-            });
-        }
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Remember, the order of middlewares is imported if you put this line:
-&lt;em&gt;app.UseStaticFiles();&lt;/em&gt; after &lt;em&gt;UseMvc&lt;/em&gt; middleware your static files still won’t be served.&lt;/p&gt;
-
-&lt;p&gt;Running the application now wouldn’t show anything fancy but only errors in the browser’s console,
-I must compile TypeScript files. To do this I entered &lt;code&gt;npm run tsc&lt;/code&gt; and now &lt;em&gt;.js&lt;/em&gt;
-files are created and this tool is watching for any changes and recompiles files
-almost immediately when these changes happen. After this, I expected something more
-attractive and I was right. This is what I got:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://koscielniak.me/post/2016/03/applicationSetup/client/finalResult.png&#34; alt=&#34;Final result&#34; title=&#34;Final result&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;If you would like to repeat my steps, for sure you will encounter some errors and
-you won’t see them until you add another package called: &lt;em&gt;Microsoft.AspNet.Diagnostics&lt;/em&gt;
-and in &lt;em&gt;Configure&lt;/em&gt; method you use middleware &lt;em&gt;UseDeveloperExceptionPage&lt;/em&gt;.
-After this, when an error happens you’ll see a very nice error page.
-You should add this as the first middleware and remember about &lt;em&gt;dnx restore&lt;/em&gt;.&lt;/p&gt;
-
-&lt;p&gt;I haven’t finished my set-up yet but I think that this post is already long enough. In my next few posts,
-I will talk about how I added styling to my application and how I improved this set-up a bit.&lt;/p&gt;
-
-&lt;h3&gt;Related posts:&lt;/h3&gt;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 &lt;ul style=&#34;list-style: none;&#34;&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/02/enrolling-in-daj-sie-poznac/&#34;&gt;Enrolling in &#34;Daj się poznać&#34;&lt;/a&gt;&lt;/li&gt;
@@ -2945,6 +2721,7 @@ I will talk about how I added styling to my application and how I improved this 
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/aps-dot-net-core-configuration/&#34;&gt;ASP .NET Core Configuration&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/getting-started-with-identity-server4/&#34;&gt;Getting started with IdentityServer4&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/identityserver-4-accessing-api/&#34;&gt;IdentityServer4 - accessing API&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/dealing-with-secrets-in-asp-net-core/&#34;&gt;Dealing with secrets in ASP .NET Core&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 
