@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Node.Js on Piotr Kościelniak - passionate programmer</title>
+    <link>http://koscielniak.me/tags/node/index.js/</link>
+    <description>Recent content in Node.Js on Piotr Kościelniak - passionate programmer</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 14 May 2016 12:30:00 +0200</lastBuildDate>
+    <atom:link href="http://koscielniak.me/tags/node.js/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>How to avoid global installs with NPM scripts</title>
+      <link>http://koscielniak.me/post/2016/05/how-to-avoid-global-installs-with-npm-scripts/</link>
+      <pubDate>Sat, 14 May 2016 12:30:00 +0200</pubDate>
+      
+      <guid>http://koscielniak.me/post/2016/05/how-to-avoid-global-installs-with-npm-scripts/</guid>
+      <description>&lt;p&gt;Recently, I heard from a friend that he doesn’t know how to use Gulp and TypeScript locally, he only knows how to install them globally. I thought it could be an issue for others, and that’s why I decided to write this post.&lt;/p&gt;
+
+&lt;p&gt;Using globally installed NPM packages can be very problematic, especially if you need these in different versions in a variety of projects. If you rely on global packages you don’t know what the dependencies of your project really are. It is better to have everything in one place without part of your dependencies in global and the other part of your dependencies in local space.&lt;/p&gt;
+
+&lt;p&gt;To use &lt;em&gt;gulp&lt;/em&gt; and &lt;em&gt;tsc&lt;/em&gt; (TypeScript compiler) without polluting your global, you simply install it locally with a command like this: &lt;code&gt;npm install gulp typescript --save-dev&lt;/code&gt; and then you use the power of
+&lt;a href=&#34;https://docs.npmjs.com/misc/scripts&#34; target=&#34;_blank&#34;&gt;NPM scripts&lt;/a&gt;.
+As you can see, in that link there are a lot of predefined scripts but I will show you how to define custom ones.&lt;/p&gt;
+
+&lt;p&gt;All you have to do is simply to define the name of script in the &lt;em&gt;scripts&lt;/em&gt; section in the &lt;em&gt;package.json&lt;/em&gt;. This is an example from one of my projects:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;quot;scripts&amp;quot;: {
+    &amp;quot;tsc&amp;quot;: &amp;quot;tsc -w&amp;quot;,
+    &amp;quot;typings&amp;quot;: &amp;quot;typings&amp;quot;,
+    &amp;quot;build-dev&amp;quot;: &amp;quot;gulp build-dev&amp;quot;,
+    &amp;quot;build-prod&amp;quot;: &amp;quot;gulp build-prod&amp;quot;,
+    &amp;quot;postinstall&amp;quot;: &amp;quot;concurrently \&amp;quot;typings install\&amp;quot; \&amp;quot;npm run build-dev\&amp;quot;&amp;quot;,
+    &amp;quot;start&amp;quot;: &amp;quot; http-server &amp;quot;
+},
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;I have defined four custom scripts and two predefined here.
+You can run custom scripts with a command like this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;npm run tsc
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You must execute this command in the root folder of your project (where your &lt;em&gt;package.json&lt;/em&gt; is).&lt;/p&gt;
+
+&lt;p&gt;Running a predefined script is as simple as: &lt;code&gt;npm start&lt;/code&gt;, you don’t have to put &lt;em&gt;run&lt;/em&gt;.
+Some scripts are run automatically, for example &lt;em&gt;postinstall&lt;/em&gt;. This script is run after the package is installed. In my case, after the package was installed, I installed typings and I rebuilt the libraries using the script defined above which is &lt;em&gt;build-dev&lt;/em&gt;. As you can see, you can execute other scripts in NPM scripts and you also have access to the commands which are located in the &lt;em&gt;node_modules/.bin&lt;/em&gt; of your project. In this location, you will find your commands &lt;em&gt;gulp&lt;/em&gt; and &lt;em&gt;tsc&lt;/em&gt; and other locally installed packages.&lt;/p&gt;
+
+&lt;p&gt;The scripts defined in &lt;em&gt;package.json&lt;/em&gt; look for commands inside this location and if they didn’t find one they then check your global packages. You can also run locally installed packages with a command like this: &lt;code&gt;node_modules/.bin/gulp&lt;/code&gt; but as you can see, this is a lot of typing and over time it can be very annoying. It is much better to use NPM scripts. I hope I have helped someone by writing this post.&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>
