@@ -44,14 +44,14 @@
         <article class="post">
             <a class="btn" href="http://koscielniak.me/" title="Back to home">&laquo; Back to home</a>
             
-<h1><a href="http://koscielniak.me/post/2016/05/dealing-with-secrets-in-asp-net-core/" title="Dealing with secrets in ASP .NET Core">Dealing with secrets in ASP .NET Core</a></h1>
+<h1><a href="http://koscielniak.me/post/2016/05/upgrading-to-angulr2-rc1/" title="Upgrading to Angular2 RC1">Upgrading to Angular2 RC1</a></h1>
 
-<footer class="post-info">Posted on <span class="post-meta"><time datetime="2016.05.10">2016.05.10</time>
+<footer class="post-info">Posted on <span class="post-meta"><time datetime="2016.05.16">2016.05.16</time>
 &middot; Tagged in
     
     <a href="http://koscielniak.me/tags/daj-si%C4%99-pozna%C4%87">daj się poznać</a>, 
     
-    <a href="http://koscielniak.me/tags/asp-.net-core">asp .net core</a>
+    <a href="http://koscielniak.me/tags/angular2">angular2</a>
     
 
 </span>
@@ -59,65 +59,122 @@
 
             <p><a href="http://dajsiepoznac.pl"><img src="/post/2016/03/contestLogo.png" alt="Daj się poznać" title="Daj się poznać" /></a></p>
 
-<p>This is a short post to complement my post about
-<a href="/post/2016/04/aps-dot-net-core-configuration/">the configuration in ASP .NET Core</a>.
-I’ll write about how to add secret settings to your application. ASP .NET Core created a new concept to deal with this. The first thing I did was to add this to the dependencies in <em>project.json</em>:</p>
+<p>The “Daj się poznać” contest is coming to an end and I have learned a lot and experimented with many things. I created a couple of sample projects but my main project was a bit neglected. It’s about time to speed up the development of my contest application.</p>
 
-<pre><code>&quot;Microsoft.Extensions.Configuration.UserSecrets&quot;: &quot;1.0.0-rc1-final&quot;
-</code></pre>
+<p>Since I’ve started working on that app, a lot changed. The biggest change was the new version of Angular2 which at the time of writing this post, is called: RC1. I started my development with an upgrade to this version.</p>
 
-<p>Then inside the constructor of the <em>Startup</em> class I added:</p>
+<p>The process of upgrading went rather smoothly but only because I had very few components. The upgrade involved the renaming of namespaces so if you have a lot of components this renaming could be very cumbersome.</p>
 
-<pre><code>if (env.IsDevelopment())
-{
-builder.AddUserSecrets();
+<p>The second biggest change in Angular RC1 was router. The previous router became deprecated and was renamed to <em>@angular/router-deprecated</em> and the new router named <em>@angular/router</em> wasn’t documented on the official page of
+<a href="https://angular.io/" target="_blank">Angular2</a> at the time of writing this post.</p>
+
+<p>Anyway, I decided to continue my development process and I created a couple of Angular2 components. First, what I did was to get rid of dependency <em>@angular/router-deprecated</em> from <em>package.json</em> and from <em>node_modules</em>. All decorators, directives and services related to new routing are inside the namespace <em>@angular/router</em>.</p>
+
+<p>In Angular2 RC1, the configuration of routes is done by the decorator <em>@Routes</em>, previously it was the <em>@RouteConfig</em> decorator. Both decorators take array as their argument but now the type of array items are different. Previously, it was array of <em>RouteDefinition</em> with the definition being:</p>
+
+<pre><code>interface RouteDefinition {
+   path?: string;
+   aux?: string;
+   component?: Type | ComponentDefinition;
+   loader?: Function;
+   redirectTo?: any[];
+   as?: string;
+   name?: string;
+   data?: any;
+   useAsDefault?: boolean;
 }
 </code></pre>
 
-<p>Then I added something like this to <em>project.json</em>:</p>
+<p>Currently, it is an array of <em>RouteMetadata</em> with the definition being:</p>
 
-<pre><code>  &quot;userSecretsId&quot;: &quot;idsrv-demo&quot;,
+<pre><code>abstract class RouteMetadata {
+   path: string;
+   component: Type;
+}
 </code></pre>
 
-<p>This is an ID for the secret storage of your application.</p>
+<p>It means that now to create a route, you must only specify the path and the type of component. For example like this:</p>
 
-<p>Next, I installed the latest version of runtime and set the alias to point at it, all in one command. The command was:</p>
-
-<pre><code>dnvm upgrade
+<pre><code>@Routes([
+   {path: '/main-page', component: MainPageComponent},
+   {path: '/dashboard/...', component: DashboardComponent}
+])
 </code></pre>
 
-<p>The next step was adding a global command <code>user-secret</code> by executing the following command:</p>
+<p>Firstly, what hit me at this stage was how to now specify the default route. I searched for a bit how to do this, but everything I found then was simply calling <code>this._router.navigate(['/main-page'])</code> inside <em>ngOnInit</em> of your main component. Then, I found that to make a route default you must specify its path with alone slash (/) as you can see in this snippet of code:</p>
 
-<pre><code>dnu commands install Microsoft.Extensions.SecretManager
+<pre><code>@Component({
+ moduleId: module.id,
+ selector: 'sample-app-app',
+ templateUrl: 'sample-app.component.html',
+ styleUrls: ['sample-app.component.css'],
+ directives: [ROUTER_DIRECTIVES],
+ providers: [ROUTER_PROVIDERS]
+})
+@Routes([
+ {path: '/dashboard', component: DashboardComponent},
+ {path: '/', component: MainPageComponent}
+])
+export class SampleAppAppComponent implements OnInit {
+ title = 'sample-app works!';
+
+ constructor(private router:Router) {
+ }
+
+ ngOnInit() {
+ }
+}
 </code></pre>
 
-<p>As a result, I can add secret settings with commands like this:</p>
+<p>In order to have this routing working, you must put <code>&lt;router-outlet&gt;&lt;/router-outlet&gt;</code> inside your template. This is the same as it used to be, but now this directive comes from a different module.</p>
 
-<pre><code> user-secret set GoogleIdentityProvider:ClientId &quot;342665198077-2lb7ai2oljrojkia5ob4e4kf0rnkeo33.apps.googleusercontent.com&quot;
+<p>To configure nested routes you don’t use <em>&hellip;</em> as before, you simply specify part of your route and the component related to it. Then inside your component you must specify further route configurations. In my case, I used <em>DashboardComponent</em> and it looked like this:</p>
+
+<pre><code>@Component({
+ moduleId: module.id,
+ selector: 'app-dashboard',
+ templateUrl: 'dashboard.component.html',
+ styleUrls: ['dashboard.component.css'],
+ directives: [ROUTER_DIRECTIVES]
+})
+@Routes([
+ {path: '/event-list', component: EventListComponent},
+ {path: '/event-details', component: EventDetailsComponent}
+])
+export class DashboardComponent implements OnInit {
+
+ constructor() {}
+
+ ngOnInit() {
+ }
+}
 </code></pre>
 
-<p>In this command, <em>GoogleIdentityProvider:ClientId</em> is a hierarchical key for the setting where the hierarchy is built by the colon.
-You can see all your secret settings with the command <code>user-secret list</code> executed in the root folder of the project.</p>
+<p>You can see the rest of files for my solution in this
+<a href="https://github.com/pikoscielniak/angular2-rc1-routing-sample" target="_blank">repository</a>.</p>
 
-<p>I just want to point out that I did everything on Linux. However, on Windows, other than using this option, you can also add secret settings from Visual Studio by right clicking on the project and then clicking on <em>Manage User Secret</em> and the you can edit file secrets.json which contains all your secret settings assigned to this project.</p>
+<p>When you look at this repository, you may wonder why I prefixed the folder with a <em>+</em> sign. It is required in order to have lazy loading of components.
+You can watch a
+<a href="https://www.youtube.com/watch?v=d8yAdeshpcw&index=9&list=PLOETEcp3DkCq788xapkP_OU-78jhTf68j" target="_blank">talk</a>
+given by
+<a href="https://twitter.com/mhevery" target="_blank">Misko Hevery</a>
+at
+<a href="https://www.ng-conf.org/#/" target="_blank">ng-conf 2016</a> to find out a bit more about it.</p>
 
-<p><img src="/post/2016/05/secrets/manageUserSecrets.png" alt="Manage User Secrets" title="Manage User Secrets" /></p>
+<p>The final result of this example looked like this in the browser.</p>
 
-<p>A good practice is to put all the secret settings somewhere so the other project participants can find out what they should also provide. I added a whole section of my secrets to the file <em>appsettings.json</em> so it looked like this:</p>
+<p><img src="/post/2016/05/upgradingFinalResult.png" alt="Final Result" title="Final Result" /></p>
 
-<pre><code> &quot;GoogleIdentityProvider&quot;:{
-        &quot;ClientId&quot;:&quot;&quot;,
-        &quot;ClientSecret&quot;:&quot;&quot;          
-    }
+<p>The interesting part of the new router is that you can specify links in templates relative to the component where they are placed. You can see an example of this here:</p>
+
+<pre><code>&lt;a [routerLink]=&quot;['./event-list']&quot;&gt;List&lt;/a&gt;
+&lt;a [routerLink]=&quot;['./event-details']&quot;&gt;Details&lt;/a&gt;
 </code></pre>
 
-<p>All you have to do when working with Visual Studio, is copy this section to <em>secrets.json</em> and then provide the correct settings. I could do it even better by putting this secret settings structure in a separate file so it would be more obvious which part of the settings is secret.</p>
+<p>This is a fragment of a <em>dashboard.component.html</em> file. You can see that the links are specified relative to the <em>DashboardComponent</em>.
+Everything I’ve written up to now the result of searching and experimenting after Angular2 RC1 one was released. I mentioned that when I wrote this post there wasn’t official documentation for the new router which was introduced in this version. It’s quite probable that what I have stated in this post may be wrong but until there is an official reference to deal with the new router, my solution is sufficient for me and fortunately it works quite well.</p>
 
-<p>In this post, I have written about how I provide secret settings for my application, and in
-<a href="/post/2016/05/google-identity-provider-with-identityserver4/">the next post</a>
-I will write how I use these settings to authenticate user using Google Identity Provider from IdentityServer4.</p>
-
-<p><h3>Related posts:</h3>
+<h3>Related posts:</h3>
 
 
 
@@ -172,21 +229,21 @@ I will write how I use these settings to authenticate user using Google Identity
 </ul>
 
 
-</p>
+
 
             <ul class="share-buttons">
     <li>Share this article:</li>
     <li>
-        <a class="icon-facebook-squared" href="https://www.facebook.com/sharer/sharer.php?u=http%3a%2f%2fkoscielniak.me%2fpost%2f2016%2f05%2fdealing-with-secrets-in-asp-net-core%2f" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;" title="Share on Facebook"></a>
+        <a class="icon-facebook-squared" href="https://www.facebook.com/sharer/sharer.php?u=http%3a%2f%2fkoscielniak.me%2fpost%2f2016%2f05%2fupgrading-to-angulr2-rc1%2f" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;" title="Share on Facebook"></a>
     </li>
     <li>
-        <a class="icon-twitter" href="https://twitter.com/share?text=Dealing%20with%20secrets%20in%20ASP%20.NET%20Core&amp;url=http%3a%2f%2fkoscielniak.me%2fpost%2f2016%2f05%2fdealing-with-secrets-in-asp-net-core%2f" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;" title="Tweet this article"></a>
+        <a class="icon-twitter" href="https://twitter.com/share?text=Upgrading%20to%20Angular2%20RC1&amp;url=http%3a%2f%2fkoscielniak.me%2fpost%2f2016%2f05%2fupgrading-to-angulr2-rc1%2f" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;" title="Tweet this article"></a>
     </li>
     <li>
-        <a class="icon-gplus" href="https://plus.google.com/share?url=http%3a%2f%2fkoscielniak.me%2fpost%2f2016%2f05%2fdealing-with-secrets-in-asp-net-core%2f" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;" title="Share on Google&#43;"></a>
+        <a class="icon-gplus" href="https://plus.google.com/share?url=http%3a%2f%2fkoscielniak.me%2fpost%2f2016%2f05%2fupgrading-to-angulr2-rc1%2f" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;" title="Share on Google&#43;"></a>
     </li>
     <li>
-        <a class="icon-linkedin" href="https://www.linkedin.com/shareArticle?mini=true&url=http%3a%2f%2fkoscielniak.me%2fpost%2f2016%2f05%2fdealing-with-secrets-in-asp-net-core%2f&title=Dealing%20with%20secrets%20in%20ASP%20.NET%20Core" onclick="window.open(this.href, 'linkedin-share', 'width=600,height=494');return false;" title="Share on Linkedin"></a>
+        <a class="icon-linkedin" href="https://www.linkedin.com/shareArticle?mini=true&url=http%3a%2f%2fkoscielniak.me%2fpost%2f2016%2f05%2fupgrading-to-angulr2-rc1%2f&title=Upgrading%20to%20Angular2%20RC1" onclick="window.open(this.href, 'linkedin-share', 'width=600,height=494');return false;" title="Share on Linkedin"></a>
     </li>
 </ul>
 
@@ -196,9 +253,9 @@ I will write how I use these settings to authenticate user using Google Identity
             <div id="disqus_thread"></div>
 <script type="text/javascript">
     var disqus_shortname = 'koscielniak';
-    var disqus_identifier = 'http:\/\/koscielniak.me\/post\/2016\/05\/dealing-with-secrets-in-asp-net-core\/';
-    var disqus_title = 'Dealing with secrets in ASP .NET Core';
-    var disqus_url = 'http:\/\/koscielniak.me\/post\/2016\/05\/dealing-with-secrets-in-asp-net-core\/';
+    var disqus_identifier = 'http:\/\/koscielniak.me\/post\/2016\/05\/upgrading-to-angulr2-rc1\/';
+    var disqus_title = 'Upgrading to Angular2 RC1';
+    var disqus_url = 'http:\/\/koscielniak.me\/post\/2016\/05\/upgrading-to-angulr2-rc1\/';
 
     (function() {
         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
