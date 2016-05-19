@@ -6,8 +6,157 @@
     <description>Recent content in Angular2 on Piotr Kościelniak - passionate programmer</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 16 May 2016 22:00:00 +0200</lastBuildDate>
+    <lastBuildDate>Thu, 19 May 2016 22:00:00 +0200</lastBuildDate>
     <atom:link href="http://koscielniak.me/tags/angular2/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Experimenting with Angular2 CLI</title>
+      <link>http://koscielniak.me/post/2016/05/experimenting-with-angular2-cli/</link>
+      <pubDate>Thu, 19 May 2016 22:00:00 +0200</pubDate>
+      
+      <guid>http://koscielniak.me/post/2016/05/experimenting-with-angular2-cli/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;http://dajsiepoznac.pl&#34;&gt;&lt;img src=&#34;http://koscielniak.me/post/2016/03/contestLogo.png&#34; alt=&#34;Daj się poznać&#34; title=&#34;Daj się poznać&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;During the &lt;a href=&#34;https://www.youtube.com/watch?v=gdlpE9vPQFs&amp;list=PLOETEcp3DkCq788xapkP_OU-78jhTf68j&amp;index=6&#34; target=&#34;_blank&#34;&gt;keynote of ng-conf 2016&lt;/a&gt;,
+&lt;a href=&#34;https://twitter.com/bradlygreen&#34; target=&#34;_blank&#34;&gt;Brad Green&lt;/a&gt; presented a lot of cool stuff about Angular2 and one of them was a tool called
+&lt;a href=&#34;https://cli.angular.io/&#34; target=&#34;_blank&#34;&gt;Angular-CLI&lt;/a&gt;. &lt;em&gt;Angular-CLI&lt;/em&gt; contains a bunch of simple commands to make your work easier with Angular2 projects. The tool essentially streamlines and simplifies your projects. I am always cautious about this kind of tool because often they create far more than you need and pollute your project but when used wisely, they can be helpful.&lt;/p&gt;
+
+&lt;p&gt;To start playing with &lt;em&gt;Angular-CLI&lt;/em&gt; first I had to install it. This tool is built with Node.js and it requires the node version 4 or greater. You can install this tool with the command:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;npm install -g angular-cli
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;To create a new application I used the command: &lt;code&gt;ng new SampleApp&lt;/code&gt;.
+And the result I got was a working application with a folder structure like this:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://koscielniak.me/post/2016/05/angular-cli/initialTree.png&#34; alt=&#34;Initial file tree&#34; title=&#34;Initial file tree&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;As you can see, a lot is done after you run this command. You have not only your app ready to use but also ready to build. You can even run tests.
+After installation, I executed &lt;code&gt;ng build&lt;/code&gt; and &lt;code&gt;ng serve&lt;/code&gt; which allows us to see under the URI &lt;em&gt;&lt;a href=&#34;http://localhost:4200/&#34;&gt;http://localhost:4200/&lt;/a&gt;&lt;/em&gt; in the following screen:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://koscielniak.me/post/2016/05/angular-cli/sample-app-works.png&#34; alt=&#34;sample-app works!&#34; title=&#34;sample-app works!&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Next, I wanted to create a new route. I did this with the command &lt;code&gt;ng generate route dashboard&lt;/code&gt; and I got the following output in the terminal:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;installing route
+installing component
+  create src/app/+dashboard/dashboard.component.css
+  create src/app/+dashboard/dashboard.component.html
+  create src/app/+dashboard/dashboard.component.spec.ts
+  create src/app/+dashboard/dashboard.component.ts
+  create src/app/+dashboard/index.ts
+  create src/app/+dashboard/shared/index.ts
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This tool is smart enough to create folders prefixed with a &lt;em&gt;+&lt;/em&gt; sign. It is required in order to have lazy loading of components.
+You can watch
+&lt;a href=&#34;https://www.youtube.com/watch?v=d8yAdeshpcw&amp;index=9&amp;list=PLOETEcp3DkCq788xapkP_OU-78jhTf68j&#34; target=&#34;_blank&#34;&gt;a talk&lt;/a&gt;
+given by
+&lt;a href=&#34;https://twitter.com/mhevery&#34; target=&#34;_blank&#34;&gt;Misko Hevery&lt;/a&gt;
+at &lt;a href=&#34;https://www.ng-conf.org&#34; target=&#34;_blank&#34;&gt;ng-conf 2016&lt;/a&gt; to find out a bit more about it.&lt;/p&gt;
+
+&lt;p&gt;You can use this command line tool to create services, modules, components, etc.&lt;/p&gt;
+
+&lt;p&gt;Next, I tried this tool to see how it deals with nested routes. I executed the command:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;ng generate route dashboard/event-list
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;And it turned out that &lt;em&gt;Angular-CLI&lt;/em&gt; deals with it pretty well. I got this structure of folders:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://koscielniak.me/post/2016/05/angular-cli/componentFiles.png&#34; alt=&#34;Component files&#34; title=&#34;Component files&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;And the routing was created like this in &lt;em&gt;dashboard.component&lt;/em&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@Routes([
+ {path: &#39;/event-list&#39;, component: EventListComponent}
+])
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;And it was also changed in the &lt;em&gt;sample-app.component&lt;/em&gt; to this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@Routes([
+ {path: &#39;/dashboard/...&#39;, component: DashboardComponent},
+ {path: &#39;/main-page&#39;, component: MainPageComponent}
+])
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;As you can see, this tool creates all the files needed for the component. These files are: a template file, a style file, a component file. It also generates a &lt;em&gt;spec&lt;/em&gt; file where you have the scaffolding for testing your component.&lt;/p&gt;
+
+&lt;p&gt;The only drawback of this generation was the “&amp;hellip;” ellipses at the end of the dashboard route. It didn’t work with the new router and I had to change the configuration to this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@Routes([
+  {path: &#39;/dashboard&#39;, component: DashboardComponent},
+  {path: &#39;/main-page&#39;, component: MainPageComponent}
+])
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You can see the final result of me playing with &lt;em&gt;Angular-CLI&lt;/em&gt;  in
+&lt;a href=&#34;https://github.com/pikoscielniak/angular2-rc1-routing-sample&#34; target=&#34;_blank&#34;&gt;this repository&lt;/a&gt;.
+I am sure that this drawback with the ellipses will be fixed soon and by the time you read this it could have already happened.&lt;/p&gt;
+
+&lt;p&gt;You can do a lot of things with this tool if you try it by yourself, as I have only touched the tip of the iceberg in this post. If you work with Angular2, for sure you should spend some time with this tool and discover what it can do for you.&lt;/p&gt;
+
+&lt;h3&gt;Related posts:&lt;/h3&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;ul style=&#34;list-style: none;&#34;&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/02/enrolling-in-daj-sie-poznac/&#34;&gt;Enrolling in &#34;Daj się poznać&#34;&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/daj-sie-poznac-project-details/&#34;&gt;&#34;Daj się poznać&#34; - Project details&#34;&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/i-m-holding-a-project-rider-eap/&#34;&gt;I&#39;m holding a Project Rider EAP&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/installing-asp-dot-net-core-1-on-ubuntu-14/&#34;&gt;Installing ASP .NET Core 1 on Ubuntu 14.04&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/my-first-asp-net-core-1-web-application/&#34;&gt;My first ASP NET Core 1.0 web application&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/project-setup-server-side/&#34;&gt;Project setup - server-side&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/project-setup-client-side/&#34;&gt;Project setup - client-side&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/adding-styling-to-my-application/&#34;&gt;Adding styling to my application&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/angular2-confirm-dialog-component/&#34;&gt;Angular 2 Confirm Dialog Component&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/before-going-into-production/&#34;&gt;Before going into production&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/publishing-to-azure/&#34;&gt;Publishing to Azure&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/setting-up-the-web-client-for-google-identity-platform/&#34;&gt;Setting up the Web client for Google Identity Platform&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/oidc-token-manager-library-with-google-identity-platform-part-1/&#34;&gt;oidc-token-manager library with Google Identity Platform - Part 1&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/oidc-token-manager-library-with-google-identity-platform-part-2/&#34;&gt;oidc-token-manager library with Google Identity Platform - Part 2&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/accesing-api-with-token-from-google-identity-provider/&#34;&gt;Accessing API with token from Google Identity Provider&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/how-portable-is-asp-dot-net-core/&#34;&gt;How portable is ASP .NET Core 1.0?&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/when-dotpeek-can-save-your-live/&#34;&gt;When dotPeek can save your live&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/reading-code-as-if-it-were-a-book/&#34;&gt;Reading code as if it were a book&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/aps-dot-net-core-configuration/&#34;&gt;ASP .NET Core Configuration&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/getting-started-with-identity-server4/&#34;&gt;Getting started with IdentityServer4&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/identityserver-4-accessing-api/&#34;&gt;IdentityServer4 - accessing API&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/dealing-with-secrets-in-asp-net-core/&#34;&gt;Dealing with secrets in ASP .NET Core&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/google-identity-provider-with-identityserver4/&#34;&gt;Google Identity Provider with IdentityServer4&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/upgrading-to-angulr2-rc1/&#34;&gt;Upgrading to Angular2 RC1&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/experimenting-with-angular2-cli/&#34;&gt;Experimenting with Angular2 CLI&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+
+
+</description>
+    </item>
     
     <item>
       <title>Upgrading to Angular2 RC1</title>
@@ -159,6 +308,7 @@ Everything I’ve written up to now the result of searching and experimenting af
 
 
 
+
 &lt;ul style=&#34;list-style: none;&#34;&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/02/enrolling-in-daj-sie-poznac/&#34;&gt;Enrolling in &#34;Daj się poznać&#34;&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/daj-sie-poznac-project-details/&#34;&gt;&#34;Daj się poznać&#34; - Project details&#34;&lt;/a&gt;&lt;/li&gt;
@@ -184,6 +334,7 @@ Everything I’ve written up to now the result of searching and experimenting af
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/dealing-with-secrets-in-asp-net-core/&#34;&gt;Dealing with secrets in ASP .NET Core&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/google-identity-provider-with-identityserver4/&#34;&gt;Google Identity Provider with IdentityServer4&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/upgrading-to-angulr2-rc1/&#34;&gt;Upgrading to Angular2 RC1&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/experimenting-with-angular2-cli/&#34;&gt;Experimenting with Angular2 CLI&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 
@@ -353,6 +504,7 @@ Now, I am ready to publish my application to
 
 
 
+
 &lt;ul style=&#34;list-style: none;&#34;&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/02/enrolling-in-daj-sie-poznac/&#34;&gt;Enrolling in &#34;Daj się poznać&#34;&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/daj-sie-poznac-project-details/&#34;&gt;&#34;Daj się poznać&#34; - Project details&#34;&lt;/a&gt;&lt;/li&gt;
@@ -378,6 +530,7 @@ Now, I am ready to publish my application to
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/dealing-with-secrets-in-asp-net-core/&#34;&gt;Dealing with secrets in ASP .NET Core&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/google-identity-provider-with-identityserver4/&#34;&gt;Google Identity Provider with IdentityServer4&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/upgrading-to-angulr2-rc1/&#34;&gt;Upgrading to Angular2 RC1&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/experimenting-with-angular2-cli/&#34;&gt;Experimenting with Angular2 CLI&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 
@@ -693,6 +846,7 @@ course. I made some changes to adjust his solution to my reality. In the next po
 
 
 
+
 &lt;ul style=&#34;list-style: none;&#34;&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/02/enrolling-in-daj-sie-poznac/&#34;&gt;Enrolling in &#34;Daj się poznać&#34;&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/daj-sie-poznac-project-details/&#34;&gt;&#34;Daj się poznać&#34; - Project details&#34;&lt;/a&gt;&lt;/li&gt;
@@ -718,6 +872,7 @@ course. I made some changes to adjust his solution to my reality. In the next po
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/dealing-with-secrets-in-asp-net-core/&#34;&gt;Dealing with secrets in ASP .NET Core&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/google-identity-provider-with-identityserver4/&#34;&gt;Google Identity Provider with IdentityServer4&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/upgrading-to-angulr2-rc1/&#34;&gt;Upgrading to Angular2 RC1&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/experimenting-with-angular2-cli/&#34;&gt;Experimenting with Angular2 CLI&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 
@@ -900,6 +1055,7 @@ I’ll continue with MDL and I’ll explain what I mean by wrapping MDL componen
 
 
 
+
 &lt;ul style=&#34;list-style: none;&#34;&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/02/enrolling-in-daj-sie-poznac/&#34;&gt;Enrolling in &#34;Daj się poznać&#34;&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/daj-sie-poznac-project-details/&#34;&gt;&#34;Daj się poznać&#34; - Project details&#34;&lt;/a&gt;&lt;/li&gt;
@@ -925,6 +1081,7 @@ I’ll continue with MDL and I’ll explain what I mean by wrapping MDL componen
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/dealing-with-secrets-in-asp-net-core/&#34;&gt;Dealing with secrets in ASP .NET Core&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/google-identity-provider-with-identityserver4/&#34;&gt;Google Identity Provider with IdentityServer4&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/upgrading-to-angulr2-rc1/&#34;&gt;Upgrading to Angular2 RC1&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/experimenting-with-angular2-cli/&#34;&gt;Experimenting with Angular2 CLI&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 
@@ -1278,6 +1435,7 @@ I will talk about how I added styling to my application and how I improved this 
 
 
 
+
 &lt;ul style=&#34;list-style: none;&#34;&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/02/enrolling-in-daj-sie-poznac/&#34;&gt;Enrolling in &#34;Daj się poznać&#34;&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/daj-sie-poznac-project-details/&#34;&gt;&#34;Daj się poznać&#34; - Project details&#34;&lt;/a&gt;&lt;/li&gt;
@@ -1303,6 +1461,7 @@ I will talk about how I added styling to my application and how I improved this 
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/dealing-with-secrets-in-asp-net-core/&#34;&gt;Dealing with secrets in ASP .NET Core&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/google-identity-provider-with-identityserver4/&#34;&gt;Google Identity Provider with IdentityServer4&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/upgrading-to-angulr2-rc1/&#34;&gt;Upgrading to Angular2 RC1&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/experimenting-with-angular2-cli/&#34;&gt;Experimenting with Angular2 CLI&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 

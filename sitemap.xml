@@ -3,8 +3,13 @@
   
   <url>
     <loc>http://koscielniak.me/</loc>
-    <lastmod>2016-05-16T22:00:00+02:00</lastmod>
+    <lastmod>2016-05-19T22:00:00+02:00</lastmod>
     <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://koscielniak.me/post/2016/05/experimenting-with-angular2-cli/</loc>
+    <lastmod>2016-05-19T22:00:00+02:00</lastmod>
   </url>
   
   <url>
