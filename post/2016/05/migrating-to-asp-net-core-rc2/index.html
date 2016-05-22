@@ -1,0 +1,359 @@
+<!doctype html>
+<html class="no-js">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Piotr Kościelniak - passionate programmer</title>
+        <meta name="author" content="Piotr Kościelniak">
+        <meta name="description" content="Piotr Kościelniak - passionate programmer">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="generator" content="Hugo 0.16-DEV" />
+          <link href="http://koscielniak.me/post/index.xml" rel="alternate" type="application/rss+xml" title="Piotr Kościelniak - passionate programmer" />
+          <link href="http://koscielniak.me/post/index.xml" rel="feed" type="application/rss+xml" title="Piotr Kościelniak - passionate programmer" />
+        <link href='//fonts.googleapis.com/css?family=Roboto:400,300,700|Noto+Serif:400,400italic,700,700italic' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" href="http://koscielniak.me/css/styles.css">
+        <link rel="icon" href="http://koscielniak.me/favicon.ico">
+        <link rel="apple-touch-icon" href="http://koscielniak.me/apple-touch-icon.png" />
+        <link rel="stylesheet" href="http://koscielniak.me/css/highlightjs/monokai.css">
+        <script src="http://koscielniak.me/js/vendor/modernizr-2.8.0.min.js"></script>
+        <style>
+        .site-header h2 .logo {
+        background: url(http://koscielniak.me/img/desk.jpg) no-repeat 0 0;
+        }
+        @media (min--moz-device-pixel-ratio: 1.3), (-o-min-device-pixel-ratio: 2.6 / 2), (-webkit-min-device-pixel-ratio: 1.3), (min-device-pixel-ratio: 1.3), (min-resolution: 1.3dppx) {
+          .site-header h2 .logo {
+            background-image: url(http://koscielniak.me/img/desk.jpg);
+        }}
+       .site-header {
+         background: #2a373d url(http://koscielniak.me/img/desk.jpg) no-repeat center center;
+         z-index: -1;
+        }
+        </style>
+    </head>
+    <body>
+        
+        <header class="site-header">
+          <div class="transparent-layer">
+              <h2>You&#39;re here. I appreciate it.</h2>
+          </div>
+        </header>
+
+
+<div class="container clearfix">
+    <main role="main" class="content">
+        <article class="post">
+            <a class="btn" href="http://koscielniak.me/" title="Back to home">&laquo; Back to home</a>
+            
+<h1><a href="http://koscielniak.me/post/2016/05/migrating-to-asp-net-core-rc2/" title="Migrating to ASP .NET Core RC2">Migrating to ASP .NET Core RC2</a></h1>
+
+<footer class="post-info">Posted on <span class="post-meta"><time datetime="2016.05.22">2016.05.22</time>
+&middot; Tagged in
+    
+    <a href="http://koscielniak.me/tags/daj-si%C4%99-pozna%C4%87">daj się poznać</a>, 
+    
+    <a href="http://koscielniak.me/tags/asp-.net-core">asp .net core</a>
+    
+
+</span>
+</footer>
+
+            <p><a href="http://dajsiepoznac.pl"><img src="/post/2016/03/contestLogo.png" alt="Daj się poznać" title="Daj się poznać" /></a></p>
+
+<p>After waiting for some time, I was happy when ASP.NET Core RC2 was recently released. This version should have debuted at the beginning of 2016, so imagine my anticipation and excitement to install it on my Linux machine and upgrade my project to this version.</p>
+
+<p>To install this version of ASP.NET Core I started on
+<a href="https://www.microsoft.com/net/core" target="_blank">this page</a> and then I chose Linux -&gt; Ubuntu 14.04. I followed the step-by-step instructions provided and after a while I could run the command <code>dotnet -h</code> in my terminal, and I saw this:</p>
+
+<p><img src="/post/2016/05/migrating/dotnet-help.png" alt="dotnet -h" title="dotnet -h" /></p>
+
+<p>Now I could start to upgrade my project. There were pages where I could find instructions on how to adjust the project to the new version of ASP. On
+<a href="https://dotnet.github.io/docs/core-concepts/dnx-migration.html" target="_blank">this page</a>
+I found out how to migrate from <em>dnx</em> to new the .NET Core CLI and on
+<a href="https://docs.asp.net/en/latest/migration/rc1-to-rc2.html" target="_blank">this page</a>
+I found out how to upgrade my project to the RC2 version.</p>
+
+<p>The first steps of the upgrade were rather simple and mechanical. I had to change the dependencies in <em>project.json</em>. All packages with names that started with <em>Microsoft.AspNet.</em> now have names starting with: <em>Microsoft.AspNetCore.</em>. I also had to change the version of the packages. My <em>dependencies</em> section looked like this:</p>
+
+<pre><code>&quot;dependencies&quot;: {
+    &quot;Microsoft.AspNetCore.Diagnostics&quot;: &quot;1.0.0-rc2-final&quot;,
+    &quot;Microsoft.AspNetCore.Server.IISIntegration&quot;: &quot;1.0.0-rc2-final&quot;,
+    &quot;Microsoft.AspNetCore.Server.IISIntegration.Tools&quot;: &quot;1.0.0-preview1-final&quot;,
+    &quot;Microsoft.AspNetCore.Server.Kestrel&quot;: &quot;1.0.0-rc2-final&quot;,
+    &quot;Microsoft.AspNetCore.Mvc&quot;: &quot;1.0.0-rc2-final&quot;,
+    &quot;Microsoft.AspNetCore.StaticFiles&quot;: &quot;1.0.0-rc2-final&quot;,
+    &quot;Microsoft.Extensions.Configuration.Binder&quot;: &quot;1.0.0-rc2-final&quot;,
+    &quot;Microsoft.Extensions.Configuration.Json&quot;: &quot;1.0.0-rc2-final&quot;,
+    &quot;Microsoft.Extensions.Configuration.EnvironmentVariables&quot;: &quot;1.0.0-rc2-final&quot;,
+    &quot;Microsoft.NETCore.App&quot;: {
+        &quot;type&quot;: &quot;platform&quot;,
+        &quot;version&quot;: &quot;1.0.0-*&quot;
+    }
+},
+</code></pre>
+
+<p>Another change is that a new package <em>Microsoft.NETCore.App</em> appeared among the dependencies, and it was a runtime for the application.</p>
+
+<p>I could remove the dependency <em>Microsoft.AspNet.Mvc.TagHelpers</em> because now it is included in the package <em>Microsoft.AspNetCore.Mvc</em>.</p>
+
+<p>I also had to fix the namespaces. I had to change each namespace which started with <em>Microsoft.AspNet.</em> to <em>Microsoft.AspNetCore.</em>.</p>
+
+<p>The changes where required also in the structure of <em>project.json</em>. Some properties are no longer valid, for example: <em>commands</em>. I must also specify the frameworks section and it looked like this:</p>
+
+<pre><code>&quot;frameworks&quot;: {
+    &quot;netcoreapp1.0&quot;: {
+        &quot;imports&quot;: [
+            &quot;dotnet5.6&quot;,
+            &quot;dnxcore50&quot;,
+            &quot;portable-net45+win8&quot;
+        ]
+    }
+},
+</code></pre>
+
+<p>I also added the section <em>buildOptions</em> with the following properties:</p>
+
+<pre><code>&quot;buildOptions&quot;: {
+    &quot;emitEntryPoint&quot;: true,
+    &quot;preserveCompilationContext&quot;: true
+},
+</code></pre>
+
+<p>After upgrading to RC2, the ASP application became like an ordinary console application. That’s why I had to create a class with the main method where I started my ASP app. This class looked like this:</p>
+
+<pre><code>public class Program
+{  // Entry point for the application.
+    public static void Main(string[] args) 
+    {
+        var host = new WebHostBuilder()
+            .UseKestrel()
+            .UseContentRoot(Directory.GetCurrentDirectory())       
+            .UseIISIntegration()
+            .UseStartup&lt;Startup&gt;()
+            .Build();
+
+        host.Run();   
+    }         
+}  
+</code></pre>
+
+<p>And I removed this line of code from Startup.cs</p>
+
+<pre><code>// Entry point for the application.
+public static void Main(string[] args) =&gt; WebApplication.Run&lt;Startup&gt;(args);
+</code></pre>
+
+<p>I also had to remove the line:</p>
+
+<pre><code>app.UseIISPlatformHandler();
+</code></pre>
+
+<p>from the <em>Startup.Configure</em> method because now IIS is configured in <em>Program.Main</em> method.</p>
+
+<p>After these steps, I could finally run the command:</p>
+
+<pre><code class="language-bash">dotnet restore
+</code></pre>
+
+<p>And then I was able to build my app with the command <code>dotnet build</code> but I received two errors:</p>
+
+<pre><code class="language-bash">/home/piotr/Repositories/notifier/src/web/Startup.cs(26,46): error CS1061: 'IConfigurationRoot' does not contain a definition for 'Get' and no extension method 'Get' accepting a first argument of type 'IConfigurationRoot' could be found (are you missing a using directive or an assembly reference?)
+/home/piotr/Repositories/notifier/src/web/Startup.cs(27,22): error CS1061: 'IServiceCollection' does not contain a definition for 'AddInstance' and no extension method 'AddInstance' accepting a first argument of type 'IServiceCollection' could be found (are you missing a using directive or an assembly reference?)
+
+Compilation failed.
+    4 Warning(s)
+    2 Error(s)
+</code></pre>
+
+<p>It seems like the extension methods <em>Get</em> and <em>AddInstance</em> no longer exist. A bit of research led to a solution for how to fix the lack of <em>AddInstance</em> extension method. Now it is called <em>AddSingleton</em>, but I couldn’t find a replacement for <em>Get&lt;&gt;</em> extension method so I changed my code a bit and now it looks like this:</p>
+
+<pre><code>var authSettings = new AuthSettings(); 
+var authSection = Configuration.GetSection(&quot;AuthSettings&quot;);
+authSettings.ClientId = authSection[&quot;ClientId&quot;];
+authSettings.Authority = authSection[&quot;Authority&quot;];
+services.AddSingleton(authSettings);
+</code></pre>
+
+<p>After this, my code compiled and I could run it with the command:</p>
+
+<pre><code>env ASPNETCORE_ENVIRONMENT=&quot;Development&quot; dotnet run
+</code></pre>
+
+<p>The result of this command was another error:</p>
+
+<pre><code class="language-bash">Unhandled Exception: System.IO.FileNotFoundException: The configuration file 'appsettings.json' was not found and is not optional.
+   at Microsoft.Extensions.Configuration.FileConfigurationProvider.Load()
+   at Microsoft.Extensions.Configuration.ConfigurationBuilder.Build()
+   at Notifier.Web.Startup..ctor(IHostingEnvironment env)
+</code></pre>
+
+<p>It looked like my application didn’t have a setup base path so it didn’t know where to look for <em>appsettings.json</em>. In the new version of ASP, you specify the app basepath by setting it in the <em>ConfigurationBuilder</em> with a code like this:</p>
+
+<pre><code>var builder = new ConfigurationBuilder()
+                .SetBasePath(hostingEnvironment.ContentRootPath);
+</code></pre>
+
+<p>As you may notice, the new version of ASP also changed the names of the environmental variables. To set the runtime environment of an application you now use the variable <em>ASPNETCORE_ENVIRONMENT</em>.</p>
+
+<p>After setting up the base path, I ran the application again and it ran without errors. I navigated to the <em>localhost:5000</em> and saw this screen:</p>
+
+<p><img src="/post/2016/05/migrating/finalResult.png" alt="Final result" title="Final result" /></p>
+
+<p>I think that this is proof that I managed to upgrade my ASP.NET Core application to the RC2 version. I must honestly say that this process was very boring and took me longer than I expected. I had to change the way I got the settings from the configuration file. I don’t know why I couldn’t get access to the extension method <em>Get&lt;&gt;</em> on the <em>IConfigurationRoot</em>. I&rsquo;m not sure if it was removed or renamed, but I didn&rsquo;t manage to find a replacement for this method. When I wrote this post, the RC2 version was fresh out the oven (3 days to be exact) so I am sure that I’ll find more information about this missing method soon.</p>
+
+<p>By the way, this is my last technical post in the <em>Daj się poznać</em> contest series. In the next post, I’ll write a summary of my work for this contest.</p>
+
+<h3>Related posts:</h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<ul style="list-style: none;">
+    <li><a href="/post/2016/02/enrolling-in-daj-sie-poznac/">Enrolling in "Daj się poznać"</a></li>
+    <li><a href="/post/2016/03/daj-sie-poznac-project-details/">"Daj się poznać" - Project details"</a></li>
+    <li><a href="/post/2016/03/i-m-holding-a-project-rider-eap/">I'm holding a Project Rider EAP</a></li>
+    <li><a href="/post/2016/03/installing-asp-dot-net-core-1-on-ubuntu-14/">Installing ASP .NET Core 1 on Ubuntu 14.04</a></li>
+    <li><a href="/post/2016/03/my-first-asp-net-core-1-web-application/">My first ASP NET Core 1.0 web application</a></li>
+    <li><a href="/post/2016/03/project-setup-server-side/">Project setup - server-side</a></li>
+    <li><a href="/post/2016/03/project-setup-client-side/">Project setup - client-side</a></li>
+    <li><a href="/post/2016/03/adding-styling-to-my-application/">Adding styling to my application</a></li>
+    <li><a href="/post/2016/03/angular2-confirm-dialog-component/">Angular 2 Confirm Dialog Component</a></li>
+    <li><a href="/post/2016/03/before-going-into-production/">Before going into production</a></li>
+    <li><a href="/post/2016/03/publishing-to-azure/">Publishing to Azure</a></li>
+    <li><a href="/post/2016/04/setting-up-the-web-client-for-google-identity-platform/">Setting up the Web client for Google Identity Platform</a></li>
+    <li><a href="/post/2016/04/oidc-token-manager-library-with-google-identity-platform-part-1/">oidc-token-manager library with Google Identity Platform - Part 1</a></li>
+    <li><a href="/post/2016/04/oidc-token-manager-library-with-google-identity-platform-part-2/">oidc-token-manager library with Google Identity Platform - Part 2</a></li>
+    <li><a href="/post/2016/04/accesing-api-with-token-from-google-identity-provider/">Accessing API with token from Google Identity Provider</a></li>
+    <li><a href="/post/2016/04/how-portable-is-asp-dot-net-core/">How portable is ASP .NET Core 1.0?</a></li>
+    <li><a href="/post/2016/04/when-dotpeek-can-save-your-live/">When dotPeek can save your live</a></li>
+    <li><a href="/post/2016/04/reading-code-as-if-it-were-a-book/">Reading code as if it were a book</a></li>
+    <li><a href="/post/2016/04/aps-dot-net-core-configuration/">ASP .NET Core Configuration</a></li>
+    <li><a href="/post/2016/05/getting-started-with-identity-server4/">Getting started with IdentityServer4</a></li>
+    <li><a href="/post/2016/05/identityserver-4-accessing-api/">IdentityServer4 - accessing API</a></li>
+    <li><a href="/post/2016/05/dealing-with-secrets-in-asp-net-core/">Dealing with secrets in ASP .NET Core</a></li>
+    <li><a href="/post/2016/05/google-identity-provider-with-identityserver4/">Google Identity Provider with IdentityServer4</a></li>
+    <li><a href="/post/2016/05/upgrading-to-angulr2-rc1/">Upgrading to Angular2 RC1</a></li>
+    <li><a href="/post/2016/05/experimenting-with-angular2-cli/">Experimenting with Angular2 CLI</a></li>
+    <li><a href="/post/2016/05/migrating-to-asp-net-core-rc2/">Migrating to ASP .NET Core RC2</a></li>
+</ul>
+
+
+
+
+            <ul class="share-buttons">
+    <li>Share this article:</li>
+    <li>
+        <a class="icon-facebook-squared" href="https://www.facebook.com/sharer/sharer.php?u=http%3a%2f%2fkoscielniak.me%2fpost%2f2016%2f05%2fmigrating-to-asp-net-core-rc2%2f" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;" title="Share on Facebook"></a>
+    </li>
+    <li>
+        <a class="icon-twitter" href="https://twitter.com/share?text=Migrating%20to%20ASP%20.NET%20Core%20RC2&amp;url=http%3a%2f%2fkoscielniak.me%2fpost%2f2016%2f05%2fmigrating-to-asp-net-core-rc2%2f" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;" title="Tweet this article"></a>
+    </li>
+    <li>
+        <a class="icon-gplus" href="https://plus.google.com/share?url=http%3a%2f%2fkoscielniak.me%2fpost%2f2016%2f05%2fmigrating-to-asp-net-core-rc2%2f" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;" title="Share on Google&#43;"></a>
+    </li>
+    <li>
+        <a class="icon-linkedin" href="https://www.linkedin.com/shareArticle?mini=true&url=http%3a%2f%2fkoscielniak.me%2fpost%2f2016%2f05%2fmigrating-to-asp-net-core-rc2%2f&title=Migrating%20to%20ASP%20.NET%20Core%20RC2" onclick="window.open(this.href, 'linkedin-share', 'width=600,height=494');return false;" title="Share on Linkedin"></a>
+    </li>
+</ul>
+
+        </article>
+        <div class="comments">
+            <h3>Comments</h3>
+            <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'koscielniak';
+    var disqus_identifier = 'http:\/\/koscielniak.me\/post\/2016\/05\/migrating-to-asp-net-core-rc2\/';
+    var disqus_title = 'Migrating to ASP .NET Core RC2';
+    var disqus_url = 'http:\/\/koscielniak.me\/post\/2016\/05\/migrating-to-asp-net-core-rc2\/';
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+        </div>
+    </main>
+    <aside class="author">
+  <img class="profile-image" src="http://koscielniak.me/img/profile-image.png" alt="Piotr Kościelniak" />
+  <p class="name">by 
+  <strong>Piotr Kościelniak</strong></p>
+  <p class="address">Passionate programmer</p>
+  <p class="link"></p>
+  <ul class="social">
+    
+<li><a href="//twitter.com/pikoscielniak" class="icon-twitter" target="_blank" title="Twitter"></a></li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li><a href="//github.com/pikoscielniak" class="icon-github" target="_blank" title="Github"></a></li>
+
+
+
+
+<li><a href="http://koscielniak.me/post/index.xml" class="icon-rss" target="_blank" title="RSS"></a></li>
+
+  </ul>
+  <br><br>
+</aside>
+
+</div>
+
+<footer class="main-footer">
+  <div class="container clearfix">
+        <a class="icon-rss" href="http://koscielniak.me/post/index.xml" title="RSS"></a>
+        <p>&copy; 2016 &middot; Piotr Kościelniak. Powered by <a href="http://gohugo.io">Hugo</a>.</p>
+  </div>
+</footer>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.8.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<script>window.jQuery || document.write('<script src="http:\/\/koscielniak.me\/js/vendor/jquery-1.11.0.min.js"><\/script>')</script>
+<script src="http://koscielniak.me/js/plugins.js"></script>
+
+<!-- Google Analytics -->
+<script>
+  var _gaq=[['_setAccount','UA-72752659-1'],['_trackPageview']];
+  (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+  g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+  s.parentNode.insertBefore(g,s)}(document,'script'));
+</script>
+
+</body>
+</html>
+

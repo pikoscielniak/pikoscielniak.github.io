@@ -6,8 +6,222 @@
     <description>Recent content in Posts on Piotr Kościelniak - passionate programmer</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 19 May 2016 22:00:00 +0200</lastBuildDate>
+    <lastBuildDate>Sun, 22 May 2016 22:00:00 +0200</lastBuildDate>
     <atom:link href="http://koscielniak.me/post/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Migrating to ASP .NET Core RC2</title>
+      <link>http://koscielniak.me/post/2016/05/migrating-to-asp-net-core-rc2/</link>
+      <pubDate>Sun, 22 May 2016 22:00:00 +0200</pubDate>
+      
+      <guid>http://koscielniak.me/post/2016/05/migrating-to-asp-net-core-rc2/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;http://dajsiepoznac.pl&#34;&gt;&lt;img src=&#34;http://koscielniak.me/post/2016/03/contestLogo.png&#34; alt=&#34;Daj się poznać&#34; title=&#34;Daj się poznać&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;After waiting for some time, I was happy when ASP.NET Core RC2 was recently released. This version should have debuted at the beginning of 2016, so imagine my anticipation and excitement to install it on my Linux machine and upgrade my project to this version.&lt;/p&gt;
+
+&lt;p&gt;To install this version of ASP.NET Core I started on
+&lt;a href=&#34;https://www.microsoft.com/net/core&#34; target=&#34;_blank&#34;&gt;this page&lt;/a&gt; and then I chose Linux -&amp;gt; Ubuntu 14.04. I followed the step-by-step instructions provided and after a while I could run the command &lt;code&gt;dotnet -h&lt;/code&gt; in my terminal, and I saw this:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://koscielniak.me/post/2016/05/migrating/dotnet-help.png&#34; alt=&#34;dotnet -h&#34; title=&#34;dotnet -h&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Now I could start to upgrade my project. There were pages where I could find instructions on how to adjust the project to the new version of ASP. On
+&lt;a href=&#34;https://dotnet.github.io/docs/core-concepts/dnx-migration.html&#34; target=&#34;_blank&#34;&gt;this page&lt;/a&gt;
+I found out how to migrate from &lt;em&gt;dnx&lt;/em&gt; to new the .NET Core CLI and on
+&lt;a href=&#34;https://docs.asp.net/en/latest/migration/rc1-to-rc2.html&#34; target=&#34;_blank&#34;&gt;this page&lt;/a&gt;
+I found out how to upgrade my project to the RC2 version.&lt;/p&gt;
+
+&lt;p&gt;The first steps of the upgrade were rather simple and mechanical. I had to change the dependencies in &lt;em&gt;project.json&lt;/em&gt;. All packages with names that started with &lt;em&gt;Microsoft.AspNet.&lt;/em&gt; now have names starting with: &lt;em&gt;Microsoft.AspNetCore.&lt;/em&gt;. I also had to change the version of the packages. My &lt;em&gt;dependencies&lt;/em&gt; section looked like this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;quot;dependencies&amp;quot;: {
+    &amp;quot;Microsoft.AspNetCore.Diagnostics&amp;quot;: &amp;quot;1.0.0-rc2-final&amp;quot;,
+    &amp;quot;Microsoft.AspNetCore.Server.IISIntegration&amp;quot;: &amp;quot;1.0.0-rc2-final&amp;quot;,
+    &amp;quot;Microsoft.AspNetCore.Server.IISIntegration.Tools&amp;quot;: &amp;quot;1.0.0-preview1-final&amp;quot;,
+    &amp;quot;Microsoft.AspNetCore.Server.Kestrel&amp;quot;: &amp;quot;1.0.0-rc2-final&amp;quot;,
+    &amp;quot;Microsoft.AspNetCore.Mvc&amp;quot;: &amp;quot;1.0.0-rc2-final&amp;quot;,
+    &amp;quot;Microsoft.AspNetCore.StaticFiles&amp;quot;: &amp;quot;1.0.0-rc2-final&amp;quot;,
+    &amp;quot;Microsoft.Extensions.Configuration.Binder&amp;quot;: &amp;quot;1.0.0-rc2-final&amp;quot;,
+    &amp;quot;Microsoft.Extensions.Configuration.Json&amp;quot;: &amp;quot;1.0.0-rc2-final&amp;quot;,
+    &amp;quot;Microsoft.Extensions.Configuration.EnvironmentVariables&amp;quot;: &amp;quot;1.0.0-rc2-final&amp;quot;,
+    &amp;quot;Microsoft.NETCore.App&amp;quot;: {
+        &amp;quot;type&amp;quot;: &amp;quot;platform&amp;quot;,
+        &amp;quot;version&amp;quot;: &amp;quot;1.0.0-*&amp;quot;
+    }
+},
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Another change is that a new package &lt;em&gt;Microsoft.NETCore.App&lt;/em&gt; appeared among the dependencies, and it was a runtime for the application.&lt;/p&gt;
+
+&lt;p&gt;I could remove the dependency &lt;em&gt;Microsoft.AspNet.Mvc.TagHelpers&lt;/em&gt; because now it is included in the package &lt;em&gt;Microsoft.AspNetCore.Mvc&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;I also had to fix the namespaces. I had to change each namespace which started with &lt;em&gt;Microsoft.AspNet.&lt;/em&gt; to &lt;em&gt;Microsoft.AspNetCore.&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;The changes where required also in the structure of &lt;em&gt;project.json&lt;/em&gt;. Some properties are no longer valid, for example: &lt;em&gt;commands&lt;/em&gt;. I must also specify the frameworks section and it looked like this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;quot;frameworks&amp;quot;: {
+    &amp;quot;netcoreapp1.0&amp;quot;: {
+        &amp;quot;imports&amp;quot;: [
+            &amp;quot;dotnet5.6&amp;quot;,
+            &amp;quot;dnxcore50&amp;quot;,
+            &amp;quot;portable-net45+win8&amp;quot;
+        ]
+    }
+},
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;I also added the section &lt;em&gt;buildOptions&lt;/em&gt; with the following properties:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;quot;buildOptions&amp;quot;: {
+    &amp;quot;emitEntryPoint&amp;quot;: true,
+    &amp;quot;preserveCompilationContext&amp;quot;: true
+},
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;After upgrading to RC2, the ASP application became like an ordinary console application. That’s why I had to create a class with the main method where I started my ASP app. This class looked like this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;public class Program
+{  // Entry point for the application.
+    public static void Main(string[] args) 
+    {
+        var host = new WebHostBuilder()
+            .UseKestrel()
+            .UseContentRoot(Directory.GetCurrentDirectory())       
+            .UseIISIntegration()
+            .UseStartup&amp;lt;Startup&amp;gt;()
+            .Build();
+
+        host.Run();   
+    }         
+}  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;And I removed this line of code from Startup.cs&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;// Entry point for the application.
+public static void Main(string[] args) =&amp;gt; WebApplication.Run&amp;lt;Startup&amp;gt;(args);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;I also had to remove the line:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;app.UseIISPlatformHandler();
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;from the &lt;em&gt;Startup.Configure&lt;/em&gt; method because now IIS is configured in &lt;em&gt;Program.Main&lt;/em&gt; method.&lt;/p&gt;
+
+&lt;p&gt;After these steps, I could finally run the command:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;dotnet restore
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;And then I was able to build my app with the command &lt;code&gt;dotnet build&lt;/code&gt; but I received two errors:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;/home/piotr/Repositories/notifier/src/web/Startup.cs(26,46): error CS1061: &#39;IConfigurationRoot&#39; does not contain a definition for &#39;Get&#39; and no extension method &#39;Get&#39; accepting a first argument of type &#39;IConfigurationRoot&#39; could be found (are you missing a using directive or an assembly reference?)
+/home/piotr/Repositories/notifier/src/web/Startup.cs(27,22): error CS1061: &#39;IServiceCollection&#39; does not contain a definition for &#39;AddInstance&#39; and no extension method &#39;AddInstance&#39; accepting a first argument of type &#39;IServiceCollection&#39; could be found (are you missing a using directive or an assembly reference?)
+
+Compilation failed.
+    4 Warning(s)
+    2 Error(s)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;It seems like the extension methods &lt;em&gt;Get&lt;/em&gt; and &lt;em&gt;AddInstance&lt;/em&gt; no longer exist. A bit of research led to a solution for how to fix the lack of &lt;em&gt;AddInstance&lt;/em&gt; extension method. Now it is called &lt;em&gt;AddSingleton&lt;/em&gt;, but I couldn’t find a replacement for &lt;em&gt;Get&amp;lt;&amp;gt;&lt;/em&gt; extension method so I changed my code a bit and now it looks like this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;var authSettings = new AuthSettings(); 
+var authSection = Configuration.GetSection(&amp;quot;AuthSettings&amp;quot;);
+authSettings.ClientId = authSection[&amp;quot;ClientId&amp;quot;];
+authSettings.Authority = authSection[&amp;quot;Authority&amp;quot;];
+services.AddSingleton(authSettings);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;After this, my code compiled and I could run it with the command:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;env ASPNETCORE_ENVIRONMENT=&amp;quot;Development&amp;quot; dotnet run
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The result of this command was another error:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;Unhandled Exception: System.IO.FileNotFoundException: The configuration file &#39;appsettings.json&#39; was not found and is not optional.
+   at Microsoft.Extensions.Configuration.FileConfigurationProvider.Load()
+   at Microsoft.Extensions.Configuration.ConfigurationBuilder.Build()
+   at Notifier.Web.Startup..ctor(IHostingEnvironment env)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;It looked like my application didn’t have a setup base path so it didn’t know where to look for &lt;em&gt;appsettings.json&lt;/em&gt;. In the new version of ASP, you specify the app basepath by setting it in the &lt;em&gt;ConfigurationBuilder&lt;/em&gt; with a code like this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;var builder = new ConfigurationBuilder()
+                .SetBasePath(hostingEnvironment.ContentRootPath);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;As you may notice, the new version of ASP also changed the names of the environmental variables. To set the runtime environment of an application you now use the variable &lt;em&gt;ASPNETCORE_ENVIRONMENT&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;After setting up the base path, I ran the application again and it ran without errors. I navigated to the &lt;em&gt;localhost:5000&lt;/em&gt; and saw this screen:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://koscielniak.me/post/2016/05/migrating/finalResult.png&#34; alt=&#34;Final result&#34; title=&#34;Final result&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;I think that this is proof that I managed to upgrade my ASP.NET Core application to the RC2 version. I must honestly say that this process was very boring and took me longer than I expected. I had to change the way I got the settings from the configuration file. I don’t know why I couldn’t get access to the extension method &lt;em&gt;Get&amp;lt;&amp;gt;&lt;/em&gt; on the &lt;em&gt;IConfigurationRoot&lt;/em&gt;. I&amp;rsquo;m not sure if it was removed or renamed, but I didn&amp;rsquo;t manage to find a replacement for this method. When I wrote this post, the RC2 version was fresh out the oven (3 days to be exact) so I am sure that I’ll find more information about this missing method soon.&lt;/p&gt;
+
+&lt;p&gt;By the way, this is my last technical post in the &lt;em&gt;Daj się poznać&lt;/em&gt; contest series. In the next post, I’ll write a summary of my work for this contest.&lt;/p&gt;
+
+&lt;h3&gt;Related posts:&lt;/h3&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;ul style=&#34;list-style: none;&#34;&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/02/enrolling-in-daj-sie-poznac/&#34;&gt;Enrolling in &#34;Daj się poznać&#34;&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/daj-sie-poznac-project-details/&#34;&gt;&#34;Daj się poznać&#34; - Project details&#34;&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/i-m-holding-a-project-rider-eap/&#34;&gt;I&#39;m holding a Project Rider EAP&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/installing-asp-dot-net-core-1-on-ubuntu-14/&#34;&gt;Installing ASP .NET Core 1 on Ubuntu 14.04&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/my-first-asp-net-core-1-web-application/&#34;&gt;My first ASP NET Core 1.0 web application&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/project-setup-server-side/&#34;&gt;Project setup - server-side&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/project-setup-client-side/&#34;&gt;Project setup - client-side&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/adding-styling-to-my-application/&#34;&gt;Adding styling to my application&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/angular2-confirm-dialog-component/&#34;&gt;Angular 2 Confirm Dialog Component&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/before-going-into-production/&#34;&gt;Before going into production&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/publishing-to-azure/&#34;&gt;Publishing to Azure&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/setting-up-the-web-client-for-google-identity-platform/&#34;&gt;Setting up the Web client for Google Identity Platform&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/oidc-token-manager-library-with-google-identity-platform-part-1/&#34;&gt;oidc-token-manager library with Google Identity Platform - Part 1&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/oidc-token-manager-library-with-google-identity-platform-part-2/&#34;&gt;oidc-token-manager library with Google Identity Platform - Part 2&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/accesing-api-with-token-from-google-identity-provider/&#34;&gt;Accessing API with token from Google Identity Provider&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/how-portable-is-asp-dot-net-core/&#34;&gt;How portable is ASP .NET Core 1.0?&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/when-dotpeek-can-save-your-live/&#34;&gt;When dotPeek can save your live&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/reading-code-as-if-it-were-a-book/&#34;&gt;Reading code as if it were a book&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/aps-dot-net-core-configuration/&#34;&gt;ASP .NET Core Configuration&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/getting-started-with-identity-server4/&#34;&gt;Getting started with IdentityServer4&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/identityserver-4-accessing-api/&#34;&gt;IdentityServer4 - accessing API&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/dealing-with-secrets-in-asp-net-core/&#34;&gt;Dealing with secrets in ASP .NET Core&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/google-identity-provider-with-identityserver4/&#34;&gt;Google Identity Provider with IdentityServer4&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/upgrading-to-angulr2-rc1/&#34;&gt;Upgrading to Angular2 RC1&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/experimenting-with-angular2-cli/&#34;&gt;Experimenting with Angular2 CLI&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/migrating-to-asp-net-core-rc2/&#34;&gt;Migrating to ASP .NET Core RC2&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+
+
+</description>
+    </item>
     
     <item>
       <title>Experimenting with Angular2 CLI</title>
@@ -125,6 +339,7 @@ I am sure that this drawback with the ellipses will be fixed soon and by the tim
 
 
 
+
 &lt;ul style=&#34;list-style: none;&#34;&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/02/enrolling-in-daj-sie-poznac/&#34;&gt;Enrolling in &#34;Daj się poznać&#34;&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/daj-sie-poznac-project-details/&#34;&gt;&#34;Daj się poznać&#34; - Project details&#34;&lt;/a&gt;&lt;/li&gt;
@@ -151,6 +366,7 @@ I am sure that this drawback with the ellipses will be fixed soon and by the tim
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/google-identity-provider-with-identityserver4/&#34;&gt;Google Identity Provider with IdentityServer4&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/upgrading-to-angulr2-rc1/&#34;&gt;Upgrading to Angular2 RC1&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/experimenting-with-angular2-cli/&#34;&gt;Experimenting with Angular2 CLI&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/migrating-to-asp-net-core-rc2/&#34;&gt;Migrating to ASP .NET Core RC2&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 
@@ -309,6 +525,7 @@ Everything I’ve written up to now the result of searching and experimenting af
 
 
 
+
 &lt;ul style=&#34;list-style: none;&#34;&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/02/enrolling-in-daj-sie-poznac/&#34;&gt;Enrolling in &#34;Daj się poznać&#34;&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/daj-sie-poznac-project-details/&#34;&gt;&#34;Daj się poznać&#34; - Project details&#34;&lt;/a&gt;&lt;/li&gt;
@@ -335,6 +552,7 @@ Everything I’ve written up to now the result of searching and experimenting af
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/google-identity-provider-with-identityserver4/&#34;&gt;Google Identity Provider with IdentityServer4&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/upgrading-to-angulr2-rc1/&#34;&gt;Upgrading to Angular2 RC1&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/experimenting-with-angular2-cli/&#34;&gt;Experimenting with Angular2 CLI&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/migrating-to-asp-net-core-rc2/&#34;&gt;Migrating to ASP .NET Core RC2&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 
@@ -592,6 +810,7 @@ Similarly, for example, you can use Facebook as an external Identity Provider. I
 
 
 
+
 &lt;ul style=&#34;list-style: none;&#34;&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/02/enrolling-in-daj-sie-poznac/&#34;&gt;Enrolling in &#34;Daj się poznać&#34;&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/daj-sie-poznac-project-details/&#34;&gt;&#34;Daj się poznać&#34; - Project details&#34;&lt;/a&gt;&lt;/li&gt;
@@ -618,6 +837,7 @@ Similarly, for example, you can use Facebook as an external Identity Provider. I
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/google-identity-provider-with-identityserver4/&#34;&gt;Google Identity Provider with IdentityServer4&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/upgrading-to-angulr2-rc1/&#34;&gt;Upgrading to Angular2 RC1&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/experimenting-with-angular2-cli/&#34;&gt;Experimenting with Angular2 CLI&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/migrating-to-asp-net-core-rc2/&#34;&gt;Migrating to ASP .NET Core RC2&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 
@@ -719,6 +939,7 @@ I will write how I use these settings to authenticate user using Google Identity
 
 
 
+
 &lt;ul style=&#34;list-style: none;&#34;&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/02/enrolling-in-daj-sie-poznac/&#34;&gt;Enrolling in &#34;Daj się poznać&#34;&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/daj-sie-poznac-project-details/&#34;&gt;&#34;Daj się poznać&#34; - Project details&#34;&lt;/a&gt;&lt;/li&gt;
@@ -745,6 +966,7 @@ I will write how I use these settings to authenticate user using Google Identity
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/google-identity-provider-with-identityserver4/&#34;&gt;Google Identity Provider with IdentityServer4&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/upgrading-to-angulr2-rc1/&#34;&gt;Upgrading to Angular2 RC1&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/experimenting-with-angular2-cli/&#34;&gt;Experimenting with Angular2 CLI&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/migrating-to-asp-net-core-rc2/&#34;&gt;Migrating to ASP .NET Core RC2&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 
@@ -823,6 +1045,7 @@ I found a sample API which I copied into my local repository. After this, I exec
 
 
 
+
 &lt;ul style=&#34;list-style: none;&#34;&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/02/enrolling-in-daj-sie-poznac/&#34;&gt;Enrolling in &#34;Daj się poznać&#34;&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/daj-sie-poznac-project-details/&#34;&gt;&#34;Daj się poznać&#34; - Project details&#34;&lt;/a&gt;&lt;/li&gt;
@@ -849,6 +1072,7 @@ I found a sample API which I copied into my local repository. After this, I exec
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/google-identity-provider-with-identityserver4/&#34;&gt;Google Identity Provider with IdentityServer4&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/upgrading-to-angulr2-rc1/&#34;&gt;Upgrading to Angular2 RC1&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/experimenting-with-angular2-cli/&#34;&gt;Experimenting with Angular2 CLI&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/migrating-to-asp-net-core-rc2/&#34;&gt;Migrating to ASP .NET Core RC2&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 
@@ -1003,6 +1227,7 @@ new Client
 
 
 
+
 &lt;ul style=&#34;list-style: none;&#34;&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/02/enrolling-in-daj-sie-poznac/&#34;&gt;Enrolling in &#34;Daj się poznać&#34;&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/daj-sie-poznac-project-details/&#34;&gt;&#34;Daj się poznać&#34; - Project details&#34;&lt;/a&gt;&lt;/li&gt;
@@ -1029,6 +1254,7 @@ new Client
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/google-identity-provider-with-identityserver4/&#34;&gt;Google Identity Provider with IdentityServer4&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/upgrading-to-angulr2-rc1/&#34;&gt;Upgrading to Angular2 RC1&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/experimenting-with-angular2-cli/&#34;&gt;Experimenting with Angular2 CLI&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/migrating-to-asp-net-core-rc2/&#34;&gt;Migrating to ASP .NET Core RC2&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 
@@ -1279,6 +1505,7 @@ I will also write about how to deal with settings which should be secret and sho
 
 
 
+
 &lt;ul style=&#34;list-style: none;&#34;&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/02/enrolling-in-daj-sie-poznac/&#34;&gt;Enrolling in &#34;Daj się poznać&#34;&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/daj-sie-poznac-project-details/&#34;&gt;&#34;Daj się poznać&#34; - Project details&#34;&lt;/a&gt;&lt;/li&gt;
@@ -1305,6 +1532,7 @@ I will also write about how to deal with settings which should be secret and sho
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/google-identity-provider-with-identityserver4/&#34;&gt;Google Identity Provider with IdentityServer4&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/upgrading-to-angulr2-rc1/&#34;&gt;Upgrading to Angular2 RC1&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/experimenting-with-angular2-cli/&#34;&gt;Experimenting with Angular2 CLI&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/migrating-to-asp-net-core-rc2/&#34;&gt;Migrating to ASP .NET Core RC2&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 
@@ -1529,6 +1757,7 @@ and ALT+ENTER did a lot of this work for them but it’s still a lot of changes.
 
 
 
+
 &lt;ul style=&#34;list-style: none;&#34;&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/02/enrolling-in-daj-sie-poznac/&#34;&gt;Enrolling in &#34;Daj się poznać&#34;&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/daj-sie-poznac-project-details/&#34;&gt;&#34;Daj się poznać&#34; - Project details&#34;&lt;/a&gt;&lt;/li&gt;
@@ -1555,6 +1784,7 @@ and ALT+ENTER did a lot of this work for them but it’s still a lot of changes.
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/google-identity-provider-with-identityserver4/&#34;&gt;Google Identity Provider with IdentityServer4&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/upgrading-to-angulr2-rc1/&#34;&gt;Upgrading to Angular2 RC1&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/experimenting-with-angular2-cli/&#34;&gt;Experimenting with Angular2 CLI&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/migrating-to-asp-net-core-rc2/&#34;&gt;Migrating to ASP .NET Core RC2&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 
@@ -1677,6 +1907,7 @@ Uncheck the &lt;em&gt;Require source files to exactly match the original version
 
 
 
+
 &lt;ul style=&#34;list-style: none;&#34;&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/02/enrolling-in-daj-sie-poznac/&#34;&gt;Enrolling in &#34;Daj się poznać&#34;&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/daj-sie-poznac-project-details/&#34;&gt;&#34;Daj się poznać&#34; - Project details&#34;&lt;/a&gt;&lt;/li&gt;
@@ -1703,6 +1934,7 @@ Uncheck the &lt;em&gt;Require source files to exactly match the original version
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/google-identity-provider-with-identityserver4/&#34;&gt;Google Identity Provider with IdentityServer4&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/upgrading-to-angulr2-rc1/&#34;&gt;Upgrading to Angular2 RC1&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/experimenting-with-angular2-cli/&#34;&gt;Experimenting with Angular2 CLI&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/migrating-to-asp-net-core-rc2/&#34;&gt;Migrating to ASP .NET Core RC2&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 
@@ -1782,6 +2014,7 @@ but for now it is still bleeding edge and bleeding edges hurt.&lt;/p&gt;
 
 
 
+
 &lt;ul style=&#34;list-style: none;&#34;&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/02/enrolling-in-daj-sie-poznac/&#34;&gt;Enrolling in &#34;Daj się poznać&#34;&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/daj-sie-poznac-project-details/&#34;&gt;&#34;Daj się poznać&#34; - Project details&#34;&lt;/a&gt;&lt;/li&gt;
@@ -1808,6 +2041,7 @@ but for now it is still bleeding edge and bleeding edges hurt.&lt;/p&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/google-identity-provider-with-identityserver4/&#34;&gt;Google Identity Provider with IdentityServer4&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/upgrading-to-angulr2-rc1/&#34;&gt;Upgrading to Angular2 RC1&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/experimenting-with-angular2-cli/&#34;&gt;Experimenting with Angular2 CLI&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/migrating-to-asp-net-core-rc2/&#34;&gt;Migrating to ASP .NET Core RC2&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 
@@ -1982,6 +2216,7 @@ to find what happens when this app is run on Linux.&lt;/p&gt;
 
 
 
+
 &lt;ul style=&#34;list-style: none;&#34;&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/02/enrolling-in-daj-sie-poznac/&#34;&gt;Enrolling in &#34;Daj się poznać&#34;&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/daj-sie-poznac-project-details/&#34;&gt;&#34;Daj się poznać&#34; - Project details&#34;&lt;/a&gt;&lt;/li&gt;
@@ -2008,6 +2243,7 @@ to find what happens when this app is run on Linux.&lt;/p&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/google-identity-provider-with-identityserver4/&#34;&gt;Google Identity Provider with IdentityServer4&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/upgrading-to-angulr2-rc1/&#34;&gt;Upgrading to Angular2 RC1&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/experimenting-with-angular2-cli/&#34;&gt;Experimenting with Angular2 CLI&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/migrating-to-asp-net-core-rc2/&#34;&gt;Migrating to ASP .NET Core RC2&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 
@@ -2148,6 +2384,7 @@ the web client authentication with Google Identity Provider.&lt;/p&gt;
 
 
 
+
 &lt;ul style=&#34;list-style: none;&#34;&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/02/enrolling-in-daj-sie-poznac/&#34;&gt;Enrolling in &#34;Daj się poznać&#34;&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/daj-sie-poznac-project-details/&#34;&gt;&#34;Daj się poznać&#34; - Project details&#34;&lt;/a&gt;&lt;/li&gt;
@@ -2174,6 +2411,7 @@ the web client authentication with Google Identity Provider.&lt;/p&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/google-identity-provider-with-identityserver4/&#34;&gt;Google Identity Provider with IdentityServer4&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/upgrading-to-angulr2-rc1/&#34;&gt;Upgrading to Angular2 RC1&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/experimenting-with-angular2-cli/&#34;&gt;Experimenting with Angular2 CLI&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/migrating-to-asp-net-core-rc2/&#34;&gt;Migrating to ASP .NET Core RC2&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 
@@ -2400,132 +2638,6 @@ but there must be a way to handle this kind of situation. However, I’ll write 
 
 
 
-&lt;ul style=&#34;list-style: none;&#34;&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/02/enrolling-in-daj-sie-poznac/&#34;&gt;Enrolling in &#34;Daj się poznać&#34;&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/daj-sie-poznac-project-details/&#34;&gt;&#34;Daj się poznać&#34; - Project details&#34;&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/i-m-holding-a-project-rider-eap/&#34;&gt;I&#39;m holding a Project Rider EAP&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/installing-asp-dot-net-core-1-on-ubuntu-14/&#34;&gt;Installing ASP .NET Core 1 on Ubuntu 14.04&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/my-first-asp-net-core-1-web-application/&#34;&gt;My first ASP NET Core 1.0 web application&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/project-setup-server-side/&#34;&gt;Project setup - server-side&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/project-setup-client-side/&#34;&gt;Project setup - client-side&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/adding-styling-to-my-application/&#34;&gt;Adding styling to my application&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/angular2-confirm-dialog-component/&#34;&gt;Angular 2 Confirm Dialog Component&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/before-going-into-production/&#34;&gt;Before going into production&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/publishing-to-azure/&#34;&gt;Publishing to Azure&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/setting-up-the-web-client-for-google-identity-platform/&#34;&gt;Setting up the Web client for Google Identity Platform&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/oidc-token-manager-library-with-google-identity-platform-part-1/&#34;&gt;oidc-token-manager library with Google Identity Platform - Part 1&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/oidc-token-manager-library-with-google-identity-platform-part-2/&#34;&gt;oidc-token-manager library with Google Identity Platform - Part 2&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/accesing-api-with-token-from-google-identity-provider/&#34;&gt;Accessing API with token from Google Identity Provider&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/how-portable-is-asp-dot-net-core/&#34;&gt;How portable is ASP .NET Core 1.0?&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/when-dotpeek-can-save-your-live/&#34;&gt;When dotPeek can save your live&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/reading-code-as-if-it-were-a-book/&#34;&gt;Reading code as if it were a book&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/aps-dot-net-core-configuration/&#34;&gt;ASP .NET Core Configuration&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/getting-started-with-identity-server4/&#34;&gt;Getting started with IdentityServer4&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/identityserver-4-accessing-api/&#34;&gt;IdentityServer4 - accessing API&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/dealing-with-secrets-in-asp-net-core/&#34;&gt;Dealing with secrets in ASP .NET Core&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/google-identity-provider-with-identityserver4/&#34;&gt;Google Identity Provider with IdentityServer4&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/upgrading-to-angulr2-rc1/&#34;&gt;Upgrading to Angular2 RC1&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/experimenting-with-angular2-cli/&#34;&gt;Experimenting with Angular2 CLI&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-
-&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Setting up the Web client for Google Identity Platform</title>
-      <link>http://koscielniak.me/post/2016/04/setting-up-the-web-client-for-google-identity-platform/</link>
-      <pubDate>Mon, 04 Apr 2016 22:00:00 +0200</pubDate>
-      
-      <guid>http://koscielniak.me/post/2016/04/setting-up-the-web-client-for-google-identity-platform/</guid>
-      <description>&lt;p&gt;&lt;a href=&#34;http://dajsiepoznac.pl&#34;&gt;&lt;img src=&#34;http://koscielniak.me/post/2016/03/contestLogo.png&#34; alt=&#34;Daj się poz  nać&#34; title=&#34;Daj się poznać&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;Recently, I thought about a membership system in my application. I considered many options and during my research I tested many solutions, and gained some knowledge. The results from my initial search didn’t pan out as planned, so I’ll have to share my results in a series of posts, and this post will be part one.&lt;/p&gt;
-
-&lt;p&gt;One of my ideas was not having a membership system at all and delegating this to a well known identity provider like Google or Facebook. I also wanted to have my application as a pure API with SPA client and moreover I wanted to have a stateless application. I didn’t want to have any sessions on the server side. So this problem requires me to use a bearer token authentication with implicit flow where a browser client gets an access token from Identity Provider and passes it to the API in every request. API validates this token and grants access or not to its resources.&lt;/p&gt;
-
-&lt;p&gt;Before I start my work I must choose Identity Provider. I decided to use Google Identity Provider Platform, and then I must register a web application in this Platform.&lt;/p&gt;
-
-&lt;p&gt;To create a web application client, I entered the
-&lt;a href=&#34;https://console.developers.google.com&#34; target=&#34;_blank&#34;&gt;Google Developers Console&lt;/a&gt;
-and then I chose &lt;em&gt;Create a project&amp;hellip;&lt;/em&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://koscielniak.me/post/2016/04/google/createProject.png&#34; alt=&#34;Create a project&#34; title=&#34;Create a project&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Then I specified &lt;em&gt;Project name&lt;/em&gt; and clicked &lt;em&gt;Create&lt;/em&gt;.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://koscielniak.me/post/2016/04/google/newProject.png&#34; alt=&#34;New Project&#34; title=&#34;New Project&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;After a while my new application was visible in the &lt;em&gt;Dashboard&lt;/em&gt;.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://koscielniak.me/post/2016/04/google/dashboardWithNew.png&#34; alt=&#34;Dashboard&#34; title=&#34;Dashboard&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;I clicked on &lt;em&gt;Enable and manage APIs&lt;/em&gt; and after I saw this screen:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://koscielniak.me/post/2016/04/google/apiManager.png&#34; alt=&#34;Api Manager&#34; title=&#34;Api Manager&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;On the left side, I can see a menu option &lt;em&gt;Credentials&lt;/em&gt; I clicked on this option and I saw this:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://koscielniak.me/post/2016/04/google/credentialsApiManager.png&#34; alt=&#34;Credentials tab&#34; title=&#34;Credentials tab&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;I clicked on the middle tab named &lt;em&gt;OAuth consent screen&lt;/em&gt; and in the form I entered only a &lt;em&gt;Product name shown to users&lt;/em&gt;.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://koscielniak.me/post/2016/04/google/consentScreen.png&#34; alt=&#34;OAuth consent screen&#34; title=&#34;OAuth consent screen&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Then I clicked &lt;em&gt;Save&lt;/em&gt;. After this, I was redirect back to the first tab: &lt;em&gt;Credentials&lt;/em&gt;. On this tab, I clicked &lt;em&gt;Create credentials&lt;/em&gt; I saw the following choices:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://koscielniak.me/post/2016/04/google/createCredentialsChoices.png&#34; alt=&#34;Create Credentials Choices&#34; title=&#34;Create Credentials Choices&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;I chose &lt;em&gt;OAuth client ID&lt;/em&gt;. Then on the next screen I selected &lt;em&gt;Web application&lt;/em&gt; as a &lt;em&gt;Application type&lt;/em&gt; and I put name and urls.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://koscielniak.me/post/2016/04/google/createClientId.png&#34; alt=&#34;Create ClientId&#34; title=&#34;Create ClientId&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;When I clicked “Create” I saw this popup window:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://koscielniak.me/post/2016/04/google/popupOAuthClient.png&#34; alt=&#34;OAuth Client&#34; title=&#34;OAuth Client&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;I didn’t bother to copy this, since I got this letter in another form. I just clicked &lt;em&gt;OK&lt;/em&gt; and I saw this:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://koscielniak.me/post/2016/04/google/OAuth20ClientIds.png&#34; alt=&#34;OAuth client ids&#34; title=&#34;OAuth client ids&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;On the right side, I had a download icon (see red ellipse in the picture above). I clicked on it and the window to save file opened:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://koscielniak.me/post/2016/04/google/saveFile.png&#34; alt=&#34;Save file&#34; title=&#34;Save file&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;I saved this file and I will return to it later in the next post.&lt;/p&gt;
-
-&lt;p&gt;After this, Client for Google APIs was now ready to use and now I must create an application for it. As I mentioned before, this post is the first part about auth things.
-In the &lt;a href=&#34;http://koscielniak.me/post/2016/04/oidc-token-manager-library-with-google-identity-platform-part-1/&#34;&gt;next post&lt;/a&gt;,
-I will continue this theme and I hope, I’ll show finally some code.&lt;/p&gt;
-
-&lt;p&gt;&lt;h3&gt;Related posts:&lt;/h3&gt;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 &lt;ul style=&#34;list-style: none;&#34;&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/02/enrolling-in-daj-sie-poznac/&#34;&gt;Enrolling in &#34;Daj się poznać&#34;&lt;/a&gt;&lt;/li&gt;
@@ -2553,6 +2665,7 @@ I will continue this theme and I hope, I’ll show finally some code.&lt;/p&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/google-identity-provider-with-identityserver4/&#34;&gt;Google Identity Provider with IdentityServer4&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/upgrading-to-angulr2-rc1/&#34;&gt;Upgrading to Angular2 RC1&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/experimenting-with-angular2-cli/&#34;&gt;Experimenting with Angular2 CLI&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/migrating-to-asp-net-core-rc2/&#34;&gt;Migrating to ASP .NET Core RC2&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 
