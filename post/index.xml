@@ -6,8 +6,54 @@
     <description>Recent content in Posts on Piotr Kościelniak - passionate programmer</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 24 May 2016 22:00:00 +0200</lastBuildDate>
+    <lastBuildDate>Thu, 02 Jun 2016 22:30:00 +0200</lastBuildDate>
     <atom:link href="http://koscielniak.me/post/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Using only the generator of Angular-CLI</title>
+      <link>http://koscielniak.me/post/2016/06/using-only-the-generator-of-angular-cli/</link>
+      <pubDate>Thu, 02 Jun 2016 22:30:00 +0200</pubDate>
+      
+      <guid>http://koscielniak.me/post/2016/06/using-only-the-generator-of-angular-cli/</guid>
+      <description>&lt;p&gt;In one of my previous &lt;a href=&#34;http://koscielniak.me/post/2016/05/experimenting-with-angular2-cli/&#34;&gt;posts&lt;/a&gt;,
+I wrote about
+&lt;a href=&#34;https://cli.angular.io/&#34; target=&#34;_blank&#34;&gt;Angular CLI&lt;/a&gt;.
+With this tool, you can simplify your work when dealing with Angular2 projects. This tool can create a template of a new Angular2 application where everything is set up and works perfectly. However, what if you want to have a build process of your application that is a bit different from what Angular CLI offers or you want to use this tool in an existing project which already has its own structure and build process? Can you still use some goodies from this CLI? Is this possible?&lt;/p&gt;
+
+&lt;p&gt;Yes it is. You can take as much as you want from this tool. All you need to do, is to install Angular-CLI with the command &lt;code&gt;npm install -g angular-cli&lt;/code&gt; and then add a file &lt;em&gt;angular-cli.json&lt;/em&gt; to the root folder of your project. Inside &lt;em&gt;angular-cli.json&lt;/em&gt;, I put the content like this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;{
+  &amp;quot;defaults&amp;quot;: {
+    &amp;quot;prefix&amp;quot;: &amp;quot;&amp;quot;,
+    &amp;quot;sourceDir&amp;quot;: &amp;quot;wwwroot&amp;quot;,
+    &amp;quot;styleExt&amp;quot;: &amp;quot;css&amp;quot;,
+    &amp;quot;prefixInterfaces&amp;quot;: false
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You can specify more options here for this CLI but this is enough for me. This file can be added to &lt;em&gt;.gitignore&lt;/em&gt; as it does not have any influence on your project.&lt;/p&gt;
+
+&lt;p&gt;You also need this tool as a part of the development dependencies in &lt;em&gt;package.json&lt;/em&gt; of your project. A command like this does the job: &lt;code&gt;npm install angular-cli --save-dev&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;After this you can use almost every command of CLI, for example:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;ng g service
+ng g route
+ng g component
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Some commands are impossible to use because we don’t have a full Angular-CLI project, for example:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;ng serve
+ng build
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;When use them, you get errors.&lt;/p&gt;
+
+&lt;p&gt;As you can see, you can have happiness and receive a helping hand from Angular CLI with development workflow and the building process of your choice.&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>Epilogue: Daj się poznać series</title>
@@ -2302,176 +2348,6 @@ In my sample project, it didn’t matter because I had only two controllers.&lt;
 Please check out my
 &lt;a href=&#34;http://koscielniak.me/post/2016/04/how-portable-is-asp-dot-net-core/&#34;&gt;next post&lt;/a&gt;
 to find what happens when this app is run on Linux.&lt;/p&gt;
-
-&lt;p&gt;&lt;h3&gt;Related posts:&lt;/h3&gt;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-&lt;ul style=&#34;list-style: none;&#34;&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/02/enrolling-in-daj-sie-poznac/&#34;&gt;Enrolling in &#34;Daj się poznać&#34;&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/daj-sie-poznac-project-details/&#34;&gt;&#34;Daj się poznać&#34; - Project details&#34;&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/i-m-holding-a-project-rider-eap/&#34;&gt;I&#39;m holding a Project Rider EAP&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/installing-asp-dot-net-core-1-on-ubuntu-14/&#34;&gt;Installing ASP .NET Core 1 on Ubuntu 14.04&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/my-first-asp-net-core-1-web-application/&#34;&gt;My first ASP NET Core 1.0 web application&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/project-setup-server-side/&#34;&gt;Project setup - server-side&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/project-setup-client-side/&#34;&gt;Project setup - client-side&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/adding-styling-to-my-application/&#34;&gt;Adding styling to my application&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/angular2-confirm-dialog-component/&#34;&gt;Angular 2 Confirm Dialog Component&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/before-going-into-production/&#34;&gt;Before going into production&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/publishing-to-azure/&#34;&gt;Publishing to Azure&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/setting-up-the-web-client-for-google-identity-platform/&#34;&gt;Setting up the Web client for Google Identity Platform&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/oidc-token-manager-library-with-google-identity-platform-part-1/&#34;&gt;oidc-token-manager library with Google Identity Platform - Part 1&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/oidc-token-manager-library-with-google-identity-platform-part-2/&#34;&gt;oidc-token-manager library with Google Identity Platform - Part 2&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/accesing-api-with-token-from-google-identity-provider/&#34;&gt;Accessing API with token from Google Identity Provider&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/how-portable-is-asp-dot-net-core/&#34;&gt;How portable is ASP .NET Core 1.0?&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/when-dotpeek-can-save-your-live/&#34;&gt;When dotPeek can save your live&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/reading-code-as-if-it-were-a-book/&#34;&gt;Reading code as if it were a book&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/aps-dot-net-core-configuration/&#34;&gt;ASP .NET Core Configuration&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/getting-started-with-identity-server4/&#34;&gt;Getting started with IdentityServer4&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/identityserver-4-accessing-api/&#34;&gt;IdentityServer4 - accessing API&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/dealing-with-secrets-in-asp-net-core/&#34;&gt;Dealing with secrets in ASP .NET Core&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/google-identity-provider-with-identityserver4/&#34;&gt;Google Identity Provider with IdentityServer4&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/upgrading-to-angulr2-rc1/&#34;&gt;Upgrading to Angular2 RC1&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/experimenting-with-angular2-cli/&#34;&gt;Experimenting with Angular2 CLI&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/migrating-to-asp-net-core-rc2/&#34;&gt;Migrating to ASP .NET Core RC2&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/epilogue-daj-sie-poznac-series/&#34;&gt;Epilogue: Daj się poznać series&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-
-&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>oidc-token-manager library with Google Identity Platform - Part 2</title>
-      <link>http://koscielniak.me/post/2016/04/oidc-token-manager-library-with-google-identity-platform-part-2/</link>
-      <pubDate>Mon, 11 Apr 2016 23:00:00 +0200</pubDate>
-      
-      <guid>http://koscielniak.me/post/2016/04/oidc-token-manager-library-with-google-identity-platform-part-2/</guid>
-      <description>&lt;p&gt;&lt;a href=&#34;http://dajsiepoznac.pl&#34;&gt;&lt;img src=&#34;http://koscielniak.me/post/2016/03/contestLogo.png&#34; alt=&#34;Daj się poznać&#34; title=&#34;Daj się poznać&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;This post is a continuation of the previous one
-&lt;a href=&#34;http://koscielniak.me/post/2016/04/oidc-token-manager-library-with-google-identity-platform-part-1/&#34;&gt;previous one&lt;/a&gt;
-where I started to describe my attempt to use library &lt;em&gt;oidc-token-manager&lt;/em&gt; with Google Identity Platform.&lt;/p&gt;
-
-&lt;p&gt;I was stuck at the moment when this library couldn’t validate a signature for an access token because of the unexpected format of the certs. I found in the documentation that I can provide certs for this library myself in the config and the library wouldn’t make a request for them.&lt;/p&gt;
-
-&lt;p&gt;I did this in the &lt;em&gt;config&lt;/em&gt; property by specifying the value for the &lt;em&gt;jwks&lt;/em&gt; property. After this, &lt;em&gt;config&lt;/em&gt; in &lt;em&gt;index.html&lt;/em&gt; looked like:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;var config = {
-   authority: &amp;quot;https://accounts.google.com&amp;quot;,
-   client_id: &amp;quot;342665198077-tp56a5pab4ei5lri37nkba69b6sqghou.apps.googleusercontent.com&amp;quot;,
-   redirect_uri: window.location.protocol + &amp;quot;//&amp;quot; + window.location.host + &amp;quot;/callback.html&amp;quot;,
-   post_logout_redirect_uri: window.location.protocol + &amp;quot;//&amp;quot; + window.location.host + &amp;quot;/index.html&amp;quot;,
-   response_type: &amp;quot;id_token token&amp;quot;,
-   scope: &amp;quot;email&amp;quot;,
-   silent_redirect_uri: window.location.protocol + &amp;quot;//&amp;quot; + window.location.host + &amp;quot;/frame.html&amp;quot;,
-   popup_redirect_uri: window.location.protocol + &amp;quot;//&amp;quot; + window.location.host + &amp;quot;/popup.html&amp;quot;,
-   jwks: {
-       keys: [{
-           kty: &amp;quot;RSA&amp;quot;,
-           x5c: [&amp;quot;-----BEGIN CERTIFICATE-----\nMIIDJjCCAg6gAwIBAgIIUQ9p7LoIOI8wD …[removded for brevity ]... eTh45xGznVwh8\n-----END CERTIFICATE-----\n&amp;quot;]
-       }]
-   },
-   silent_renew: true
-};
-
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;and in the &lt;em&gt;callback.html&lt;/em&gt;, &lt;em&gt;config&lt;/em&gt; looked like this:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;var config = {
-   authority: &amp;quot;https://accounts.google.com&amp;quot;,
-   client_id: &amp;quot;342665198077-tp56a5pab4ei5lri37nkba69b6sqghou.apps.googleusercontent.com&amp;quot;,
-   jwks: {
-       keys: [{
-           kty: &amp;quot;RSA&amp;quot;,
-           x5c:  [&amp;quot;-----BEGIN CERTIFICATE-----\nMIIDJjCCAg6gAwIBAgIIUQ9p7LoIOI8wD …[removded for brevity ]... eTh45xGznVwh8\n-----END CERTIFICATE-----\n&amp;quot;]
-       }]
-   },
-};
-
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;I found a value for this &lt;em&gt;x5c&lt;/em&gt; property requesting this url
-&lt;a href=&#34;https://www.googleapis.com/oauth2/v1/certs&#34; target=&#34;_blank&#34;&gt;&lt;a href=&#34;https://www.googleapis.com/oauth2/v1/certs&#34;&gt;https://www.googleapis.com/oauth2/v1/certs&lt;/a&gt;&lt;/a&gt;
-and this url I found in the file downloaded from Google Developer Console, which I used in the previous post to get the &lt;em&gt;client_id&lt;/em&gt;.
-You can read
-&lt;a href=&#34;http://koscielniak.me/post/2016/04/setting-up-the-web-client-for-google-identity-platform/&#34;&gt;here&lt;/a&gt;
-how I got it. (link).
-Hardcoding the value for &lt;em&gt;x5c&lt;/em&gt; is a very bad solution because Google often changes certs but for testing it&amp;rsquo;s sufficient for me.&lt;/p&gt;
-
-&lt;p&gt;After this, when I opened the application I got this screen: [networkError.png]&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://koscielniak.me/post/2016/04/google2/networkError.png&#34; alt=&#34;Network error&#34; title=&#34;Network error&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;And the web browser console showed me this:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://koscielniak.me/post/2016/04/google2/userInfo404.png&#34; alt=&#34;Userinfo 404&#34; title=&#34;Userinfo 404&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;This error came from a request for userinfo. Fortunately, I don’t need to get a user profile. All I need to know about the user is their email and it is in the token. So I can turn off loading the user profile with this option:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;load_user_profile : false,
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;With this option set to &lt;em&gt;false&lt;/em&gt;, the &lt;em&gt;oidc-token-manager&lt;/em&gt; library won’t send requests to Google for a user profile. After this, another attempt to get a token resulted in the
-following message in the browser console:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://koscielniak.me/post/2016/04/google2/profileFalseResult.png&#34; alt=&#34;Final result&#34; title=&#34;Final result&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;I could see my token was also in the local storage of the browser:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://koscielniak.me/post/2016/04/google2/tokenInLocalStorage.png&#34; alt=&#34;Token in local storage&#34; title=&#34;Token in local storage&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;As you can see, I got a token from Google Identity Provider and I could use it to get access to the API but my solution is far from perfect.&lt;/p&gt;
-
-&lt;p&gt;I made a dangerous assumption in the configuration of &lt;em&gt;oidc-token-manager&lt;/em&gt;.
-While fetching certs from this url &lt;a href=&#34;https://www.googleapis.com/oauth2/v1/certs&#34; target=&#34;_blank&#34;&gt;&lt;a href=&#34;https://www.googleapis.com/oauth2/v1/certs&#34;&gt;https://www.googleapis.com/oauth2/v1/certs&lt;/a&gt;&lt;/a&gt;, I got a response like this:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;{
-  &amp;quot;8087d258ac19c0fcf1dab7a908c221cdd81d5512&amp;quot;: &amp;quot;-----BEGIN CERTIFICATE-----\nMIIDJjCCAg6gAwIBAgIIBzgwCmlF7SMwDQYJKoZIhvcNAQEFBQAwNjE0MDIGA1UE\nAxMrZmVkZXJhdGVkLXNpZ25vbi5zeXN0ZW0uZ3NlcnZpY … [removed for brevity]... ]eOV9CqsTSJCZ9baLqF4wk6botNe187A88wnj5OVbyoVZK4SMW\n-----END CERTIFICATE-----\n&amp;quot;,
-  &amp;quot;428489e3a6753680152ffcf1a8f7d0379f28ce9e&amp;quot;: &amp;quot;-----BEGIN CERTIFICATE-----\nMIIDJjCCAg6gAwIBAgIIUQ9p7LoIOI8wDQYJKoZIhvcNAQEFB …[removed for brevity]... xcOKB6l8wBqKDmyc1aMXZ+H0WkBgvcEHqeTh45xGznVwh8\n-----END CERTIFICATE-----\n&amp;quot;
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;And I assumed that the second cert was the right one to validate the token. I chose the second one because the first one didn’t work. Instead of this, I should have made a choice dependent on the value provided in the token header which looked like this:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;{&amp;quot;alg&amp;quot;:&amp;quot;RS256&amp;quot;,&amp;quot;kid&amp;quot;:&amp;quot;428489e3a6753680152ffcf1a8f7d0379f28ce9e&amp;quot;}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;The property &lt;em&gt;kid&lt;/em&gt; indicates that in the object with certs, I should use the one with the property like the &lt;em&gt;kid&lt;/em&gt; value. I discovered that this was the second property but it won’t always be true. I should choose a certificate dynamically but I didn’t want to change source code of the library &lt;em&gt;oidc-token-manager&lt;/em&gt;, so that’s why I hardcoded it.&lt;/p&gt;
-
-&lt;p&gt;An authentication is a non-trivial challenge for any app. Many developers have tools and techniques they trust for building traditional (page-by-page) auth flows.
-I thought for a while about building a traditional membership system but I finally decided to try something different. We’ll see the consequences of my choices in the future. For now, I have proven that I can obtain access tokens from Google using the library &lt;em&gt;oidc-token-manager&lt;/em&gt;, but the implementation isn’t perfect.
-If I want to use this library, I would have to change it a bit. I don’t want to do this until
-I check other possibilities. Future posts will be about the further exploration of
-the web client authentication with Google Identity Provider.&lt;/p&gt;
 
 &lt;p&gt;&lt;h3&gt;Related posts:&lt;/h3&gt;
 
