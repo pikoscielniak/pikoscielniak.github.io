@@ -38,14 +38,14 @@ With this tool, you can simplify your work when dealing with Angular2 projects. 
 
 &lt;p&gt;After this you can use almost every command of CLI, for example:&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;ng g service
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;ng g service
 ng g route
 ng g component
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;Some commands are impossible to use because we don’t have a full Angular-CLI project, for example:&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;ng serve
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;ng serve
 ng build
 &lt;/code&gt;&lt;/pre&gt;
 
