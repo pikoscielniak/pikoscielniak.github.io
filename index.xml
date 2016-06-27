@@ -6,8 +6,99 @@
     <description>Recent content on Piotr Kościelniak - passionate programmer</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 02 Jun 2016 22:30:00 +0200</lastBuildDate>
+    <lastBuildDate>Tue, 28 Jun 2016 00:00:15 +0200</lastBuildDate>
     <atom:link href="http://koscielniak.me/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Quality Excites 2016</title>
+      <link>http://koscielniak.me/post/2016/06/quality-excites-2016/</link>
+      <pubDate>Tue, 28 Jun 2016 00:00:15 +0200</pubDate>
+      
+      <guid>http://koscielniak.me/post/2016/06/quality-excites-2016/</guid>
+      <description>&lt;p&gt;The Quality Excites conference organized by the passionate
+&lt;a href=&#34;https://qualityexcites.pl/organizers&#34; target=&#34;_blank&#34;&gt;team&lt;/a&gt; recently had its 5th edition. For me, this conference was exceptional because there were a lot of workshops and lectures, many of which were dedicated to testing. The speakers practice what they preach and everything related to the conference was high quality, as this is what excites the organizers and the invitees.&lt;/p&gt;
+
+&lt;p&gt;That is why &lt;a href=&#34;https://qualityexcites.pl&#34; target=&#34;_blank&#34;&gt;Quality Excites&lt;/a&gt; remains one of my most anticipated yearly events, and every year since 2014, I’ve had the simultaneous fear and thrill of securing tickets. Fortunately, I was invited for the third time in a row.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://koscielniak.me/post/2016/06/qe-cake.png&#34; alt=&#34;5th edition Quality Excites - celebration cake&#34; title=&#34;5th edition Quality Excites - celebration cake&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://twitter.com/GGalezowski&#34; target=&#34;_blank&#34;&gt;Grzegorz Gałęzowski&lt;/a&gt; was also invited as a speaker for the 3rd time in a row and this year his opening speech was titled &lt;em&gt;GIMMEH TDD! - O RLY?&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://koscielniak.me/post/2016/06/qe-grzegorz.png&#34; alt=&#34;Grzegorz Gałęzowski - GIMMEH TDD! - O RLY?&#34; title=&#34;Grzegorz Gałęzowski - GIMMEH TDD! - O RLY?&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;He talked about his experiences with introducing TDD to teams but what he presented could easily be applied to many other new things which someone may introduce to their team. For me, talks given by Grzegorz are very interesting because they are concise and his presentation style is logical. I’m always impressed by his ability to weave words together, and each thought connects with the previous one and comes from his real life observations, eventually leading to a clear conclusion. You can see Grzegorz’s presentation from the previous Quality Excites conference
+&lt;a href=&#34;https://www.youtube.com/watch?v=yNyMrjMawUY&#34; target=&#34;_blank&#34;&gt;here&lt;/a&gt; to see what I mean.&lt;/p&gt;
+
+&lt;p&gt;After the opening session, I attended the workshop given by Bartłomiej Michalski and Łukasz Januszek. Workshops are my style and I think the workshops are what make Quality Excites so exceptional among other conferences. They are given for free of charge and are hosted by very passionate people who have great practical knowledge in their field. Additionally, the workshops presenters I spoke with, were all employees of Future Processing. This year, I attended the workshop &lt;em&gt;How to make work more profitable?&lt;/em&gt;. The workshop used an analogy that compared creating processes in a company to creating rules for board games and used this analogy to explain many different roles which people in a team can have and how they influence each other and the situation in the team.&lt;/p&gt;
+
+&lt;p&gt;This workshop was insightful and opened my mind to new ideas, it’s given me a lot to think about.
+It may be some time before I can use everything I’ve learned in real situations, but I may be able to use one takeaway from this workshop sooner rather than later: being able to discuss unpleasant things with my team as soon as possible.&lt;/p&gt;
+
+&lt;p&gt;After the workshop and lunch break, I watched three lectures &lt;em&gt;Testing the Internet of things&lt;/em&gt; by Tomasz Janiszewski and Dawid Pacia and then &lt;em&gt;Star Trek: BDD Enterprise&lt;/em&gt; by Tomasz Dubikowski. Both of these lectures were very well-prepared and well-presented but currently I don’t have opportunities to use what I learned.&lt;/p&gt;
+
+&lt;p&gt;The third lecturer which I attended in the afternoon block was given by
+&lt;a href=&#34;https://twitter.com/j_palka&#34; target=&#34;_blank&#34;&gt;Jarosław Pałk&lt;/a&gt;.
+I really like this speaker because of his sense of humor, profound knowledge and the way he talks about very serious and sometimes sad things.&lt;/p&gt;
+
+&lt;p&gt;The most important part of Jarosław’s speech were sentences like what I’m about to translate. I&amp;rsquo;m paraphrasing from Polish to English, but he said something along the lines of: &lt;em&gt;Developers have benefits, and between these benefits, they create products/services for clients.&lt;/em&gt;&lt;br /&gt;
+By benefits, he meant table football, billiards, ping pong, etc. In his speech, he had a couple of &lt;em&gt;the whole truth about the word&lt;/em&gt; sentences and that’s why I like his talks. I can’t wait to see Jarek at
+&lt;a href=&#34;http://bbq4.it/&#34; target=&#34;_blank&#34;&gt;bbq4.it&lt;/a&gt; in September.&lt;/p&gt;
+
+&lt;p&gt;After the last talk there was an after-party held in the Future Processing base where we were treated to a cake to celebrate the 5th staging of Quality Excites.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://koscielniak.me/post/2016/06/qe-cake-with-organizers.png&#34; alt=&#34;5th edition Quality Excites - celebration cake and organizers&#34; title=&#34;5th edition Quality Excites - celebration cake and organizers&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;I think it was a well-deserved occasion to celebrate. Quality Excites provides a lot of opportunities to learn new things for free and I would like to thank the organizers for this and I would like to wish all the organisers and participations the best.&lt;/p&gt;
+
+&lt;p&gt;With the workshops and lectures held during this conference, they inspired a lot of people including myself. You can see what it means for quality to excite, while attending this conference. It was my third time at Quality Excites and my third time seeing that the organizers believe in quality and provide it in every lecture and workshop. I hope the Quality Excites team keeps going and I hope to see them for the 4th time next year.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Devoxx 2016</title>
+      <link>http://koscielniak.me/post/2016/06/devoxx-2016/</link>
+      <pubDate>Mon, 27 Jun 2016 23:43:59 +0200</pubDate>
+      
+      <guid>http://koscielniak.me/post/2016/06/devoxx-2016/</guid>
+      <description>&lt;p&gt;The conference beast living inside of me has awoken again but this time it was very hungry and I ended up having to feed it for 4 days. I spent the first 3 days at
+&lt;a href=&#34;http://devoxx.pl/&#34; target=&#34;_blank&#34;&gt;the Devoxx Poland&lt;/a&gt; conference which ran from June 22nd to 25th.
+It is one of the biggest conferences in Poland and this was the second staging. There were 2500 participants and 100 speakers at this edition, and among the speakers, was one of my work mates
+&lt;a href=&#34;http://www.benedykt.net/&#34; target=&#34;_blank&#34;&gt;Arkadiusz Benedykt&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://koscielniak.me/post/2016/06/me-and-team.jpg&#34; alt=&#34;Me and my work mates at Devoxx Poland, after Arek’s speech&#34; title=&#34;Me and my work mates at Devoxx Poland, after Arek’s speech&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;The event was held at
+&lt;a href=&#34;https://pl.wikipedia.org/wiki/Centrum_Kongresowe_ICE_Krak%C3%B3w&#34; target=&#34;_blank&#34;&gt;the International Conferences and Entertainment Center in Cracow&lt;/a&gt;.
+I attended a lot of great talks and a couple which weren’t so great, but the most important thing for me was that this event gave me an opportunity to talk with many interesting people and I benefited from this opportunity.&lt;/p&gt;
+
+&lt;p&gt;The most fascinating for me was being able to have a quick chat with
+&lt;a href=&#34;https://twitter.com/mhevery&#34; target=&#34;_blank&#34;&gt;Misko Hevery&lt;/a&gt;.
+Can you guess what his presentation was about? Of course&amp;hellip;it was
+&lt;a href=&#34;https://angular.io/&#34; target=&#34;_blank&#34;&gt;Angular 2&lt;/a&gt;.
+For me, his presentation was one of the best during this conference. He explained how powerful Angular 2 is and why. I met Misko at the speaker’s dinner organized by
+&lt;a href=&#34;http://www.metrosoft.com/&#34; target=&#34;_blank&#34;&gt;Metrosoft®&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;I started our conversation with the question: “when will Angular 3 come out?”. Misko smiled for a while and something to the effect of “it won&amp;rsquo;t”. I asked him “do you promise?”, and he said “yes I do”. So Dear Community, you can use Angular 2 and don&amp;rsquo;t worry about Angular 3 being released soon. Misko spoke during his speech about many different things related with Angular 2, which you can see in these
+&lt;a href=&#34;https://docs.google.com/presentation/d/1fRw9VP6LCy4Fl-uruATfLq2V9UY9JBjgQCZaeJlW0WQ/edit&#34; target=&#34;_blank&#34;&gt;slides&lt;/a&gt;.
+I asked him how many of them I can use today(23 June 2016) and he said everything. So Dear Community, it&amp;rsquo;s about time to jump into Angular 2 and take as much as you want from it has to offer.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://koscielniak.me/post/2016/06/me-and-misko.jpg&#34; alt=&#34;Misko and I&#34; title=&#34;Misko and I&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Another interesting conversation I had was with
+&lt;a href=&#34;https://twitter.com/saturnism&#34; target=&#34;_blank&#34;&gt;Ray Tsang&lt;/a&gt; after the speaker’s dinner.
+We talked about &lt;a href=&#34;http://kubernetes.io/&#34; target=&#34;_blank&#34;&gt;Kubernetes&lt;/a&gt;, the cloud, Google, and many others. It was a very nice talk set against the pleasant scenery of the Vistula river and it encouraged me to attend Ray’s presentation the next day titled: &lt;em&gt;Scaling with Kubernetes, Automatically! Learn Kubernetes API through writing a visualizer to an autoscaler&lt;/em&gt;. It was an amazing presentation with very few slides and a lot of real time action with Kubernetes. Honestly speaking, I got lost somewhere in the middle of his presentation but I was happy to attend and it was a pleasure watching how Ray executed one shell command after another and watching him act like a child with a brand new toy.&lt;/p&gt;
+
+&lt;p&gt;To sum up all the presentations: a lot of them were about microservices as many speakers at Devoxx Poland 2016 ended up focusing on this theme. There were presentations on how to: create microservices, monitor them, deploy them, configure a Continuous Delivery environment and other things more or less related to microservices.&lt;/p&gt;
+
+&lt;p&gt;I like Devoxx Poland because it gives me the opportunity to meet new people and talk with them about the things they couldn’t say on stage. Devoxx primarily focuses on dozens of lectures, but this year that wasn’t the most important part for me. I was focused on meeting new people and communicating with them and this goal was 100% fulfilled.&lt;/p&gt;
+
+&lt;p&gt;I want to thank
+&lt;a href=&#34;https://twitter.com/grzegorzduda&#34; target=&#34;_blank&#34;&gt;Grzegorz Duda&lt;/a&gt; and his team for another amazing Devoxx Poland. I hope that he will organise the next edition and I’ll be there next year. I also want to thank Metrosoft® for organizing one of the best parties I’ve ever been to. My goal for next year is to be at this party again.&lt;/p&gt;
+
+&lt;p&gt;For dessert, my conference beast was fed another event and you can read about it in this
+&lt;a href=&#34;http://koscielniak.me/post/2016/06/quality-excites-2016/&#34;&gt;post&lt;/a&gt;.&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>Using only the generator of Angular-CLI</title>
@@ -2098,319 +2189,6 @@ Uncheck the &lt;em&gt;Require source files to exactly match the original version
 
 
 
-</description>
-    </item>
-    
-    <item>
-      <title>How portable is ASP .NET Core 1.0?</title>
-      <link>http://koscielniak.me/post/2016/04/how-portable-is-asp-dot-net-core/</link>
-      <pubDate>Tue, 19 Apr 2016 22:00:00 +0200</pubDate>
-      
-      <guid>http://koscielniak.me/post/2016/04/how-portable-is-asp-dot-net-core/</guid>
-      <description>&lt;p&gt;&lt;a href=&#34;http://dajsiepoznac.pl&#34;&gt;&lt;img src=&#34;http://koscielniak.me/post/2016/03/contestLogo.png&#34; alt=&#34;Daj się poznać&#34; title=&#34;Daj się poznać&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;In the previous
-&lt;a href=&#34;http://koscielniak.me/post/2016/04/accesing-api-with-token-from-google-identity-provider/&#34;&gt;post&lt;/a&gt;,
-I wrote about accessing a protected API controller being
-authenticated with id tokens obtained from Google. I created my application on Windows in Visual Studio because I needed the helping hand of
-&lt;a href=&#34;https://www.jetbrains.com/decompiler/&#34; target=&#34;_blank&#34;&gt;dotPeek&lt;/a&gt; to see what was going on inside code that is not mine. In this post, I’ll write what happened when I ran this application on Ubuntu.&lt;/p&gt;
-
-&lt;p&gt;After I pulled my project from
-&lt;a href=&#34;https://github.com/pikoscielniak/notifier-auth-demo&#34; target=&#34;_blank&#34;&gt;github&lt;/a&gt;,
-I restored all packages using &lt;code&gt;dnu restore&lt;/code&gt; and I ran the application. The project compiled and ran without any trouble. I obtained a token from Google and I clicked the &lt;em&gt;Protected&lt;/em&gt; button and I saw this on the screen:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://koscielniak.me/post/2016/04/howPortable/errorAfterProtected.png&#34; alt=&#34;Error after Protected&#34; title=&#34;Error after Protected&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;I looked at the console where my app was running I saw the same error.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://koscielniak.me/post/2016/04/howPortable/couldNotLoadTypeAsymmetricSignatureProvider.png&#34; alt=&#34;Could not load type asymmetric signature provider&#34; title=&#34;Could not load type asymmetric signature provider&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;I thought that the tip on how to solve this problem was included in this line: &lt;code&gt;Could not load type &#39;System.IdentityModel.Tokens.AsymmetricSignatureProvider&#39;&lt;/code&gt;. I googled this error and I found this
-&lt;a href=&#34;https://github.com/AzureAD/azure-activedirectory-identitymodel-extensions-for-dotnet/issues/179&#34; target=&#34;_blank&#34;&gt;RSACryptoServiceProviderProxy crashes on&lt;/a&gt;.
-A quick look at this page gave me a clue that there are differences in the cryptography between &lt;em&gt;Mono&lt;/em&gt; and .Net on Windows. I am not going into details here, but what’s important is that at the time of writing this post, this issue was still ongoing. I tried a different version of package &lt;em&gt;Microsoft.AspNet.Authentication.JwtBearer&lt;/em&gt;, which was 1.0.0-beta8 but in this package extension method &lt;em&gt;UseJwtBearerAuthentication&lt;/em&gt; didn’t exist.&lt;/p&gt;
-
-&lt;p&gt;Okay, this was on Mono but what happened on coreclr? I switched my execution environment to coreclr using the command &lt;code&gt;dnvm upgrade -r coreclr&lt;/code&gt;. This command upgraded my coreclr version and set it as the default runtime version. &lt;code&gt;dnvm list&lt;/code&gt; gave me an output like this:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://koscielniak.me/post/2016/04/howPortable/dnvmListOutput.png&#34; alt=&#34;dnvm list ouput&#34; title=&#34;dnvm list ouput&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Then I ran the application and obtained a token from Google by clicking &lt;em&gt;Get Token&lt;/em&gt; and finally I clicked the &lt;em&gt;Protected&lt;/em&gt; button and I saw this:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://koscielniak.me/post/2016/04/howPortable/unableToLoadDllNcrypt.png&#34; alt=&#34;Unable to load dll Ncrypt&#34; title=&#34;Unable to load dll Ncrypt&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;This line: * &amp;lsquo;System.DllNotFoundException: Unable to load DLL &amp;lsquo;ncrypt.dll&amp;rsquo;* seemed to be the key part of this error for me, so I googled it. The first search result brought up this
-&lt;a href=&#34;https://github.com/AzureAD/azure-activedirectory-identitymodel-extensions-for-dotnet/issues/324&#34; target=&#34;_blank&#34;&gt;issue on github&lt;/a&gt;.
-This issue seemed to be resolved but it is added to &lt;em&gt;milestone:RC2&lt;/em&gt; so probably the next version will have this error fixed.&lt;/p&gt;
-
-&lt;p&gt;In conclusion, what does the portability of ASP .NET Core applications really look like? In the case of Windows, everything works perfectly. On Linux (Ubuntu) it didn’t work. You can read above about what exactly didn’t work. Yes, I could hack it and work around these errors, for example, by implementing my own &lt;em&gt;SignatureProviderFactory&lt;/em&gt;, but I am quite sure that the .Net Team will do this better than me in the near future. It’s only a matter of time for ASP .NET Core to work the same on all platforms. You can find out more about it
-&lt;a href=&#34;https://channel9.msdn.com/Events/Build/2016/B891&#34; target=&#34;_blank&#34;&gt;here&lt;/a&gt;,
-but for now it is still bleeding edge and bleeding edges hurt.&lt;/p&gt;
-
-&lt;p&gt;&lt;h3&gt;Related posts:&lt;/h3&gt;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-&lt;ul style=&#34;list-style: none;&#34;&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/02/enrolling-in-daj-sie-poznac/&#34;&gt;Enrolling in &#34;Daj się poznać&#34;&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/daj-sie-poznac-project-details/&#34;&gt;&#34;Daj się poznać&#34; - Project details&#34;&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/i-m-holding-a-project-rider-eap/&#34;&gt;I&#39;m holding a Project Rider EAP&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/installing-asp-dot-net-core-1-on-ubuntu-14/&#34;&gt;Installing ASP .NET Core 1 on Ubuntu 14.04&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/my-first-asp-net-core-1-web-application/&#34;&gt;My first ASP NET Core 1.0 web application&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/project-setup-server-side/&#34;&gt;Project setup - server-side&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/project-setup-client-side/&#34;&gt;Project setup - client-side&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/adding-styling-to-my-application/&#34;&gt;Adding styling to my application&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/angular2-confirm-dialog-component/&#34;&gt;Angular 2 Confirm Dialog Component&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/before-going-into-production/&#34;&gt;Before going into production&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/publishing-to-azure/&#34;&gt;Publishing to Azure&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/setting-up-the-web-client-for-google-identity-platform/&#34;&gt;Setting up the Web client for Google Identity Platform&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/oidc-token-manager-library-with-google-identity-platform-part-1/&#34;&gt;oidc-token-manager library with Google Identity Platform - Part 1&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/oidc-token-manager-library-with-google-identity-platform-part-2/&#34;&gt;oidc-token-manager library with Google Identity Platform - Part 2&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/accesing-api-with-token-from-google-identity-provider/&#34;&gt;Accessing API with token from Google Identity Provider&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/how-portable-is-asp-dot-net-core/&#34;&gt;How portable is ASP .NET Core 1.0?&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/when-dotpeek-can-save-your-live/&#34;&gt;When dotPeek can save your live&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/reading-code-as-if-it-were-a-book/&#34;&gt;Reading code as if it were a book&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/aps-dot-net-core-configuration/&#34;&gt;ASP .NET Core Configuration&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/getting-started-with-identity-server4/&#34;&gt;Getting started with IdentityServer4&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/identityserver-4-accessing-api/&#34;&gt;IdentityServer4 - accessing API&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/dealing-with-secrets-in-asp-net-core/&#34;&gt;Dealing with secrets in ASP .NET Core&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/google-identity-provider-with-identityserver4/&#34;&gt;Google Identity Provider with IdentityServer4&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/upgrading-to-angulr2-rc1/&#34;&gt;Upgrading to Angular2 RC1&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/experimenting-with-angular2-cli/&#34;&gt;Experimenting with Angular2 CLI&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/migrating-to-asp-net-core-rc2/&#34;&gt;Migrating to ASP .NET Core RC2&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/epilogue-daj-sie-poznac-series/&#34;&gt;Epilogue: Daj się poznać series&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-
-&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Accessing API with token from Google Identity Provider</title>
-      <link>http://koscielniak.me/post/2016/04/accesing-api-with-token-from-google-identity-provider/</link>
-      <pubDate>Thu, 14 Apr 2016 22:00:00 +0200</pubDate>
-      
-      <guid>http://koscielniak.me/post/2016/04/accesing-api-with-token-from-google-identity-provider/</guid>
-      <description>&lt;p&gt;&lt;a href=&#34;http://dajsiepoznac.pl&#34;&gt;&lt;img src=&#34;http://koscielniak.me/post/2016/03/contestLogo.png&#34; alt=&#34;Daj się poznać&#34; title=&#34;Daj się poznać&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;In previous
-&lt;a href=&#34;http://koscielniak.me/post/2016/04/oidc-token-manager-library-with-google-identity-platform-part-2/&#34;&gt;posts&lt;/a&gt;
-I wrote about getting id tokens and access tokens from Google Identity Provider. To do this I used the library
-&lt;a href=&#34;https://github.com/IdentityModel/oidc-token-manager&#34; target=&#34;_blank&#34;&gt;oidc-token-manager&lt;/a&gt;.
-You can read here and here how I prepared config for this library in order to have a working authentication of a user in Google Identity Provider. I stated that my solution isn’t perfect and actually I treated it as a temporary one. In this post, I’ll write about using tokens fetched from Google to access my sample API. Let’s see what I did and what results it brought.&lt;/p&gt;
-
-&lt;p&gt;For the purpose of my testing, I created another project which is in
-&lt;a href=&#34;https://github.com/pikoscielniak/notifier-auth-demo&#34; target=&#34;_blank&#34;&gt;this repository&lt;/a&gt;.
-This time the sample application that I used for this post was created on a Windows operating system because I needed some tools which I am very familiar with like:
-&lt;a href=&#34;https://www.visualstudio.com/pl-pl/products/visual-studio-community-vs.aspx&#34; target=&#34;_blank&#34;&gt;Visual Studio&lt;/a&gt;,
-&lt;a href=&#34;https://www.jetbrains.com/resharper/&#34; target=&#34;_blank&#34;&gt;ReSharper&lt;/a&gt; and
-&lt;a href=&#34;https://www.jetbrains.com/decompiler/&#34; target=&#34;_blank&#34;&gt;dotPeek&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;I started in Visual Studio with &lt;em&gt;File -&amp;gt; New -&amp;gt; Project…&lt;/em&gt;. I chose the template ASP .NET Web Application*. And then  among &lt;em&gt;ASP .NET 5 Templates&lt;/em&gt;, I selected the template &lt;em&gt;Web API&lt;/em&gt;.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://koscielniak.me/post/2016/04/bearerTokenToApi/newProject.png&#34; alt=&#34;New Project&#34; title=&#34;New Project&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;I copied all the files from my previous experiments to the folder &lt;em&gt;wwwroot&lt;/em&gt;.
-Next to the &lt;em&gt;ValuesController&lt;/em&gt; I created another API controller named &lt;em&gt;PublicValuesController&lt;/em&gt; with exactly the same content as the &lt;em&gt;ValuesController&lt;/em&gt;. I only changed the returned values to distinguish these controllers.  After this, the structure of my project looked like this:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://koscielniak.me/post/2016/04/bearerTokenToApi/projectTree.png&#34; alt=&#34;Project tree&#34; title=&#34;Project tree&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Next, I installed all the necessary nuget packages so the dependencies in &lt;em&gt;project.json&lt;/em&gt; looked like this:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt; &amp;quot;dependencies&amp;quot;: {
-    &amp;quot;Microsoft.AspNet.Authentication.JwtBearer&amp;quot;: &amp;quot;1.0.0-rc1-final&amp;quot;,
-    &amp;quot;Microsoft.AspNet.Diagnostics&amp;quot;: &amp;quot;1.0.0-rc1-final&amp;quot;,
-    &amp;quot;Microsoft.AspNet.IISPlatformHandler&amp;quot;: &amp;quot;1.0.0-rc1-final&amp;quot;,
-    &amp;quot;Microsoft.AspNet.Mvc&amp;quot;: &amp;quot;6.0.0-rc1-final&amp;quot;,
-    &amp;quot;Microsoft.AspNet.Server.Kestrel&amp;quot;: &amp;quot;1.0.0-rc1-final&amp;quot;,
-    &amp;quot;Microsoft.AspNet.StaticFiles&amp;quot;: &amp;quot;1.0.0-rc1-final&amp;quot;,
-    &amp;quot;Microsoft.Extensions.Configuration.FileProviderExtensions&amp;quot;: &amp;quot;1.0.0-rc1-final&amp;quot;,
-    &amp;quot;Microsoft.Extensions.Logging&amp;quot;: &amp;quot;1.0.0-rc1-final&amp;quot;,
-    &amp;quot;Microsoft.Extensions.Logging.Console&amp;quot;: &amp;quot;1.0.0-rc1-final&amp;quot;,
-    &amp;quot;Microsoft.Extensions.Logging.Debug&amp;quot;: &amp;quot;1.0.0-rc1-final&amp;quot;
-  },
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;In the &lt;em&gt;Startup&lt;/em&gt; class, the method &lt;em&gt;ConfigureServices&lt;/em&gt; looked like this:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;public void ConfigureServices(IServiceCollection services)
-{
-    // Add framework services.
-    services.AddAuthentication();
-    services.AddMvc();
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;And method &lt;em&gt;Configure&lt;/em&gt; looked like this:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
-{                        
-    loggerFactory.AddConsole(Configuration.GetSection(&amp;quot;Logging&amp;quot;));
-    loggerFactory.AddDebug();
-
-    if (env.IsEnvironment(&amp;quot;Development&amp;quot;))
-    {
-        app.UseDeveloperExceptionPage();
-    }
-
-    app.UseIISPlatformHandler();
-     
-    app.UseDefaultFiles();
-    app.UseStaticFiles();
-
-    var options = new JwtBearerOptions
-    {
-        Authority = &amp;quot;https://accounts.google.com&amp;quot;,
-        Audience = &amp;quot;342665198077-1fdticgpjke40gddj3r8vghltpgcvb5m.apps.googleusercontent.com&amp;quot;,
-        RequireHttpsMetadata = false,
-        AutomaticAuthenticate = true,
-        AutomaticChallenge = false,
-        TokenValidationParameters = new TokenValidationParameters
-        {
-            ValidIssuer = &amp;quot;accounts.google.com&amp;quot;
-        }
-    };
-
-    app.UseJwtBearerAuthentication(options);
-
-    app.UseMvc();
-}
-
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;I also granted access to &lt;em&gt;ValuesController&lt;/em&gt; only for authenticated user by adding attribute &lt;em&gt;Authorize&lt;/em&gt; on the class &lt;em&gt;ValuesController&lt;/em&gt;:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;[Route(&amp;quot;api/[controller]&amp;quot;)]
-[Authorize]
-public class ValuesController : Controller
-{
-///....
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;If you want, you can protect all controllers with the configuration in &lt;em&gt;ConfigureServices&lt;/em&gt; like this:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;public void ConfigureServices(IServiceCollection services)
-{
-    // Add framework services.
-    services.AddAuthentication();
-    services.AddMvc(config =&amp;gt;
-    {
-        var policy = new AuthorizationPolicyBuilder()
-            .RequireAuthenticatedUser()
-            .Build();
-        config.Filters.Add(new AuthorizeFilter(policy));
-    });
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;And then add the attribute &lt;em&gt;AllowAnonymous&lt;/em&gt; on these controllers or methods which are accessible for unauthenticated users.&lt;br /&gt;
-In my sample project, it didn’t matter because I had only two controllers.&lt;/p&gt;
-
-&lt;p&gt;Having the setup ready meant I could get access to protected resources with the Google id token which I got using the library
-&lt;a href=&#34;https://github.com/IdentityModel/oidc-token-manager&#34; target=&#34;_blank&#34;&gt;oidc-token-manager&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;After obtaining the token from Google by clicking &lt;em&gt;Get Token&lt;/em&gt; and then clicking &lt;em&gt;Protected&lt;/em&gt;, I got following response:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://koscielniak.me/post/2016/04/bearerTokenToApi/protectedValues.png&#34; alt=&#34;Protected values&#34; title=&#34;Protected values&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;When I clicked &lt;em&gt;Protected without token&lt;/em&gt; I got a response like this:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://koscielniak.me/post/2016/04/bearerTokenToApi/notAuthorized.png&#34; alt=&#34;Not authorized&#34; title=&#34;Not authorized&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Through this sample application, I reached a conclusion. Yes, I know that I made a lot of assumptions which were not true, and I created a lot of simplifications for the purpose of testing but anyway I can get a protected resource with Google tokens fetched by the library &lt;em&gt;oidc-token-manager&lt;/em&gt;, which was my goal. My solution is absolutely unready to be used in production because of the token validation. I hardcoded a certificate to validate the token and this is not acceptable because these certificates change quite frequently. To validate tokens through a certificate fetched dynamically, requires me to change the library &lt;em&gt;oidc-token-manager&lt;/em&gt;. I don’t want to do this until I attempt other options.&lt;/p&gt;
-
-&lt;p&gt;As I mentioned before, I used Visual Studio to create this sample application. I had to debug the 3rd party code a bit to finally get a configuration that works. Now that I have a working application, I can try it in another environment. Let’s see what’s happen when I run this project on Ubuntu. Will ASP .NET CORE turn out to be as portable as people say?
-Please check out my
-&lt;a href=&#34;http://koscielniak.me/post/2016/04/how-portable-is-asp-dot-net-core/&#34;&gt;next post&lt;/a&gt;
-to find what happens when this app is run on Linux.&lt;/p&gt;
-
-&lt;p&gt;&lt;h3&gt;Related posts:&lt;/h3&gt;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-&lt;ul style=&#34;list-style: none;&#34;&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/02/enrolling-in-daj-sie-poznac/&#34;&gt;Enrolling in &#34;Daj się poznać&#34;&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/daj-sie-poznac-project-details/&#34;&gt;&#34;Daj się poznać&#34; - Project details&#34;&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/i-m-holding-a-project-rider-eap/&#34;&gt;I&#39;m holding a Project Rider EAP&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/installing-asp-dot-net-core-1-on-ubuntu-14/&#34;&gt;Installing ASP .NET Core 1 on Ubuntu 14.04&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/my-first-asp-net-core-1-web-application/&#34;&gt;My first ASP NET Core 1.0 web application&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/project-setup-server-side/&#34;&gt;Project setup - server-side&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/project-setup-client-side/&#34;&gt;Project setup - client-side&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/adding-styling-to-my-application/&#34;&gt;Adding styling to my application&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/angular2-confirm-dialog-component/&#34;&gt;Angular 2 Confirm Dialog Component&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/before-going-into-production/&#34;&gt;Before going into production&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/publishing-to-azure/&#34;&gt;Publishing to Azure&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/setting-up-the-web-client-for-google-identity-platform/&#34;&gt;Setting up the Web client for Google Identity Platform&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/oidc-token-manager-library-with-google-identity-platform-part-1/&#34;&gt;oidc-token-manager library with Google Identity Platform - Part 1&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/oidc-token-manager-library-with-google-identity-platform-part-2/&#34;&gt;oidc-token-manager library with Google Identity Platform - Part 2&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/accesing-api-with-token-from-google-identity-provider/&#34;&gt;Accessing API with token from Google Identity Provider&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/how-portable-is-asp-dot-net-core/&#34;&gt;How portable is ASP .NET Core 1.0?&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/when-dotpeek-can-save-your-live/&#34;&gt;When dotPeek can save your live&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/reading-code-as-if-it-were-a-book/&#34;&gt;Reading code as if it were a book&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/aps-dot-net-core-configuration/&#34;&gt;ASP .NET Core Configuration&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/getting-started-with-identity-server4/&#34;&gt;Getting started with IdentityServer4&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/identityserver-4-accessing-api/&#34;&gt;IdentityServer4 - accessing API&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/dealing-with-secrets-in-asp-net-core/&#34;&gt;Dealing with secrets in ASP .NET Core&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/google-identity-provider-with-identityserver4/&#34;&gt;Google Identity Provider with IdentityServer4&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/upgrading-to-angulr2-rc1/&#34;&gt;Upgrading to Angular2 RC1&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/experimenting-with-angular2-cli/&#34;&gt;Experimenting with Angular2 CLI&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/migrating-to-asp-net-core-rc2/&#34;&gt;Migrating to ASP .NET Core RC2&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/epilogue-daj-sie-poznac-series/&#34;&gt;Epilogue: Daj się poznać series&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-
-&lt;/p&gt;
 </description>
     </item>
     

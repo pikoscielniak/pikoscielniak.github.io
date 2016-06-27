@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Quality Excites on Piotr Kościelniak - passionate programmer</title>
+    <link>http://koscielniak.me/tags/quality-excites/</link>
+    <description>Recent content in Quality Excites on Piotr Kościelniak - passionate programmer</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 28 Jun 2016 00:00:15 +0200</lastBuildDate>
+    <atom:link href="http://koscielniak.me/tags/quality-excites/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Quality Excites 2016</title>
+      <link>http://koscielniak.me/post/2016/06/quality-excites-2016/</link>
+      <pubDate>Tue, 28 Jun 2016 00:00:15 +0200</pubDate>
+      
+      <guid>http://koscielniak.me/post/2016/06/quality-excites-2016/</guid>
+      <description>&lt;p&gt;The Quality Excites conference organized by the passionate
+&lt;a href=&#34;https://qualityexcites.pl/organizers&#34; target=&#34;_blank&#34;&gt;team&lt;/a&gt; recently had its 5th edition. For me, this conference was exceptional because there were a lot of workshops and lectures, many of which were dedicated to testing. The speakers practice what they preach and everything related to the conference was high quality, as this is what excites the organizers and the invitees.&lt;/p&gt;
+
+&lt;p&gt;That is why &lt;a href=&#34;https://qualityexcites.pl&#34; target=&#34;_blank&#34;&gt;Quality Excites&lt;/a&gt; remains one of my most anticipated yearly events, and every year since 2014, I’ve had the simultaneous fear and thrill of securing tickets. Fortunately, I was invited for the third time in a row.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://koscielniak.me/post/2016/06/qe-cake.png&#34; alt=&#34;5th edition Quality Excites - celebration cake&#34; title=&#34;5th edition Quality Excites - celebration cake&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://twitter.com/GGalezowski&#34; target=&#34;_blank&#34;&gt;Grzegorz Gałęzowski&lt;/a&gt; was also invited as a speaker for the 3rd time in a row and this year his opening speech was titled &lt;em&gt;GIMMEH TDD! - O RLY?&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://koscielniak.me/post/2016/06/qe-grzegorz.png&#34; alt=&#34;Grzegorz Gałęzowski - GIMMEH TDD! - O RLY?&#34; title=&#34;Grzegorz Gałęzowski - GIMMEH TDD! - O RLY?&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;He talked about his experiences with introducing TDD to teams but what he presented could easily be applied to many other new things which someone may introduce to their team. For me, talks given by Grzegorz are very interesting because they are concise and his presentation style is logical. I’m always impressed by his ability to weave words together, and each thought connects with the previous one and comes from his real life observations, eventually leading to a clear conclusion. You can see Grzegorz’s presentation from the previous Quality Excites conference
+&lt;a href=&#34;https://www.youtube.com/watch?v=yNyMrjMawUY&#34; target=&#34;_blank&#34;&gt;here&lt;/a&gt; to see what I mean.&lt;/p&gt;
+
+&lt;p&gt;After the opening session, I attended the workshop given by Bartłomiej Michalski and Łukasz Januszek. Workshops are my style and I think the workshops are what make Quality Excites so exceptional among other conferences. They are given for free of charge and are hosted by very passionate people who have great practical knowledge in their field. Additionally, the workshops presenters I spoke with, were all employees of Future Processing. This year, I attended the workshop &lt;em&gt;How to make work more profitable?&lt;/em&gt;. The workshop used an analogy that compared creating processes in a company to creating rules for board games and used this analogy to explain many different roles which people in a team can have and how they influence each other and the situation in the team.&lt;/p&gt;
+
+&lt;p&gt;This workshop was insightful and opened my mind to new ideas, it’s given me a lot to think about.
+It may be some time before I can use everything I’ve learned in real situations, but I may be able to use one takeaway from this workshop sooner rather than later: being able to discuss unpleasant things with my team as soon as possible.&lt;/p&gt;
+
+&lt;p&gt;After the workshop and lunch break, I watched three lectures &lt;em&gt;Testing the Internet of things&lt;/em&gt; by Tomasz Janiszewski and Dawid Pacia and then &lt;em&gt;Star Trek: BDD Enterprise&lt;/em&gt; by Tomasz Dubikowski. Both of these lectures were very well-prepared and well-presented but currently I don’t have opportunities to use what I learned.&lt;/p&gt;
+
+&lt;p&gt;The third lecturer which I attended in the afternoon block was given by
+&lt;a href=&#34;https://twitter.com/j_palka&#34; target=&#34;_blank&#34;&gt;Jarosław Pałk&lt;/a&gt;.
+I really like this speaker because of his sense of humor, profound knowledge and the way he talks about very serious and sometimes sad things.&lt;/p&gt;
+
+&lt;p&gt;The most important part of Jarosław’s speech were sentences like what I’m about to translate. I&amp;rsquo;m paraphrasing from Polish to English, but he said something along the lines of: &lt;em&gt;Developers have benefits, and between these benefits, they create products/services for clients.&lt;/em&gt;&lt;br /&gt;
+By benefits, he meant table football, billiards, ping pong, etc. In his speech, he had a couple of &lt;em&gt;the whole truth about the word&lt;/em&gt; sentences and that’s why I like his talks. I can’t wait to see Jarek at
+&lt;a href=&#34;http://bbq4.it/&#34; target=&#34;_blank&#34;&gt;bbq4.it&lt;/a&gt; in September.&lt;/p&gt;
+
+&lt;p&gt;After the last talk there was an after-party held in the Future Processing base where we were treated to a cake to celebrate the 5th staging of Quality Excites.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://koscielniak.me/post/2016/06/qe-cake-with-organizers.png&#34; alt=&#34;5th edition Quality Excites - celebration cake and organizers&#34; title=&#34;5th edition Quality Excites - celebration cake and organizers&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;I think it was a well-deserved occasion to celebrate. Quality Excites provides a lot of opportunities to learn new things for free and I would like to thank the organizers for this and I would like to wish all the organisers and participations the best.&lt;/p&gt;
+
+&lt;p&gt;With the workshops and lectures held during this conference, they inspired a lot of people including myself. You can see what it means for quality to excite, while attending this conference. It was my third time at Quality Excites and my third time seeing that the organizers believe in quality and provide it in every lecture and workshop. I hope the Quality Excites team keeps going and I hope to see them for the 4th time next year.&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

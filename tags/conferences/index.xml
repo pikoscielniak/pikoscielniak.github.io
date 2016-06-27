@@ -6,8 +6,99 @@
     <description>Recent content in Conferences on Piotr Kościelniak - passionate programmer</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 14 Mar 2016 22:00:00 +0100</lastBuildDate>
+    <lastBuildDate>Tue, 28 Jun 2016 00:00:15 +0200</lastBuildDate>
     <atom:link href="http://koscielniak.me/tags/conferences/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Quality Excites 2016</title>
+      <link>http://koscielniak.me/post/2016/06/quality-excites-2016/</link>
+      <pubDate>Tue, 28 Jun 2016 00:00:15 +0200</pubDate>
+      
+      <guid>http://koscielniak.me/post/2016/06/quality-excites-2016/</guid>
+      <description>&lt;p&gt;The Quality Excites conference organized by the passionate
+&lt;a href=&#34;https://qualityexcites.pl/organizers&#34; target=&#34;_blank&#34;&gt;team&lt;/a&gt; recently had its 5th edition. For me, this conference was exceptional because there were a lot of workshops and lectures, many of which were dedicated to testing. The speakers practice what they preach and everything related to the conference was high quality, as this is what excites the organizers and the invitees.&lt;/p&gt;
+
+&lt;p&gt;That is why &lt;a href=&#34;https://qualityexcites.pl&#34; target=&#34;_blank&#34;&gt;Quality Excites&lt;/a&gt; remains one of my most anticipated yearly events, and every year since 2014, I’ve had the simultaneous fear and thrill of securing tickets. Fortunately, I was invited for the third time in a row.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://koscielniak.me/post/2016/06/qe-cake.png&#34; alt=&#34;5th edition Quality Excites - celebration cake&#34; title=&#34;5th edition Quality Excites - celebration cake&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://twitter.com/GGalezowski&#34; target=&#34;_blank&#34;&gt;Grzegorz Gałęzowski&lt;/a&gt; was also invited as a speaker for the 3rd time in a row and this year his opening speech was titled &lt;em&gt;GIMMEH TDD! - O RLY?&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://koscielniak.me/post/2016/06/qe-grzegorz.png&#34; alt=&#34;Grzegorz Gałęzowski - GIMMEH TDD! - O RLY?&#34; title=&#34;Grzegorz Gałęzowski - GIMMEH TDD! - O RLY?&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;He talked about his experiences with introducing TDD to teams but what he presented could easily be applied to many other new things which someone may introduce to their team. For me, talks given by Grzegorz are very interesting because they are concise and his presentation style is logical. I’m always impressed by his ability to weave words together, and each thought connects with the previous one and comes from his real life observations, eventually leading to a clear conclusion. You can see Grzegorz’s presentation from the previous Quality Excites conference
+&lt;a href=&#34;https://www.youtube.com/watch?v=yNyMrjMawUY&#34; target=&#34;_blank&#34;&gt;here&lt;/a&gt; to see what I mean.&lt;/p&gt;
+
+&lt;p&gt;After the opening session, I attended the workshop given by Bartłomiej Michalski and Łukasz Januszek. Workshops are my style and I think the workshops are what make Quality Excites so exceptional among other conferences. They are given for free of charge and are hosted by very passionate people who have great practical knowledge in their field. Additionally, the workshops presenters I spoke with, were all employees of Future Processing. This year, I attended the workshop &lt;em&gt;How to make work more profitable?&lt;/em&gt;. The workshop used an analogy that compared creating processes in a company to creating rules for board games and used this analogy to explain many different roles which people in a team can have and how they influence each other and the situation in the team.&lt;/p&gt;
+
+&lt;p&gt;This workshop was insightful and opened my mind to new ideas, it’s given me a lot to think about.
+It may be some time before I can use everything I’ve learned in real situations, but I may be able to use one takeaway from this workshop sooner rather than later: being able to discuss unpleasant things with my team as soon as possible.&lt;/p&gt;
+
+&lt;p&gt;After the workshop and lunch break, I watched three lectures &lt;em&gt;Testing the Internet of things&lt;/em&gt; by Tomasz Janiszewski and Dawid Pacia and then &lt;em&gt;Star Trek: BDD Enterprise&lt;/em&gt; by Tomasz Dubikowski. Both of these lectures were very well-prepared and well-presented but currently I don’t have opportunities to use what I learned.&lt;/p&gt;
+
+&lt;p&gt;The third lecturer which I attended in the afternoon block was given by
+&lt;a href=&#34;https://twitter.com/j_palka&#34; target=&#34;_blank&#34;&gt;Jarosław Pałk&lt;/a&gt;.
+I really like this speaker because of his sense of humor, profound knowledge and the way he talks about very serious and sometimes sad things.&lt;/p&gt;
+
+&lt;p&gt;The most important part of Jarosław’s speech were sentences like what I’m about to translate. I&amp;rsquo;m paraphrasing from Polish to English, but he said something along the lines of: &lt;em&gt;Developers have benefits, and between these benefits, they create products/services for clients.&lt;/em&gt;&lt;br /&gt;
+By benefits, he meant table football, billiards, ping pong, etc. In his speech, he had a couple of &lt;em&gt;the whole truth about the word&lt;/em&gt; sentences and that’s why I like his talks. I can’t wait to see Jarek at
+&lt;a href=&#34;http://bbq4.it/&#34; target=&#34;_blank&#34;&gt;bbq4.it&lt;/a&gt; in September.&lt;/p&gt;
+
+&lt;p&gt;After the last talk there was an after-party held in the Future Processing base where we were treated to a cake to celebrate the 5th staging of Quality Excites.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://koscielniak.me/post/2016/06/qe-cake-with-organizers.png&#34; alt=&#34;5th edition Quality Excites - celebration cake and organizers&#34; title=&#34;5th edition Quality Excites - celebration cake and organizers&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;I think it was a well-deserved occasion to celebrate. Quality Excites provides a lot of opportunities to learn new things for free and I would like to thank the organizers for this and I would like to wish all the organisers and participations the best.&lt;/p&gt;
+
+&lt;p&gt;With the workshops and lectures held during this conference, they inspired a lot of people including myself. You can see what it means for quality to excite, while attending this conference. It was my third time at Quality Excites and my third time seeing that the organizers believe in quality and provide it in every lecture and workshop. I hope the Quality Excites team keeps going and I hope to see them for the 4th time next year.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Devoxx 2016</title>
+      <link>http://koscielniak.me/post/2016/06/devoxx-2016/</link>
+      <pubDate>Mon, 27 Jun 2016 23:43:59 +0200</pubDate>
+      
+      <guid>http://koscielniak.me/post/2016/06/devoxx-2016/</guid>
+      <description>&lt;p&gt;The conference beast living inside of me has awoken again but this time it was very hungry and I ended up having to feed it for 4 days. I spent the first 3 days at
+&lt;a href=&#34;http://devoxx.pl/&#34; target=&#34;_blank&#34;&gt;the Devoxx Poland&lt;/a&gt; conference which ran from June 22nd to 25th.
+It is one of the biggest conferences in Poland and this was the second staging. There were 2500 participants and 100 speakers at this edition, and among the speakers, was one of my work mates
+&lt;a href=&#34;http://www.benedykt.net/&#34; target=&#34;_blank&#34;&gt;Arkadiusz Benedykt&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://koscielniak.me/post/2016/06/me-and-team.jpg&#34; alt=&#34;Me and my work mates at Devoxx Poland, after Arek’s speech&#34; title=&#34;Me and my work mates at Devoxx Poland, after Arek’s speech&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;The event was held at
+&lt;a href=&#34;https://pl.wikipedia.org/wiki/Centrum_Kongresowe_ICE_Krak%C3%B3w&#34; target=&#34;_blank&#34;&gt;the International Conferences and Entertainment Center in Cracow&lt;/a&gt;.
+I attended a lot of great talks and a couple which weren’t so great, but the most important thing for me was that this event gave me an opportunity to talk with many interesting people and I benefited from this opportunity.&lt;/p&gt;
+
+&lt;p&gt;The most fascinating for me was being able to have a quick chat with
+&lt;a href=&#34;https://twitter.com/mhevery&#34; target=&#34;_blank&#34;&gt;Misko Hevery&lt;/a&gt;.
+Can you guess what his presentation was about? Of course&amp;hellip;it was
+&lt;a href=&#34;https://angular.io/&#34; target=&#34;_blank&#34;&gt;Angular 2&lt;/a&gt;.
+For me, his presentation was one of the best during this conference. He explained how powerful Angular 2 is and why. I met Misko at the speaker’s dinner organized by
+&lt;a href=&#34;http://www.metrosoft.com/&#34; target=&#34;_blank&#34;&gt;Metrosoft®&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;I started our conversation with the question: “when will Angular 3 come out?”. Misko smiled for a while and something to the effect of “it won&amp;rsquo;t”. I asked him “do you promise?”, and he said “yes I do”. So Dear Community, you can use Angular 2 and don&amp;rsquo;t worry about Angular 3 being released soon. Misko spoke during his speech about many different things related with Angular 2, which you can see in these
+&lt;a href=&#34;https://docs.google.com/presentation/d/1fRw9VP6LCy4Fl-uruATfLq2V9UY9JBjgQCZaeJlW0WQ/edit&#34; target=&#34;_blank&#34;&gt;slides&lt;/a&gt;.
+I asked him how many of them I can use today(23 June 2016) and he said everything. So Dear Community, it&amp;rsquo;s about time to jump into Angular 2 and take as much as you want from it has to offer.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://koscielniak.me/post/2016/06/me-and-misko.jpg&#34; alt=&#34;Misko and I&#34; title=&#34;Misko and I&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Another interesting conversation I had was with
+&lt;a href=&#34;https://twitter.com/saturnism&#34; target=&#34;_blank&#34;&gt;Ray Tsang&lt;/a&gt; after the speaker’s dinner.
+We talked about &lt;a href=&#34;http://kubernetes.io/&#34; target=&#34;_blank&#34;&gt;Kubernetes&lt;/a&gt;, the cloud, Google, and many others. It was a very nice talk set against the pleasant scenery of the Vistula river and it encouraged me to attend Ray’s presentation the next day titled: &lt;em&gt;Scaling with Kubernetes, Automatically! Learn Kubernetes API through writing a visualizer to an autoscaler&lt;/em&gt;. It was an amazing presentation with very few slides and a lot of real time action with Kubernetes. Honestly speaking, I got lost somewhere in the middle of his presentation but I was happy to attend and it was a pleasure watching how Ray executed one shell command after another and watching him act like a child with a brand new toy.&lt;/p&gt;
+
+&lt;p&gt;To sum up all the presentations: a lot of them were about microservices as many speakers at Devoxx Poland 2016 ended up focusing on this theme. There were presentations on how to: create microservices, monitor them, deploy them, configure a Continuous Delivery environment and other things more or less related to microservices.&lt;/p&gt;
+
+&lt;p&gt;I like Devoxx Poland because it gives me the opportunity to meet new people and talk with them about the things they couldn’t say on stage. Devoxx primarily focuses on dozens of lectures, but this year that wasn’t the most important part for me. I was focused on meeting new people and communicating with them and this goal was 100% fulfilled.&lt;/p&gt;
+
+&lt;p&gt;I want to thank
+&lt;a href=&#34;https://twitter.com/grzegorzduda&#34; target=&#34;_blank&#34;&gt;Grzegorz Duda&lt;/a&gt; and his team for another amazing Devoxx Poland. I hope that he will organise the next edition and I’ll be there next year. I also want to thank Metrosoft® for organizing one of the best parties I’ve ever been to. My goal for next year is to be at this party again.&lt;/p&gt;
+
+&lt;p&gt;For dessert, my conference beast was fed another event and you can read about it in this
+&lt;a href=&#34;http://koscielniak.me/post/2016/06/quality-excites-2016/&#34;&gt;post&lt;/a&gt;.&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>Wroc# 2016 - knowledge, networking and Objectivity office tour!</title>

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Devoxx on Piotr Kościelniak - passionate programmer</title>
+    <link>http://koscielniak.me/tags/devoxx/</link>
+    <description>Recent content in Devoxx on Piotr Kościelniak - passionate programmer</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 27 Jun 2016 23:43:59 +0200</lastBuildDate>
+    <atom:link href="http://koscielniak.me/tags/devoxx/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Devoxx 2016</title>
+      <link>http://koscielniak.me/post/2016/06/devoxx-2016/</link>
+      <pubDate>Mon, 27 Jun 2016 23:43:59 +0200</pubDate>
+      
+      <guid>http://koscielniak.me/post/2016/06/devoxx-2016/</guid>
+      <description>&lt;p&gt;The conference beast living inside of me has awoken again but this time it was very hungry and I ended up having to feed it for 4 days. I spent the first 3 days at
+&lt;a href=&#34;http://devoxx.pl/&#34; target=&#34;_blank&#34;&gt;the Devoxx Poland&lt;/a&gt; conference which ran from June 22nd to 25th.
+It is one of the biggest conferences in Poland and this was the second staging. There were 2500 participants and 100 speakers at this edition, and among the speakers, was one of my work mates
+&lt;a href=&#34;http://www.benedykt.net/&#34; target=&#34;_blank&#34;&gt;Arkadiusz Benedykt&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://koscielniak.me/post/2016/06/me-and-team.jpg&#34; alt=&#34;Me and my work mates at Devoxx Poland, after Arek’s speech&#34; title=&#34;Me and my work mates at Devoxx Poland, after Arek’s speech&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;The event was held at
+&lt;a href=&#34;https://pl.wikipedia.org/wiki/Centrum_Kongresowe_ICE_Krak%C3%B3w&#34; target=&#34;_blank&#34;&gt;the International Conferences and Entertainment Center in Cracow&lt;/a&gt;.
+I attended a lot of great talks and a couple which weren’t so great, but the most important thing for me was that this event gave me an opportunity to talk with many interesting people and I benefited from this opportunity.&lt;/p&gt;
+
+&lt;p&gt;The most fascinating for me was being able to have a quick chat with
+&lt;a href=&#34;https://twitter.com/mhevery&#34; target=&#34;_blank&#34;&gt;Misko Hevery&lt;/a&gt;.
+Can you guess what his presentation was about? Of course&amp;hellip;it was
+&lt;a href=&#34;https://angular.io/&#34; target=&#34;_blank&#34;&gt;Angular 2&lt;/a&gt;.
+For me, his presentation was one of the best during this conference. He explained how powerful Angular 2 is and why. I met Misko at the speaker’s dinner organized by
+&lt;a href=&#34;http://www.metrosoft.com/&#34; target=&#34;_blank&#34;&gt;Metrosoft®&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;I started our conversation with the question: “when will Angular 3 come out?”. Misko smiled for a while and something to the effect of “it won&amp;rsquo;t”. I asked him “do you promise?”, and he said “yes I do”. So Dear Community, you can use Angular 2 and don&amp;rsquo;t worry about Angular 3 being released soon. Misko spoke during his speech about many different things related with Angular 2, which you can see in these
+&lt;a href=&#34;https://docs.google.com/presentation/d/1fRw9VP6LCy4Fl-uruATfLq2V9UY9JBjgQCZaeJlW0WQ/edit&#34; target=&#34;_blank&#34;&gt;slides&lt;/a&gt;.
+I asked him how many of them I can use today(23 June 2016) and he said everything. So Dear Community, it&amp;rsquo;s about time to jump into Angular 2 and take as much as you want from it has to offer.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://koscielniak.me/post/2016/06/me-and-misko.jpg&#34; alt=&#34;Misko and I&#34; title=&#34;Misko and I&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Another interesting conversation I had was with
+&lt;a href=&#34;https://twitter.com/saturnism&#34; target=&#34;_blank&#34;&gt;Ray Tsang&lt;/a&gt; after the speaker’s dinner.
+We talked about &lt;a href=&#34;http://kubernetes.io/&#34; target=&#34;_blank&#34;&gt;Kubernetes&lt;/a&gt;, the cloud, Google, and many others. It was a very nice talk set against the pleasant scenery of the Vistula river and it encouraged me to attend Ray’s presentation the next day titled: &lt;em&gt;Scaling with Kubernetes, Automatically! Learn Kubernetes API through writing a visualizer to an autoscaler&lt;/em&gt;. It was an amazing presentation with very few slides and a lot of real time action with Kubernetes. Honestly speaking, I got lost somewhere in the middle of his presentation but I was happy to attend and it was a pleasure watching how Ray executed one shell command after another and watching him act like a child with a brand new toy.&lt;/p&gt;
+
+&lt;p&gt;To sum up all the presentations: a lot of them were about microservices as many speakers at Devoxx Poland 2016 ended up focusing on this theme. There were presentations on how to: create microservices, monitor them, deploy them, configure a Continuous Delivery environment and other things more or less related to microservices.&lt;/p&gt;
+
+&lt;p&gt;I like Devoxx Poland because it gives me the opportunity to meet new people and talk with them about the things they couldn’t say on stage. Devoxx primarily focuses on dozens of lectures, but this year that wasn’t the most important part for me. I was focused on meeting new people and communicating with them and this goal was 100% fulfilled.&lt;/p&gt;
+
+&lt;p&gt;I want to thank
+&lt;a href=&#34;https://twitter.com/grzegorzduda&#34; target=&#34;_blank&#34;&gt;Grzegorz Duda&lt;/a&gt; and his team for another amazing Devoxx Poland. I hope that he will organise the next edition and I’ll be there next year. I also want to thank Metrosoft® for organizing one of the best parties I’ve ever been to. My goal for next year is to be at this party again.&lt;/p&gt;
+
+&lt;p&gt;For dessert, my conference beast was fed another event and you can read about it in this
+&lt;a href=&#34;http://koscielniak.me/post/2016/06/quality-excites-2016/&#34;&gt;post&lt;/a&gt;.&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>
