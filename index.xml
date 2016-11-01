@@ -2,12 +2,76 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Piotr Kościelniak - passionate programmer</title>
-    <link>http://koscielniak.me/</link>
+    <link>http://koscielniak.me/index.xml</link>
     <description>Recent content on Piotr Kościelniak - passionate programmer</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 20 Sep 2016 23:10:03 +0200</lastBuildDate>
+    <copyright>Piotr Kościelniak. Powered by [Hugo](http://gohugo.io).</copyright>
+    <lastBuildDate>Tue, 01 Nov 2016 23:00:00 +0100</lastBuildDate>
     <atom:link href="http://koscielniak.me/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>I made my first Chrome extension and lived to tell the tale</title>
+      <link>http://koscielniak.me/post/2016/11/i-made-my-first-chrome-extension-and-lived-to-tell-the-tale/</link>
+      <pubDate>Tue, 01 Nov 2016 23:00:00 +0100</pubDate>
+      
+      <guid>http://koscielniak.me/post/2016/11/i-made-my-first-chrome-extension-and-lived-to-tell-the-tale/</guid>
+      <description>&lt;p&gt;This story began this year during the summer. I bought myself a guitar in order to remind myself of a few guitar riffs. After a several weeks of looking at this guitar, I finally started to play it. I always wanted to learn a couple of Brian Setzer’s riffs, so I typed &lt;em&gt;Brian Setzer riffs&lt;/em&gt; in the YouTube search bar and I found what I was looking for. But these guys played so fast that I couldn’t keep up with them. Luckily, the YouTube video player has an option to slow down a video but it is rather poor.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://koscielniak.me/post/2016/11/playbackrateoptions.png&#34; alt=&#34;YouTube playback rate options&#34; title=&#34;YouTube playback rate options&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;As you can see, you can only slow it down to 50%. (Slowing it down to 25% causes the sound to mute). So what did I do? I opened Chrome DevTools and I found the video element on the page.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://koscielniak.me/post/2016/11/devtools.png&#34; alt=&#34;Chrome DevTools and the video tag&#34; title=&#34;Chrome DevTools and the video tag&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;When you click on this tag, you get access to it in the console under the &lt;code&gt;$0&lt;/code&gt;. And then you can slow down the video to speed whatever you want. For example to 0.6.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://koscielniak.me/post/2016/11/consoleplaybackrate.png&#34; alt=&#34;The playback rate set in the console&#34; title=&#34;The playback rate set in the console&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;After practicing for a short while, I was completely exhausted not by playing the guitar, but because I kept rewinding to the place in the video where I wanted to start practicing from. The player always rewound too far back. My first thought was: “I have access to the video tag. I can quickly write a function in the console to loop the fragment of the song which I want to practice”. After a while, I typed this in the browser console:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;var video = $0
+var start = 0
+var stop = 3
+
+
+video.addEventListener(&#39;timeupdate&#39;,() =&amp;gt;  {
+   if (video.currentTime &amp;gt; stop ) {
+       video.currentTime = start;
+   }
+});
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Now I could simply manipulate start and stop variables to loop the exact fragment of the song that I wanted.&lt;/p&gt;
+
+&lt;p&gt;But, what came next? I thought for sure someone had written an extension for Chrome which did what I had just done. And of course I was right. I tried one and it turned out to be complete rubbish&amp;hellip;it even didn’t start. I tried another one but it required too much mouse clicking to do what I wanted, so I decided to write my own.&lt;/p&gt;
+
+&lt;p&gt;I started on &lt;a href=&#34;https://developer.chrome.com/extensions/getstarted&#34;&gt;this page&lt;/a&gt; where I found resources for further exploration. After two hours, I had the first version of my Chrome extension with a keyboard interface. Different keys control different functions, for example: one key sets a point A and another sets a point B anywhere in the song, another key sets point A to the beginning of the song and point B to the end of the song, while other keys allow you to slow down and speed up a song. The next day I added the ability to turn this plugin on and off and some labels which appear on YouTube videos to show values for point A, B and also for the current playback rate.&lt;/p&gt;
+
+&lt;p&gt;It was a fun experience to playing around with Chrome extension. The most frustrating thing was discovering how to refresh and debug this extension because extensions have content scripts and background scripts and they are debugged in two separate DevTools windows. There is a shortcut to refreshing an extension &lt;em&gt;CTRL+R&lt;/em&gt; but sometimes you can press it in the wrong window. The safe option is to refresh the extension on this page chrome://extensions/ and click &lt;em&gt;Reload&lt;/em&gt;. In this place, you can also get some errors which may appear while your extension is loading. For example, unavailable file.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://koscielniak.me/post/2016/11/reload.png&#34; alt=&#34;Where reload the extension&#34; title=&#34;Where reload the extension&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;My extension adds this little icon at the top of the browser. Which turns the extension on and off.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://koscielniak.me/post/2016/11/icon.png&#34; alt=&#34;The extensions icon&#34; title=&#34;The extensions icon&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;When it is on, you can see some labels at the top of video which shows the current value for point A, B and the playback rate.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://koscielniak.me/post/2016/11/labels.png&#34; alt=&#34;The labels&#34; title=&#34;The labels&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;This extension only has a keyboard interface with specific keys which control the functions. The Q,W,E keys are used to control point A; the A,S,D keys are used to control point B; the playback rate is managed using the Z,X,C keys and finally the R key resets points A,B to the beginning and end respectively.&lt;/p&gt;
+
+&lt;p&gt;There is a lot of room for improvement with this extension but now I am happy with what I have and I can fully enjoy learning another Brian Setzer solo.&lt;/p&gt;
+
+&lt;p&gt;By the way, the source code of this extension is &lt;a href=&#34;https://github.com/pikoscielniak/guitartrainer&#34;&gt;here&lt;/a&gt;.
+It hasn’t been published yet but you can download it from repo as a zip file then unpack it. On the page chrome://extensions/ select &lt;em&gt;Developer mode&lt;/em&gt; and then load the extension by clicking the button “Load unpacked extension…” and selecting the folder where you unzipped the code from repo.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://koscielniak.me/post/2016/11/chromeextensionspage.png&#34; alt=&#34;Chrome extensions page&#34; title=&#34;Chrome extensions page&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Have fun.&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>bbq4.it Recap</title>
@@ -268,7 +332,7 @@ But through this, I achieved another goal which was to learn a lot of new things
 &lt;p&gt;This contest took me out of my comfort zone and I am glad for it. Now when the contest is finished, I must think about new content for my blog. For sure, I will slow down a bit because two posts a week is too much for me. I must also think about the content which I am going to present on my blog but these considerations are for another occasion. Now let’s be happy with the final post of the &lt;em&gt;Daj się poznać&lt;/em&gt; series. Thanks once again Maciek, keep up the good work. Also, I’d like to thank my teammate
 &lt;a href=&#34;http://www.benedykt.net/&#34; target=&#34;_blank&#34;&gt;Arkadiusz Benedykt&lt;/a&gt; who stood/sat next to me and sometimes gave me a lot of really helpful advice.&lt;/p&gt;
 
-&lt;p&gt;&lt;h3&gt;Related posts:&lt;/h3&gt;
+&lt;h3&gt;Related posts:&lt;/h3&gt;
 
 
 
@@ -329,7 +393,7 @@ But through this, I achieved another goal which was to learn a lot of new things
 &lt;/ul&gt;
 
 
-&lt;/p&gt;
+
 </description>
     </item>
     
@@ -1112,7 +1176,7 @@ vm.ExternalProviders.Add(ExternalProvider.Google);
 &lt;a href=&#34;https://github.com/pikoscielniak/idsrv-demo&#34; target=&#34;_blank&#34;&gt;this repository&lt;/a&gt;.
 Similarly, for example, you can use Facebook as an external Identity Provider. I am going to do this but I will write about it only if I run into problems and I’m forced to troubleshoot.&lt;/p&gt;
 
-&lt;p&gt;&lt;h3&gt;Related posts:&lt;/h3&gt;
+&lt;h3&gt;Related posts:&lt;/h3&gt;
 
 
 
@@ -1173,7 +1237,7 @@ Similarly, for example, you can use Facebook as an external Identity Provider. I
 &lt;/ul&gt;
 
 
-&lt;/p&gt;
+
 </description>
     </item>
     
@@ -1243,7 +1307,7 @@ You can see all your secret settings with the command &lt;code&gt;user-secret li
 &lt;a href=&#34;http://koscielniak.me/post/2016/05/google-identity-provider-with-identityserver4/&#34;&gt;the next post&lt;/a&gt;
 I will write how I use these settings to authenticate user using Google Identity Provider from IdentityServer4.&lt;/p&gt;
 
-&lt;p&gt;&lt;h3&gt;Related posts:&lt;/h3&gt;
+&lt;h3&gt;Related posts:&lt;/h3&gt;
 
 
 
@@ -1301,11 +1365,7 @@ I will write how I use these settings to authenticate user using Google Identity
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/experimenting-with-angular2-cli/&#34;&gt;Experimenting with Angular2 CLI&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/migrating-to-asp-net-core-rc2/&#34;&gt;Migrating to ASP .NET Core RC2&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/epilogue-daj-sie-poznac-series/&#34;&gt;Epilogue: Daj się poznać series&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-
-&lt;/p&gt;
-</description>
+&lt;/ul&gt;</description>
     </item>
     
     <item>
@@ -1351,7 +1411,7 @@ I found a sample API which I copied into my local repository. After this, I exec
 
 &lt;p&gt;I was really amazed by how smoothly I went through usage examples of IdentityServer4 on Linux. After my previous experiences, I was rather sceptical if this example could even run without errors on Ubuntu but they executed perfectly. By doing this example, I checked if I can use IdentityProvider4 as an identity provider for my application but as you may remember from my previous posts, I wanted to have Google as an Identity Provider. In a future post, I’ll examine if it is possible to combine Google authentication with IdentityProvider4.&lt;/p&gt;
 
-&lt;p&gt;&lt;h3&gt;Related posts:&lt;/h3&gt;
+&lt;h3&gt;Related posts:&lt;/h3&gt;
 
 
 
@@ -1412,7 +1472,7 @@ I found a sample API which I copied into my local repository. After this, I exec
 &lt;/ul&gt;
 
 
-&lt;/p&gt;
+
 </description>
     </item>
     
@@ -1535,7 +1595,7 @@ new Client
 &lt;p&gt;As you can see, I got &lt;em&gt;id_token&lt;/em&gt; which meant I was successfully authenticated in IdentityServer. The next step is to obtain &lt;em&gt;access_token&lt;/em&gt; and use it to access some API but this is a theme for another post. Meanwhile, you can find the whole source code for this demo in
 &lt;a href=&#34;https://github.com/pikoscielniak/idsrv-demo&#34; target=&#34;_blank&#34;&gt;this repository&lt;/a&gt;.&lt;/p&gt;
 
-&lt;p&gt;&lt;h3&gt;Related posts:&lt;/h3&gt;
+&lt;h3&gt;Related posts:&lt;/h3&gt;
 
 
 
@@ -1596,7 +1656,7 @@ new Client
 &lt;/ul&gt;
 
 
-&lt;/p&gt;
+
 </description>
     </item>
     
@@ -1814,260 +1874,6 @@ services.AddInstance(clientSettings);
 As you can see, this new way of configuring your ASP .NET Core application provides a lot of possibilities.
 &lt;a href=&#34;http://koscielniak.me/post/2016/05/dealing-with-secrets-in-asp-net-core/&#34;&gt;In the future&lt;/a&gt;,
 I will also write about how to deal with settings which should be secret and should not be published to the source code repository.&lt;/p&gt;
-
-&lt;p&gt;&lt;h3&gt;Related posts:&lt;/h3&gt;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-&lt;ul style=&#34;list-style: none;&#34;&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/02/enrolling-in-daj-sie-poznac/&#34;&gt;Enrolling in &#34;Daj się poznać&#34;&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/daj-sie-poznac-project-details/&#34;&gt;&#34;Daj się poznać&#34; - Project details&#34;&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/i-m-holding-a-project-rider-eap/&#34;&gt;I&#39;m holding a Project Rider EAP&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/installing-asp-dot-net-core-1-on-ubuntu-14/&#34;&gt;Installing ASP .NET Core 1 on Ubuntu 14.04&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/my-first-asp-net-core-1-web-application/&#34;&gt;My first ASP NET Core 1.0 web application&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/project-setup-server-side/&#34;&gt;Project setup - server-side&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/project-setup-client-side/&#34;&gt;Project setup - client-side&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/adding-styling-to-my-application/&#34;&gt;Adding styling to my application&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/angular2-confirm-dialog-component/&#34;&gt;Angular 2 Confirm Dialog Component&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/before-going-into-production/&#34;&gt;Before going into production&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/publishing-to-azure/&#34;&gt;Publishing to Azure&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/setting-up-the-web-client-for-google-identity-platform/&#34;&gt;Setting up the Web client for Google Identity Platform&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/oidc-token-manager-library-with-google-identity-platform-part-1/&#34;&gt;oidc-token-manager library with Google Identity Platform - Part 1&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/oidc-token-manager-library-with-google-identity-platform-part-2/&#34;&gt;oidc-token-manager library with Google Identity Platform - Part 2&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/accesing-api-with-token-from-google-identity-provider/&#34;&gt;Accessing API with token from Google Identity Provider&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/how-portable-is-asp-dot-net-core/&#34;&gt;How portable is ASP .NET Core 1.0?&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/when-dotpeek-can-save-your-live/&#34;&gt;When dotPeek can save your live&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/reading-code-as-if-it-were-a-book/&#34;&gt;Reading code as if it were a book&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/aps-dot-net-core-configuration/&#34;&gt;ASP .NET Core Configuration&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/getting-started-with-identity-server4/&#34;&gt;Getting started with IdentityServer4&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/identityserver-4-accessing-api/&#34;&gt;IdentityServer4 - accessing API&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/dealing-with-secrets-in-asp-net-core/&#34;&gt;Dealing with secrets in ASP .NET Core&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/google-identity-provider-with-identityserver4/&#34;&gt;Google Identity Provider with IdentityServer4&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/upgrading-to-angulr2-rc1/&#34;&gt;Upgrading to Angular2 RC1&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/experimenting-with-angular2-cli/&#34;&gt;Experimenting with Angular2 CLI&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/migrating-to-asp-net-core-rc2/&#34;&gt;Migrating to ASP .NET Core RC2&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/epilogue-daj-sie-poznac-series/&#34;&gt;Epilogue: Daj się poznać series&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-
-&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Reading code as if it were a book</title>
-      <link>http://koscielniak.me/post/2016/04/reading-code-as-if-it-were-a-book/</link>
-      <pubDate>Mon, 25 Apr 2016 22:00:00 +0200</pubDate>
-      
-      <guid>http://koscielniak.me/post/2016/04/reading-code-as-if-it-were-a-book/</guid>
-      <description>&lt;p&gt;&lt;a href=&#34;http://dajsiepoznac.pl&#34;&gt;&lt;img src=&#34;http://koscielniak.me/post/2016/03/contestLogo.png&#34; alt=&#34;Daj się poznać&#34; title=&#34;Daj się poznać&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;Sometimes we hear that good source code should be read as easily as a book. Let’s look at this code as an example:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;public class EventService
-{
- private string _eventTitle;
- private string _participantName;
- private Event _event;
- private Participant _participant;
-
- public void Process(string eventTitle, string participantName)
- {
-   InitFields(eventTitle, participantName);
-   CreateParticipant();
-   CreateEvent();
-   SaveEvent();
- }
-
- private void SaveEvent()
- {
-   var repository = new Repository();
-   repository.Save(_event);
- }
-
- private void CreateParticipant()
- {
-   _participant = new Participant(_participantName);
- }
-
- private void InitFields(string eventTitle, string participantName)
- {
-   _eventTitle = eventTitle;
-   _participantName = participantName;
- }
-
- private void CreateEvent()
- {
-_event = new Event(_eventTitle, _participant);
- }
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;The important part of this code is the method &lt;em&gt;Process&lt;/em&gt;. Let’s see if we can read this method &lt;em&gt;as a book&lt;/em&gt;.&lt;br /&gt;
-&lt;em&gt;InitFields: eventTitle and participantName&lt;/em&gt;&lt;br /&gt;
-&lt;em&gt;CreateParticipant&lt;/em&gt;&lt;br /&gt;
-&lt;em&gt;CreateEvent&lt;/em&gt;&lt;br /&gt;
-&lt;em&gt;SaveEvent&lt;/em&gt;&lt;/p&gt;
-
-&lt;p&gt;I think we can agree that you can pretty much read it like a book. When I run this sample app with &lt;em&gt;Repository&lt;/em&gt; class like this:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;public class Repository
-{
- public void Save(Event @event)
- {
-   Console.WriteLine($&amp;quot;Saved event: &#39;{@event.EventTitle}&#39; with participant: &#39;{@event.Participant.ParticipantName}&#39;&amp;quot;);
- }
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;and the &lt;em&gt;Main&lt;/em&gt; method like this:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;public static void Main(string[] args)
- {
-   var eventService = new EventService();
-   eventService.Process(&amp;quot;Some event&amp;quot;,&amp;quot;Some participant&amp;quot;);
- }
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;I got this output in the terminal:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;Saved event: &#39;Some event&#39; with participant: &#39;Some participant&#39;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Suddenly, the requirements have changed and the event should also have the place where it’s going to happen. A programmer gets this task &lt;em&gt;Add the place to the event&lt;/em&gt;. They come to the code, look at it and write a method like this:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;private void CreatePlace()
-{
- _place = new Place(_placeName);
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Of Course they add the fields &lt;em&gt;_place&lt;/em&gt; and &lt;em&gt;_placeName&lt;/em&gt; and change the signature of the &lt;em&gt;Process&lt;/em&gt; method to this:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;public void Process(string eventTitle, string participantName, string placeName)
-{
-//...
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;They must remember to init  field &lt;em&gt;_placeName&lt;/em&gt; in the &lt;em&gt;InitFields&lt;/em&gt; methods and they must change the signature to this again:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;private void InitFields(string eventTitle, string participantName, string placeName)
-{
-//...
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Fortunately, this programmer has
-&lt;a href=&#34;https://www.jetbrains.com/resharper/&#34; target=&#34;_blank&#34;&gt;Reshaper&lt;/a&gt;.
-Actually, they are testing
-&lt;a href=&#34;https://www.jetbrains.com/rider/&#34; target=&#34;_blank&#34;&gt;JetBrains’ Rider&lt;/a&gt;
-and ALT+ENTER did a lot of this work for them but it’s still a lot of changes. They also have changed the &lt;em&gt;CreateEvent&lt;/em&gt; method to what you see below:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;private void CreateEvent()
-{
- _event = new Event(_eventTitle, _participant, _place);
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Finally, the last thing to do is to use the &lt;em&gt;CreatePlace&lt;/em&gt; method in the &lt;em&gt;Process&lt;/em&gt; method , but the phone rings. After a 5 minute conversation, they return to the code and enter &lt;em&gt;CreatePlace&lt;/em&gt; like this:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;public void Process(string eventTitle, string participantName, string placeName)
-{
- InitFields(eventTitle, participantName, placeName);
- CreateParticipant();
- CreateEvent();
- CreatePlace();
- SaveEvent();
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Can you spot where the mistake is? The method &lt;em&gt;Save&lt;/em&gt; in &lt;em&gt;Repository&lt;/em&gt; was written by another programmer and now it looks like this:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;public void Save(Event @event)
-{
- Console.WriteLine($&amp;quot;Saved event: &#39;{@event.EventTitle}&#39;, at &#39;{@event.Place.Name}&#39; &amp;quot; +
-                   $&amp;quot;with participant: &#39;{@event.Participant.ParticipantName}&#39;&amp;quot;);
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;So, the task completed and the place was added to the event. Now let’s run the app&amp;hellip;this is what we get:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;System.NullReferenceException: Object reference not set to an instance of an object
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;We get a beautiful &lt;em&gt;System.NullReferenceException&lt;/em&gt;. Why? Because the programmer called the method &lt;em&gt;CreatePlace&lt;/em&gt; after the method &lt;em&gt;CreateEvent&lt;/em&gt;  by mistake. The mutability of these private fields and the side effects of these &lt;em&gt;Create&amp;hellip;&lt;/em&gt; methods come back to haunt the programmer. Fortunately, the &lt;em&gt;Place&lt;/em&gt; was required and the error shows up immediately but if it doesn’t, how do you know what happened? You can imagine many other possibilities to make a mistake with such kind of code. For example, you can forget to init fields in the &lt;em&gt;InitFields&lt;/em&gt; method.&lt;/p&gt;
-
-&lt;p&gt;Believe it or not, I see this kind of code almost every day. Yes, I know someone would say with TDD you don’t see such kinds of errors but what if you work on a legacy project which doesn’t have tests for this specific fragment of code. What’s more, this way of writing code is also problematic when you want to refactor your code. For example, let’s say that &lt;em&gt;CreateParticipant&lt;/em&gt; got so many requirements that you must take it out of &lt;em&gt;EventService&lt;/em&gt; and put it in its own service. Then you must cut off not only &lt;em&gt;CreateParticipant&lt;/em&gt; method itself but also private fields and private methods on which it depends and sometimes this is not so easy.&lt;/p&gt;
-
-&lt;p&gt;But we can do this better. Let’s get rid of all these private fields and replace them with local variables so the code look like this:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;public class EventService
-{
- public void Process(string eventTitle, string participantName, string placeName)
- {
-   var participant = CreateParticipant(participantName);
-   var place = CreatePlace(placeName);
-   var @event = CreateEvent(eventTitle, participant, place);
-   SaveEvent(@event);
- }
-
- private static void SaveEvent(Event @event)
- {
-   var repository = new Repository();
-   repository.Save(@event);
- }
-
- private static Participant CreateParticipant(string participantName)
- {
-   return new Participant(participantName);
- }
-
- private static Place CreatePlace(string placeName)
- {
-   return new Place(placeName);
- }
-
- private static Event CreateEvent(string eventTitle, Participant participant, Place place)
- {
-   return new Event(eventTitle, participant, place);
- }
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;And now when you run the app you’ll see this in the console:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;Saved event: &#39;Some event&#39;, at &#39;Some place&#39; with participant: &#39;Some participant&#39;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;With the code like this, it is impossible to create &lt;em&gt;Event&lt;/em&gt; without creating &lt;em&gt;Place&lt;/em&gt; first. Now all these &lt;em&gt;Create&amp;hellip;&lt;/em&gt; methods can be made static. Is this code so hard to read? I don’t think so. A source code is a book with constantly changing pages. I cannot print it and forget about it. You must come back to some places and alter them constantly. It&amp;rsquo;s okay if you&amp;rsquo;re altering code you&amp;rsquo;ve written yourself, but if you work with code written by someone else, then you must be careful about what you do if you come across a situation like the example I shared.&lt;/p&gt;
-
-&lt;p&gt;It’s a very trivial example but you can get a feel for what I’m trying to express. This code won’t be read by a manager or other business people, it will be read by programmers and they can handle a drawback like local variables. The second example of code given can be even more readable for a programmer because they see the whole context for variables and know exactly where they are used. They don’t have to search for &lt;em&gt;Find usages&lt;/em&gt; because they see the usages straight away. What’s more, this functional way of writing code helps in the maintenance of the application. Less side effects and less mutability makes your application more predictable and reliable, especially when multithreading is at stake.&lt;/p&gt;
 
 &lt;h3&gt;Related posts:&lt;/h3&gt;
 

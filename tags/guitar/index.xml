@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Guitar on Piotr Kościelniak - passionate programmer</title>
+    <link>http://koscielniak.me/tags/guitar/index.xml</link>
+    <description>Recent content in Guitar on Piotr Kościelniak - passionate programmer</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>Piotr Kościelniak. Powered by [Hugo](http://gohugo.io).</copyright>
+    <atom:link href="http://koscielniak.me/tags/guitar/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>I made my first Chrome extension and lived to tell the tale</title>
+      <link>http://koscielniak.me/post/2016/11/i-made-my-first-chrome-extension-and-lived-to-tell-the-tale/</link>
+      <pubDate>Tue, 01 Nov 2016 23:00:00 +0100</pubDate>
+      
+      <guid>http://koscielniak.me/post/2016/11/i-made-my-first-chrome-extension-and-lived-to-tell-the-tale/</guid>
+      <description>&lt;p&gt;This story began this year during the summer. I bought myself a guitar in order to remind myself of a few guitar riffs. After a several weeks of looking at this guitar, I finally started to play it. I always wanted to learn a couple of Brian Setzer’s riffs, so I typed &lt;em&gt;Brian Setzer riffs&lt;/em&gt; in the YouTube search bar and I found what I was looking for. But these guys played so fast that I couldn’t keep up with them. Luckily, the YouTube video player has an option to slow down a video but it is rather poor.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://koscielniak.me/post/2016/11/playbackrateoptions.png&#34; alt=&#34;YouTube playback rate options&#34; title=&#34;YouTube playback rate options&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;As you can see, you can only slow it down to 50%. (Slowing it down to 25% causes the sound to mute). So what did I do? I opened Chrome DevTools and I found the video element on the page.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://koscielniak.me/post/2016/11/devtools.png&#34; alt=&#34;Chrome DevTools and the video tag&#34; title=&#34;Chrome DevTools and the video tag&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;When you click on this tag, you get access to it in the console under the &lt;code&gt;$0&lt;/code&gt;. And then you can slow down the video to speed whatever you want. For example to 0.6.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://koscielniak.me/post/2016/11/consoleplaybackrate.png&#34; alt=&#34;The playback rate set in the console&#34; title=&#34;The playback rate set in the console&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;After practicing for a short while, I was completely exhausted not by playing the guitar, but because I kept rewinding to the place in the video where I wanted to start practicing from. The player always rewound too far back. My first thought was: “I have access to the video tag. I can quickly write a function in the console to loop the fragment of the song which I want to practice”. After a while, I typed this in the browser console:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;var video = $0
+var start = 0
+var stop = 3
+
+
+video.addEventListener(&#39;timeupdate&#39;,() =&amp;gt;  {
+   if (video.currentTime &amp;gt; stop ) {
+       video.currentTime = start;
+   }
+});
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Now I could simply manipulate start and stop variables to loop the exact fragment of the song that I wanted.&lt;/p&gt;
+
+&lt;p&gt;But, what came next? I thought for sure someone had written an extension for Chrome which did what I had just done. And of course I was right. I tried one and it turned out to be complete rubbish&amp;hellip;it even didn’t start. I tried another one but it required too much mouse clicking to do what I wanted, so I decided to write my own.&lt;/p&gt;
+
+&lt;p&gt;I started on &lt;a href=&#34;https://developer.chrome.com/extensions/getstarted&#34;&gt;this page&lt;/a&gt; where I found resources for further exploration. After two hours, I had the first version of my Chrome extension with a keyboard interface. Different keys control different functions, for example: one key sets a point A and another sets a point B anywhere in the song, another key sets point A to the beginning of the song and point B to the end of the song, while other keys allow you to slow down and speed up a song. The next day I added the ability to turn this plugin on and off and some labels which appear on YouTube videos to show values for point A, B and also for the current playback rate.&lt;/p&gt;
+
+&lt;p&gt;It was a fun experience to playing around with Chrome extension. The most frustrating thing was discovering how to refresh and debug this extension because extensions have content scripts and background scripts and they are debugged in two separate DevTools windows. There is a shortcut to refreshing an extension &lt;em&gt;CTRL+R&lt;/em&gt; but sometimes you can press it in the wrong window. The safe option is to refresh the extension on this page chrome://extensions/ and click &lt;em&gt;Reload&lt;/em&gt;. In this place, you can also get some errors which may appear while your extension is loading. For example, unavailable file.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://koscielniak.me/post/2016/11/reload.png&#34; alt=&#34;Where reload the extension&#34; title=&#34;Where reload the extension&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;My extension adds this little icon at the top of the browser. Which turns the extension on and off.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://koscielniak.me/post/2016/11/icon.png&#34; alt=&#34;The extensions icon&#34; title=&#34;The extensions icon&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;When it is on, you can see some labels at the top of video which shows the current value for point A, B and the playback rate.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://koscielniak.me/post/2016/11/labels.png&#34; alt=&#34;The labels&#34; title=&#34;The labels&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;This extension only has a keyboard interface with specific keys which control the functions. The Q,W,E keys are used to control point A; the A,S,D keys are used to control point B; the playback rate is managed using the Z,X,C keys and finally the R key resets points A,B to the beginning and end respectively.&lt;/p&gt;
+
+&lt;p&gt;There is a lot of room for improvement with this extension but now I am happy with what I have and I can fully enjoy learning another Brian Setzer solo.&lt;/p&gt;
+
+&lt;p&gt;By the way, the source code of this extension is &lt;a href=&#34;https://github.com/pikoscielniak/guitartrainer&#34;&gt;here&lt;/a&gt;.
+It hasn’t been published yet but you can download it from repo as a zip file then unpack it. On the page chrome://extensions/ select &lt;em&gt;Developer mode&lt;/em&gt; and then load the extension by clicking the button “Load unpacked extension…” and selecting the folder where you unzipped the code from repo.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://koscielniak.me/post/2016/11/chromeextensionspage.png&#34; alt=&#34;Chrome extensions page&#34; title=&#34;Chrome extensions page&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Have fun.&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

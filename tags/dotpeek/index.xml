@@ -2,11 +2,11 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Dotpeek on Piotr Kościelniak - passionate programmer</title>
-    <link>http://koscielniak.me/tags/dotpeek/</link>
+    <link>http://koscielniak.me/tags/dotpeek/index.xml</link>
     <description>Recent content in Dotpeek on Piotr Kościelniak - passionate programmer</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 21 Apr 2016 22:00:00 +0200</lastBuildDate>
+    <copyright>Piotr Kościelniak. Powered by [Hugo](http://gohugo.io).</copyright>
     <atom:link href="http://koscielniak.me/tags/dotpeek/index.xml" rel="self" type="application/rss+xml" />
     
     <item>

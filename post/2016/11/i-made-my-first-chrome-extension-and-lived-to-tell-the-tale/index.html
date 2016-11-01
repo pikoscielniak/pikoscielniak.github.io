@@ -1,0 +1,212 @@
+<!doctype html>
+<html class="no-js">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Piotr Kościelniak - passionate programmer</title>
+        <meta name="author" content="Piotr Kościelniak">
+        <meta name="description" content="Piotr Kościelniak - passionate programmer">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="generator" content="Hugo 0.18-DEV" />
+          <link href="http://koscielniak.me/post/index.xml" rel="alternate" type="application/rss+xml" title="Piotr Kościelniak - passionate programmer" />
+          <link href="http://koscielniak.me/post/index.xml" rel="feed" type="application/rss+xml" title="Piotr Kościelniak - passionate programmer" />
+        <link href='//fonts.googleapis.com/css?family=Roboto:400,300,700|Noto+Serif:400,400italic,700,700italic' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" href="http://koscielniak.me/css/styles.css">
+        <link rel="icon" href="http://koscielniak.me/favicon.ico">
+        <link rel="apple-touch-icon" href="http://koscielniak.me/apple-touch-icon.png" />
+        <link rel="stylesheet" href="http://koscielniak.me/css/highlightjs/monokai.css">
+        <script src="http://koscielniak.me/js/vendor/modernizr-2.8.0.min.js"></script>
+        <style>
+        .site-header h2 .logo {
+        background: url(http://koscielniak.me/img/desk.jpg) no-repeat 0 0;
+        }
+        @media (min--moz-device-pixel-ratio: 1.3), (-o-min-device-pixel-ratio: 2.6 / 2), (-webkit-min-device-pixel-ratio: 1.3), (min-device-pixel-ratio: 1.3), (min-resolution: 1.3dppx) {
+          .site-header h2 .logo {
+            background-image: url(http://koscielniak.me/img/desk.jpg);
+        }}
+       .site-header {
+         background: #2a373d url(http://koscielniak.me/img/desk.jpg) no-repeat center center;
+         z-index: -1;
+        }
+        </style>
+    </head>
+    <body>
+        
+        <a href="http://koscielniak.me/">
+        <header class="site-header">
+          <div class="transparent-layer">
+         <h2>You&#39;re here. I appreciate it.</h2>
+          </div>
+        </header>
+        </a>
+
+
+<div class="container clearfix">
+    <main role="main" class="content">
+        <article class="post">
+            <a class="btn" href="http://koscielniak.me/" title="Back to home">&laquo; Back to home</a>
+            
+<h1><a href="http://koscielniak.me/post/2016/11/i-made-my-first-chrome-extension-and-lived-to-tell-the-tale/" title="I made my first Chrome extension and lived to tell the tale">I made my first Chrome extension and lived to tell the tale</a></h1>
+
+<footer class="post-info">Posted on <span class="post-meta"><time datetime="2016.11.01">2016.11.01</time>
+&middot; Tagged in
+    
+    <a href="http://koscielniak.me/tags/chrome">chrome</a>, 
+    
+    <a href="http://koscielniak.me/tags/javascript">javascript</a>, 
+    
+    <a href="http://koscielniak.me/tags/guitar">guitar</a>
+    
+
+</span>
+</footer>
+
+            <p>This story began this year during the summer. I bought myself a guitar in order to remind myself of a few guitar riffs. After a several weeks of looking at this guitar, I finally started to play it. I always wanted to learn a couple of Brian Setzer’s riffs, so I typed <em>Brian Setzer riffs</em> in the YouTube search bar and I found what I was looking for. But these guys played so fast that I couldn’t keep up with them. Luckily, the YouTube video player has an option to slow down a video but it is rather poor.</p>
+
+<p><img src="/post/2016/11/playbackrateoptions.png" alt="YouTube playback rate options" title="YouTube playback rate options" /></p>
+
+<p>As you can see, you can only slow it down to 50%. (Slowing it down to 25% causes the sound to mute). So what did I do? I opened Chrome DevTools and I found the video element on the page.</p>
+
+<p><img src="/post/2016/11/devtools.png" alt="Chrome DevTools and the video tag" title="Chrome DevTools and the video tag" /></p>
+
+<p>When you click on this tag, you get access to it in the console under the <code>$0</code>. And then you can slow down the video to speed whatever you want. For example to 0.6.</p>
+
+<p><img src="/post/2016/11/consoleplaybackrate.png" alt="The playback rate set in the console" title="The playback rate set in the console" /></p>
+
+<p>After practicing for a short while, I was completely exhausted not by playing the guitar, but because I kept rewinding to the place in the video where I wanted to start practicing from. The player always rewound too far back. My first thought was: “I have access to the video tag. I can quickly write a function in the console to loop the fragment of the song which I want to practice”. After a while, I typed this in the browser console:</p>
+
+<pre><code>var video = $0
+var start = 0
+var stop = 3
+
+
+video.addEventListener('timeupdate',() =&gt;  {
+   if (video.currentTime &gt; stop ) {
+       video.currentTime = start;
+   }
+});
+</code></pre>
+
+<p>Now I could simply manipulate start and stop variables to loop the exact fragment of the song that I wanted.</p>
+
+<p>But, what came next? I thought for sure someone had written an extension for Chrome which did what I had just done. And of course I was right. I tried one and it turned out to be complete rubbish&hellip;it even didn’t start. I tried another one but it required too much mouse clicking to do what I wanted, so I decided to write my own.</p>
+
+<p>I started on <a href="https://developer.chrome.com/extensions/getstarted">this page</a> where I found resources for further exploration. After two hours, I had the first version of my Chrome extension with a keyboard interface. Different keys control different functions, for example: one key sets a point A and another sets a point B anywhere in the song, another key sets point A to the beginning of the song and point B to the end of the song, while other keys allow you to slow down and speed up a song. The next day I added the ability to turn this plugin on and off and some labels which appear on YouTube videos to show values for point A, B and also for the current playback rate.</p>
+
+<p>It was a fun experience to playing around with Chrome extension. The most frustrating thing was discovering how to refresh and debug this extension because extensions have content scripts and background scripts and they are debugged in two separate DevTools windows. There is a shortcut to refreshing an extension <em>CTRL+R</em> but sometimes you can press it in the wrong window. The safe option is to refresh the extension on this page chrome://extensions/ and click <em>Reload</em>. In this place, you can also get some errors which may appear while your extension is loading. For example, unavailable file.</p>
+
+<p><img src="/post/2016/11/reload.png" alt="Where reload the extension" title="Where reload the extension" /></p>
+
+<p>My extension adds this little icon at the top of the browser. Which turns the extension on and off.</p>
+
+<p><img src="/post/2016/11/icon.png" alt="The extensions icon" title="The extensions icon" /></p>
+
+<p>When it is on, you can see some labels at the top of video which shows the current value for point A, B and the playback rate.</p>
+
+<p><img src="/post/2016/11/labels.png" alt="The labels" title="The labels" /></p>
+
+<p>This extension only has a keyboard interface with specific keys which control the functions. The Q,W,E keys are used to control point A; the A,S,D keys are used to control point B; the playback rate is managed using the Z,X,C keys and finally the R key resets points A,B to the beginning and end respectively.</p>
+
+<p>There is a lot of room for improvement with this extension but now I am happy with what I have and I can fully enjoy learning another Brian Setzer solo.</p>
+
+<p>By the way, the source code of this extension is <a href="https://github.com/pikoscielniak/guitartrainer">here</a>.
+It hasn’t been published yet but you can download it from repo as a zip file then unpack it. On the page chrome://extensions/ select <em>Developer mode</em> and then load the extension by clicking the button “Load unpacked extension…” and selecting the folder where you unzipped the code from repo.</p>
+
+<p><img src="/post/2016/11/chromeextensionspage.png" alt="Chrome extensions page" title="Chrome extensions page" /></p>
+
+<p>Have fun.</p>
+
+            <ul class="share-buttons">
+    <li>Share this article:</li>
+    <li>
+        <a class="icon-facebook-squared" href="https://www.facebook.com/sharer/sharer.php?u=http%3a%2f%2fkoscielniak.me%2fpost%2f2016%2f11%2fi-made-my-first-chrome-extension-and-lived-to-tell-the-tale%2f" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;" title="Share on Facebook"></a>
+    </li>
+    <li>
+        <a class="icon-twitter" href="https://twitter.com/share?text=I%20made%20my%20first%20Chrome%20extension%20and%20lived%20to%20tell%20the%20tale&amp;url=http%3a%2f%2fkoscielniak.me%2fpost%2f2016%2f11%2fi-made-my-first-chrome-extension-and-lived-to-tell-the-tale%2f" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;" title="Tweet this article"></a>
+    </li>
+    <li>
+        <a class="icon-gplus" href="https://plus.google.com/share?url=http%3a%2f%2fkoscielniak.me%2fpost%2f2016%2f11%2fi-made-my-first-chrome-extension-and-lived-to-tell-the-tale%2f" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;" title="Share on Google&#43;"></a>
+    </li>
+    <li>
+        <a class="icon-linkedin" href="https://www.linkedin.com/shareArticle?mini=true&url=http%3a%2f%2fkoscielniak.me%2fpost%2f2016%2f11%2fi-made-my-first-chrome-extension-and-lived-to-tell-the-tale%2f&title=I%20made%20my%20first%20Chrome%20extension%20and%20lived%20to%20tell%20the%20tale" onclick="window.open(this.href, 'linkedin-share', 'width=600,height=494');return false;" title="Share on Linkedin"></a>
+    </li>
+</ul>
+
+        </article>
+        <div class="comments">
+            <h3>Comments</h3>
+            <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'koscielniak';
+    var disqus_identifier = 'http:\/\/koscielniak.me\/post\/2016\/11\/i-made-my-first-chrome-extension-and-lived-to-tell-the-tale\/';
+    var disqus_title = 'I made my first Chrome extension and lived to tell the tale';
+    var disqus_url = 'http:\/\/koscielniak.me\/post\/2016\/11\/i-made-my-first-chrome-extension-and-lived-to-tell-the-tale\/';
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+        </div>
+    </main>
+    <aside class="author">
+  <img class="profile-image" src="http://koscielniak.me/img/profile-image.png" alt="Piotr Kościelniak" />
+  <p class="name">by 
+  <strong>Piotr Kościelniak</strong></p>
+  <p class="address">Passionate programmer</p>
+  <p class="link"></p>
+  <ul class="social">
+    
+<li><a href="//twitter.com/pikoscielniak" class="icon-twitter" target="_blank" title="Twitter"></a></li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li><a href="//github.com/pikoscielniak" class="icon-github" target="_blank" title="Github"></a></li>
+
+
+
+
+<li><a href="http://koscielniak.me/post/index.xml" class="icon-rss" target="_blank" title="RSS"></a></li>
+
+  </ul>
+  <br><br>
+</aside>
+
+</div>
+
+<footer class="main-footer">
+  <div class="container clearfix">
+        <a class="icon-rss" href="http://koscielniak.me/post/index.xml" title="RSS"></a>
+        <p>&copy; 2016 &middot; Piotr Kościelniak. Powered by <a href="http://gohugo.io">Hugo</a>.</p>
+  </div>
+</footer>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.8.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<script>window.jQuery || document.write('<script src="http:\/\/koscielniak.me\/js/vendor/jquery-1.11.0.min.js"><\/script>')</script>
+<script src="http://koscielniak.me/js/plugins.js"></script>
+
+<!-- Google Analytics -->
+<script>
+  var _gaq=[['_setAccount','UA-72752659-1'],['_trackPageview']];
+  (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+  g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+  s.parentNode.insertBefore(g,s)}(document,'script'));
+</script>
+
+</body>
+</html>
+
