@@ -2,12 +2,34 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Conferences on Piotr Kościelniak - passionate programmer</title>
-    <link>http://koscielniak.me/tags/conferences/index.xml</link>
+    <link>http://koscielniak.me/tags/conferences/</link>
     <description>Recent content in Conferences on Piotr Kościelniak - passionate programmer</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <copyright>Piotr Kościelniak. Powered by [Hugo](http://gohugo.io).</copyright>
+    <lastBuildDate>Thu, 26 Jan 2017 23:11:32 +0100</lastBuildDate>
     <atom:link href="http://koscielniak.me/tags/conferences/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Wroc# is coming</title>
+      <link>http://koscielniak.me/post/2017/01/wrocsharp-is-coming/</link>
+      <pubDate>Thu, 26 Jan 2017 23:11:32 +0100</pubDate>
+      
+      <guid>http://koscielniak.me/post/2017/01/wrocsharp-is-coming/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;http://www.wrocsharp.com/&#34;&gt;&lt;img src=&#34;http://koscielniak.me/post/2017/01/wrocsharp-is-coming.jpg&#34; alt=&#34;Wroc# is coming&#34; title=&#34;Wroc# is coming&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://www.wrocsharp.com/&#34; &gt;Wroc#&lt;/a&gt; is coming. You don’t know what that is? It’s the most amazing conference I’ve ever attended.
+If you’ve never been, I highly recommend you visit this year. If you miss this opportunity, you’ll never experience a more perfect conference in Poland. This year, one of my favourite idols,
+&lt;a href=&#34;https://twitter.com/stevensanderson&#34;&gt;Steve Sanderson&lt;/a&gt;
+will be presenting. I proposed him
+after &lt;a href=&#34;http://koscielniak.me/post/2016/03/wrocsharp-2016-knowledge-networking-and-objectivity-office-tour/&#34;&gt;last year&amp;rsquo;s conference&lt;/a&gt; and big kudos to the planning team for fulfilling my wish.&lt;/p&gt;
+
+&lt;p&gt;Unfortunately, I cannot be there this year. I’ll be sad, and a bit regretful about it, but my absence means a free place for someone like you to attend! Don’t miss your chance, because next year I won’t be leaving this free space for you.&lt;/p&gt;
+
+&lt;p&gt;Don’t hesitate and be sure to register for this conference.
+Registration starts in February, but I can assure you that availability won’t last for long. Personally, I believe within 10 minutes or so the tickets will be sold out. Be sure to follow Wroc#
+on &lt;a href=&#34;https://twitter.com/WrocSharp&#34;&gt;social media&lt;/a&gt;, and have a specially brewed Wroc# beer for me. Also be sure to tweet highlights so I can follow the event from my man cave. Have fun!&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>bbq4.it Recap</title>

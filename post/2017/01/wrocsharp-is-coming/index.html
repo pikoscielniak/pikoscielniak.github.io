@@ -46,65 +46,46 @@
         <article class="post">
             <a class="btn" href="http://koscielniak.me/" title="Back to home">&laquo; Back to home</a>
             
-<h1><a href="http://koscielniak.me/post/2016/05/how-to-avoid-global-installs-with-npm-scripts/" title="How to avoid global installs with NPM scripts">How to avoid global installs with NPM scripts</a></h1>
+<h1><a href="http://koscielniak.me/post/2017/01/wrocsharp-is-coming/" title="Wroc# is coming">Wroc# is coming</a></h1>
 
-<footer class="post-info">Posted on <span class="post-meta"><time datetime="2016.05.14">2016.05.14</time>
+<footer class="post-info">Posted on <span class="post-meta"><time datetime="2017.01.26">2017.01.26</time>
 &middot; Tagged in
     
-    <a href="http://koscielniak.me/tags/node.js">node.js</a>, 
+    <a href="http://koscielniak.me/tags/wroc">wroc#</a>, 
     
-    <a href="http://koscielniak.me/tags/npm">npm</a>
+    <a href="http://koscielniak.me/tags/conferences">conferences</a>
     
 
 </span>
 </footer>
 
-            <p>Recently, I heard from a friend that he doesn’t know how to use Gulp and TypeScript locally, he only knows how to install them globally. I thought it could be an issue for others, and that’s why I decided to write this post.</p>
+            <p><a href="http://www.wrocsharp.com/"><img src="/post/2017/01/wrocsharp-is-coming.jpg" alt="Wroc# is coming" title="Wroc# is coming" /></a></p>
 
-<p>Using globally installed NPM packages can be very problematic, especially if you need these in different versions in a variety of projects. If you rely on global packages you don’t know what the dependencies of your project really are. It is better to have everything in one place without part of your dependencies in global and the other part of your dependencies in local space.</p>
+<p><a href="http://www.wrocsharp.com/" >Wroc#</a> is coming. You don’t know what that is? It’s the most amazing conference I’ve ever attended.
+If you’ve never been, I highly recommend you visit this year. If you miss this opportunity, you’ll never experience a more perfect conference in Poland. This year, one of my favourite idols,
+<a href="https://twitter.com/stevensanderson">Steve Sanderson</a>
+will be presenting. I proposed him
+after <a href="/post/2016/03/wrocsharp-2016-knowledge-networking-and-objectivity-office-tour/">last year&rsquo;s conference</a> and big kudos to the planning team for fulfilling my wish.</p>
 
-<p>To use <em>gulp</em> and <em>tsc</em> (TypeScript compiler) without polluting your global, you simply install it locally with a command like this: <code>npm install gulp typescript --save-dev</code> and then you use the power of
-<a href="https://docs.npmjs.com/misc/scripts" target="_blank">NPM scripts</a>.
-As you can see, in that link there are a lot of predefined scripts but I will show you how to define custom ones.</p>
+<p>Unfortunately, I cannot be there this year. I’ll be sad, and a bit regretful about it, but my absence means a free place for someone like you to attend! Don’t miss your chance, because next year I won’t be leaving this free space for you.</p>
 
-<p>All you have to do is simply to define the name of script in the <em>scripts</em> section in the <em>package.json</em>. This is an example from one of my projects:</p>
-
-<pre><code>&quot;scripts&quot;: {
-    &quot;tsc&quot;: &quot;tsc -w&quot;,
-    &quot;typings&quot;: &quot;typings&quot;,
-    &quot;build-dev&quot;: &quot;gulp build-dev&quot;,
-    &quot;build-prod&quot;: &quot;gulp build-prod&quot;,
-    &quot;postinstall&quot;: &quot;concurrently \&quot;typings install\&quot; \&quot;npm run build-dev\&quot;&quot;,
-    &quot;start&quot;: &quot; http-server &quot;
-},
-</code></pre>
-
-<p>I have defined four custom scripts and two predefined here.
-You can run custom scripts with a command like this:</p>
-
-<pre><code>npm run tsc
-</code></pre>
-
-<p>You must execute this command in the root folder of your project (where your <em>package.json</em> is).</p>
-
-<p>Running a predefined script is as simple as: <code>npm start</code>, you don’t have to put <em>run</em>.
-Some scripts are run automatically, for example <em>postinstall</em>. This script is run after the package is installed. In my case, after the package was installed, I installed typings and I rebuilt the libraries using the script defined above which is <em>build-dev</em>. As you can see, you can execute other scripts in NPM scripts and you also have access to the commands which are located in the <em>node_modules/.bin</em> of your project. In this location, you will find your commands <em>gulp</em> and <em>tsc</em> and other locally installed packages.</p>
-
-<p>The scripts defined in <em>package.json</em> look for commands inside this location and if they didn’t find one they then check your global packages. You can also run locally installed packages with a command like this: <code>node_modules/.bin/gulp</code> but as you can see, this is a lot of typing and over time it can be very annoying. It is much better to use NPM scripts. I hope I have helped someone by writing this post.</p>
+<p>Don’t hesitate and be sure to register for this conference.
+Registration starts in February, but I can assure you that availability won’t last for long. Personally, I believe within 10 minutes or so the tickets will be sold out. Be sure to follow Wroc#
+on <a href="https://twitter.com/WrocSharp">social media</a>, and have a specially brewed Wroc# beer for me. Also be sure to tweet highlights so I can follow the event from my man cave. Have fun!</p>
 
             <ul class="share-buttons">
     <li>Share this article:</li>
     <li>
-        <a class="icon-facebook-squared" href="https://www.facebook.com/sharer/sharer.php?u=http%3a%2f%2fkoscielniak.me%2fpost%2f2016%2f05%2fhow-to-avoid-global-installs-with-npm-scripts%2f" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;" title="Share on Facebook"></a>
+        <a class="icon-facebook-squared" href="https://www.facebook.com/sharer/sharer.php?u=http%3a%2f%2fkoscielniak.me%2fpost%2f2017%2f01%2fwrocsharp-is-coming%2f" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;" title="Share on Facebook"></a>
     </li>
     <li>
-        <a class="icon-twitter" href="https://twitter.com/share?text=How%20to%20avoid%20global%20installs%20with%20NPM%20scripts&amp;url=http%3a%2f%2fkoscielniak.me%2fpost%2f2016%2f05%2fhow-to-avoid-global-installs-with-npm-scripts%2f" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;" title="Tweet this article"></a>
+        <a class="icon-twitter" href="https://twitter.com/share?text=Wroc%23%20is%20coming&amp;url=http%3a%2f%2fkoscielniak.me%2fpost%2f2017%2f01%2fwrocsharp-is-coming%2f" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;" title="Tweet this article"></a>
     </li>
     <li>
-        <a class="icon-gplus" href="https://plus.google.com/share?url=http%3a%2f%2fkoscielniak.me%2fpost%2f2016%2f05%2fhow-to-avoid-global-installs-with-npm-scripts%2f" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;" title="Share on Google&#43;"></a>
+        <a class="icon-gplus" href="https://plus.google.com/share?url=http%3a%2f%2fkoscielniak.me%2fpost%2f2017%2f01%2fwrocsharp-is-coming%2f" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;" title="Share on Google&#43;"></a>
     </li>
     <li>
-        <a class="icon-linkedin" href="https://www.linkedin.com/shareArticle?mini=true&url=http%3a%2f%2fkoscielniak.me%2fpost%2f2016%2f05%2fhow-to-avoid-global-installs-with-npm-scripts%2f&title=How%20to%20avoid%20global%20installs%20with%20NPM%20scripts" onclick="window.open(this.href, 'linkedin-share', 'width=600,height=494');return false;" title="Share on Linkedin"></a>
+        <a class="icon-linkedin" href="https://www.linkedin.com/shareArticle?mini=true&url=http%3a%2f%2fkoscielniak.me%2fpost%2f2017%2f01%2fwrocsharp-is-coming%2f&title=Wroc%23%20is%20coming" onclick="window.open(this.href, 'linkedin-share', 'width=600,height=494');return false;" title="Share on Linkedin"></a>
     </li>
 </ul>
 
@@ -114,9 +95,9 @@ Some scripts are run automatically, for example <em>postinstall</em>. This scrip
             <div id="disqus_thread"></div>
 <script type="text/javascript">
     var disqus_shortname = 'koscielniak';
-    var disqus_identifier = 'http:\/\/koscielniak.me\/post\/2016\/05\/how-to-avoid-global-installs-with-npm-scripts\/';
-    var disqus_title = 'How to avoid global installs with NPM scripts';
-    var disqus_url = 'http:\/\/koscielniak.me\/post\/2016\/05\/how-to-avoid-global-installs-with-npm-scripts\/';
+    var disqus_identifier = 'http:\/\/koscielniak.me\/post\/2017\/01\/wrocsharp-is-coming\/';
+    var disqus_title = 'Wroc# is coming';
+    var disqus_url = 'http:\/\/koscielniak.me\/post\/2017\/01\/wrocsharp-is-coming\/';
 
     (function() {
         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;

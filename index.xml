@@ -2,13 +2,34 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Piotr Kościelniak - passionate programmer</title>
-    <link>http://koscielniak.me/index.xml</link>
+    <link>http://koscielniak.me/</link>
     <description>Recent content on Piotr Kościelniak - passionate programmer</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <copyright>Piotr Kościelniak. Powered by [Hugo](http://gohugo.io).</copyright>
-    <lastBuildDate>Tue, 01 Nov 2016 23:00:00 +0100</lastBuildDate>
+    <lastBuildDate>Thu, 26 Jan 2017 23:11:32 +0100</lastBuildDate>
     <atom:link href="http://koscielniak.me/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Wroc# is coming</title>
+      <link>http://koscielniak.me/post/2017/01/wrocsharp-is-coming/</link>
+      <pubDate>Thu, 26 Jan 2017 23:11:32 +0100</pubDate>
+      
+      <guid>http://koscielniak.me/post/2017/01/wrocsharp-is-coming/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;http://www.wrocsharp.com/&#34;&gt;&lt;img src=&#34;http://koscielniak.me/post/2017/01/wrocsharp-is-coming.jpg&#34; alt=&#34;Wroc# is coming&#34; title=&#34;Wroc# is coming&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://www.wrocsharp.com/&#34; &gt;Wroc#&lt;/a&gt; is coming. You don’t know what that is? It’s the most amazing conference I’ve ever attended.
+If you’ve never been, I highly recommend you visit this year. If you miss this opportunity, you’ll never experience a more perfect conference in Poland. This year, one of my favourite idols,
+&lt;a href=&#34;https://twitter.com/stevensanderson&#34;&gt;Steve Sanderson&lt;/a&gt;
+will be presenting. I proposed him
+after &lt;a href=&#34;http://koscielniak.me/post/2016/03/wrocsharp-2016-knowledge-networking-and-objectivity-office-tour/&#34;&gt;last year&amp;rsquo;s conference&lt;/a&gt; and big kudos to the planning team for fulfilling my wish.&lt;/p&gt;
+
+&lt;p&gt;Unfortunately, I cannot be there this year. I’ll be sad, and a bit regretful about it, but my absence means a free place for someone like you to attend! Don’t miss your chance, because next year I won’t be leaving this free space for you.&lt;/p&gt;
+
+&lt;p&gt;Don’t hesitate and be sure to register for this conference.
+Registration starts in February, but I can assure you that availability won’t last for long. Personally, I believe within 10 minutes or so the tickets will be sold out. Be sure to follow Wroc#
+on &lt;a href=&#34;https://twitter.com/WrocSharp&#34;&gt;social media&lt;/a&gt;, and have a specially brewed Wroc# beer for me. Also be sure to tweet highlights so I can follow the event from my man cave. Have fun!&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>I made my first Chrome extension and lived to tell the tale</title>
@@ -332,7 +353,7 @@ But through this, I achieved another goal which was to learn a lot of new things
 &lt;p&gt;This contest took me out of my comfort zone and I am glad for it. Now when the contest is finished, I must think about new content for my blog. For sure, I will slow down a bit because two posts a week is too much for me. I must also think about the content which I am going to present on my blog but these considerations are for another occasion. Now let’s be happy with the final post of the &lt;em&gt;Daj się poznać&lt;/em&gt; series. Thanks once again Maciek, keep up the good work. Also, I’d like to thank my teammate
 &lt;a href=&#34;http://www.benedykt.net/&#34; target=&#34;_blank&#34;&gt;Arkadiusz Benedykt&lt;/a&gt; who stood/sat next to me and sometimes gave me a lot of really helpful advice.&lt;/p&gt;
 
-&lt;h3&gt;Related posts:&lt;/h3&gt;
+&lt;p&gt;&lt;h3&gt;Related posts:&lt;/h3&gt;
 
 
 
@@ -393,7 +414,7 @@ But through this, I achieved another goal which was to learn a lot of new things
 &lt;/ul&gt;
 
 
-
+&lt;/p&gt;
 </description>
     </item>
     
@@ -1176,7 +1197,7 @@ vm.ExternalProviders.Add(ExternalProvider.Google);
 &lt;a href=&#34;https://github.com/pikoscielniak/idsrv-demo&#34; target=&#34;_blank&#34;&gt;this repository&lt;/a&gt;.
 Similarly, for example, you can use Facebook as an external Identity Provider. I am going to do this but I will write about it only if I run into problems and I’m forced to troubleshoot.&lt;/p&gt;
 
-&lt;h3&gt;Related posts:&lt;/h3&gt;
+&lt;p&gt;&lt;h3&gt;Related posts:&lt;/h3&gt;
 
 
 
@@ -1237,7 +1258,7 @@ Similarly, for example, you can use Facebook as an external Identity Provider. I
 &lt;/ul&gt;
 
 
-
+&lt;/p&gt;
 </description>
     </item>
     
@@ -1307,111 +1328,7 @@ You can see all your secret settings with the command &lt;code&gt;user-secret li
 &lt;a href=&#34;http://koscielniak.me/post/2016/05/google-identity-provider-with-identityserver4/&#34;&gt;the next post&lt;/a&gt;
 I will write how I use these settings to authenticate user using Google Identity Provider from IdentityServer4.&lt;/p&gt;
 
-&lt;h3&gt;Related posts:&lt;/h3&gt;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-&lt;ul style=&#34;list-style: none;&#34;&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/02/enrolling-in-daj-sie-poznac/&#34;&gt;Enrolling in &#34;Daj się poznać&#34;&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/daj-sie-poznac-project-details/&#34;&gt;&#34;Daj się poznać&#34; - Project details&#34;&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/i-m-holding-a-project-rider-eap/&#34;&gt;I&#39;m holding a Project Rider EAP&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/installing-asp-dot-net-core-1-on-ubuntu-14/&#34;&gt;Installing ASP .NET Core 1 on Ubuntu 14.04&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/my-first-asp-net-core-1-web-application/&#34;&gt;My first ASP NET Core 1.0 web application&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/project-setup-server-side/&#34;&gt;Project setup - server-side&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/project-setup-client-side/&#34;&gt;Project setup - client-side&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/adding-styling-to-my-application/&#34;&gt;Adding styling to my application&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/angular2-confirm-dialog-component/&#34;&gt;Angular 2 Confirm Dialog Component&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/before-going-into-production/&#34;&gt;Before going into production&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/publishing-to-azure/&#34;&gt;Publishing to Azure&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/setting-up-the-web-client-for-google-identity-platform/&#34;&gt;Setting up the Web client for Google Identity Platform&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/oidc-token-manager-library-with-google-identity-platform-part-1/&#34;&gt;oidc-token-manager library with Google Identity Platform - Part 1&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/oidc-token-manager-library-with-google-identity-platform-part-2/&#34;&gt;oidc-token-manager library with Google Identity Platform - Part 2&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/accesing-api-with-token-from-google-identity-provider/&#34;&gt;Accessing API with token from Google Identity Provider&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/how-portable-is-asp-dot-net-core/&#34;&gt;How portable is ASP .NET Core 1.0?&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/when-dotpeek-can-save-your-live/&#34;&gt;When dotPeek can save your live&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/reading-code-as-if-it-were-a-book/&#34;&gt;Reading code as if it were a book&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/aps-dot-net-core-configuration/&#34;&gt;ASP .NET Core Configuration&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/getting-started-with-identity-server4/&#34;&gt;Getting started with IdentityServer4&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/identityserver-4-accessing-api/&#34;&gt;IdentityServer4 - accessing API&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/dealing-with-secrets-in-asp-net-core/&#34;&gt;Dealing with secrets in ASP .NET Core&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/google-identity-provider-with-identityserver4/&#34;&gt;Google Identity Provider with IdentityServer4&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/upgrading-to-angulr2-rc1/&#34;&gt;Upgrading to Angular2 RC1&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/experimenting-with-angular2-cli/&#34;&gt;Experimenting with Angular2 CLI&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/migrating-to-asp-net-core-rc2/&#34;&gt;Migrating to ASP .NET Core RC2&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/epilogue-daj-sie-poznac-series/&#34;&gt;Epilogue: Daj się poznać series&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;</description>
-    </item>
-    
-    <item>
-      <title>IdentityServer4 - accessing API</title>
-      <link>http://koscielniak.me/post/2016/05/identityserver-4-accessing-api/</link>
-      <pubDate>Thu, 05 May 2016 22:00:00 +0200</pubDate>
-      
-      <guid>http://koscielniak.me/post/2016/05/identityserver-4-accessing-api/</guid>
-      <description>&lt;p&gt;&lt;a href=&#34;http://dajsiepoznac.pl&#34;&gt;&lt;img src=&#34;http://koscielniak.me/post/2016/03/contestLogo.png&#34; alt=&#34;Daj się poznać&#34; title=&#34;Daj się poznać&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;In the previous
-&lt;a href=&#34;http://koscielniak.me/post/2016/05/getting-started-with-identity-server4/&#34;&gt;post&lt;/a&gt;,
-I wrote about how to get tokens from IdentityServer using a javascript client. In this post, I am going to write about how to use this token to get access to protected resources from a sample API.&lt;/p&gt;
-
-&lt;p&gt;As in the previous post, to achieve my goal, I used samples provided on the
-&lt;a href=&#34;https://github.com/IdentityServer/IdentityServer4.Samples&#34; target=&#34;_blank&#34;&gt;github repository&lt;/a&gt;.
-In this &lt;a href=&#34;https://github.com/IdentityServer/IdentityServer4.Samples/tree/dev/Mvc/src/SampleApi&#34; target=&#34;_blank&#34;&gt;repo folder&lt;/a&gt;
-I found a sample API which I copied into my local repository. After this, I executed &lt;code&gt;dnu restore&lt;/code&gt; inside the &lt;em&gt;SampleApi&lt;/em&gt; directory.&lt;/p&gt;
-
-&lt;p&gt;The &lt;em&gt;SampleApi&lt;/em&gt; works on a different port than expected (I expected it to work on 3860, but by default it was 5000) so I changed &lt;code&gt;web&lt;/code&gt; command in the &lt;em&gt;project.json&lt;/em&gt; file in the &lt;em&gt;SampleApi&lt;/em&gt; to:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;&amp;quot;web&amp;quot;: &amp;quot;Microsoft.AspNet.Server.Kestrel --server.urls=http://localhost:3860&amp;quot;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;I could find this port in the &lt;em&gt;index.html&lt;/em&gt; file of the &lt;em&gt;JsOidc&lt;/em&gt; project. In this file, there is a handler for event &lt;em&gt;click&lt;/em&gt; for the button &lt;em&gt;Call Service&lt;/em&gt;.  In this handler, the request is sent to the address &lt;em&gt;&lt;a href=&#34;http://localhost:3860/identity&#34;&gt;http://localhost:3860/identity&lt;/a&gt;&lt;/em&gt; and this is the address on which my Api should work.&lt;/p&gt;
-
-&lt;p&gt;Then I was ready to run my application. I executed &lt;code&gt;dnx web&lt;/code&gt; in three different directories simultaneously: &lt;em&gt;IdSvrHost&lt;/em&gt;, &lt;em&gt;JsOidc&lt;/em&gt; and &lt;em&gt;SampleApi&lt;/em&gt; and after this I navigated to &lt;em&gt;&lt;a href=&#34;http://localhost:7017/&#34;&gt;http://localhost:7017/&lt;/a&gt;&lt;/em&gt; and I clicked &lt;em&gt;Login With Profile and Access Token&lt;/em&gt; and I saw this screen:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://koscielniak.me/post/2016/05/idsrv4-accessing-api/loginScreen.png&#34; alt=&#34;Login Screen&#34; title=&#34;Login Screen&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;I entered the user name &lt;em&gt;alice&lt;/em&gt; and the password &lt;em&gt;alice&lt;/em&gt; and the I saw this:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://koscielniak.me/post/2016/05/idsrv4-accessing-api/applicationAccess.png&#34; alt=&#34;Application access&#34; title=&#34;Application access&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;I clicked &lt;em&gt;Yes, Allow&lt;/em&gt; and I was brought back to my &lt;em&gt;JsOidc&lt;/em&gt;. The next thing which I did was to click on “Call Service”. After doing this, I saw a response in the pane &lt;em&gt;Ajax Result&lt;/em&gt;, which looked like this:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://koscielniak.me/post/2016/05/idsrv4-accessing-api/applicationAccess.png&#34; alt=&#34;Final result&#34; title=&#34;Final result&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;This response contains users claims and this is how it was prepared:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;return Json(User.Claims.Select(c =&amp;gt; new { c.Type, c.Value }));
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;I was really amazed by how smoothly I went through usage examples of IdentityServer4 on Linux. After my previous experiences, I was rather sceptical if this example could even run without errors on Ubuntu but they executed perfectly. By doing this example, I checked if I can use IdentityProvider4 as an identity provider for my application but as you may remember from my previous posts, I wanted to have Google as an Identity Provider. In a future post, I’ll examine if it is possible to combine Google authentication with IdentityProvider4.&lt;/p&gt;
-
-&lt;h3&gt;Related posts:&lt;/h3&gt;
+&lt;p&gt;&lt;h3&gt;Related posts:&lt;/h3&gt;
 
 
 
@@ -1472,7 +1389,115 @@ I found a sample API which I copied into my local repository. After this, I exec
 &lt;/ul&gt;
 
 
+&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>IdentityServer4 - accessing API</title>
+      <link>http://koscielniak.me/post/2016/05/identityserver-4-accessing-api/</link>
+      <pubDate>Thu, 05 May 2016 22:00:00 +0200</pubDate>
+      
+      <guid>http://koscielniak.me/post/2016/05/identityserver-4-accessing-api/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;http://dajsiepoznac.pl&#34;&gt;&lt;img src=&#34;http://koscielniak.me/post/2016/03/contestLogo.png&#34; alt=&#34;Daj się poznać&#34; title=&#34;Daj się poznać&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
 
+&lt;p&gt;In the previous
+&lt;a href=&#34;http://koscielniak.me/post/2016/05/getting-started-with-identity-server4/&#34;&gt;post&lt;/a&gt;,
+I wrote about how to get tokens from IdentityServer using a javascript client. In this post, I am going to write about how to use this token to get access to protected resources from a sample API.&lt;/p&gt;
+
+&lt;p&gt;As in the previous post, to achieve my goal, I used samples provided on the
+&lt;a href=&#34;https://github.com/IdentityServer/IdentityServer4.Samples&#34; target=&#34;_blank&#34;&gt;github repository&lt;/a&gt;.
+In this &lt;a href=&#34;https://github.com/IdentityServer/IdentityServer4.Samples/tree/dev/Mvc/src/SampleApi&#34; target=&#34;_blank&#34;&gt;repo folder&lt;/a&gt;
+I found a sample API which I copied into my local repository. After this, I executed &lt;code&gt;dnu restore&lt;/code&gt; inside the &lt;em&gt;SampleApi&lt;/em&gt; directory.&lt;/p&gt;
+
+&lt;p&gt;The &lt;em&gt;SampleApi&lt;/em&gt; works on a different port than expected (I expected it to work on 3860, but by default it was 5000) so I changed &lt;code&gt;web&lt;/code&gt; command in the &lt;em&gt;project.json&lt;/em&gt; file in the &lt;em&gt;SampleApi&lt;/em&gt; to:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;quot;web&amp;quot;: &amp;quot;Microsoft.AspNet.Server.Kestrel --server.urls=http://localhost:3860&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;I could find this port in the &lt;em&gt;index.html&lt;/em&gt; file of the &lt;em&gt;JsOidc&lt;/em&gt; project. In this file, there is a handler for event &lt;em&gt;click&lt;/em&gt; for the button &lt;em&gt;Call Service&lt;/em&gt;.  In this handler, the request is sent to the address &lt;em&gt;&lt;a href=&#34;http://localhost:3860/identity&#34;&gt;http://localhost:3860/identity&lt;/a&gt;&lt;/em&gt; and this is the address on which my Api should work.&lt;/p&gt;
+
+&lt;p&gt;Then I was ready to run my application. I executed &lt;code&gt;dnx web&lt;/code&gt; in three different directories simultaneously: &lt;em&gt;IdSvrHost&lt;/em&gt;, &lt;em&gt;JsOidc&lt;/em&gt; and &lt;em&gt;SampleApi&lt;/em&gt; and after this I navigated to &lt;em&gt;&lt;a href=&#34;http://localhost:7017/&#34;&gt;http://localhost:7017/&lt;/a&gt;&lt;/em&gt; and I clicked &lt;em&gt;Login With Profile and Access Token&lt;/em&gt; and I saw this screen:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://koscielniak.me/post/2016/05/idsrv4-accessing-api/loginScreen.png&#34; alt=&#34;Login Screen&#34; title=&#34;Login Screen&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;I entered the user name &lt;em&gt;alice&lt;/em&gt; and the password &lt;em&gt;alice&lt;/em&gt; and the I saw this:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://koscielniak.me/post/2016/05/idsrv4-accessing-api/applicationAccess.png&#34; alt=&#34;Application access&#34; title=&#34;Application access&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;I clicked &lt;em&gt;Yes, Allow&lt;/em&gt; and I was brought back to my &lt;em&gt;JsOidc&lt;/em&gt;. The next thing which I did was to click on “Call Service”. After doing this, I saw a response in the pane &lt;em&gt;Ajax Result&lt;/em&gt;, which looked like this:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://koscielniak.me/post/2016/05/idsrv4-accessing-api/applicationAccess.png&#34; alt=&#34;Final result&#34; title=&#34;Final result&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;This response contains users claims and this is how it was prepared:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;return Json(User.Claims.Select(c =&amp;gt; new { c.Type, c.Value }));
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;I was really amazed by how smoothly I went through usage examples of IdentityServer4 on Linux. After my previous experiences, I was rather sceptical if this example could even run without errors on Ubuntu but they executed perfectly. By doing this example, I checked if I can use IdentityProvider4 as an identity provider for my application but as you may remember from my previous posts, I wanted to have Google as an Identity Provider. In a future post, I’ll examine if it is possible to combine Google authentication with IdentityProvider4.&lt;/p&gt;
+
+&lt;p&gt;&lt;h3&gt;Related posts:&lt;/h3&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;ul style=&#34;list-style: none;&#34;&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/02/enrolling-in-daj-sie-poznac/&#34;&gt;Enrolling in &#34;Daj się poznać&#34;&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/daj-sie-poznac-project-details/&#34;&gt;&#34;Daj się poznać&#34; - Project details&#34;&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/i-m-holding-a-project-rider-eap/&#34;&gt;I&#39;m holding a Project Rider EAP&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/installing-asp-dot-net-core-1-on-ubuntu-14/&#34;&gt;Installing ASP .NET Core 1 on Ubuntu 14.04&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/my-first-asp-net-core-1-web-application/&#34;&gt;My first ASP NET Core 1.0 web application&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/project-setup-server-side/&#34;&gt;Project setup - server-side&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/project-setup-client-side/&#34;&gt;Project setup - client-side&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/adding-styling-to-my-application/&#34;&gt;Adding styling to my application&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/angular2-confirm-dialog-component/&#34;&gt;Angular 2 Confirm Dialog Component&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/before-going-into-production/&#34;&gt;Before going into production&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/publishing-to-azure/&#34;&gt;Publishing to Azure&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/setting-up-the-web-client-for-google-identity-platform/&#34;&gt;Setting up the Web client for Google Identity Platform&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/oidc-token-manager-library-with-google-identity-platform-part-1/&#34;&gt;oidc-token-manager library with Google Identity Platform - Part 1&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/oidc-token-manager-library-with-google-identity-platform-part-2/&#34;&gt;oidc-token-manager library with Google Identity Platform - Part 2&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/accesing-api-with-token-from-google-identity-provider/&#34;&gt;Accessing API with token from Google Identity Provider&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/how-portable-is-asp-dot-net-core/&#34;&gt;How portable is ASP .NET Core 1.0?&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/when-dotpeek-can-save-your-live/&#34;&gt;When dotPeek can save your live&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/reading-code-as-if-it-were-a-book/&#34;&gt;Reading code as if it were a book&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/aps-dot-net-core-configuration/&#34;&gt;ASP .NET Core Configuration&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/getting-started-with-identity-server4/&#34;&gt;Getting started with IdentityServer4&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/identityserver-4-accessing-api/&#34;&gt;IdentityServer4 - accessing API&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/dealing-with-secrets-in-asp-net-core/&#34;&gt;Dealing with secrets in ASP .NET Core&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/google-identity-provider-with-identityserver4/&#34;&gt;Google Identity Provider with IdentityServer4&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/upgrading-to-angulr2-rc1/&#34;&gt;Upgrading to Angular2 RC1&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/experimenting-with-angular2-cli/&#34;&gt;Experimenting with Angular2 CLI&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/migrating-to-asp-net-core-rc2/&#34;&gt;Migrating to ASP .NET Core RC2&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/epilogue-daj-sie-poznac-series/&#34;&gt;Epilogue: Daj się poznać series&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;/p&gt;
 </description>
     </item>
     
@@ -1595,7 +1620,7 @@ new Client
 &lt;p&gt;As you can see, I got &lt;em&gt;id_token&lt;/em&gt; which meant I was successfully authenticated in IdentityServer. The next step is to obtain &lt;em&gt;access_token&lt;/em&gt; and use it to access some API but this is a theme for another post. Meanwhile, you can find the whole source code for this demo in
 &lt;a href=&#34;https://github.com/pikoscielniak/idsrv-demo&#34; target=&#34;_blank&#34;&gt;this repository&lt;/a&gt;.&lt;/p&gt;
 
-&lt;h3&gt;Related posts:&lt;/h3&gt;
+&lt;p&gt;&lt;h3&gt;Related posts:&lt;/h3&gt;
 
 
 
@@ -1656,287 +1681,7 @@ new Client
 &lt;/ul&gt;
 
 
-
-</description>
-    </item>
-    
-    <item>
-      <title>ASP .NET Core Configuration</title>
-      <link>http://koscielniak.me/post/2016/04/aps-dot-net-core-configuration/</link>
-      <pubDate>Wed, 27 Apr 2016 22:00:00 +0200</pubDate>
-      
-      <guid>http://koscielniak.me/post/2016/04/aps-dot-net-core-configuration/</guid>
-      <description>&lt;p&gt;&lt;a href=&#34;http://dajsiepoznac.pl&#34;&gt;&lt;img src=&#34;http://koscielniak.me/post/2016/03/contestLogo.png&#34; alt=&#34;Daj się poznać&#34; title=&#34;Daj się poznać&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;ASP .NET Core brings with it a lot of new things and concepts to the Web development on .NET framework. One of them is the new way to configure your application. In this post, I will look at the possibilities we have in this area.&lt;/p&gt;
-
-&lt;p&gt;In the previous version of ASP .NET you used file &lt;em&gt;Web.config&lt;/em&gt; to configure your application. Now you have more options: you can use &lt;em&gt;json&lt;/em&gt;, &lt;em&gt;ini&lt;/em&gt;, &lt;em&gt;xml&lt;/em&gt; and you can even easily use environment variables to configure your app. Let’s see how it works.&lt;/p&gt;
-
-&lt;p&gt;We should prepare the configuration for our application during its startup and in the ASP .NET Core there is a class &lt;em&gt;Startup&lt;/em&gt; which is the entry point of our app. In the constructor of the class &lt;em&gt;Startup&lt;/em&gt; we create the &lt;em&gt;ConfigurationBuilder&lt;/em&gt; which we use to prepare the configuration of the app. We can use dependency injection in this constructor and get by it an instance of &lt;em&gt;IHostingEnvironment&lt;/em&gt; and &lt;em&gt;IApplicationEnvironment&lt;/em&gt; which may be helpful for configuration because &lt;em&gt;IHostingEnvironment&lt;/em&gt; provides the current &lt;em&gt;EnvironmentName&lt;/em&gt;, &lt;em&gt;WebRootPath&lt;/em&gt;, and web root file provider while &lt;em&gt;IApplicationEnvironment&lt;/em&gt; provides access to the application properties, such as &lt;em&gt;ApplicationName&lt;/em&gt;, &lt;em&gt;ApplicationVersion&lt;/em&gt;, and &lt;em&gt;ApplicationBasePath&lt;/em&gt;.&lt;/p&gt;
-
-&lt;p&gt;I prepared *Startup*’s constructor like this:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;public Startup(IHostingEnvironment env)
-{
-    var builder = new ConfigurationBuilder()
-        .AddJsonFile(&amp;quot;appsettings.json&amp;quot;)
-        .AddJsonFile($&amp;quot;appsettings.{env.EnvironmentName}.json&amp;quot;, optional: true);
-
-    builder.AddEnvironmentVariables();
-    Configuration = builder.Build();           
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;What I did in it was to create &lt;em&gt;ConfigurationBuilder&lt;/em&gt; and then I ordered it to prepare the configuration based using files “appsettings.json” and &lt;em&gt;appsettings.{env.EnvironmentName}.json&lt;/em&gt; but the second file may or may not exist. The part of the name &lt;em&gt;env.EnvironmentName&lt;/em&gt; will be replaced in runtime with the proper value. We will see an example of this in a minute.&lt;/p&gt;
-
-&lt;p&gt;I also added environment variables to builder so the configuration will also contain what’s in them. After this, I built config and stored it in the property &lt;em&gt;Configuration&lt;/em&gt; of &lt;em&gt;Startup&lt;/em&gt; class.&lt;/p&gt;
-
-&lt;p&gt;Having the setup like this let’s us create files &lt;em&gt;appsettings.json&lt;/em&gt; and &lt;em&gt;appsettings.Development.json&lt;/em&gt; with content like this:&lt;br /&gt;
-&lt;em&gt;appsettings.json&lt;/em&gt;:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;{
-    &amp;quot;ClientSettings&amp;quot;:{
-        &amp;quot;Name&amp;quot;: &amp;quot;Client Name&amp;quot;,
-        &amp;quot;PageSize&amp;quot;: 10,
-        &amp;quot;ShowTitle&amp;quot;: true
-    }
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;em&gt;appsettings.Development.json&lt;/em&gt;:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;{
-    &amp;quot;ClientSettings&amp;quot;:{
-        &amp;quot;Name&amp;quot;: &amp;quot;Development Client Name&amp;quot;
-    }
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Now how can we get access to the values stored in these config files? We have a couple of possibilities so let’s explore a few of them.&lt;/p&gt;
-
-&lt;p&gt;The first one is to get it directly from the &lt;em&gt;Configuration&lt;/em&gt; property like this:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt; var clientName = Configuration[&amp;quot;ClientSettings:Name&amp;quot;];
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;As you can see, you must use colons to get nesting values.&lt;/p&gt;
-
-&lt;p&gt;We can even get a whole section from configuration by doing this:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;var clientSettings = Configuration.GetSection(&amp;quot;ClientSettings&amp;quot;);
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;And then get values from it like this:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;var name = clientSettings.Get&amp;lt;string&amp;gt;(&amp;quot;Name&amp;quot;);
-var pageSize = clientSettings.Get&amp;lt;int&amp;gt;(&amp;quot;PageSize&amp;quot;);
-var showTitle = clientSettings.Get&amp;lt;bool&amp;gt;(&amp;quot;ShowTitle&amp;quot;);
-
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;We can also set a default value for a specific property like this:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt; var pageSize = clientSettings.Get&amp;lt;int&amp;gt;(&amp;quot;PageSize&amp;quot;, 20);
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;We can only do all these things inside &lt;em&gt;Startup&lt;/em&gt; class unless we make a &lt;em&gt;Configuration&lt;/em&gt; property &lt;code&gt;public static&lt;/code&gt; then we can access it also in example controllers like this:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;public IActionResult Index()
-{
-    var clientName = Startup.Configuration[&amp;quot;ClientSettings:Name&amp;quot;];
-    return Content($&amp;quot;Client {clientName}&amp;quot;);
-}
-
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&amp;hellip;but this kind of using Configuration is a rather bad practice. Another bad practice is making configuration available by dependency injection by doing this in the &lt;em&gt;ConfigureServices&lt;/em&gt;:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;services.AddInstance&amp;lt;IConfigurationRoot&amp;gt;(Configuration);
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;And then using it, for example in controller, like this:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;public class HomeController : Controller
-{
-    private IConfigurationRoot _configuration;
-
-    public HomeController(IConfigurationRoot configuration)
-    {
-        _configuration = configuration;
-    }
-    public IActionResult Index()
-    {            
-          var clientName = _configuration[&amp;quot;ClientSettings:Name&amp;quot;];
-        return Content($&amp;quot;Client {clientName}&amp;quot;);
-    }
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;We can get configuration in controller in another way but first let’s create a class like this:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;public class ClientSettings
-{
-    public string Name { get; set; }
-    public int PageSize { get; set; }
-    public bool ShowTitle { get; set; }
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Then inside &lt;em&gt;ConfigureServices&lt;/em&gt; we do something like this:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;services.Configure&amp;lt;ClientSettings&amp;gt;(Configuration.GetSection(&amp;quot;ClientSettings&amp;quot;));
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Now we can get access to the settings for a specific section from dependency injection like this:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;public class HomeController : Controller
-{
-    private ClientSettings _clientSettings;
-
-    public HomeController(IOptions&amp;lt;ClientSettings&amp;gt; clientSettings)
-    {
-        _clientSettings = clientSettings.Value;
-    }
-    public IActionResult Index()
-    {            
-          var clientName = _clientSettings;
-        return Content($&amp;quot;{_clientSettings.Name} {_clientSettings.PageSize} {_clientSettings.ShowTitle}&amp;quot;);
-    }
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;As you can see now, you have access to the strongly typed object with all your desired settings and you can get help from intellisense to see what they contain.&lt;/p&gt;
-
-&lt;p&gt;You can even get access to these settings from the view by doing this:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-html&#34;&gt;@inject IOptions&amp;lt;ClientSettings&amp;gt; ClientSettings
-&amp;lt;div&amp;gt;    
-    @if(ClientSettings.Value.ShowTitle) {
-        &amp;lt;h3&amp;gt;Page title @ClientSettings.Value.Name&amp;lt;/h3&amp;gt;    
-    }
-&amp;lt;/div&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Remember to add usings in the &lt;em&gt;_ViewImports.cshtml&lt;/em&gt; like this:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;@using AspNetConfigSampleApp
-@using Microsoft.Extensions.OptionsModel
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;For someone who finds injecting &lt;em&gt;IOptions&amp;lt;&amp;gt;&lt;/em&gt; a bit awkward, this is a solution which I found out about from
-&lt;a href=&#34;http://www.benedykt.net/&#34; target=&#34;_blank&#34;&gt;Arkadiusz Benedykt&lt;/a&gt;. In the &lt;em&gt;ConfigureServices&lt;/em&gt; we do this:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;var clientSettings = Configuration.Get&amp;lt;ClientSettings&amp;gt;(&amp;quot;ClientSettings&amp;quot;);
-services.AddInstance(clientSettings);
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;We created an instance of the &lt;em&gt;ClientSettings&lt;/em&gt; and registered it as a singleton in the dependency injection container so every time someone asks for the class &lt;em&gt;ClientSettings&lt;/em&gt; this instance just created will be injected. With a solution like this, you can use  &lt;em&gt;ClientSettings&lt;/em&gt; in controller in this way:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;public class HomeController : Controller
-{
-   private ClientSettings _clientSettings;
-
-    public HomeController(ClientSettings clientSettings)
-    {
-        _clientSettings = clientSettings;
-    }
-    public IActionResult Index()
-    {            
-         var clientName = _clientSettings;
-        return Content($&amp;quot;{_clientSettings.Name} {_clientSettings.PageSize} {_clientSettings.ShowTitle}&amp;quot;);
-    }
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Building the configuration by &lt;em&gt;ConfigurationBuilder&lt;/em&gt; is hierarchical. This means that what is added at the beginning of the configuration will be overridden by what’s added later. Usually the last thing we add to the &lt;em&gt;ConfigurationBuilder&lt;/em&gt; is &lt;em&gt;AddEnvironmentVariables&lt;/em&gt; which means that environmental variables can override settings gathered from previous sources of configuration for example from &lt;em&gt;json&lt;/em&gt; files. Let’s see this in practice.&lt;/p&gt;
-
-&lt;p&gt;In the file &lt;em&gt;appsettings.Develplment.json&lt;/em&gt; I have changed the value for property &lt;em&gt;Name&lt;/em&gt;. When I run the application with this command &lt;code&gt;env ASPNET_ENV=”Development” dnx web&lt;/code&gt; I get a value for &lt;em&gt;Name&lt;/em&gt; like this &lt;em&gt;Development Client Name&lt;/em&gt; because the file  &lt;em&gt;appsettings.Develplment.json&lt;/em&gt; is added after the &lt;em&gt;appsettings.json&lt;/em&gt; to the &lt;em&gt;ConfigurationBuilder&lt;/em&gt;.&lt;/p&gt;
-
-&lt;p&gt;I can even change the value for &lt;em&gt;Name&lt;/em&gt; when I run the application by issuing a command like this:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;env ASPNET_ENV=&amp;quot;Development&amp;quot; ClientSettings:Name=&amp;quot;Name from Environment&amp;quot;  dnx web
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;After this, I got value &lt;em&gt;Name from Environment&lt;/em&gt; for property &lt;em&gt;Name&lt;/em&gt; of &lt;em&gt;ClientSettings&lt;/em&gt;.&lt;/p&gt;
-
-&lt;p&gt;We can also change the values in configuration after it is built, for example like this:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;Configuration[&amp;quot;ClientSettings:Name&amp;quot;] = &amp;quot;Name from Startup&amp;quot;;   
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;We can even add new settings. This is how it is done in the default Web application project template from &lt;em&gt;yo aspnet generator&lt;/em&gt;:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;Configuration[&amp;quot;Data:DefaultConnection:ConnectionString&amp;quot;] = $@&amp;quot;Data Source={appEnv.ApplicationBasePath}/WebApplication.db&amp;quot;;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;You can find all the examples from this post in this
-&lt;a href=&#34;https://github.com/pikoscielniak/asp-net-core-configuration&#34; target=&#34;_blank&#34;&gt;repository&lt;/a&gt;.
-As you can see, this new way of configuring your ASP .NET Core application provides a lot of possibilities.
-&lt;a href=&#34;http://koscielniak.me/post/2016/05/dealing-with-secrets-in-asp-net-core/&#34;&gt;In the future&lt;/a&gt;,
-I will also write about how to deal with settings which should be secret and should not be published to the source code repository.&lt;/p&gt;
-
-&lt;h3&gt;Related posts:&lt;/h3&gt;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-&lt;ul style=&#34;list-style: none;&#34;&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/02/enrolling-in-daj-sie-poznac/&#34;&gt;Enrolling in &#34;Daj się poznać&#34;&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/daj-sie-poznac-project-details/&#34;&gt;&#34;Daj się poznać&#34; - Project details&#34;&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/i-m-holding-a-project-rider-eap/&#34;&gt;I&#39;m holding a Project Rider EAP&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/installing-asp-dot-net-core-1-on-ubuntu-14/&#34;&gt;Installing ASP .NET Core 1 on Ubuntu 14.04&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/my-first-asp-net-core-1-web-application/&#34;&gt;My first ASP NET Core 1.0 web application&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/project-setup-server-side/&#34;&gt;Project setup - server-side&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/project-setup-client-side/&#34;&gt;Project setup - client-side&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/adding-styling-to-my-application/&#34;&gt;Adding styling to my application&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/angular2-confirm-dialog-component/&#34;&gt;Angular 2 Confirm Dialog Component&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/before-going-into-production/&#34;&gt;Before going into production&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/publishing-to-azure/&#34;&gt;Publishing to Azure&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/setting-up-the-web-client-for-google-identity-platform/&#34;&gt;Setting up the Web client for Google Identity Platform&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/oidc-token-manager-library-with-google-identity-platform-part-1/&#34;&gt;oidc-token-manager library with Google Identity Platform - Part 1&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/oidc-token-manager-library-with-google-identity-platform-part-2/&#34;&gt;oidc-token-manager library with Google Identity Platform - Part 2&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/accesing-api-with-token-from-google-identity-provider/&#34;&gt;Accessing API with token from Google Identity Provider&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/how-portable-is-asp-dot-net-core/&#34;&gt;How portable is ASP .NET Core 1.0?&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/when-dotpeek-can-save-your-live/&#34;&gt;When dotPeek can save your live&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/reading-code-as-if-it-were-a-book/&#34;&gt;Reading code as if it were a book&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/aps-dot-net-core-configuration/&#34;&gt;ASP .NET Core Configuration&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/getting-started-with-identity-server4/&#34;&gt;Getting started with IdentityServer4&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/identityserver-4-accessing-api/&#34;&gt;IdentityServer4 - accessing API&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/dealing-with-secrets-in-asp-net-core/&#34;&gt;Dealing with secrets in ASP .NET Core&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/google-identity-provider-with-identityserver4/&#34;&gt;Google Identity Provider with IdentityServer4&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/upgrading-to-angulr2-rc1/&#34;&gt;Upgrading to Angular2 RC1&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/experimenting-with-angular2-cli/&#34;&gt;Experimenting with Angular2 CLI&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/migrating-to-asp-net-core-rc2/&#34;&gt;Migrating to ASP .NET Core RC2&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/epilogue-daj-sie-poznac-series/&#34;&gt;Epilogue: Daj się poznać series&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-
-
+&lt;/p&gt;
 </description>
     </item>
     
