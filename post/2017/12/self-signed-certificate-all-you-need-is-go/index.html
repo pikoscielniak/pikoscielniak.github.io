@@ -1,0 +1,173 @@
+<!doctype html>
+<html class="no-js">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Piotr Kościelniak - passionate programmer</title>
+        <meta name="author" content="Piotr Kościelniak">
+        <meta name="description" content="Piotr Kościelniak - passionate programmer">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="generator" content="Hugo 0.16-DEV" />
+          <link href="http://koscielniak.me/post/index.xml" rel="alternate" type="application/rss+xml" title="Piotr Kościelniak - passionate programmer" />
+          <link href="http://koscielniak.me/post/index.xml" rel="feed" type="application/rss+xml" title="Piotr Kościelniak - passionate programmer" />
+        <link href='//fonts.googleapis.com/css?family=Roboto:400,300,700|Noto+Serif:400,400italic,700,700italic' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" href="http://koscielniak.me/css/styles.css">
+        <link rel="icon" href="http://koscielniak.me/favicon.ico">
+        <link rel="apple-touch-icon" href="http://koscielniak.me/apple-touch-icon.png" />
+        <link rel="stylesheet" href="http://koscielniak.me/css/highlightjs/monokai.css">
+        <script src="http://koscielniak.me/js/vendor/modernizr-2.8.0.min.js"></script>
+        <style>
+        .site-header h2 .logo {
+        background: url(http://koscielniak.me/img/desk.jpg) no-repeat 0 0;
+        }
+        @media (min--moz-device-pixel-ratio: 1.3), (-o-min-device-pixel-ratio: 2.6 / 2), (-webkit-min-device-pixel-ratio: 1.3), (min-device-pixel-ratio: 1.3), (min-resolution: 1.3dppx) {
+          .site-header h2 .logo {
+            background-image: url(http://koscielniak.me/img/desk.jpg);
+        }}
+       .site-header {
+         background: #2a373d url(http://koscielniak.me/img/desk.jpg) no-repeat center center;
+         z-index: -1;
+        }
+        </style>
+    </head>
+    <body>
+        
+        <a href="http://koscielniak.me/">
+        <header class="site-header">
+          <div class="transparent-layer">
+         <h2>You&#39;re here. I appreciate it.</h2>
+          </div>
+        </header>
+        </a>
+
+
+<div class="container clearfix">
+    <main role="main" class="content">
+        <article class="post">
+            <a class="btn" href="http://koscielniak.me/" title="Back to home">&laquo; Back to home</a>
+            
+<h1><a href="http://koscielniak.me/post/2017/12/self-signed-certificate-all-you-need-is-go/" title="Self-signed certificate? All you need is go">Self-signed certificate? All you need is go</a></h1>
+
+<footer class="post-info">Posted on <span class="post-meta"><time datetime="2017.12.19">2017.12.19</time>
+&middot; Tagged in
+    
+    <a href="http://koscielniak.me/tags/go">go</a>, 
+    
+    <a href="http://koscielniak.me/tags/golang">golang</a>
+    
+
+</span>
+</footer>
+
+            <p>Are you writing code in Go (Golang)?
+And do you sometimes need to create
+a self-signed test certificate?
+I have, and that’s why I am writing this post to remind myself
+(and you) how to do this. I’ll be happy if someone
+else will also benefit from this information.
+Do this to create a self-signed test certificate:</p>
+
+<p>On Linux:</p>
+
+<p><code>go run $GOROOT/src/crypto/tls/generate_cert.go --rsa-bits 1024 --host 127.0.0.1,::1,localhost --ca --start-date &quot;Jan 1 00:00:00 1970&quot; --duration=1000000h</code></p>
+
+<p>On Windows:</p>
+
+<p><code>go run %GOROOT%/src/crypto/tls/generate_cert.go --rsa-bits 1024 --host 127.0.0.1,::1,localhost --ca --start-date &quot;Jan 1 00:00:00 1970&quot; --duration=1000000h</code></p>
+
+<p>After executing this command you get the files <code>cert.pem</code> and <code>key.pem</code>. And that’s it!</p>
+
+            <ul class="share-buttons">
+    <li>Share this article:</li>
+    <li>
+        <a class="icon-facebook-squared" href="https://www.facebook.com/sharer/sharer.php?u=http%3a%2f%2fkoscielniak.me%2fpost%2f2017%2f12%2fself-signed-certificate-all-you-need-is-go%2f" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;" title="Share on Facebook"></a>
+    </li>
+    <li>
+        <a class="icon-twitter" href="https://twitter.com/share?text=Self-signed%20certificate%3f%20All%20you%20need%20is%20go&amp;url=http%3a%2f%2fkoscielniak.me%2fpost%2f2017%2f12%2fself-signed-certificate-all-you-need-is-go%2f" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;" title="Tweet this article"></a>
+    </li>
+    <li>
+        <a class="icon-gplus" href="https://plus.google.com/share?url=http%3a%2f%2fkoscielniak.me%2fpost%2f2017%2f12%2fself-signed-certificate-all-you-need-is-go%2f" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;" title="Share on Google&#43;"></a>
+    </li>
+    <li>
+        <a class="icon-linkedin" href="https://www.linkedin.com/shareArticle?mini=true&url=http%3a%2f%2fkoscielniak.me%2fpost%2f2017%2f12%2fself-signed-certificate-all-you-need-is-go%2f&title=Self-signed%20certificate%3f%20All%20you%20need%20is%20go" onclick="window.open(this.href, 'linkedin-share', 'width=600,height=494');return false;" title="Share on Linkedin"></a>
+    </li>
+</ul>
+
+        </article>
+        <div class="comments">
+            <h3>Comments</h3>
+            <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'koscielniak';
+    var disqus_identifier = 'http:\/\/koscielniak.me\/post\/2017\/12\/self-signed-certificate-all-you-need-is-go\/';
+    var disqus_title = 'Self-signed certificate? All you need is go';
+    var disqus_url = 'http:\/\/koscielniak.me\/post\/2017\/12\/self-signed-certificate-all-you-need-is-go\/';
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+        </div>
+    </main>
+    <aside class="author">
+  <img class="profile-image" src="http://koscielniak.me/img/profile-image.png" alt="Piotr Kościelniak" />
+  <p class="name">by 
+  <strong>Piotr Kościelniak</strong></p>
+  <p class="address">Passionate programmer</p>
+  <p class="link"></p>
+  <ul class="social">
+    
+<li><a href="//twitter.com/pikoscielniak" class="icon-twitter" target="_blank" title="Twitter"></a></li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li><a href="//github.com/pikoscielniak" class="icon-github" target="_blank" title="Github"></a></li>
+
+
+
+
+<li><a href="http://koscielniak.me/post/index.xml" class="icon-rss" target="_blank" title="RSS"></a></li>
+
+  </ul>
+  <br><br>
+</aside>
+
+</div>
+
+<footer class="main-footer">
+  <div class="container clearfix">
+        <a class="icon-rss" href="http://koscielniak.me/post/index.xml" title="RSS"></a>
+        <p>&copy; 2017 &middot; Piotr Kościelniak. Powered by <a href="http://gohugo.io">Hugo</a>.</p>
+  </div>
+</footer>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.8.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<script>window.jQuery || document.write('<script src="http:\/\/koscielniak.me\/js/vendor/jquery-1.11.0.min.js"><\/script>')</script>
+<script src="http://koscielniak.me/js/plugins.js"></script>
+
+<!-- Google Analytics -->
+<script>
+  var _gaq=[['_setAccount','UA-72752659-1'],['_trackPageview']];
+  (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+  g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+  s.parentNode.insertBefore(g,s)}(document,'script'));
+</script>
+
+</body>
+</html>
+

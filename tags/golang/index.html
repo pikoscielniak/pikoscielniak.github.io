@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Tags &middot; Piotr Kościelniak - passionate programmer</title>
+        <title>Golang &middot; Piotr Kościelniak - passionate programmer</title>
         <meta name="author" content="Piotr Kościelniak">
         <meta name="description" content="Piotr Kościelniak - passionate programmer">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -42,124 +42,40 @@
 
 <div class="container clearfix">
     <main role="main" class="content">
-    <a class="btn" href="http://koscielniak.me/" title="Back to home">&laquo; Back to home</a>
-    <h2>Tags:</h2>
-    <ul>
-     
-        <li>
-            <a href="daj-si%C4%99-pozna%C4%87">daj-się-poznać (27)</a>
-        </li>
+        <a class="btn" href="http://koscielniak.me/" title="Back to home">&laquo; Back to home</a>
+        
+        
+            <article class="post">
     
-        <li>
-            <a href="asp-.net-core">asp-.net-core (15)</a>
-        </li>
+<h1><a href="http://koscielniak.me/post/2017/12/self-signed-certificate-all-you-need-is-go/" title="Self-signed certificate? All you need is go">Self-signed certificate? All you need is go</a></h1>
+
+<footer class="post-info">Posted on <span class="post-meta"><time datetime="2017.12.19">2017.12.19</time>
+&middot; Tagged in
     
-        <li>
-            <a href="openid-connect">openid-connect (8)</a>
-        </li>
+    <a href="http://koscielniak.me/tags/go">go</a>, 
     
-        <li>
-            <a href="angular2">angular2 (7)</a>
-        </li>
+    <a href="http://koscielniak.me/tags/golang">golang</a>
     
-        <li>
-            <a href="oauth2">oauth2 (7)</a>
-        </li>
-    
-        <li>
-            <a href="google">google (6)</a>
-        </li>
-    
-        <li>
-            <a href="conferences">conferences (6)</a>
-        </li>
-    
-        <li>
-            <a href="identityserver">identityserver (3)</a>
-        </li>
-    
-        <li>
-            <a href="wroc">wroc# (2)</a>
-        </li>
-    
-        <li>
-            <a href="jetbrains">jetbrains (2)</a>
-        </li>
-    
-        <li>
-            <a href="go">go (1)</a>
-        </li>
-    
-        <li>
-            <a href="material-design">material-design (1)</a>
-        </li>
-    
-        <li>
-            <a href="chrome">chrome (1)</a>
-        </li>
-    
-        <li>
-            <a href="devoxx">devoxx (1)</a>
-        </li>
-    
-        <li>
-            <a href="project-rider">project-rider (1)</a>
-        </li>
-    
-        <li>
-            <a href="guitar">guitar (1)</a>
-        </li>
-    
-        <li>
-            <a href="bbq4it">bbq4it (1)</a>
-        </li>
-    
-        <li>
-            <a href="quality-excites">quality-excites (1)</a>
-        </li>
-    
-        <li>
-            <a href="javascript">javascript (1)</a>
-        </li>
-    
-        <li>
-            <a href="npm">npm (1)</a>
-        </li>
-    
-        <li>
-            <a href="resharper">resharper (1)</a>
-        </li>
-    
-        <li>
-            <a href="visual-studio">visual-studio (1)</a>
-        </li>
-    
-        <li>
-            <a href="code">code (1)</a>
-        </li>
-    
-        <li>
-            <a href="azure">azure (1)</a>
-        </li>
-    
-        <li>
-            <a href="golang">golang (1)</a>
-        </li>
-    
-        <li>
-            <a href="node.js">node.js (1)</a>
-        </li>
-    
-        <li>
-            <a href="programming">programming (1)</a>
-        </li>
-    
-        <li>
-            <a href="dotpeek">dotpeek (1)</a>
-        </li>
-    
-    </ul>
+
+</span>
+</footer>
+
+    <p>Are you writing code in Go (Golang)? And do you sometimes need to create a self-signed test certificate? I have, and that’s why I am writing this post to remind myself (and you) how to do this. I’ll be happy if someone else will also benefit from this information. Do this to create a self-signed test certificate: On Linux: go run $GOROOT/src/crypto/tls/generate_cert.go &ndash;rsa-bits 1024 &ndash;host 127.0.0.1,::1,localhost &ndash;ca &ndash;start-date &quot;Jan 1 00:00:00 1970&quot; &ndash;duration=1000000h On Windows: go run %GOROOT%/src/crypto/tls/generate_cert.go &ndash;rsa-bits 1024 &ndash;host 127.0.0.1,::1,localhost &ndash;ca &ndash;start-date &quot;Jan 1 00:00:00 1970&quot; &ndash;duration=1000000h After executing this command you get the files cert.pem and key.pem.&hellip;</p>
+    <a href="http://koscielniak.me/post/2017/12/self-signed-certificate-all-you-need-is-go/" title="Self-signed certificate? All you need is go">Read more &raquo;</a>
+</article>
+
+        
+        <div class="pagination">
+<nav>
+
+	<p class="counter">Page 1 of 1</p>
+
+
+</nav>
+</div>
+
     </main>
+
     <aside class="author">
   <img class="profile-image" src="http://koscielniak.me/img/profile-image.png" alt="Piotr Kościelniak" />
   <p class="name">by 

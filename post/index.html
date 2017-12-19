@@ -47,6 +47,26 @@
         
             <article class="post">
     
+<h1><a href="http://koscielniak.me/post/2017/12/self-signed-certificate-all-you-need-is-go/" title="Self-signed certificate? All you need is go">Self-signed certificate? All you need is go</a></h1>
+
+<footer class="post-info">Posted on <span class="post-meta"><time datetime="2017.12.19">2017.12.19</time>
+&middot; Tagged in
+    
+    <a href="http://koscielniak.me/tags/go">go</a>, 
+    
+    <a href="http://koscielniak.me/tags/golang">golang</a>
+    
+
+</span>
+</footer>
+
+    <p>Are you writing code in Go (Golang)? And do you sometimes need to create a self-signed test certificate? I have, and that’s why I am writing this post to remind myself (and you) how to do this. I’ll be happy if someone else will also benefit from this information. Do this to create a self-signed test certificate: On Linux: go run $GOROOT/src/crypto/tls/generate_cert.go &ndash;rsa-bits 1024 &ndash;host 127.0.0.1,::1,localhost &ndash;ca &ndash;start-date &quot;Jan 1 00:00:00 1970&quot; &ndash;duration=1000000h On Windows: go run %GOROOT%/src/crypto/tls/generate_cert.go &ndash;rsa-bits 1024 &ndash;host 127.0.0.1,::1,localhost &ndash;ca &ndash;start-date &quot;Jan 1 00:00:00 1970&quot; &ndash;duration=1000000h After executing this command you get the files cert.pem and key.pem.&hellip;</p>
+    <a href="http://koscielniak.me/post/2017/12/self-signed-certificate-all-you-need-is-go/" title="Self-signed certificate? All you need is go">Read more &raquo;</a>
+</article>
+
+        
+            <article class="post">
+    
 <h1><a href="http://koscielniak.me/post/2017/03/mine-field-or-minefield/" title="‘Mine’ field or minefield?">‘Mine’ field or minefield?</a></h1>
 
 <footer class="post-info">Posted on <span class="post-meta"><time datetime="2017.03.16">2017.03.16</time>
@@ -218,26 +238,6 @@
 
     <p>After waiting for some time, I was happy when ASP.NET Core RC2 was recently released. This version should have debuted at the beginning of 2016, so imagine my anticipation and excitement to install it on my Linux machine and upgrade my project to this version. To install this version of ASP.NET Core I started on this page and then I chose Linux -&gt; Ubuntu 14.04. I followed the step-by-step instructions provided and after a while I could run the command dotnet -h in my terminal, and I saw this: Now I could start to upgrade my project.&hellip;</p>
     <a href="http://koscielniak.me/post/2016/05/migrating-to-asp-net-core-rc2/" title="Migrating to ASP .NET Core RC2">Read more &raquo;</a>
-</article>
-
-        
-            <article class="post">
-    
-<h1><a href="http://koscielniak.me/post/2016/05/experimenting-with-angular2-cli/" title="Experimenting with Angular2 CLI">Experimenting with Angular2 CLI</a></h1>
-
-<footer class="post-info">Posted on <span class="post-meta"><time datetime="2016.05.19">2016.05.19</time>
-&middot; Tagged in
-    
-    <a href="http://koscielniak.me/tags/daj-si%C4%99-pozna%C4%87">daj się poznać</a>, 
-    
-    <a href="http://koscielniak.me/tags/angular2">angular2</a>
-    
-
-</span>
-</footer>
-
-    <p>During the keynote of ng-conf 2016, Brad Green presented a lot of cool stuff about Angular2 and one of them was a tool called Angular-CLI. Angular-CLI contains a bunch of simple commands to make your work easier with Angular2 projects. The tool essentially streamlines and simplifies your projects. I am always cautious about this kind of tool because often they create far more than you need and pollute your project but when used wisely, they can be helpful.&hellip;</p>
-    <a href="http://koscielniak.me/post/2016/05/experimenting-with-angular2-cli/" title="Experimenting with Angular2 CLI">Read more &raquo;</a>
 </article>
 
         
