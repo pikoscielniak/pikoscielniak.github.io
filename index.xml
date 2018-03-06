@@ -6,8 +6,32 @@
     <description>Recent content on Piotr Kościelniak - passionate programmer</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 19 Dec 2017 22:13:28 +0100</lastBuildDate>
+    <lastBuildDate>Tue, 06 Mar 2018 22:19:25 +0100</lastBuildDate>
     <atom:link href="http://koscielniak.me/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Free online text to mp3 converter</title>
+      <link>http://koscielniak.me/post/2018/03/free-online-text-to-mp3-converter/</link>
+      <pubDate>Tue, 06 Mar 2018 22:19:25 +0100</pubDate>
+      
+      <guid>http://koscielniak.me/post/2018/03/free-online-text-to-mp3-converter/</guid>
+      <description>&lt;p&gt;Once upon a time, I had a meeting and we intended to discuss a particular document during this meeting.
+Of course, the other participants expected me to be prepared
+by reading this document. The content of this document was
+&lt;strong&gt;&lt;em&gt;so&lt;/em&gt;&lt;/strong&gt; fascinating that I waiting until the very last moment to read it and finally I realized that I didn’t have any time to read it. In case you haven’t realized, that last sentence was a bit of sarcasm.&lt;/p&gt;
+
+&lt;p&gt;What ended up happening was that 30 minutes before the meeting, I still didn’t know what was it that bloody document but I knew I needed 20 minutes to commute to the meeting. Driving a car and reading is not a good idea even during rush hour. But necessity is the mother of invention. I thought “Maybe I can convert this document to audio and I listen to it during the ride?” I would be offline during the ride so I thought I could convert this text to mp3, download the file to my phone and listen to it during my journey. “Yeah&amp;hellip;that should be easy”, I thought.&lt;/p&gt;
+
+&lt;p&gt;Not at all. The document was a bit lengthy, that’s why I was procrastinating until the final moment. I started looking for an online tool to change my text to an audio format, preferably mp3, but I failed. Every online tool had some drawback. Lack of support for Polish, a limited of number of characters, and of course some of them required payment and I was looking for something free. The truth is, I was lost during the meeting. I sat there awkwardly, pretending that I knew the contents of the document, nodding along with what the other speakers were saying.&lt;/p&gt;
+
+&lt;p&gt;I promised myself then and there: next time I would be prepared. I would create a tool to save my ass when this kind of situation happened again.
+This is how the &lt;a href=&#34;https://text2mp3.online/&#34;&gt;text2mp3&lt;/a&gt; app originated.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://koscielniak.me/post/2018/03/text2mp3.png&#34; alt=&#34;text2mp3&#34; title=&#34;text2mp3&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;It is a very simple tool which allows you to paste some text, convert it to audio, listen to it online or download it to your device. Nothing remarkable but very useful. It is free and it allows you to convert text as long as 5000 characters. Additionally, it has unpretentious, succinct GUI designed by a programmer. That was also sarcasm in case you didn’t pick it up. Please feel free to use it. Please enjoy it. And if it saves your ass please buy me a coffee.&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>Self-signed certificate? All you need is go</title>
@@ -1255,137 +1279,6 @@ vm.ExternalProviders.Add(ExternalProvider.Google);
 &lt;p&gt;And that’s it&amp;hellip;this is how I setup Google as an external Identity Provider. You can find the whole source code for this sample project in
 &lt;a href=&#34;https://github.com/pikoscielniak/idsrv-demo&#34; target=&#34;_blank&#34;&gt;this repository&lt;/a&gt;.
 Similarly, for example, you can use Facebook as an external Identity Provider. I am going to do this but I will write about it only if I run into problems and I’m forced to troubleshoot.&lt;/p&gt;
-
-&lt;p&gt;&lt;h3&gt;Related posts:&lt;/h3&gt;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-&lt;ul style=&#34;list-style: none;&#34;&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/02/enrolling-in-daj-sie-poznac/&#34;&gt;Enrolling in &#34;Daj się poznać&#34;&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/daj-sie-poznac-project-details/&#34;&gt;&#34;Daj się poznać&#34; - Project details&#34;&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/i-m-holding-a-project-rider-eap/&#34;&gt;I&#39;m holding a Project Rider EAP&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/installing-asp-dot-net-core-1-on-ubuntu-14/&#34;&gt;Installing ASP .NET Core 1 on Ubuntu 14.04&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/my-first-asp-net-core-1-web-application/&#34;&gt;My first ASP NET Core 1.0 web application&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/project-setup-server-side/&#34;&gt;Project setup - server-side&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/project-setup-client-side/&#34;&gt;Project setup - client-side&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/adding-styling-to-my-application/&#34;&gt;Adding styling to my application&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/angular2-confirm-dialog-component/&#34;&gt;Angular 2 Confirm Dialog Component&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/before-going-into-production/&#34;&gt;Before going into production&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/03/publishing-to-azure/&#34;&gt;Publishing to Azure&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/setting-up-the-web-client-for-google-identity-platform/&#34;&gt;Setting up the Web client for Google Identity Platform&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/oidc-token-manager-library-with-google-identity-platform-part-1/&#34;&gt;oidc-token-manager library with Google Identity Platform - Part 1&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/oidc-token-manager-library-with-google-identity-platform-part-2/&#34;&gt;oidc-token-manager library with Google Identity Platform - Part 2&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/accesing-api-with-token-from-google-identity-provider/&#34;&gt;Accessing API with token from Google Identity Provider&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/how-portable-is-asp-dot-net-core/&#34;&gt;How portable is ASP .NET Core 1.0?&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/when-dotpeek-can-save-your-live/&#34;&gt;When dotPeek can save your live&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/reading-code-as-if-it-were-a-book/&#34;&gt;Reading code as if it were a book&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/04/aps-dot-net-core-configuration/&#34;&gt;ASP .NET Core Configuration&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/getting-started-with-identity-server4/&#34;&gt;Getting started with IdentityServer4&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/identityserver-4-accessing-api/&#34;&gt;IdentityServer4 - accessing API&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/dealing-with-secrets-in-asp-net-core/&#34;&gt;Dealing with secrets in ASP .NET Core&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/google-identity-provider-with-identityserver4/&#34;&gt;Google Identity Provider with IdentityServer4&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/upgrading-to-angulr2-rc1/&#34;&gt;Upgrading to Angular2 RC1&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/experimenting-with-angular2-cli/&#34;&gt;Experimenting with Angular2 CLI&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/migrating-to-asp-net-core-rc2/&#34;&gt;Migrating to ASP .NET Core RC2&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;http://koscielniak.me/post/2016/05/epilogue-daj-sie-poznac-series/&#34;&gt;Epilogue: Daj się poznać series&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-
-&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Dealing with secrets in ASP .NET Core</title>
-      <link>http://koscielniak.me/post/2016/05/dealing-with-secrets-in-asp-net-core/</link>
-      <pubDate>Tue, 10 May 2016 22:00:00 +0200</pubDate>
-      
-      <guid>http://koscielniak.me/post/2016/05/dealing-with-secrets-in-asp-net-core/</guid>
-      <description>&lt;p&gt;&lt;a href=&#34;http://dajsiepoznac.pl&#34;&gt;&lt;img src=&#34;http://koscielniak.me/post/2016/03/contestLogo.png&#34; alt=&#34;Daj się poznać&#34; title=&#34;Daj się poznać&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;This is a short post to complement my post about
-&lt;a href=&#34;http://koscielniak.me/post/2016/04/aps-dot-net-core-configuration/&#34;&gt;the configuration in ASP .NET Core&lt;/a&gt;.
-I’ll write about how to add secret settings to your application. ASP .NET Core created a new concept to deal with this. The first thing I did was to add this to the dependencies in &lt;em&gt;project.json&lt;/em&gt;:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;&amp;quot;Microsoft.Extensions.Configuration.UserSecrets&amp;quot;: &amp;quot;1.0.0-rc1-final&amp;quot;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Then inside the constructor of the &lt;em&gt;Startup&lt;/em&gt; class I added:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;if (env.IsDevelopment())
-{
-builder.AddUserSecrets();
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Then I added something like this to &lt;em&gt;project.json&lt;/em&gt;:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;  &amp;quot;userSecretsId&amp;quot;: &amp;quot;idsrv-demo&amp;quot;,
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;This is an ID for the secret storage of your application.&lt;/p&gt;
-
-&lt;p&gt;Next, I installed the latest version of runtime and set the alias to point at it, all in one command. The command was:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;dnvm upgrade
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;The next step was adding a global command &lt;code&gt;user-secret&lt;/code&gt; by executing the following command:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;dnu commands install Microsoft.Extensions.SecretManager
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;As a result, I can add secret settings with commands like this:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt; user-secret set GoogleIdentityProvider:ClientId &amp;quot;342665198077-2lb7ai2oljrojkia5ob4e4kf0rnkeo33.apps.googleusercontent.com&amp;quot;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;In this command, &lt;em&gt;GoogleIdentityProvider:ClientId&lt;/em&gt; is a hierarchical key for the setting where the hierarchy is built by the colon.
-You can see all your secret settings with the command &lt;code&gt;user-secret list&lt;/code&gt; executed in the root folder of the project.&lt;/p&gt;
-
-&lt;p&gt;I just want to point out that I did everything on Linux. However, on Windows, other than using this option, you can also add secret settings from Visual Studio by right clicking on the project and then clicking on &lt;em&gt;Manage User Secret&lt;/em&gt; and the you can edit file secrets.json which contains all your secret settings assigned to this project.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://koscielniak.me/post/2016/05/secrets/manageUserSecrets.png&#34; alt=&#34;Manage User Secrets&#34; title=&#34;Manage User Secrets&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;A good practice is to put all the secret settings somewhere so the other project participants can find out what they should also provide. I added a whole section of my secrets to the file &lt;em&gt;appsettings.json&lt;/em&gt; so it looked like this:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt; &amp;quot;GoogleIdentityProvider&amp;quot;:{
-        &amp;quot;ClientId&amp;quot;:&amp;quot;&amp;quot;,
-        &amp;quot;ClientSecret&amp;quot;:&amp;quot;&amp;quot;          
-    }
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;All you have to do when working with Visual Studio, is copy this section to &lt;em&gt;secrets.json&lt;/em&gt; and then provide the correct settings. I could do it even better by putting this secret settings structure in a separate file so it would be more obvious which part of the settings is secret.&lt;/p&gt;
-
-&lt;p&gt;In this post, I have written about how I provide secret settings for my application, and in
-&lt;a href=&#34;http://koscielniak.me/post/2016/05/google-identity-provider-with-identityserver4/&#34;&gt;the next post&lt;/a&gt;
-I will write how I use these settings to authenticate user using Google Identity Provider from IdentityServer4.&lt;/p&gt;
 
 &lt;p&gt;&lt;h3&gt;Related posts:&lt;/h3&gt;
 
